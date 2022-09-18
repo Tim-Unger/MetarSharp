@@ -111,11 +111,25 @@
     //TODO
     public class RunwayVisibility
     {
-        public string RunwayVisibiltiyRaw { get; set; }
+        public string RunwayVisibilityRaw { get; set; }
         public string Runway { get; set; }
+        public string? ParallelRunwayDesignator { get; set; }
+        public string? ParallelRunwayDesignatorDecoded { get; set; }
         public int RunwayVisualRange { get; set; }
+        //TODO
+        public bool? IsRVRValueMoreOrLess { get; set; }
+        public string RVRMoreOrLessDecoded { get; set; }
         public string RVRTendencyRaw { get; set; }
+        
+        //TODO Custom definitions for decoded strings
         public string RVRTendencyDecoded { get; set; }
+        public bool? IsRVRVarying { get; set; }
+        public bool? IsRVRVariationMoreOrLess { get; set; }
+        public string? RVRVariationMoreOrLessDecoded { get; set; }
+        public int? RVRVariationValue { get; set; }
+        public string? RVRVariationTendencyRaw { get; set; }
+        public string? RVRVariationTendencyDecoded { get; set; }
+    
     }
 
     public class Weather
@@ -123,6 +137,8 @@
         public string WeatherRaw { get; set; }
 
         public string WeatherIntensity { get; set; }
+
+        public string WeatherIntensityDecoded { get; set; }
 
         public bool? IsInTheVicinity { get; set; }
 

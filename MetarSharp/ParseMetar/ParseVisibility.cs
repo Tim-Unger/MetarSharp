@@ -13,9 +13,10 @@ namespace MetarSharp.Parse
         {
             Visibility visibility = new Visibility();
 
-            Regex VisibilityRegex = new Regex(@"\s([0-9]{4})\s(?:([0-9]{4}))(?:(N|NE|E|SE|S|SW|W|NW))", RegexOptions.None);
-
-
+            Regex VisibilityRegex = new Regex(
+                @"([0-9]{4})\s(?:([0-9]{4}))(?:(N|NE|E|SE|S|SW|W|NW))",
+                RegexOptions.None
+            );
 
             return visibility;
         }

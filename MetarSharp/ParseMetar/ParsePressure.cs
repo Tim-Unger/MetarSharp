@@ -33,14 +33,20 @@ namespace MetarSharp.Parse
                         pressure.PressureOnly = Pressure;
                         pressure.PressureAsAltimeter = Pressure;
 
-                        if(double.TryParse(Groups[2].Value.Substring(0,2) + "." + Groups[2].Value.Substring(2,2), out double AltimeterWithDecimal))
+                        if (
+                            double.TryParse(
+                                Groups[2].Value.Substring(0, 2)
+                                    + "."
+                                    + Groups[2].Value.Substring(2, 2),
+                                out double AltimeterWithDecimal
+                            )
+                        )
                         {
                             pressure.PressureWithSeperator = AltimeterWithDecimal.ToString();
                             double QNH = AltimeterWithDecimal * 33.87;
                             pressure.PressureAsQnh = Convert.ToInt32(Math.Round(QNH, 0));
                         }
                     }
-
                 }
 
                 if (Groups[1].Value == "Q")
@@ -55,7 +61,9 @@ namespace MetarSharp.Parse
 
                         double AltimeterUnrounded = Pressure / 33.87;
 
-                        pressure.PressureAsAltimeter = Convert.ToInt32(Math.Round(AltimeterUnrounded, 0));
+                        pressure.PressureAsAltimeter = Convert.ToInt32(
+                            Math.Round(AltimeterUnrounded, 0)
+                        );
                     }
                 }
             }

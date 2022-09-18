@@ -33,6 +33,7 @@ namespace MetarSharp
             Parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
 
             //TODO Vis
+            //TODO Weather
             ParsedMetar = Parsed;
             return ParsedMetar;
         }

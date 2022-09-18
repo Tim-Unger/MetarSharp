@@ -9,22 +9,31 @@ namespace MetarSharp.Parse
 {
     public class ParseTemperature
     {
-        public  static Temperature ReturnTemperature(string raw)
+        public static Temperature ReturnTemperature(string raw)
         {
             Temperature temperature = new Temperature();
 
-            Regex TemperatureRegex = new Regex(@"\s(M)?([0-9]{1,2})/(M)?([0-9]{1,2})\s", RegexOptions.None);
+            Regex TemperatureRegex = new Regex(
+                @"(M)?([0-9]{1,2})/(M)?([0-9]{1,2})",
+                RegexOptions.None
+            );
 
             MatchCollection TemperatureMatches = TemperatureRegex.Matches(raw);
 
-            if (TemperatureMatches.Count  == 1)
+            if (TemperatureMatches.Count == 1)
             {
                 GroupCollection Groups = TemperatureMatches[0].Groups;
 
                 temperature.TemperatureRaw = TemperatureMatches[0].ToString();
 
-                temperature.IsTemperatureBelowZero = TemperatureMatches[1].Success == true ? temperature.IsTemperatureBelowZero = true : temperature.IsTemperatureBelowZero = false;
-                temperature.IsDewpointBelowZero = TemperatureMatches[3].Success == true ? temperature.IsDewpointBelowZero = true : temperature.IsDewpointBelowZero = false;
+                temperature.IsTemperatureBelowZero =
+                    TemperatureMatches[1].Success == true
+                        ? temperature.IsTemperatureBelowZero = true
+                        : temperature.IsTemperatureBelowZero = false;
+                temperature.IsDewpointBelowZero =
+                    TemperatureMatches[3].Success == true
+                        ? temperature.IsDewpointBelowZero = true
+                        : temperature.IsDewpointBelowZero = false;
 
                 if (int.TryParse(TemperatureMatches[2].Value, out int Temperature))
                 {
@@ -35,7 +44,6 @@ namespace MetarSharp.Parse
                 {
                     temperature.DewpointOnly = Dewpoint;
                 }
-
             }
             return temperature;
         }
