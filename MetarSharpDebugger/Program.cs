@@ -14,9 +14,9 @@ internal class Program
     }
     static void Main(string[] args)
     {
-        RawMetarString.RawMetar  = "KAUS 092135Z 26018G35KT 090V180 R29L/M0900VP1800D 8SM -TSRA BR SCT045CB BKN060 OVC080 30/21 A2992 RMK FQT";
+        RawMetarString.RawMetar  = "KAUS 092135Z 26018G35KT 090V180 R29L/M0900VP1800D 8SM -TSRA BR CAVOK SCT045CB BKN060 OVC080 30/21 A2992 RMK FQT";
 
-        Regex ReportingTimeRegex = new Regex(@"R(([0-9]{2})(L|R|C)?)/(P|M)?([0-9]{4})(?:(V?(P|M)?([0-9]{4})?))(U|D|N)", RegexOptions.None);
+        Regex ReportingTimeRegex = new Regex(@"(CAVOK|(FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?)", RegexOptions.None);
 
         MatchCollection Matches = ReportingTimeRegex.Matches(RawMetarString.RawMetar);
 
