@@ -40,7 +40,8 @@
         //The Reporting Time (1100)
         public int ReportingTimeZuluRaw { get; set; }
 
-        /*The Reporting Time as DateTime:
+        /*
+         * The Reporting Time as DateTime:
          * If the current day matches the day of the report, it will use the current day
          * If not, it will check if the day has passed in the current month
          * If not, it will check if the day has passed in the preceding month
@@ -167,6 +168,8 @@
 
     public class Pressure
     {
+        public string PressureRaw { get; set; }
+
         public string PressureType { get; set; }
 
         public string PressureTypeRaw { get; set; }
@@ -174,6 +177,10 @@
         public int PressureOnly { get; set; }
 
         public string? PressureWithSeperator { get; set; }
+
+        public int? PressureAsQnh { get; set; }
+
+        public int? PressureAsAltimeter { get; set; }
     }
     
     //TODO?

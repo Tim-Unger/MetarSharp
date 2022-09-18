@@ -16,17 +16,20 @@ internal class Program
     {
         RawMetarString.RawMetar  = "KAUS 092135Z 26018G35KT 090V180 8SM -TSRA BR SCT045CB BKN060 OVC080 30/21 A2992 RMK FQT";
 
-        Regex ReportingTimeRegex = new Regex(@"([0-9]{3})([0-9]{1,2})((G)?(?:([0-9]{1,3})))([A-Z]{2,3})(?( (?:(([0-9]{3})V([0-9]{3})))))", RegexOptions.None);
+        Regex ReportingTimeRegex = new Regex(@"(Q|A)([0-9]{4})", RegexOptions.None);
 
         MatchCollection Matches = ReportingTimeRegex.Matches(RawMetarString.RawMetar);
 
         var Groups = Matches[0].Groups;
+        string PressureWithDecimal = Groups[2].Value.Substring(0, 2) + "." + Groups[2].Value.Substring(2, 2);
 
+        if (double.TryParse(Groups[2].Value.Substring(0, 2) + "." + Groups[2].Value.Substring(2, 2), out double AltimeterWithDecimal))
+        {
+            string st = AltimeterWithDecimal.ToString();
+            double QNH = AltimeterWithDecimal * 33.87;
+            int test = Convert.ToInt32(Math.Round(QNH, 0));
+        }
 
-
-        Wind MetarWind = MetarSharp.Parse.ParseWind.ReturnWind("KAUS 092135Z 26018G35KT 090V180 8SM -TSRA BR SCT045CB BKN060 OVC080 30/21 A2992 RMK FQT");
-
-        var winddirection = MetarWind.WindDirection;
     }
 }
 

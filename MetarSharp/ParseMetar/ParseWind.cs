@@ -14,7 +14,6 @@ namespace MetarSharp.Parse
         {
             Wind wind = new Wind();
 
-            wind.WindRaw = raw;
 
             Regex WindRegex = new Regex(
                 @"([0-9]{3})([0-9]{1,2})((G)?(?:([0-9]{1,3})))([A-Z]{2,3})(?(\s(?:(([0-9]{3})V([0-9]{3})))))",
@@ -30,6 +29,8 @@ namespace MetarSharp.Parse
 
             if (WindMatches.Count == 1)
             {
+                wind.WindRaw = WindMatches[0].ToString();
+
                 wind.IsWindVariable = false;
 
                 GroupCollection Groups = WindMatches[0].Groups;

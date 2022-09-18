@@ -28,6 +28,11 @@ namespace MetarSharp
 
             Parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(RawMetarString.RawMetar);
 
+            Parsed.Temperature = ParseTemperature.ReturnTemperature(RawMetarString.RawMetar);
+
+            Parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
+
+            //TODO Vis
             ParsedMetar = Parsed;
             return ParsedMetar;
         }
