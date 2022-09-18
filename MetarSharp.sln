@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarSharp", "MetarSharp\MetarSharp.csproj", "{7FFF843D-3705-40C0-8067-F54C96E6BE90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharpDebugger", "MetarSharpDebugger\MetarSharpDebugger.csproj", "{812C941D-136C-4505-BBCA-2A74382DE73C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FFF843D-3705-40C0-8067-F54C96E6BE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFF843D-3705-40C0-8067-F54C96E6BE90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFF843D-3705-40C0-8067-F54C96E6BE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFF843D-3705-40C0-8067-F54C96E6BE90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D74C9FAF-217C-40A7-BE62-CD674D633936}
+	EndGlobalSection
+EndGlobal
