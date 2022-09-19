@@ -82,19 +82,20 @@ namespace MetarSharp.Parse
                 if (Groups[7].Success == true)
                 {
                     wind.isWindDirectionVarying = true;
-                    wind.WindVarRaw = Groups[7].Value;
+                    wind.WindDirectionVariationRaw = Groups[7].Value;
 
                     if (int.TryParse(Groups[8].Value, out int WindVarLow))
                     {
-                        wind.WindVarLow = WindVarLow;
+                        wind.WindVariationLow = WindVarLow;
                     }
                     if (int.TryParse(Groups[9].Value, out int WindVarHigh))
                     {
-                        wind.WindVarHigh = WindVarHigh;
+                        wind.WindVariationHigh = WindVarHigh;
                     }
                 }
 
-                wind.WindUnit = Groups[6].Value;
+                //TODO Decode
+                wind.WindUnitRaw = Groups[6].Value;
             }
             //TODO
 

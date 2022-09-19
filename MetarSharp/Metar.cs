@@ -1,4 +1,6 @@
-﻿namespace MetarSharp
+﻿using System.Globalization;
+
+namespace MetarSharp
 {
     public class Metar
     {
@@ -29,6 +31,8 @@
         public List<RunwayCondition>? RunwayConditions;
 
         public AdditionalInformation AdditionalInformation;
+
+        public string ReadableReport;
     }
 
     //TODO define custom Date
@@ -96,7 +100,16 @@
     {
         public string VisibilityRaw { get; set; }
 
+        public bool IsVisibilityMeasurable { get; set; }
+
         public int ReportedVisibility { get; set; }
+
+        public string VisibilityUnitRaw { get; set; }
+
+        public string VisibilityUnitDecoded { get; set; }
+
+
+        public bool HasVisibilityLowestValue { get; set; }
 
         public int? LowestVisibility { get; set; }
 
@@ -109,7 +122,9 @@
         //    WEST
         //};
 
-        public string? LowestVisibilityDirection { get; set; }
+        public string? LowestVisibilityDirectionRaw { get; set; }
+
+        public string? LowestVisibilityDirectionDecoded { get; set; }
     }
 
     //TODO

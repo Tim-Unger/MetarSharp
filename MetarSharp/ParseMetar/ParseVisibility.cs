@@ -14,9 +14,154 @@ namespace MetarSharp.Parse
             Visibility visibility = new Visibility();
 
             Regex VisibilityRegex = new Regex(
-                @"([0-9]{4})\s(?:([0-9]{4}))(?:(N|NE|E|SE|S|SW|W|NW))",
+                @"\s([0-9]{4})\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?",
                 RegexOptions.None
             );
+
+            MatchCollection VisibilityMatches = VisibilityRegex.Matches(raw);
+
+            if (VisibilityMatches.Count == 1)
+            {
+                GroupCollection Groups = VisibilityMatches[0].Groups;
+                visibility.VisibilityRaw = Groups[0].Value;
+
+                //Vis is measurable
+                if (Groups[4].Success == false)
+                {
+                    visibility.IsVisibilityMeasurable = true;
+
+                    //Vis in Meters
+                    if (Groups[1].Success == true)
+                    {
+                        visibility.VisibilityUnitRaw = "M";
+                        visibility.VisibilityUnitDecoded = "Meters";
+
+                        if (int.TryParse(Groups[1].Value, out int Visibility))
+                        {
+                            visibility.ReportedVisibility = Visibility;
+                        }
+
+                        //Lowest vis-direction is given
+                        if (Groups[5].Success == true)
+                        {
+                            visibility.HasVisibilityLowestValue = true;
+
+                            if (int.TryParse(Groups[6].Value, out int LowestVisibility))
+                            {
+                                visibility.LowestVisibility = LowestVisibility;
+                            }
+
+                            string LowestVisibilityDirection = Groups[7].Value;
+                            string LowestVisibilityDirectionDecoded = null;
+
+                            visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
+
+                            //TODO custom definitions
+                            switch (LowestVisibilityDirection)
+                            {
+                                case "N":
+                                    LowestVisibilityDirectionDecoded = "North";
+                                    break;
+                                case "NE":
+                                    LowestVisibilityDirectionDecoded = "North-East";
+                                    break;
+                                case "E":
+                                    LowestVisibilityDirectionDecoded = "East";
+                                    break;
+                                case "SE":
+                                    LowestVisibilityDirectionDecoded = "South-East";
+                                    break;
+                                case "S":
+                                    LowestVisibilityDirectionDecoded = "South";
+                                    break;
+                                case "SW":
+                                    LowestVisibilityDirectionDecoded = "South-West";
+                                    break;
+                                case "W":
+                                    LowestVisibilityDirectionDecoded = "West";
+                                    break;
+                                case "NW":
+                                    LowestVisibilityDirectionDecoded = "North-West";
+                                    break;
+                            }
+                            visibility.LowestVisibilityDirectionDecoded =
+                                LowestVisibilityDirectionDecoded;
+                        }
+                        else
+                        {
+                            visibility.HasVisibilityLowestValue = false;
+                        }
+                    }
+                    //Vis in Miles
+                    if (Groups[2].Success == true) 
+                    {
+                        visibility.VisibilityUnitRaw = "SM";
+                        visibility.VisibilityUnitDecoded = "Statute Miles";
+
+                        if (int.TryParse(Groups[3].Value, out int Visibility))
+                        {
+                            visibility.ReportedVisibility = Visibility;
+                        }
+
+                        if (Groups[5].Success == true)
+                        {
+                            visibility.HasVisibilityLowestValue = true;
+
+                            if (int.TryParse(Groups[6].Value, out int LowestVisibility))
+                            {
+                                visibility.LowestVisibility = LowestVisibility;
+                            }
+
+                            string LowestVisibilityDirection = Groups[7].Value;
+                            string LowestVisibilityDirectionDecoded = null;
+
+                            visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
+
+                            //TODO custom definitions
+                            switch (LowestVisibilityDirection)
+                            {
+                                case "N":
+                                    LowestVisibilityDirectionDecoded = "North";
+                                    break;
+                                case "NE":
+                                    LowestVisibilityDirectionDecoded = "North-East";
+                                    break;
+                                case "E":
+                                    LowestVisibilityDirectionDecoded = "East";
+                                    break;
+                                case "SE":
+                                    LowestVisibilityDirectionDecoded = "South-East";
+                                    break;
+                                case "S":
+                                    LowestVisibilityDirectionDecoded = "South";
+                                    break;
+                                case "SW":
+                                    LowestVisibilityDirectionDecoded = "South-West";
+                                    break;
+                                case "W":
+                                    LowestVisibilityDirectionDecoded = "West";
+                                    break;
+                                case "NW":
+                                    LowestVisibilityDirectionDecoded = "North-West";
+                                    break;
+                            }
+                            visibility.LowestVisibilityDirectionDecoded =
+                                LowestVisibilityDirectionDecoded;
+                        }
+                        else
+                        {
+                            visibility.HasVisibilityLowestValue = false;
+                        }
+                    }
+                }
+                //Vis is not measurable (///)
+                else
+                {
+                    visibility.VisibilityRaw = Groups[0].Value;
+                    visibility.IsVisibilityMeasurable = false;
+
+                }
+            }
 
             return visibility;
         }

@@ -13,7 +13,7 @@ namespace MetarSharp.Parse
         {
             List<Cloud> clouds = new List<Cloud>();
 
-            Regex CloudRegex = new Regex(@"((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))", RegexOptions.None);
+            Regex CloudRegex = new Regex(@"\s([0-9]{4})?(([0-9]{1,2})SM)?(\/\/\/\/)?\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?", RegexOptions.None);
 
             foreach (Match CloudMatch in CloudRegex.Matches(raw))
             {
