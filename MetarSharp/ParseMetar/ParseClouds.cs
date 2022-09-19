@@ -131,6 +131,7 @@ namespace MetarSharp.Parse
                     
 
                 }
+                clouds.Add(cloud);
             }
 
             return clouds;

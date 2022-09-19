@@ -33,6 +33,8 @@ namespace MetarSharp
             Parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
 
             Parsed.RunwayVisibilities = ParseRVR.ReturnRVR(RawMetarString.RawMetar);
+
+            Parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
             //TODO Vis
             //TODO Weather
             ParsedMetar = Parsed;

@@ -51,7 +51,8 @@
          */
         public DateTime ReportingTimeZulu { get; set; }
 
-        public DateTime ReportingTimeMyTime { get; set; }
+        //TODO
+        //public DateTime ReportingTimeMyTime { get; set; }
 
     }
 
@@ -69,8 +70,9 @@
         public int? WindStrength { get; set; }
 
         //The Wind Unit (KT)
-        public string WindUnit { get; set; }
+        public string WindUnitRaw { get; set; }
 
+        public string WindUnitDecoded { get; set; }
         //Whether there are Wind Gusts
         public bool IsWindGusting { get; set; }
 
@@ -82,12 +84,12 @@
 
         public bool isWindDirectionVarying { get; set; }
 
-        public string WindVarRaw { get; set; }
+        public string? WindDirectionVariationRaw { get; set; }
         //The lowest direction of the Wind
-        public int? WindVarLow { get; set; }
+        public int? WindVariationLow { get; set; }
 
         //The highest direction of the Wind
-        public int? WindVarHigh { get; set; }
+        public int? WindVariationHigh { get; set; }
     }
 
     public class Visibility
@@ -114,12 +116,17 @@
     public class RunwayVisibility
     {
         public string RunwayVisibilityRaw { get; set; }
+
         public string Runway { get; set; }
+
+        //TODO IsParallelRunway bool?
         public string? ParallelRunwayDesignator { get; set; }
         public string? ParallelRunwayDesignatorDecoded { get; set; }
         public int RunwayVisualRange { get; set; }
         //TODO
         public bool? IsRVRValueMoreOrLess { get; set; }
+
+        //TODO more or less raw
         public string RVRMoreOrLessDecoded { get; set; }
         public string RVRTendencyRaw { get; set; }
         
@@ -127,8 +134,13 @@
         public string RVRTendencyDecoded { get; set; }
         public bool? IsRVRVarying { get; set; }
         public bool? IsRVRVariationMoreOrLess { get; set; }
+
+        //TODO more or less raw
+
         public string? RVRVariationMoreOrLessDecoded { get; set; }
         public int? RVRVariationValue { get; set; }
+
+        //TODO überflüssig?
         public string? RVRVariationTendencyRaw { get; set; }
         public string? RVRVariationTendencyDecoded { get; set; }
     
@@ -161,6 +173,8 @@
         public string? CloudCoverageTypeDecoded { get; set; }
         public bool? IsCeilingMeasurable { get; set; }
         public int? CloudCeiling { get; set; }
+        
+        //TODO Cloud-Ceiling converted to ft
         public bool? HasCumulonimbusClouds { get; set; }
         public bool? IsCBTypeMeasurable { get; set; }
         public string? CBCloudTypeRaw { get; set; }
