@@ -57,7 +57,6 @@ namespace MetarSharp.Parse
 
             }
 
-            ParseMetar.RawMetarString.RestOfMetar = Regex.Replace(raw, "[0-9]{6}[a-zA-Z]{1}", "");
             return reportingTime; 
         }
     }

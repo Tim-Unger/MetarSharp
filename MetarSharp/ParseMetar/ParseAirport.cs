@@ -18,6 +18,9 @@ namespace MetarSharp.Parse
 
             if (AirportMatches.Count == 1)
             {
+                string Replace = Regex.Replace(ParseMetar.RawMetarString.RestOfMetar, @"^([A-Z]{4})\s", "");
+                ParseMetar.RawMetarString.RestOfMetar = Replace;
+
                 return AirportMatches[0].Value;
             }
             else

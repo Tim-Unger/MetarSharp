@@ -122,6 +122,7 @@ namespace MetarSharp.Parse
             //Visibility
             string Visibility = null;
             string LowestVisibility = null;
+            //TODO CAVOK
             if (metar.Visibility.IsVisibilityMeasurable == false)
             {
                 Visibility = "Visibility not measurable";

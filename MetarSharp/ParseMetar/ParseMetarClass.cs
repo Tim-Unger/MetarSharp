@@ -17,10 +17,11 @@ namespace MetarSharp
             public static string RestOfMetar { get; set; }
         }
 
-        public static Metar ParseFromString(in string Metar)
+        public static Metar ParseFromString(string Metar)
         {
             RawMetarString.RawMetar = Metar;
             Metar Parsed = new Metar();
+            RawMetarString.RestOfMetar = RawMetarString.RawMetar;
 
             Parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
 
@@ -39,7 +40,8 @@ namespace MetarSharp
             Parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
 
             Parsed.Visibility = ParseVisibility.ReturnVisibility(RawMetarString.RawMetar);
-            //TODO Weather
+
+            Parsed.Weather = ParseWeather.ReturnWeather(RawMetarString.RestOfMetar);
 
             Parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(Parsed);
 
@@ -47,9 +49,45 @@ namespace MetarSharp
             return Parsed;
         }
 
-        public Metar ParseFromLink()
+        public Metar ParseFromLink(string Link)
         {
-            return null;
+            Metar Parsed = new Metar();
+            string webData = null;
+            System.Net.WebClient wc = new System.Net.WebClient();
+            byte[] raw = null;
+            raw = wc.DownloadData(Link);
+            webData = Encoding.UTF8.GetString(raw);
+
+            Parsed = ParseFromString(webData);
+
+            return Parsed;
+        }
+
+
+        public List<Metar> ParseFromList(List<string> MetarsIn)
+        {
+            List<Metar> Metars = new List<Metar>();
+
+            foreach (var ListMetar in MetarsIn)
+            {
+                if (ListMetar.StartsWith("http"))
+                {
+                    Metar AddMetar = new Metar();
+
+                    AddMetar = ParseFromLink(ListMetar);
+
+                    Metars.Add(AddMetar);
+                }
+                else
+                {
+                    Metar AddMetar = new Metar();
+
+                    AddMetar = ParseFromString(ListMetar);
+
+                    Metars.Add(AddMetar);
+                }
+            }
+            return Metars;
         }
 
         //public Metar Parse()

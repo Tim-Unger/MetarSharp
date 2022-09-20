@@ -60,12 +60,47 @@ namespace MetarSharp.Parse
 
     public class ParseWeather
     {
-        public List<Weather> ReturnWeather(string raw)
+        public static List<Weather> ReturnWeather(string raw)
         {
             List<Weather> weather = new List<Weather>();
 
-            Regex WeatherRegex = new Regex(@"((RE)?)((\\+|-|VC)?)((MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS))", RegexOptions.None);
+            //TODO
+            Regex WeatherRegex = new Regex(@"((RE)?)((\+|-|VC)?)((MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS))", RegexOptions.None);
 
+            MatchCollection WeatherMatches = WeatherRegex.Matches(raw);
+
+            if (WeatherMatches.Count > 0)
+            {
+                foreach (Match Match in WeatherMatches)
+                {
+                    Weather singleWeather = new Weather();
+                    GroupCollection Groups = Match.Groups;
+
+                    singleWeather.WeatherRaw = Groups[0].Value;
+
+                    if (Groups[3].Success == false)
+                    {
+                        singleWeather.WeatherIntensity = " ";
+                        singleWeather.WeatherIntensityDecoded = "Normal";
+                    }
+
+                    else
+                    {
+                        switch (Groups[3].Value)
+                        {
+                            case "+":
+                                singleWeather.WeatherIntensity = "+";
+                                singleWeather.WeatherIntensityDecoded = "Strong";
+                                break;
+                            case "\\-":
+                                singleWeather.WeatherIntensity = "-";
+                                singleWeather.WeatherIntensityDecoded = "Light";
+                                break;
+                        }
+                    }
+
+                }
+            }
 
             return weather;
         }
