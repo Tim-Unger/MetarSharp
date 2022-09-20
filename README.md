@@ -8,7 +8,7 @@ Metar Decoder for C#
 This will give you a decoded Metar in the Metar-Class.
 ```
 //This should be self-explanatory
-using MetarSharp
+using MetarSharp;
 
 //Initializing the Metar directly with a parse
 Metar Metar = MetarSharp.ParseFromString("EDDF 182320Z AUTO 26006KT 200V290 CAVOK 09/06 Q1016 NOSIG");
@@ -27,7 +27,7 @@ Metar StringMetar = Metar.ParseFromString("EDDF 182320Z AUTO 26006KT 200V290 CAV
 Metar LinkMetar = Metar.ParseFromLink("https://metar.vatsim.net/eddf");
 
 //Parse a list of Metars
-List<string> Metars = //Your list of Metars here
+List<string> Metars = //Your list of Metars here (You can use Metars or a link to a website)
 List<Metar> ListOfMetars = Metar.ParseList(Metars); //Then you can run through the list
 ```
 
