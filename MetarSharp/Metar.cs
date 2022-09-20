@@ -83,7 +83,7 @@ namespace MetarSharp
         //Strength of the Wind Gusts (10)
         public int? WindGusts { get; set; }
 
-        //Whether the Wind is varying (true)
+        //Whether the Wind is VRB (true)
         public bool IsWindVariable { get; set; }
 
         public bool isWindDirectionVarying { get; set; }
