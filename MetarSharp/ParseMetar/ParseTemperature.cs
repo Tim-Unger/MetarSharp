@@ -26,21 +26,30 @@ namespace MetarSharp.Parse
 
                 temperature.TemperatureRaw = TemperatureMatches[0].ToString();
 
-                temperature.IsTemperatureBelowZero =
-                    TemperatureMatches[1].Success == true
-                        ? temperature.IsTemperatureBelowZero = true
-                        : temperature.IsTemperatureBelowZero = false;
-                temperature.IsDewpointBelowZero =
-                    TemperatureMatches[3].Success == true
-                        ? temperature.IsDewpointBelowZero = true
-                        : temperature.IsDewpointBelowZero = false;
+                if (Groups[1].Success == true)
+                {
+                    temperature.IsTemperatureBelowZero = true;
+                }
+                else
+                {
+                    temperature.IsTemperatureBelowZero = false;
+                }
 
-                if (int.TryParse(TemperatureMatches[2].Value, out int Temperature))
+                if (Groups[3].Success == true)
+                {
+                    temperature.IsDewpointBelowZero = true;
+                }
+                else
+                {
+                    temperature.IsDewpointBelowZero = false;
+                }
+
+                if (int.TryParse(Groups[2].Value, out int Temperature))
                 {
                     temperature.TemperatureOnly = Temperature;
                 }
 
-                if (int.TryParse(TemperatureMatches[4].Value, out int Dewpoint))
+                if (int.TryParse(Groups[4].Value, out int Dewpoint))
                 {
                     temperature.DewpointOnly = Dewpoint;
                 }

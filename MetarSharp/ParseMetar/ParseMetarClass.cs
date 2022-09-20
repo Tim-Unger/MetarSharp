@@ -8,7 +8,7 @@ using MetarSharp.Parse;
 
 namespace MetarSharp
 {
-    internal class ParseMetar
+    public class ParseMetar
     {
         public class RawMetarString
         {
@@ -17,10 +17,12 @@ namespace MetarSharp
             public static string RestOfMetar { get; set; }
         }
 
-        public Metar ParseFromString(in string Metar, out Metar ParsedMetar)
+        public static Metar ParseFromString(in string Metar)
         {
             RawMetarString.RawMetar = Metar;
             Metar Parsed = new Metar();
+
+            Parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
 
             Parsed.ReportingTime = ParseReportingTime.ReturnReportingTime(RawMetarString.RawMetar);
 
@@ -35,10 +37,14 @@ namespace MetarSharp
             Parsed.RunwayVisibilities = ParseRVR.ReturnRVR(RawMetarString.RawMetar);
 
             Parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
-            //TODO Vis
+
+            Parsed.Visibility = ParseVisibility.ReturnVisibility(RawMetarString.RawMetar);
             //TODO Weather
-            ParsedMetar = Parsed;
-            return ParsedMetar;
+
+            Parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(Parsed);
+
+            
+            return Parsed;
         }
 
         public Metar ParseFromLink()

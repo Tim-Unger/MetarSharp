@@ -14,7 +14,16 @@ namespace MetarSharp.Parse
         {
             Regex AirportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
 
-            return "";
+            MatchCollection AirportMatches = AirportRegex.Matches(raw);
+
+            if (AirportMatches.Count == 1)
+            {
+                return AirportMatches[0].Value;
+            }
+            else
+            {
+                return "";
+            }
         } 
     }
 }

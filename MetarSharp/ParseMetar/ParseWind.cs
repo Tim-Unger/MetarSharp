@@ -94,8 +94,22 @@ namespace MetarSharp.Parse
                     }
                 }
 
-                //TODO Decode
                 wind.WindUnitRaw = Groups[6].Value;
+
+                string WindUnitDecoded = null;
+                switch (Groups[6].Value)
+                {
+                    case "KT": case "KTS":
+                        WindUnitDecoded = "Knots";
+                        break;
+                    case "MPH":
+                        WindUnitDecoded = "Miles per Hour";
+                        break;
+                    case "MPS":
+                        WindUnitDecoded = "Meters per Second";
+                        break;
+                }
+                wind.WindUnitDecoded = WindUnitDecoded;
             }
             //TODO
 

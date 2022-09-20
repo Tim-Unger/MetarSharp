@@ -13,7 +13,7 @@ namespace MetarSharp.Parse
         {
             List<Cloud> clouds = new List<Cloud>();
 
-            Regex CloudRegex = new Regex(@"\s([0-9]{4})?(([0-9]{1,2})SM)?(\/\/\/\/)?\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?", RegexOptions.None);
+            Regex CloudRegex = new Regex(@"((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))", RegexOptions.None);
 
             foreach (Match CloudMatch in CloudRegex.Matches(raw))
             {
@@ -30,15 +30,15 @@ namespace MetarSharp.Parse
                     cloud.CloudRaw = Groups[0].Value;
 
                     //Clouds not measurable
-                    if (Groups[2].Value == "///")
+                    if (Groups[4].Value == "///")
                     {
                         cloud.IsCloudMeasurable = false;
                     }
                     //Clouds not measurable, Vertical Visibility is used instead
-                    else if (Groups[2].Value == "VV")
+                    else if (Groups[4].Value == "VV")
                     {
                         cloud.IsVerticalVisibility = true;
-                        if (Groups[3].Value == "///")
+                        if (Groups[5].Value == "///")
                         {
                             cloud.IsVerticalVisibilityMeasurable = false;
                         }
@@ -46,7 +46,7 @@ namespace MetarSharp.Parse
                         {
                             cloud.IsVerticalVisibilityMeasurable = true;
 
-                            if (int.TryParse(Groups[3].Value, out int VerticalVisibility))
+                            if (int.TryParse(Groups[5].Value, out int VerticalVisibility))
                             {
                                 cloud.VerticalVisibility = VerticalVisibility;
                             }
@@ -55,11 +55,12 @@ namespace MetarSharp.Parse
                     //Clouds Measurable
                     else
                     {
+                        cloud.IsVerticalVisibility = false;
                         cloud.IsCloudMeasurable = true;
-                        cloud.CloudCoverageTypeRaw = Groups[2].Value;
+                        cloud.CloudCoverageTypeRaw = Groups[4].Value;
 
                         string CloudTypeDecoded = null;
-                        switch (Groups[2].Value)
+                        switch (Groups[4].Value)
                         {
                             case "Few":
                                 CloudTypeDecoded = "Few Clouds";
@@ -83,7 +84,7 @@ namespace MetarSharp.Parse
                         }
                         cloud.CloudCoverageTypeDecoded = CloudTypeDecoded;
 
-                        if (Groups[3].Value == "///")
+                        if (Groups[4].Value == "///")
                         {
                             cloud.IsCeilingMeasurable = false;
                         }
@@ -91,15 +92,15 @@ namespace MetarSharp.Parse
                         {
                             cloud.IsCeilingMeasurable = true;
                             
-                            if (int.TryParse(Groups[3].Value, out int CloudCeiling))
+                            if (int.TryParse(Groups[5].Value, out int CloudCeiling))
                             {
                                 cloud.CloudCeiling = CloudCeiling;
                             }
                         }
 
-                        if (Groups[4].Success == true)
+                        if (Groups[6].Success == true)
                         {
-                            if (Groups[4].Value == "///")
+                            if (Groups[6].Value == "///")
                             {
                                 cloud.IsCBTypeMeasurable = false;
                             }
@@ -107,10 +108,10 @@ namespace MetarSharp.Parse
                             {
                                 cloud.IsCBTypeMeasurable = true;
                                 cloud.HasCumulonimbusClouds = true;
-                                cloud.CBCloudTypeRaw = Groups[4].Value;
+                                cloud.CBCloudTypeRaw = Groups[6].Value;
 
                                 string CBTypeDecoded = null;
-                                switch (Groups[4].Value)
+                                switch (Groups[6].Value)
                                 {
                                     case "CB":
                                         CBTypeDecoded = "Cumulonimbus Clouds";

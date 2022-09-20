@@ -108,19 +108,9 @@ namespace MetarSharp
 
         public string VisibilityUnitDecoded { get; set; }
 
-
         public bool HasVisibilityLowestValue { get; set; }
 
         public int? LowestVisibility { get; set; }
-
-        //TODO
-        //public enum LowestVisibilityDirection
-        //{
-        //    NORTH,
-        //    EAST,
-        //    SOUTH,
-        //    WEST
-        //};
 
         public string? LowestVisibilityDirectionRaw { get; set; }
 
