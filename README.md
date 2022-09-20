@@ -1,5 +1,9 @@
-# MetarSharp
-Metar Decoder for C#
+![Logo](https://tim-u.me/metarsharplogo.png)
+![](https://shields.io/nuget/v/:packageName)
+![](https://shields.io/github/v/release/Tim-Unger/MetarSharp?display_name=tag)
+![](https://shields.io/github/license/Tim-Unger/MetarSharp)
+[![GitHub commits](https://badgen.net/github/commits/Tim-Unger/MetarSharp)](https://GitHub.com/Tim-Unger/MetarSharp/commit/)
+
 
 # Usage
 
@@ -21,14 +25,14 @@ Metar Metar = MetarSharp.ParseFromString("EDDF 182320Z AUTO 26006KT 200V290 CAVO
 You can us three different methods of Parsing a Metar-String.
 ```
 //Parse from a string
-Metar StringMetar = Metar.ParseFromString("EDDF 182320Z AUTO 26006KT 200V290 CAVOK 09/06 Q1016 NOSIG");
+Metar StringMetar = ParseMetar.ParseFromString("EDDF 182320Z AUTO 26006KT 200V290 CAVOK 09/06 Q1016 NOSIG");
 
 //Parse from a link (this will download the entire website, so only use websites that only display the Metar)
-Metar LinkMetar = Metar.ParseFromLink("https://metar.vatsim.net/eddf");
+Metar LinkMetar = ParseMetar.ParseFromLink("https://metar.vatsim.net/eddf");
 
 //Parse a list of Metars
 List<string> Metars = //Your list of Metars here (You can use Metars or a link to a website)
-List<Metar> ListOfMetars = Metar.ParseList(Metars); //Then you can run through the list
+List<Metar> ListOfMetars = ParseMetar.ParseList(Metars); //Then you can run through the list
 ```
 
 ### Metar Overview
@@ -242,6 +246,22 @@ bool? IsVertivalVisibilityMeasurable = Cloud.IsVerticalVisibilityMeasurable;
 //The Vertical-Visibility (null)
 int? VerticalVisibility = Cloud.VerticalVisibility;
 ```
+### Readable Report
+The Metar also generates a readable Report as a string
+```
+//Readable Report
+string Report = Metar.ReadableReport;
 
+//A report will look something like this:
+/*
+Automated weather report for EDDF.
+Reported today at 23:20 UTC
+Wind: 170 Degrees 1 Knot
+Ceiling and Visibility Okay
+Temperature: 7°C
+Dewpoint: 6°C
+Pressure: 1025hPa or 30.00inHg
+*/
+```
 
 ## Parsing a Metar-Class into a String

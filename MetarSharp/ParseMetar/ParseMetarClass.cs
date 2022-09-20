@@ -49,7 +49,7 @@ namespace MetarSharp
             return Parsed;
         }
 
-        public Metar ParseFromLink(string Link)
+        public static Metar ParseFromLink(string Link)
         {
             Metar Parsed = new Metar();
             string webData = null;
@@ -64,7 +64,7 @@ namespace MetarSharp
         }
 
 
-        public List<Metar> ParseFromList(List<string> MetarsIn)
+        public static List<Metar> ParseFromList(List<string> MetarsIn)
         {
             List<Metar> Metars = new List<Metar>();
 

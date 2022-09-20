@@ -13,51 +13,105 @@ namespace MetarSharp.Parse
         {
             ReportingTime reportingTime = new ReportingTime();
 
-            Regex ReportingTimeRegex = new Regex("([0-9]{2})([0-9]{4})Z", RegexOptions.None);
+            Regex ReportingTimeRegex = new Regex(
+                "([0-9]{2})([0-9]{2})([0-9]{2})Z",
+                RegexOptions.None
+            );
 
             MatchCollection ReportingTimeMatches = ReportingTimeRegex.Matches(raw);
 
-            //TODO
-            if(ReportingTimeMatches.Count == 1)
+            if (ReportingTimeMatches.Count == 1)
             {
                 //TODO
-                var MatchToString = ReportingTimeMatches[0].ToString();
+                GroupCollection Groups = ReportingTimeMatches[0].Groups;
 
-                reportingTime.ReportingTimeRaw = MatchToString;
-                
-                var ReportingDateString = MatchToString.Substring(0, 2);
+                reportingTime.ReportingTimeRaw = ReportingTimeMatches[0].ToString();
 
-                bool IsReportingDateInt = int.TryParse(ReportingDateString, out int ReportingDateInt);
+                var ReportingDateString = Groups[1].Value;
 
-                if (IsReportingDateInt)
+                if (int.TryParse(ReportingDateString, out int ReportingDateInt))
                 {
                     reportingTime.ReportingDateRaw = ReportingDateInt;
                     //TODO DateTime
                 }
-                else { }
 
-                
-                var ReportingTimeString = MatchToString.Substring(2, 4);
-            
-                bool IsReportingTimeInt = int.TryParse(ReportingDateString, out int ReportingTimeInt);
+                var ReportingTimeString = Groups[2].Value + Groups[3].Value;
 
-                if (IsReportingTimeInt)
+                if (int.TryParse(ReportingDateString, out int ReportingTimeInt))
                 {
                     reportingTime.ReportingTimeZuluRaw = ReportingTimeInt;
                     //TODO DateTime
+                }
+
+                //Report is from today
+                int ReportingHour = Convert.ToInt32(Groups[2].Value);
+                int ReportingMinute = Convert.ToInt32(Groups[3].Value);
+                if (DateTime.UtcNow.Day == ReportingDateInt)
+                {
+                    DateTime ReportingTime = new DateTime(
+                        DateTime.UtcNow.Year,
+                        DateTime.UtcNow.Month,
+                        DateTime.UtcNow.Day,
+                        ReportingHour,
+                        ReportingMinute,
+                        00
+                    );
+
+                    reportingTime.ReportingTimeZulu = ReportingTime;
+                }
+
+                //Report is from this month
+                if (DateTime.UtcNow.Day > ReportingDateInt)
+                {
+                    DateTime ReportingTime = new DateTime(
+                        DateTime.UtcNow.Year,
+                        DateTime.UtcNow.Month,
+                        ReportingDateInt,
+                        ReportingHour,
+                        ReportingMinute,
+                        00
+                    );
+
+                    reportingTime.ReportingTimeZulu = ReportingTime;
 
                 }
-                else { }
+                else
+                {
+                    //Report is from last month
+                    var LastMonth = DateTime.UtcNow.AddMonths(-1).Month;
+                    if (DateTime.DaysInMonth(DateTime.UtcNow.Year, LastMonth) <= ReportingDateInt)
+                    {
+                        DateTime ReportingTime = new DateTime(
+                            DateTime.UtcNow.Year,
+                            LastMonth,
+                            ReportingDateInt,
+                            ReportingHour,
+                            ReportingMinute,
+                            00
+                        );
 
+                        reportingTime.ReportingTimeZulu = ReportingTime;
 
+                    }
+                    //Report is from the month before that
+                    else
+                    {
+                        DateTime ReportingTime = new DateTime(
+                            DateTime.UtcNow.Year,
+                            LastMonth - 1,
+                            ReportingDateInt,
+                            ReportingHour,
+                            ReportingMinute,
+                            00
+                        );
+
+                        reportingTime.ReportingTimeZulu = ReportingTime;
+
+                    }
+                }
             }
 
-            else
-            {
-
-            }
-
-            return reportingTime; 
+            return reportingTime;
         }
     }
 }
