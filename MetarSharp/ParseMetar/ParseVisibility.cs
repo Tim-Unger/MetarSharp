@@ -113,6 +113,7 @@ namespace MetarSharp.Parse
 
                 MatchCollection MilesMatches = MilesRegex.Matches(raw);
 
+                //TODO 1/2 miles visibility regex
                 if (MilesMatches.Count == 1)
                 {
                     GroupCollection Groups = MilesMatches[0].Groups;

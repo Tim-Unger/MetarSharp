@@ -245,9 +245,9 @@ namespace MetarSharp
     {
         public string? AdditionalInformationRaw { get; set; }
 
-        public RecentWeather? RecentWeather;
+        public List<RecentWeather>? RecentWeather { get; set; }
 
-        public WindShear? WindShear;
+        public List<WindShear>? WindShear { get; set; }
 
         public enum ColorCode
         {

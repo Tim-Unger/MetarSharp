@@ -19,7 +19,7 @@ internal class Program
         //MatchCollection Matches = ReportingTimeRegex.Matches(RawMetarString.RawMetar);
 
         //var Groups = Matches[0].Groups;
-        Metar Metar = ParseMetar.ParseFromLink("https://metar.vatsim.net/eddf");
+        Metar Metar = ParseMetar.ParseFromString("KCOU 182054Z 18011KT 10SM VCTS FEW031 FEW055 BKN120 25/22 A2995 WS R25 RESN BLU RMK HALLO");
 
         string Readablereport = Metar.ReadableReport;
     }

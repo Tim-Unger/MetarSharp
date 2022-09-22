@@ -43,6 +43,8 @@ namespace MetarSharp
 
             Parsed.Weather = ParseWeather.ReturnWeather(RawMetarString.RestOfMetar);
 
+            Parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(RawMetarString.RawMetar);
+
             Parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(Parsed);
 
             
