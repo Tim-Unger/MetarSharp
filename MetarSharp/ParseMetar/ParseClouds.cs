@@ -62,7 +62,7 @@ namespace MetarSharp.Parse
                         string CloudTypeDecoded = null;
                         switch (Groups[4].Value)
                         {
-                            case "Few":
+                            case "FEW":
                                 CloudTypeDecoded = "Few Clouds";
                                 break;
                             case "SCT":
