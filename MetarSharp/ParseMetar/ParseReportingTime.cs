@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MetarSharp.Parse
 {
+    public enum 
     internal class ParseReportingTime
     {
         public static ReportingTime ReturnReportingTime(string raw)
@@ -36,16 +38,28 @@ namespace MetarSharp.Parse
                 }
 
                 var ReportingTimeString = Groups[2].Value + Groups[3].Value;
-
-                if (int.TryParse(ReportingDateString, out int ReportingTimeInt))
-                {
-                    reportingTime.ReportingTimeZuluRaw = ReportingTimeInt;
-                    //TODO DateTime
-                }
+                
+                reportingTime.ReportingTimeZuluRaw = int.TryParse(ReportingTimeString, out int _timeOut) ? _timeOut: 0000;
+                //TODO DateTime
 
                 //Report is from today
                 int ReportingHour = Convert.ToInt32(Groups[2].Value);
                 int ReportingMinute = Convert.ToInt32(Groups[3].Value);
+
+                int day = DateTime.UtcNow.Day == ReportingDateInt ? DateTime.UtcNow.Day : ReportingDateInt;
+                int thisMonthOrLastMonth = DateTime.UtcNow.Month > ReportingDateInt ? DateTime.UtcNow.Month : DateTime.UtcNow.AddMonths(-1).Month;
+                int lastMonthOrBefore = DateTime.DaysInMonth(DateTime.UtcNow.Year, thisMonthOrLastMonth) <= ReportingDateInt ? thisMonthOrLastMonth : thisMonthOrLastMonth - 1;
+
+                //TODO
+                //DateTime reportingDateTime = new DateTime(
+                //    DateTime.UtcNow.Year,
+                //    month,
+                //    day,
+                //    ReportingHour,
+                //    ReportingMinute,
+                //    00
+                //    );
+
                 if (DateTime.UtcNow.Day == ReportingDateInt)
                 {
                     DateTime ReportingTime = new DateTime(

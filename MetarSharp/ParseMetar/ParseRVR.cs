@@ -20,7 +20,7 @@ namespace MetarSharp.Parse
                 RegexOptions.None
             );
 
-            foreach (Match Match in RVRRegex.Matches(raw))
+            foreach (Match Match in RVRRegex.Matches(raw).Cast<Match>())
             {
                 RunwayVisibility runwayVisibility = new RunwayVisibility();
 
@@ -29,114 +29,90 @@ namespace MetarSharp.Parse
                 GroupCollection Groups = Match.Groups;
 
                 runwayVisibility.Runway = Groups[1].Value;
-                if (Groups[3].Success == true)
+
+                runwayVisibility.ParallelRunwayDesignator = Groups[3].Success ? Groups[3].Value : null;
+
+                runwayVisibility.ParallelRunwayDesignatorDecoded = Groups[3].Value switch
                 {
-                    runwayVisibility.ParallelRunwayDesignator = Groups[3].Value;
+                    "L" => "Left",
+                    "C" => "Center",
+                    "R" => "Right",
+                    null => null,
+                    _ => null
+                };
 
-                    string RunwayDesignatorDecoded = null;
-                    switch (Groups[3].Value)
-                    {
-                        case "L":
-                            RunwayDesignatorDecoded = "Left";
-                            break;
-                        case "C":
-                            RunwayDesignatorDecoded = "Center";
-                            break;
-                        case "R":
-                            RunwayDesignatorDecoded = "Right";
-                            break;
-                    }
-                    runwayVisibility.ParallelRunwayDesignatorDecoded = RunwayDesignatorDecoded;
+                runwayVisibility.RunwayVisualRange = int.TryParse(Groups[5].Value, out int _rvr) ? _rvr : 0;
 
-                    if (int.TryParse(Groups[5].Value, out int RVR))
-                    {
-                        runwayVisibility.RunwayVisualRange = RVR;
-                    }
+                runwayVisibility.IsRVRValueMoreOrLess = Groups[4].Success ? true : null;
 
-                    if (Groups[4].Success == true)
-                    {
-                        runwayVisibility.IsRVRValueMoreOrLess = true;
+                runwayVisibility.RVRMoreOrLessDecoded = Groups[4].Value switch
+                {
+                    "M" => "Less",
+                    "P" => "More",
+                    _ => ""
+                };
 
-                        string MoreOrLessDecoded = null;
-                        switch (Groups[4].Value)
-                        {
-                            case "M":
-                                MoreOrLessDecoded = "Less";
-                                break;
-                            case "P":
-                                MoreOrLessDecoded = "More";
-                                break;
-                        }
-                        runwayVisibility.RVRMoreOrLessDecoded = MoreOrLessDecoded;
-                    }
-
-                    string RVRTendencyRaw = null;
-                    string RVRTendencyDecoded = null;
-                    switch (Groups[9].Value)
-                    {
-                        case "U":
-                            RVRTendencyRaw = "U";
-                            RVRTendencyDecoded = "Upward";
-                            break;
-                        case "N":
-                            RVRTendencyRaw = "N";
-                            RVRTendencyDecoded = "Stagnant";
-                            break;
-                        case "D":
-                            RVRTendencyRaw = "D";
-                            RVRTendencyDecoded = "Downward";
-                            break;
-                    }
-                    runwayVisibility.RVRTendencyRaw = RVRTendencyRaw;
-                    runwayVisibility.RVRTendencyDecoded = RVRTendencyDecoded;
-
-                    if (Groups[6].Success == true)
-                    {
-                        runwayVisibility.IsRVRVarying = true;
-
-                        if (Groups[7].Success == true)
-                        {
-                            runwayVisibility.IsRVRVariationMoreOrLess = true;
-                            string MoreOrLessDecoded = null;
-
-                            switch (Groups[7].Value) 
-                            {
-                                case "M":
-                                    MoreOrLessDecoded = "Less";
-                                    break;
-                                case "P":
-                                    MoreOrLessDecoded = "More";
-                                    break;
-                            }
-                            runwayVisibility.RVRVariationMoreOrLessDecoded = MoreOrLessDecoded;
-
-                            if (int.TryParse(Groups[8].Value, out int RVRVariation))
-                            {
-                                runwayVisibility.RVRVariationValue = RVRVariation;
-                            }
-
-                            string RVRVariationTendencyRaw = null;
-                            string RVRVariationTendencyDecoded = null;
-                            switch (Groups[9].Value)
-                            {
-                                case "U":
-                                    RVRTendencyRaw = "U";
-                                    RVRTendencyDecoded = "Upward";
-                                    break;
-                                case "N":
-                                    RVRTendencyRaw = "N";
-                                    RVRTendencyDecoded = "Stagnant";
-                                    break;
-                                case "D":
-                                    RVRTendencyRaw = "D";
-                                    RVRTendencyDecoded = "Downward";
-                                    break;
-                            }
-                            runwayVisibility.RVRVariationTendencyRaw = RVRVariationTendencyRaw;
-                            runwayVisibility.RVRVariationTendencyDecoded = RVRVariationTendencyDecoded;
-                        }
-                    }
+                string RVRTendencyRaw = null;
+                string RVRTendencyDecoded = null;
+                switch (Groups[9].Value)
+                {
+                    case "U":
+                        RVRTendencyRaw = "U";
+                        RVRTendencyDecoded = "Upward";
+                        break;
+                    case "N":
+                        RVRTendencyRaw = "N";
+                        RVRTendencyDecoded = "Stagnant";
+                        break;
+                    case "D":
+                        RVRTendencyRaw = "D";
+                        RVRTendencyDecoded = "Downward";
+                        break;
+                    default:
+                        RVRTendencyDecoded = "";
+                        RVRTendencyRaw = "";
+                        break;
                 }
+                runwayVisibility.RVRTendencyRaw = RVRTendencyRaw;
+                runwayVisibility.RVRTendencyDecoded = RVRTendencyDecoded;
+
+                runwayVisibility.IsRVRVarying = Groups[6].Success ? true : null ;
+                runwayVisibility.IsRVRVariationMoreOrLess = Groups[7].Success ? true : null ;
+
+                runwayVisibility.RVRVariationMoreOrLessDecoded = Groups[7].Value switch
+                {
+                    "M" => "Less",
+                    "P" => "More",
+                    null => null,
+                    _ => ""
+                };
+
+                runwayVisibility.RVRVariationValue = int.TryParse(Groups[8].Value, out int _rvrVar) ? _rvrVar : null;
+
+                string RVRVariationTendencyRaw = null;
+                string RVRVariationTendencyDecoded = null;
+                switch (Groups[9].Value)
+                {
+                    case "U":
+                        RVRTendencyRaw = "U";
+                        RVRTendencyDecoded = "Upward";
+                        break;
+                    case "N":
+                        RVRTendencyRaw = "N";
+                        RVRTendencyDecoded = "Stagnant";
+                        break;
+                    case "D":
+                        RVRTendencyRaw = "D";
+                        RVRTendencyDecoded = "Downward";
+                        break;
+                    default:
+                        RVRTendencyRaw = "";
+                        RVRTendencyDecoded = "";
+                        break;
+                }
+                runwayVisibility.RVRVariationTendencyRaw = RVRVariationTendencyRaw;
+                runwayVisibility.RVRVariationTendencyDecoded = RVRVariationTendencyDecoded;
+
                 runwayVisibilities.Add(runwayVisibility);
             }
 

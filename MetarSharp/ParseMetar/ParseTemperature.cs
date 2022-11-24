@@ -22,37 +22,18 @@ namespace MetarSharp.Parse
 
             if (TemperatureMatches.Count == 1)
             {
-                GroupCollection Groups = TemperatureMatches[0].Groups;
+                GroupCollection groups = TemperatureMatches[0].Groups;
 
                 temperature.TemperatureRaw = TemperatureMatches[0].ToString();
 
-                if (Groups[1].Success == true)
-                {
-                    temperature.IsTemperatureBelowZero = true;
-                }
-                else
-                {
-                    temperature.IsTemperatureBelowZero = false;
-                }
+                temperature.IsTemperatureBelowZero = groups[1].Success;
+                
+                temperature.IsDewpointBelowZero = groups[3].Success;
 
-                if (Groups[3].Success == true)
-                {
-                    temperature.IsDewpointBelowZero = true;
-                }
-                else
-                {
-                    temperature.IsDewpointBelowZero = false;
-                }
+                temperature.TemperatureOnly = int.Parse(groups[2].Value);
 
-                if (int.TryParse(Groups[2].Value, out int Temperature))
-                {
-                    temperature.TemperatureOnly = Temperature;
-                }
+                temperature.DewpointOnly = int.Parse(groups[4].Value);
 
-                if (int.TryParse(Groups[4].Value, out int Dewpoint))
-                {
-                    temperature.DewpointOnly = Dewpoint;
-                }
             }
             return temperature;
         }

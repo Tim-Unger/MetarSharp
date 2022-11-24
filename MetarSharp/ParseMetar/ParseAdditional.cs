@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -45,9 +46,11 @@ namespace MetarSharp.Parse
                         recent.RecentWeatherDecoded = null; //TODO
 
                         recentWeather.Add(recent);
+                        continue;
                     }
+
                     //Windshear
-                    else if (Groups[5].Success == true)
+                    if (Groups[5].Success == true)
                     {
                         WindShear wind = new WindShear();
 
@@ -58,19 +61,20 @@ namespace MetarSharp.Parse
                             wind.IsAllRunways = true;
 
                             wind.Runway = null;
+                            windShear.Add(wind);
+
+                            continue;
                         }
+
                         //TODO parallel runways
-                        else
-                        {
-                            wind.IsAllRunways = false;
+                        
+                        wind.IsAllRunways = false;
 
-                            if (int.TryParse(Groups[9].Value, out int Runway))
-                            {
-                                wind.Runway = Runway;
-                            }
+                        if (int.TryParse(Groups[9].Value, out int Runway))
+                        {
+                            wind.Runway = Runway;
                         }
 
-                        windShear.Add(wind);
                     }
                     //ColorCode
                     else if (Groups[9].Success == true)
@@ -86,16 +90,7 @@ namespace MetarSharp.Parse
 
             MatchCollection RemarkMatches = RemarkRegex.Matches(raw);
 
-            if(RemarkMatches.Count == 1)
-            {
-                GroupCollection Groups = RemarkMatches[0].Groups;
-
-                additionalInformation.Remarks = Groups[2].Value;
-            }
-            else
-            {
-                additionalInformation.Remarks = null;
-            }
+            additionalInformation.Remarks = RemarkMatches.Count == 1 ? RemarkMatches[0].Groups[2].Value : null;
 
             additionalInformation.AdditionalInformationRaw = SB.ToString();
 

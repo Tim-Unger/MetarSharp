@@ -23,48 +23,24 @@ namespace MetarSharp.Parse
 
                 GroupCollection Groups = PressureMatches[0].Groups;
 
-                if (Groups[1].Value == "A")
+                pressure.PressureType = Groups[1].Value switch
                 {
-                    pressure.PressureType = "Altimeter/Inches Mercury";
-                    pressure.PressureTypeRaw = "A";
+                    "A" => "Altimeter/Inches Mercury",
+                    "Q" => "QNH/Hectopascal",
+                    //_ => throw new NullReferenceException()
+                };
 
-                    if (int.TryParse(Groups[2].Value, out int Pressure))
-                    {
-                        pressure.PressureOnly = Pressure;
-                        pressure.PressureAsAltimeter = Pressure;
+                string pressureTypeRaw = Groups[1].Value == "A" ? "A" : "QNH";
+                pressure.PressureTypeRaw = pressureTypeRaw;
 
-                        if (
-                            double.TryParse(
-                                Groups[2].Value.Substring(0, 2)
-                                    + "."
-                                    + Groups[2].Value.Substring(2, 2),
-                                out double AltimeterWithDecimal
-                            )
-                        )
-                        {
-                            pressure.PressureWithSeperator = AltimeterWithDecimal.ToString();
-                            double QNH = AltimeterWithDecimal * 33.87;
-                            pressure.PressureAsQnh = Convert.ToInt32(Math.Round(QNH, 0));
-                        }
-                    }
-                }
+                int pressureValue = int.TryParse(Groups[2].Value, out int _pressureVal) ? _pressureVal : 0;
+                pressure.PressureOnly = pressureValue;
+                pressure.PressureAsAltimeter = Convert.ToInt32(Math.Round(pressureTypeRaw == "A" ? pressureValue : pressureValue / 33.87,0));
+                pressure.PressureAsQnh = Convert.ToInt32(Math.Round(pressureTypeRaw == "QNH" ? pressureValue : pressureValue * 33.87, 0));
 
-                if (Groups[1].Value == "Q")
+                if(pressureTypeRaw == "A")
                 {
-                    pressure.PressureType = "QNH/Hectopascal";
-                    pressure.PressureTypeRaw = "QNH";
-
-                    if (int.TryParse(Groups[2].Value, out int Pressure))
-                    {
-                        pressure.PressureOnly = Pressure;
-                        pressure.PressureAsQnh = Pressure;
-
-                        double AltimeterUnrounded = Pressure / 33.87;
-
-                        pressure.PressureAsAltimeter = Convert.ToInt32(
-                            Math.Round(AltimeterUnrounded, 0)
-                        );
-                    }
+                    pressure.PressureWithSeperator == double.Parse(Groups[2].Value.Substring(0, 2) + "." + Groups[2].Value.Substring(2, 2);
                 }
             }
 

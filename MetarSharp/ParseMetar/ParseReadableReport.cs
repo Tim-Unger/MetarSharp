@@ -11,23 +11,18 @@ namespace MetarSharp.Parse
         public static string ReturnReadableReport(Metar metar)
         {
             string ReadableReport = null;
-            StringBuilder ReportBuilder = new StringBuilder();
+            StringBuilder reportBuilder = new StringBuilder();
 
             //Is Automated
             string ReportType = null;
-            if (metar.IsAutomatedReport == true)
-            {
-                ReportType = "Automated weather report ";
-            }
-            else
-            {
-                ReportType = "Weather report ";
-            }
-            ReportBuilder.Append(ReportType);
+
+            ReportType = metar.IsAutomatedReport ? "Automated weather report " : "Weather report ";
+            
+            reportBuilder.Append(ReportType);
 
             //Airport
             string Airport = "for " + metar.Airport + "." + "\n";
-            ReportBuilder.Append(Airport);
+            reportBuilder.Append(Airport);
 
             //Reporting Time
             string ReportingTime = null;
@@ -35,37 +30,28 @@ namespace MetarSharp.Parse
             if (metar.ReportingTime.ReportingTimeZulu.Day == DateTime.UtcNow.Day)
             {
                 ReportingDate = "Reported today";
+
+                reportBuilder.Append(ReportingDate);
             }
-            else
+            
+            int DayNumber = metar.ReportingTime.ReportingTimeZulu.Day;
+            string DayWritten = null;
+
+            //Turns the day into a written day (1st, 2nd, 12th, etc)
+            DayWritten = DayNumber switch
             {
-                int DayNumber = metar.ReportingTime.ReportingTimeZulu.Day;
-                string DayWritten = null;
-
-                //Turns the day into a written day (1st, 2nd, 12th, etc)
-                if (DayNumber == 1 || DayNumber == 21 || DayNumber == 31)
-                {
-                    DayWritten = DayNumber + "st";
-                }
-                else if (DayNumber == 2 || DayNumber == 22)
-                {
-                    DayWritten = DayNumber + "nd";
-                }
-                else if (DayNumber == 3)
-                {
-                    DayWritten = DayNumber + "rd";
-                }
-                else
-                {
-                    DayWritten = DayNumber + "th";
-                }
-
-                ReportingDate = "Reported on the " + DayWritten + " of the month";
-            }
+                1 or 21 or 31 => DayNumber + "st",
+                2 or 22 => DayNumber + "nd",
+                3 => DayNumber + "rd",
+                _ => DayNumber + "th",
+            };
+            ReportingDate = "Reported on the " + DayWritten + " of the month";
+            
 
             ReportingTime =
                 " at " + metar.ReportingTime.ReportingTimeZulu.ToString("t") + " UTC" + "\n";
 
-            ReportBuilder.Append(ReportingDate + ReportingTime);
+            reportBuilder.Append(ReportingTime);
 
             //Wind
             string Wind = null;
@@ -74,50 +60,39 @@ namespace MetarSharp.Parse
             if (metar.Wind.IsWindCalm)
             {
                 Wind = "Wind calm";
+
+                reportBuilder.AppendLine(Wind + WindGust + WindVariation);
             }
-            else
-            {
-                if (metar.Wind.IsWindVariable)
-                {
-                    Wind =
-                        "Wind variable "
-                        + metar.Wind.WindStrength
-                        + " "
-                        + metar.Wind.WindUnitDecoded;
-                }
-                else
-                {
-                    Wind =
-                        "Wind: "
-                        + metar.Wind.WindDirection
-                        + " Degrees "
-                        + metar.Wind.WindStrength
-                        + " "
-                        + metar.Wind.WindUnitDecoded;
-                }
 
-                if (metar.Wind.IsWindGusting)
-                {
-                    WindGust =
-                        " Gusting up to "
-                        + metar.Wind.WindGusts
-                        + " "
-                        + metar.Wind.WindUnitDecoded
-                        + ".";
-                }
+            Wind = metar.Wind.IsWindVariable ? 
+                    "Wind variable "
+                    + metar.Wind.WindStrength
+                    + " "
+                    + metar.Wind.WindUnitDecoded 
+                    :
+                    "Wind: "
+                    + metar.Wind.WindDirection
+                    + " Degrees "
+                    + metar.Wind.WindStrength
+                    + " "
+                    + metar.Wind.WindUnitDecoded;
 
-                if (metar.Wind.isWindDirectionVarying)
-                {
+            WindGust = metar.Wind.IsWindGusting ?
+                WindGust =
+                    " Gusting up to "
+                    + metar.Wind.WindGusts
+                    + " "
+                    + metar.Wind.WindUnitDecoded
+                    + "."
+                    :
                     WindVariation =
-                        "Variable between "
-                        + metar.Wind.WindVariationLow
-                        + " Degrees and "
-                        + metar.Wind.WindVariationHigh
-                        + " Degrees.";
-                }
-            }
+                    "Variable between "
+                    + metar.Wind.WindVariationLow
+                    + " Degrees and "
+                    + metar.Wind.WindVariationHigh
+                    + " Degrees.";
 
-            ReportBuilder.AppendLine(Wind + WindGust + WindVariation);
+            reportBuilder.AppendLine(Wind + WindGust + WindVariation);
 
             //Visibility
             string Visibility = null;
@@ -126,16 +101,18 @@ namespace MetarSharp.Parse
             if (metar.Visibility.IsVisibilityMeasurable == false)
             {
                 Visibility = "Visibility not measurable";
+                    
+                reportBuilder.AppendLine(Visibility + LowestVisibility);
+
             }
-            else
-            {
-                Visibility =
-                    "Visibility: "
-                    + metar.Visibility.ReportedVisibility
-                    + " "
-                    + metar.Visibility.VisibilityUnitDecoded
-                    + " ";
-            }
+            
+            Visibility =
+                "Visibility: "
+                + metar.Visibility.ReportedVisibility
+                + " "
+                + metar.Visibility.VisibilityUnitDecoded
+                + " ";
+            
 
             if (metar.Visibility.HasVisibilityLowestValue)
             {
@@ -149,7 +126,7 @@ namespace MetarSharp.Parse
                     + " ";
             }
 
-            ReportBuilder.AppendLine(Visibility + LowestVisibility);
+            reportBuilder.AppendLine(Visibility + LowestVisibility);
 
             //RVRs
 
@@ -162,11 +139,10 @@ namespace MetarSharp.Parse
                     if (RVR.ParallelRunwayDesignator != null)
                     {
                         Runway = "Runway-Visibility for Runway " + RVR.Runway;
+                        continue;
                     }
-                    else
-                    {
-                        Runway = "Runway-Visibility for Runway " + RVR.Runway + " ";
-                    }
+                    
+                    Runway = "Runway-Visibility for Runway " + RVR.Runway + " ";
 
                     if (RVR.IsRVRValueMoreOrLess == true)
                     {
@@ -176,11 +152,10 @@ namespace MetarSharp.Parse
                             + " than "
                             + RVR.RunwayVisualRange
                             + " Meter ";
+                        continue;
                     }
-                    else
-                    {
-                        Visibility = "Runway Visual Range: " + RVR.RunwayVisualRange + " Meter ";
-                    }
+                   
+                    Visibility = "Runway Visual Range: " + RVR.RunwayVisualRange + " Meter ";
 
                     string Variation = null;
                     if (RVR.IsRVRVarying == true)
@@ -193,16 +168,15 @@ namespace MetarSharp.Parse
                                 + " than "
                                 + RVR.RVRVariationValue
                                 + " Meter";
+                            continue;
                         }
-                        else
-                        {
-                            Variation = "Variating up to: " + RVR.RVRVariationValue + " Meter";
-                        }
+                        
+                        Variation = "Variating up to: " + RVR.RVRVariationValue + " Meter";
                     }
 
                     string Tendency = " " + RVR.RVRTendencyDecoded;
 
-                    ReportBuilder.AppendLine(Runway + Visibility + Variation + Tendency);
+                    reportBuilder.AppendLine(Runway + Visibility + Variation + Tendency);
                 }
             }
 
@@ -212,7 +186,6 @@ namespace MetarSharp.Parse
                 foreach (var Weather in metar.Weather)
                 {
                     //TODO
-
                 }
             }
 
@@ -224,92 +197,73 @@ namespace MetarSharp.Parse
                 if (Cloud.IsCAVOK)
                 {
                     CloudString = "Ceiling and Visibility Okay";
+                    reportBuilder.AppendLine(CloudString);
+                    continue;
                 }
-                else if (Cloud.IsVerticalVisibility == false)
+                
+                if (Cloud.IsCloudMeasurable == false)
                 {
-                    if (Cloud.IsCloudMeasurable == false)
-                    {
-                        CloudString = "Cloud not measurable";
-                    }
-                    else
-                    {
-                        if (Cloud.HasCumulonimbusClouds == false)
-                        {
-                            if (Cloud.IsCeilingMeasurable == true)
-                            {
-                                CloudString =
-                                    "Cloud: "
-                                    + Cloud.CloudCoverageTypeDecoded
-                                    + " at "
-                                    + Cloud.CloudCeiling;
-                            }
-                            else
-                            {
-                                CloudString =
-                                    "Cloud: "
-                                    + Cloud.CloudCoverageTypeDecoded
-                                    + " Ceiling not measurable";
-                            }
-                        }
-                        else
-                        {
-                            if (Cloud.IsCeilingMeasurable == true)
-                            {
-                                if (Cloud.IsCBTypeMeasurable == true)
-                                {
-                                    CloudString =
-                                        "Cloud: "
-                                        + Cloud.CloudCoverageTypeDecoded
-                                        + " with "
-                                        + Cloud.CBCloudTypeDecoded
-                                        + " at "
-                                        + Cloud.CloudCeiling;
-                                }
-                                else
-                                {
-                                    CloudString =
-                                        "Cloud: "
-                                        + Cloud.CloudCoverageTypeDecoded
-                                        + " CB-Type not measurable at"
-                                        + Cloud.CloudCeiling;
-                                }
-                            }
-                            else
-                            {
-                                if (Cloud.IsCBTypeMeasurable == true)
-                                {
-                                    CloudString =
-                                        "Cloud: "
-                                        + Cloud.CloudCoverageTypeDecoded
-                                        + " with "
-                                        + Cloud.CBCloudTypeDecoded
-                                        + " Ceiling not measurable";
-                                }
-                                else
-                                {
-                                    CloudString =
-                                        "Cloud: "
-                                        + Cloud.CloudCoverageTypeDecoded
-                                        + " CB-Type not measurable "
-                                        + " Ceiling not measurable";
-                                }
-                            }
-                        }
-                    }
+                    CloudString = "Cloud not measurable";
+                    reportBuilder.AppendLine(CloudString);
+                    continue;
                 }
-                else
+                    
+                if (Cloud.HasCumulonimbusClouds == false)
                 {
-                    if (Cloud.IsVerticalVisibilityMeasurable == false)
-                    {
-                        CloudString = "Vertical Visibility not measurable";
-                    }
-                    else
-                    {
-                        CloudString = "Vertical Visibility: " + Cloud.VerticalVisibility;
-                    }
+                    CloudString = (bool)Cloud.IsCeilingMeasurable ? CloudString =
+                            "Cloud: "
+                            + Cloud.CloudCoverageTypeDecoded
+                            + " at "
+                            + Cloud.CloudCeiling
+                            :
+                            CloudString =
+                            "Cloud: "
+                            + Cloud.CloudCoverageTypeDecoded
+                            + " at "
+                            + Cloud.CloudCeiling;
+                    reportBuilder.AppendLine(CloudString);
+                    continue;
+                }
+                
+                if (Cloud.IsCeilingMeasurable == true)
+                {
+                    CloudString = (bool)Cloud.IsCeilingMeasurable ? CloudString =
+                            "Cloud: "
+                            + Cloud.CloudCoverageTypeDecoded
+                            + " with "
+                            + Cloud.CBCloudTypeDecoded
+                            + " at "
+                            + Cloud.CloudCeiling
+                            :
+                            CloudString =
+                            "Cloud: "
+                            + Cloud.CloudCoverageTypeDecoded
+                            + " CB-Type not measurable at"
+                            + Cloud.CloudCeiling;
+                    reportBuilder.AppendLine(CloudString);
+                    continue;
+                }
+                    
+                if (Cloud.IsCBTypeMeasurable == true)
+                {
+                    CloudString = (bool)Cloud.IsCBTypeMeasurable ? CloudString =
+                        "Cloud: "
+                        + Cloud.CloudCoverageTypeDecoded
+                        + " with "
+                        + Cloud.CBCloudTypeDecoded
+                        + " Ceiling not measurable"
+                        :
+                        CloudString =
+                        "Cloud: "
+                        + Cloud.CloudCoverageTypeDecoded
+                        + " CB-Type not measurable "
+                        + " Ceiling not measurable";
+                    reportBuilder.AppendLine(CloudString);
+                    continue;
                 }
 
-                ReportBuilder.AppendLine(CloudString);
+                CloudString = (bool)Cloud.IsVerticalVisibilityMeasurable ? "Vertical Visibility not measurable" : "Vertical Visibility: " + Cloud.VerticalVisibility;
+                reportBuilder.AppendLine(CloudString);
             }
 
             //Temperature
@@ -324,8 +278,8 @@ namespace MetarSharp.Parse
                 ? "Dewpoint: " + "-" + metar.Temperature.DewpointOnly + "°C"
                 : "Dewpoint: " + metar.Temperature.DewpointOnly + "°C";
 
-            ReportBuilder.AppendLine(Temperature);
-            ReportBuilder.AppendLine(Dewpoint);
+            reportBuilder.AppendLine(Temperature);
+            reportBuilder.AppendLine(Dewpoint);
 
 
             //Pressure
@@ -333,9 +287,9 @@ namespace MetarSharp.Parse
 
             Pressure = "Pressure: " + metar.Pressure.PressureAsQnh + "hPa" + " or " + metar.Pressure.PressureAsAltimeter + "inHg";
 
-            ReportBuilder.AppendLine(Pressure);
+            reportBuilder.AppendLine(Pressure);
 
-            ReadableReport = ReportBuilder.ToString();
+            ReadableReport = reportBuilder.ToString();
             return ReadableReport;
         }
     }

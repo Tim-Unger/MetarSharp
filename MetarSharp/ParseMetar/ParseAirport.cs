@@ -16,17 +16,16 @@ namespace MetarSharp.Parse
 
             MatchCollection AirportMatches = AirportRegex.Matches(raw);
 
-            if (AirportMatches.Count == 1)
-            {
-                string Replace = Regex.Replace(ParseMetar.RawMetarString.RestOfMetar, @"^([A-Z]{4})\s", "");
-                ParseMetar.RawMetarString.RestOfMetar = Replace;
+            return AirportMatches[0].Value;
+            //if (AirportMatches.Count == 1)
+            //{
+            //    string Replace = Regex.Replace(ParseMetar.RawMetarString.RestOfMetar, @"^([A-Z]{4})\s", "");
+            //    ParseMetar.RawMetarString.RestOfMetar = Replace;
 
-                return AirportMatches[0].Value;
-            }
-            else
-            {
-                return "";
-            }
+            //    return AirportMatches[0].Value;
+            //}
+            
+            //return "";
         } 
     }
 }

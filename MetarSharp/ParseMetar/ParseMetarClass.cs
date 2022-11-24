@@ -65,7 +65,6 @@ namespace MetarSharp
             return Parsed;
         }
 
-
         public static List<Metar> ParseFromList(List<string> MetarsIn)
         {
             List<Metar> Metars = new List<Metar>();
@@ -74,20 +73,19 @@ namespace MetarSharp
             {
                 if (ListMetar.StartsWith("http"))
                 {
-                    Metar AddMetar = new Metar();
+                    Metar addNewMetar = new Metar();
 
-                    AddMetar = ParseFromLink(ListMetar);
+                    addNewMetar = ParseFromLink(ListMetar);
 
-                    Metars.Add(AddMetar);
+                    Metars.Add(addNewMetar);
+                    continue;
                 }
-                else
-                {
-                    Metar AddMetar = new Metar();
+                
+                Metar AddMetar = new Metar();
 
-                    AddMetar = ParseFromString(ListMetar);
+                AddMetar = ParseFromString(ListMetar);
 
-                    Metars.Add(AddMetar);
-                }
+                Metars.Add(AddMetar);
             }
             return Metars;
         }

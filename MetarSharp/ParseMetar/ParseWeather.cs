@@ -82,23 +82,20 @@ namespace MetarSharp.Parse
                     {
                         singleWeather.WeatherIntensity = " ";
                         singleWeather.WeatherIntensityDecoded = "Normal";
+                        continue;
                     }
 
-                    else
+                    switch (Groups[3].Value)
                     {
-                        switch (Groups[3].Value)
-                        {
-                            case "+":
-                                singleWeather.WeatherIntensity = "+";
-                                singleWeather.WeatherIntensityDecoded = "Strong";
-                                break;
-                            case "\\-":
-                                singleWeather.WeatherIntensity = "-";
-                                singleWeather.WeatherIntensityDecoded = "Light";
-                                break;
-                        }
+                        case "+":
+                            singleWeather.WeatherIntensity = "+";
+                            singleWeather.WeatherIntensityDecoded = "Strong";
+                            break;
+                        case "\\-":
+                            singleWeather.WeatherIntensity = "-";
+                            singleWeather.WeatherIntensityDecoded = "Light";
+                            break;
                     }
-
                 }
             }
 

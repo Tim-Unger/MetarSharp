@@ -16,15 +16,7 @@ namespace MetarSharp.Parse
 
             MatchCollection Matches = AutoRegex.Matches(raw);
 
-            if (Matches.Count == 1)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
+            return Matches.Count == 1;
         }
     }
 }

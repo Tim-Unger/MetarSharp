@@ -35,7 +35,6 @@ namespace MetarSharp
         public string ReadableReport;
     }
 
-    //TODO define custom Date
     public class ReportingTime
     {
         public string ReportingTimeRaw { get; set; }
@@ -55,8 +54,7 @@ namespace MetarSharp
          */
         public DateTime ReportingTimeZulu { get; set; }
 
-        //TODO
-        //public DateTime ReportingTimeMyTime { get; set; }
+        public DateTime? ReportingTimeCustom { get; set; }
 
     }
 

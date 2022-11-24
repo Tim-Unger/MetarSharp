@@ -43,6 +43,7 @@ namespace MetarSharp.Parse
                         }
 
                         //Lowest vis-direction is given
+                        visibility.HasVisibilityLowestValue = Groups[5].Success;
                         if (Groups[5].Success == true)
                         {
                             visibility.HasVisibilityLowestValue = true;
@@ -53,133 +54,112 @@ namespace MetarSharp.Parse
                             }
 
                             string LowestVisibilityDirection = Groups[7].Value;
-                            string LowestVisibilityDirectionDecoded = null;
 
                             visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
 
-                            //TODO custom definitions
-                            switch (LowestVisibilityDirection)
-                            {
-                                case "N":
-                                    LowestVisibilityDirectionDecoded = "North";
-                                    break;
-                                case "NE":
-                                    LowestVisibilityDirectionDecoded = "North-East";
-                                    break;
-                                case "E":
-                                    LowestVisibilityDirectionDecoded = "East";
-                                    break;
-                                case "SE":
-                                    LowestVisibilityDirectionDecoded = "South-East";
-                                    break;
-                                case "S":
-                                    LowestVisibilityDirectionDecoded = "South";
-                                    break;
-                                case "SW":
-                                    LowestVisibilityDirectionDecoded = "South-West";
-                                    break;
-                                case "W":
-                                    LowestVisibilityDirectionDecoded = "West";
-                                    break;
-                                case "NW":
-                                    LowestVisibilityDirectionDecoded = "North-West";
-                                    break;
-                            }
-                            visibility.LowestVisibilityDirectionDecoded =
-                                LowestVisibilityDirectionDecoded;
+                            visibility.LowestVisibilityDirectionDecoded = CardinalDirection(LowestVisibilityDirection);
                         }
                         else
                         {
                             visibility.HasVisibilityLowestValue = false;
                         }
+
+                        return visibility;
                     }
                     //Vis in Miles
                 }
                 //Vis is not measurable (///)
-                else
-                {
-                    visibility.VisibilityRaw = Groups[0].Value;
-                    visibility.IsVisibilityMeasurable = false;
-                }
+                
+                visibility.VisibilityRaw = Groups[0].Value;
+                visibility.IsVisibilityMeasurable = false;
+
+                return visibility;
             }
+
             //Vis in miles
-            else
+            visibility.IsVisibilityMeasurable = true;
+            Regex MilesRegex = new Regex(
+                @"\s(([0-9]{1,2})SM)\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?",
+                RegexOptions.None
+            );
+
+            MatchCollection MilesMatches = MilesRegex.Matches(raw);
+
+            //TODO 1/2 miles visibility regex
+            if (MilesMatches.Count == 1)
             {
-                visibility.IsVisibilityMeasurable = true;
-                Regex MilesRegex = new Regex(
-                    @"\s(([0-9]{1,2})SM)\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?",
-                    RegexOptions.None
-                );
+                GroupCollection Groups = MilesMatches[0].Groups;
 
-                MatchCollection MilesMatches = MilesRegex.Matches(raw);
+                visibility.VisibilityRaw = Groups[1].Value;
 
-                //TODO 1/2 miles visibility regex
-                if (MilesMatches.Count == 1)
+                visibility.VisibilityUnitRaw = "SM";
+                visibility.VisibilityUnitDecoded = "Statute Miles";
+
+                if (int.TryParse(Groups[2].Value, out int Visibility))
                 {
-                    GroupCollection Groups = MilesMatches[0].Groups;
+                    visibility.ReportedVisibility = Visibility;
+                }
 
-                    visibility.VisibilityRaw = Groups[1].Value;
+                visibility.HasVisibilityLowestValue = Groups[3].Success;
+                if (Groups[3].Success == true)
+                {
 
-                    visibility.VisibilityUnitRaw = "SM";
-                    visibility.VisibilityUnitDecoded = "Statute Miles";
-
-                    if (int.TryParse(Groups[2].Value, out int Visibility))
+                    if (int.TryParse(Groups[4].Value, out int LowestVisibility))
                     {
-                        visibility.ReportedVisibility = Visibility;
+                        visibility.LowestVisibility = LowestVisibility;
                     }
 
-                    if (Groups[3].Success == true)
+                    string LowestVisibilityDirection = Groups[5].Value;
+                    string LowestVisibilityDirectionDecoded = null;
+
+                    visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
+
+                    switch (LowestVisibilityDirection)
                     {
-                        visibility.HasVisibilityLowestValue = true;
-
-                        if (int.TryParse(Groups[4].Value, out int LowestVisibility))
-                        {
-                            visibility.LowestVisibility = LowestVisibility;
-                        }
-
-                        string LowestVisibilityDirection = Groups[5].Value;
-                        string LowestVisibilityDirectionDecoded = null;
-
-                        visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
-
-                        //TODO custom definitions
-                        switch (LowestVisibilityDirection)
-                        {
-                            case "N":
-                                LowestVisibilityDirectionDecoded = "North";
-                                break;
-                            case "NE":
-                                LowestVisibilityDirectionDecoded = "North-East";
-                                break;
-                            case "E":
-                                LowestVisibilityDirectionDecoded = "East";
-                                break;
-                            case "SE":
-                                LowestVisibilityDirectionDecoded = "South-East";
-                                break;
-                            case "S":
-                                LowestVisibilityDirectionDecoded = "South";
-                                break;
-                            case "SW":
-                                LowestVisibilityDirectionDecoded = "South-West";
-                                break;
-                            case "W":
-                                LowestVisibilityDirectionDecoded = "West";
-                                break;
-                            case "NW":
-                                LowestVisibilityDirectionDecoded = "North-West";
-                                break;
-                        }
-                        visibility.LowestVisibilityDirectionDecoded =
-                            LowestVisibilityDirectionDecoded;
+                        case "N":
+                            LowestVisibilityDirectionDecoded = "North";
+                            break;
+                        case "NE":
+                            LowestVisibilityDirectionDecoded = "North-East";
+                            break;
+                        case "E":
+                            LowestVisibilityDirectionDecoded = "East";
+                            break;
+                        case "SE":
+                            LowestVisibilityDirectionDecoded = "South-East";
+                            break;
+                        case "S":
+                            LowestVisibilityDirectionDecoded = "South";
+                            break;
+                        case "SW":
+                            LowestVisibilityDirectionDecoded = "South-West";
+                            break;
+                        case "W":
+                            LowestVisibilityDirectionDecoded = "West";
+                            break;
+                        case "NW":
+                            LowestVisibilityDirectionDecoded = "North-West";
+                            break;
                     }
-                    else
-                    {
-                        visibility.HasVisibilityLowestValue = false;
-                    }
+                    visibility.LowestVisibilityDirectionDecoded =
+                        LowestVisibilityDirectionDecoded;
                 }
             }
+            
             return visibility;
         }
+
+        private static string CardinalDirection(string raw) => raw switch
+        {
+            "N" => "North",
+            "NE" => "North-East",
+            "E" => "East",
+            "SE" => "South-East",
+            "S" => "South",
+            "SW" => "South-West",
+            "W" => "West",
+            "NW" => "North-West",
+            _ => ""
+        };
     }
 }
