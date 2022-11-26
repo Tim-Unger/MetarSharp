@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace MetarSharp
+﻿namespace MetarSharp
 {
     public class Metar
     {
@@ -55,7 +53,6 @@ namespace MetarSharp
         public DateTime ReportingTimeZulu { get; set; }
 
         public DateTime? ReportingTimeCustom { get; set; }
-
     }
 
     public class Wind
@@ -75,6 +72,7 @@ namespace MetarSharp
         public string WindUnitRaw { get; set; }
 
         public string WindUnitDecoded { get; set; }
+
         //Whether there are Wind Gusts
         public bool IsWindGusting { get; set; }
 
@@ -87,6 +85,7 @@ namespace MetarSharp
         public bool isWindDirectionVarying { get; set; }
 
         public string? WindDirectionVariationRaw { get; set; }
+
         //The lowest direction of the Wind
         public int? WindVariationLow { get; set; }
 
@@ -126,13 +125,14 @@ namespace MetarSharp
         public string? ParallelRunwayDesignator { get; set; }
         public string? ParallelRunwayDesignatorDecoded { get; set; }
         public int RunwayVisualRange { get; set; }
+
         //TODO
         public bool? IsRVRValueMoreOrLess { get; set; }
 
         //TODO more or less raw
         public string RVRMoreOrLessDecoded { get; set; }
         public string RVRTendencyRaw { get; set; }
-        
+
         //TODO Custom definitions for decoded strings
         public string RVRTendencyDecoded { get; set; }
         public bool? IsRVRVarying { get; set; }
@@ -146,7 +146,6 @@ namespace MetarSharp
         //TODO überflüssig?
         public string? RVRVariationTendencyRaw { get; set; }
         public string? RVRVariationTendencyDecoded { get; set; }
-    
     }
 
     public class Weather
@@ -176,13 +175,14 @@ namespace MetarSharp
         public string? CloudCoverageTypeDecoded { get; set; }
         public bool? IsCeilingMeasurable { get; set; }
         public int? CloudCeiling { get; set; }
-        
+
         //TODO Cloud-Ceiling converted to ft
         public bool? HasCumulonimbusClouds { get; set; }
         public bool? IsCBTypeMeasurable { get; set; }
         public string? CBCloudTypeRaw { get; set; }
         public string? CBCloudTypeDecoded { get; set; }
         public bool? IsVerticalVisibility { get; set; }
+
         //public string? VerticalVisibilityRaw { get; set; }
         public bool? IsVerticalVisibilityMeasurable { get; set; }
         public int? VerticalVisibility { get; set; }
@@ -216,13 +216,14 @@ namespace MetarSharp
 
         public int? PressureAsAltimeter { get; set; }
     }
-    
+
     //TODO?
     public class Trend
     {
         public bool IsNOSIG { get; set; }
 
         public string? TrendRaw { get; set; }
+
         //TODO To enum?
         public string? TrendType { get; set; }
 
@@ -231,12 +232,24 @@ namespace MetarSharp
         public int? TimeRestrictionRaw { get; set; }
 
         public DateTime? TimeRestrictionDateTime { get; set; }
-
     }
 
     public class RunwayCondition
     {
         public string? RunwayConditionRaw { get; set; }
+    }
+
+    public enum ColorCode
+    {
+        NIL,
+        BLUPLUS,
+        BLU,
+        WHT,
+        GRN,
+        YLO,
+        AMB,
+        RED,
+        BLACK,
     }
 
     public class AdditionalInformation
@@ -247,18 +260,7 @@ namespace MetarSharp
 
         public List<WindShear>? WindShear { get; set; }
 
-        public enum ColorCode
-        {
-            NIL,
-            BLUPLUS,
-            BLU,
-            WHT,
-            GRN,
-            YLO,
-            AMB,
-            RED,
-            BLACK,
-        }
+        public ColorCode ColorCode { get; set; }
 
         public string? Remarks { get; set; }
     }

@@ -10,15 +10,26 @@ namespace MetarSharp.Tests
     {
         public static List<string> Metars()
         {
-            List<string> ReturnMetars = new List<string>();
+            var letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
-            Random Rand = new Random();
+            List<string> returnMetars = new List<string>();
 
-            int LetterIndex = Rand.Next(0, 26);
+            Random rand = new Random();
 
 
+            List<string> airports = new List<string>();
+            for (int x = 0; x < 500; x++)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int y = 0; y < 4; y++)
+                {
+                    int letterIndex = rand.Next(0, 26);
+                    stringBuilder.Append(letters[letterIndex]);
+                }
 
-            return ReturnMetars;
+                airports.Add(stringBuilder.ToString());
+            }
+            return returnMetars;
         }
     }
 }

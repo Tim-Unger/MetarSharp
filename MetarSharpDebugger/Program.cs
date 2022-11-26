@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using MetarSharp;
 using MetarSharp.ParseOptions;
@@ -16,14 +19,16 @@ internal class Program
     }
     static void Main(string[] args)
     {
-        //Regex ReportingTimeRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
-
-        //MatchCollection Matches = ReportingTimeRegex.Matches(RawMetarString.RawMetar);
-
-        //var Groups = Matches[0].Groups;
-
-
-        Metar metar = ParseMetar.ParseFromString("KCOU 182054Z 18011KT 10SM VCTS FEW031 FEW055 BKN120 25/22 A2995 WS R25 RESN BLU RMK HALLO");
+        ///Just for diagnostics
+        Stopwatch timer = new Stopwatch();
+        timer.Start();
+        
+        //You can enter your metars here
+        Metar metar = ParseMetar.ParseFromString("KCOU 182054Z 18011KT 10SM 0050E VCTS FEW031 FEW055 BKN120 25/22 A2995 WS R25 RESN BLU RMK HALLO");
+        
+        ///Just for diagnostics/to check execution time 
+        timer.Stop();
+        var executeTime = timer.ElapsedMilliseconds;
     }
 }
 

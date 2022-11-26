@@ -20,98 +20,79 @@ namespace MetarSharp.Parse
                 RegexOptions.None
             );
 
-            foreach (Match Match in RVRRegex.Matches(raw).Cast<Match>())
+            foreach (Match match in RVRRegex.Matches(raw).Cast<Match>())
             {
                 RunwayVisibility runwayVisibility = new RunwayVisibility();
 
-                runwayVisibility.RunwayVisibilityRaw = Match.ToString();
+                runwayVisibility.RunwayVisibilityRaw = match.ToString();
 
-                GroupCollection Groups = Match.Groups;
+                GroupCollection groups = match.Groups;
 
-                runwayVisibility.Runway = Groups[1].Value;
+                runwayVisibility.Runway = groups[1].Value;
 
-                runwayVisibility.ParallelRunwayDesignator = Groups[3].Success ? Groups[3].Value : null;
+                runwayVisibility.ParallelRunwayDesignator = groups[3].Success
+                    ? groups[3].Value
+                    : null;
 
-                runwayVisibility.ParallelRunwayDesignatorDecoded = Groups[3].Value switch
+                runwayVisibility.ParallelRunwayDesignatorDecoded = groups[3].Value switch
                 {
                     "L" => "Left",
                     "C" => "Center",
                     "R" => "Right",
-                    null => null,
-                    _ => null
+                    null or "" => null,
+                    _
+                      => throw new Exception(
+                          $"Could not read Runway Designator of RVR runway {groups[1].Value}"
+                      )
                 };
 
-                runwayVisibility.RunwayVisualRange = int.TryParse(Groups[5].Value, out int _rvr) ? _rvr : 0;
+                runwayVisibility.RunwayVisualRange = int.TryParse(groups[5].Value, out int _rvr)
+                  ? _rvr
+                  : throw new Exception(
+                        $"Could not Convert Runway Visual Range of Runway {groups[1].Value} to Number"
+                    );
 
-                runwayVisibility.IsRVRValueMoreOrLess = Groups[4].Success ? true : null;
+                runwayVisibility.IsRVRValueMoreOrLess = groups[4].Success ? true : null;
 
-                runwayVisibility.RVRMoreOrLessDecoded = Groups[4].Value switch
+                runwayVisibility.RVRMoreOrLessDecoded = groups[4].Value switch
                 {
                     "M" => "Less",
                     "P" => "More",
-                    _ => ""
+                    null or "" => "",
+                    _
+                      => throw new Exception(
+                          $"Could not read RVR-More or Less Value of Runway {groups[1].Value}"
+                      )
                 };
 
-                string RVRTendencyRaw = null;
-                string RVRTendencyDecoded = null;
-                switch (Groups[9].Value)
+                (
+                    runwayVisibility.RVRTendencyRaw,
+                    runwayVisibility.ParallelRunwayDesignatorDecoded
+                ) = groups[9].Value switch
                 {
-                    case "U":
-                        RVRTendencyRaw = "U";
-                        RVRTendencyDecoded = "Upward";
-                        break;
-                    case "N":
-                        RVRTendencyRaw = "N";
-                        RVRTendencyDecoded = "Stagnant";
-                        break;
-                    case "D":
-                        RVRTendencyRaw = "D";
-                        RVRTendencyDecoded = "Downward";
-                        break;
-                    default:
-                        RVRTendencyDecoded = "";
-                        RVRTendencyRaw = "";
-                        break;
-                }
-                runwayVisibility.RVRTendencyRaw = RVRTendencyRaw;
-                runwayVisibility.RVRTendencyDecoded = RVRTendencyDecoded;
+                    "U" => ("U", "Upward"),
+                    "N" => ("N", "Stagnant"),
+                    "D" => ("D", "Downward"),
+                    _
+                      => throw new Exception(
+                          $"Could not read RVR-Tendency for Runway {groups[1].Value}"
+                      )
+                };
 
-                runwayVisibility.IsRVRVarying = Groups[6].Success ? true : null ;
-                runwayVisibility.IsRVRVariationMoreOrLess = Groups[7].Success ? true : null ;
+                runwayVisibility.IsRVRVarying = groups[6].Success ? true : null;
+                runwayVisibility.IsRVRVariationMoreOrLess = groups[7].Success ? true : null;
 
-                runwayVisibility.RVRVariationMoreOrLessDecoded = Groups[7].Value switch
+                runwayVisibility.RVRVariationMoreOrLessDecoded = groups[7].Value switch
                 {
                     "M" => "Less",
                     "P" => "More",
-                    null => null,
+                    null or "" => null,
                     _ => ""
                 };
 
-                runwayVisibility.RVRVariationValue = int.TryParse(Groups[8].Value, out int _rvrVar) ? _rvrVar : null;
-
-                string RVRVariationTendencyRaw = null;
-                string RVRVariationTendencyDecoded = null;
-                switch (Groups[9].Value)
-                {
-                    case "U":
-                        RVRTendencyRaw = "U";
-                        RVRTendencyDecoded = "Upward";
-                        break;
-                    case "N":
-                        RVRTendencyRaw = "N";
-                        RVRTendencyDecoded = "Stagnant";
-                        break;
-                    case "D":
-                        RVRTendencyRaw = "D";
-                        RVRTendencyDecoded = "Downward";
-                        break;
-                    default:
-                        RVRTendencyRaw = "";
-                        RVRTendencyDecoded = "";
-                        break;
-                }
-                runwayVisibility.RVRVariationTendencyRaw = RVRVariationTendencyRaw;
-                runwayVisibility.RVRVariationTendencyDecoded = RVRVariationTendencyDecoded;
+                runwayVisibility.RVRVariationValue = int.TryParse(groups[8].Value, out int rvrVar)
+                  ? rvrVar
+                  : null;
 
                 runwayVisibilities.Add(runwayVisibility);
             }

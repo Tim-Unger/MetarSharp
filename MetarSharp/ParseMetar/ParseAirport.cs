@@ -12,11 +12,11 @@ namespace MetarSharp.Parse
     {
         public static string ReturnAirport(string raw)
         {
-            Regex AirportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
+            Regex airportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
 
-            MatchCollection AirportMatches = AirportRegex.Matches(raw);
+            MatchCollection airportMatches = airportRegex.Matches(raw);
 
-            return AirportMatches[0].Value;
+            return airportMatches[0].Value;
             //if (AirportMatches.Count == 1)
             //{
             //    string Replace = Regex.Replace(ParseMetar.RawMetarString.RestOfMetar, @"^([A-Z]{4})\s", "");
