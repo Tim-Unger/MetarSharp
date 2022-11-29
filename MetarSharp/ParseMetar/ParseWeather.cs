@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -65,40 +66,33 @@ namespace MetarSharp.Parse
             List<Weather> weather = new List<Weather>();
 
             //TODO
-            Regex WeatherRegex = new Regex(@"((RE)?)((\+|-|VC)?)((MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS))", RegexOptions.None);
+            Regex weatherRegex = new Regex(@"((RE)?)((\+|-|VC)?)((MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS))", RegexOptions.None);
 
-            MatchCollection WeatherMatches = WeatherRegex.Matches(raw);
+            MatchCollection weatherMatches = weatherRegex.Matches(raw);
 
-            if (WeatherMatches.Count > 0)
+            if (weatherMatches.Count > 0)
             {
-                foreach (Match Match in WeatherMatches)
+                foreach (Match match in weatherMatches.Cast<Match>())
                 {
                     Weather singleWeather = new Weather();
-                    GroupCollection Groups = Match.Groups;
+                    GroupCollection groups = match.Groups;
 
-                    singleWeather.WeatherRaw = Groups[0].Value;
+                    singleWeather.WeatherRaw = groups[0].Value;
 
-                    if (Groups[3].Success == false)
+                    if (groups[3].Success == false)
                     {
                         singleWeather.WeatherIntensity = " ";
                         singleWeather.WeatherIntensityDecoded = "Normal";
+                        continue;
                     }
 
-                    else
+                    (singleWeather.WeatherIntensity, singleWeather.WeatherIntensityDecoded) = groups[3].Value switch
                     {
-                        switch (Groups[3].Value)
-                        {
-                            case "+":
-                                singleWeather.WeatherIntensity = "+";
-                                singleWeather.WeatherIntensityDecoded = "Strong";
-                                break;
-                            case "\\-":
-                                singleWeather.WeatherIntensity = "-";
-                                singleWeather.WeatherIntensityDecoded = "Light";
-                                break;
-                        }
-                    }
-
+                        "+" => ("+", "Strong"),
+                        "\\-" => ("-", "Light"),
+                        null or "" => (null, null),
+                        _ => ("", "")//TODO//throw new Exception()
+                    } ;
                 }
             }
 

@@ -12,19 +12,11 @@ namespace MetarSharp.Parse
     {
         public static bool ReturnIsAutomated(string raw)
         {
-            Regex AutoRegex = new Regex("(AUTO)", RegexOptions.None);
+            Regex autoRegex = new Regex("(AUTO)", RegexOptions.None);
 
-            MatchCollection Matches = AutoRegex.Matches(raw);
+            MatchCollection matches = autoRegex.Matches(raw);
 
-            if (Matches.Count == 1)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
+            return matches.Count == 1;
         }
     }
 }
