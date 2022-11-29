@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -16,64 +17,68 @@ namespace MetarSharp.Parse
             List<RecentWeather> recentWeather = new List<RecentWeather>();
             List<WindShear> windShear = new List<WindShear>();
 
-            Regex AdditionalRegex = new Regex(
+            Regex additionalRegex = new Regex(
                 "(((RE(MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS)){1,})|((WS\\s((R([0-9]{1,2}))|(ALL RWY))){1,})|(BLU+|BLU|WHT|GRN|YLO|AMB|RED|BLACK))",
                 RegexOptions.None
             );
 
-            MatchCollection AdditionalMatches = AdditionalRegex.Matches(raw);
+            MatchCollection additionalMatches = additionalRegex.Matches(raw);
 
-            StringBuilder SB = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
 
-            if (AdditionalMatches.Count > 0)
+            if (additionalMatches.Count > 0)
             {
-                foreach (Match Match in AdditionalMatches)
+                foreach (Match Match in additionalMatches)
                 {
-                    SB.Append(Match.ToString());
+                    stringBuilder.Append(Match.ToString());
 
-                    GroupCollection Groups = Match.Groups;
+                    GroupCollection groups = Match.Groups;
 
                     //Recent Weather
-                    if (Groups[2].Success == true)
+                    if (groups[2].Success)
                     {
                         RecentWeather recent = new RecentWeather();
 
-                        recent.RecentWeatherRaw = Groups[2].Value;
+                        recent.RecentWeatherRaw = groups[2].Value;
 
-                        recent.RecentWeatherTypeRaw = Groups[4].Value;
+                        recent.RecentWeatherTypeRaw = groups[4].Value;
 
                         recent.RecentWeatherDecoded = null; //TODO
 
                         recentWeather.Add(recent);
+                        continue;
                     }
+
                     //Windshear
-                    else if (Groups[5].Success == true)
+                    if (groups[5].Success == true)
                     {
                         WindShear wind = new WindShear();
 
-                        wind.WindShearRaw = Groups[5].Value;
+                        wind.WindShearRaw = groups[5].Value;
 
-                        if (Groups[7].Value == "ALL RWY")
+                        if (groups[7].Value == "ALL RWY")
                         {
                             wind.IsAllRunways = true;
 
                             wind.Runway = null;
+                            windShear.Add(wind);
+
+                            continue;
                         }
+
                         //TODO parallel runways
-                        else
+                        
+                        wind.IsAllRunways = false;
+
+                        if (int.TryParse(groups[9].Value, out int Runway))
                         {
-                            wind.IsAllRunways = false;
-
-                            if (int.TryParse(Groups[9].Value, out int Runway))
-                            {
-                                wind.Runway = Runway;
-                            }
+                            wind.Runway = Runway;
                         }
+                        wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new Exception("Could not read Runway");
 
-                        windShear.Add(wind);
                     }
                     //ColorCode
-                    else if (Groups[9].Success == true)
+                    else if (groups[9].Success == true)
                     {
                         //TODO
                     }
@@ -86,18 +91,9 @@ namespace MetarSharp.Parse
 
             MatchCollection RemarkMatches = RemarkRegex.Matches(raw);
 
-            if(RemarkMatches.Count == 1)
-            {
-                GroupCollection Groups = RemarkMatches[0].Groups;
+            additionalInformation.Remarks = RemarkMatches.Count == 1 ? RemarkMatches[0].Groups[2].Value : null;
 
-                additionalInformation.Remarks = Groups[2].Value;
-            }
-            else
-            {
-                additionalInformation.Remarks = null;
-            }
-
-            additionalInformation.AdditionalInformationRaw = SB.ToString();
+            additionalInformation.AdditionalInformationRaw = stringBuilder.ToString();
 
             additionalInformation.RecentWeather = recentWeather;
             additionalInformation.WindShear = windShear;
