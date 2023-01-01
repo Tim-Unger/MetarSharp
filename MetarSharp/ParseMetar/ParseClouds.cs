@@ -41,7 +41,10 @@ namespace MetarSharp.Parse
                 //Vertical Visibility not measurable
                 cloud.IsVerticalVisibilityMeasurable = groups[5].Value != "///";
 
-                cloud.VerticalVisibility = int.TryParse(groups[5].Value, out int verticalVisibiliy) ? verticalVisibiliy : throw new Exception("Could not read Vertical Visibility");
+                if (cloud.IsVerticalVisibilityMeasurable == true)
+                {
+                    cloud.VerticalVisibility = int.TryParse(groups[5].Value, out int verticalVisibiliy) ? verticalVisibiliy : throw new Exception("Could not read Vertical Visibility");
+                }
 
                 //Clouds Measurable
                 if (groups[4].Value != "///")
@@ -58,13 +61,18 @@ namespace MetarSharp.Parse
                         "OVC" => "Overcast Clouds",
                         "NSC" => "No Significant Clouds",
                         "NCD" => "No Clouds detected",
+                        "VV" => "Vertical Visibility", 
                         _ => "Can't read Clouds"
 
                     };
 
-                    cloud.IsCeilingMeasurable = groups[4].Value != "///";
+                    cloud.IsCeilingMeasurable = groups[5].Value != "///";
 
-                    cloud.CloudCeiling = int.TryParse(groups[5].Value, out int cloudCeiling) ? cloudCeiling : throw new Exception("Could not read Cloud Ceiling");
+                    if(cloud.IsCeilingMeasurable == true)
+                    {
+                        cloud.CloudCeiling = int.TryParse(groups[5].Value, out int cloudCeiling) ? cloudCeiling : throw new Exception("Could not read Cloud Ceiling");
+
+                    }
 
                     cloud.IsCBTypeMeasurable = groups[6].Value != "///";
 
@@ -75,6 +83,7 @@ namespace MetarSharp.Parse
                     {
                         "CB" => "Cumulonimbus Clouds",
                         "TC" or "TCU" => "Towering Cumulonimbus Clouds",
+                        "///" or "//" => "Cumulonimbus Type not measurable",
                         null or "" => null,
                         _ => throw new Exception("Could not read Cumulonimbus Cloud Type")
                     };

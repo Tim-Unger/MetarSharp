@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using MetarSharp.Parse;
+using System.Diagnostics.Metrics;
 
 namespace MetarSharp
 {
@@ -17,37 +18,44 @@ namespace MetarSharp
             public static string RestOfMetar { get; set; }
         }
 
-        public static Metar ParseFromString(string Metar)
+        public static Metar ParseFromString(string metar)
         {
-            RawMetarString.RawMetar = Metar;
-            Metar Parsed = new Metar();
-            RawMetarString.RestOfMetar = RawMetarString.RawMetar;
+            if(IsNotNullOrEmpty(metar))
+            {
+                RawMetarString.RawMetar = metar;
+                Metar parsed = new Metar();
+                RawMetarString.RestOfMetar = RawMetarString.RawMetar;
 
-            Parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
+                parsed.MetarRaw = metar;
 
-            Parsed.ReportingTime = ParseReportingTime.ReturnReportingTime(RawMetarString.RawMetar);
+                parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
 
-            Parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
+                parsed.ReportingTime = ParseReportingTime.ReturnReportingTime(RawMetarString.RawMetar);
 
-            Parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(RawMetarString.RawMetar);
+                //parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
+                parsed.Wind = ParseWind.ParseWindTemp(RawMetarString.RawMetar);
 
-            Parsed.Temperature = ParseTemperature.ReturnTemperature(RawMetarString.RawMetar);
+                parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(RawMetarString.RawMetar);
 
-            Parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
+                parsed.Temperature = ParseTemperature.ReturnTemperature(RawMetarString.RawMetar);
 
-            Parsed.RunwayVisibilities = ParseRVR.ReturnRVR(RawMetarString.RawMetar);
+                parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
 
-            Parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
+                parsed.RunwayVisibilities = ParseRVR.ReturnRVR(RawMetarString.RawMetar);
 
-            Parsed.Visibility = ParseVisibility.ReturnVisibility(RawMetarString.RawMetar);
+                parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
 
-            Parsed.Weather = ParseWeather.ReturnWeather(RawMetarString.RestOfMetar);
+                parsed.Visibility = ParseVisibility.ReturnVisibility(RawMetarString.RawMetar);
 
-            Parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(RawMetarString.RawMetar);
+                parsed.Weather = ParseWeather.ReturnWeather(RawMetarString.RestOfMetar);
 
-            Parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(Parsed);
-            
-            return Parsed;
+                parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(RawMetarString.RawMetar);
+
+                parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
+
+                return parsed;
+            }
+            throw new Exception("Could not read Metar");
         }
 
         public static Metar ParseFromLink(string Link)
@@ -89,9 +97,14 @@ namespace MetarSharp
             return metars;
         }
 
-        //public Metar Parse()
-        //{
+        private static bool IsNotNullOrEmpty(string input)
+        {
+            if(input != null && !String.IsNullOrEmpty(input) && !String.IsNullOrWhiteSpace(input) && input != " ")
+            {
+                return true;
+            }
 
-        //}
+            return false;
+        }
     }
 }

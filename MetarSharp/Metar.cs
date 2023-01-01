@@ -2,6 +2,7 @@
 {
     public class Metar
     {
+        public string MetarRaw { get; set; }
         //The Airport (EGLL)
         public string Airport { get; set; }
 
@@ -55,6 +56,13 @@
         public DateTime? ReportingTimeCustom { get; set; }
     }
 
+    public enum WindUnit
+    {
+        Knots,
+        MilesPerHour,
+        MetersPerSecond
+    }
+
     public class Wind
     {
         //The Wind as String (23008KT)
@@ -73,6 +81,7 @@
 
         public string WindUnitDecoded { get; set; }
 
+        public WindUnit WindUnit { get; set; }
         //Whether there are Wind Gusts
         public bool IsWindGusting { get; set; }
 

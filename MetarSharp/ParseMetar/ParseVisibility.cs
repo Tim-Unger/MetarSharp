@@ -15,116 +15,7 @@ namespace MetarSharp.Parse
 
     public class ParseVisibility
     {
-        //public static Visibility ReturnVisibility(string raw)
-        //{
-        //    Visibility visibility = new Visibility();
-
-        //    Regex visibilityRegex = new Regex(
-        //        @"\s([0-9]{4})\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?",
-        //        RegexOptions.None
-        //    );
-
-        //    MatchCollection visibilityMatches = visibilityRegex.Matches(raw);
-
-        //    //Vis in Meters
-        //    if (visibilityMatches.Count == 1)
-        //    {
-        //        GroupCollection groups = visibilityMatches[0].Groups;
-        //        visibility.VisibilityRaw = groups[0].Value;
-
-        //        visibility.IsVisibilityMeasurable = groups[4].Success;
-
-        //        //Vis is measurable
-        //        if (groups[4].Success == false)
-        //        {
-
-        //            //Vis in Meters
-        //            if (groups[1].Success == true)
-        //            {
-        //                visibility.VisibilityUnitRaw = "M";
-        //                visibility.VisibilityUnitDecoded = "Meters";
-
-        //                if (int.TryParse(groups[1].Value, out int Visibility))
-        //                {
-        //                    visibility.ReportedVisibility = Visibility;
-        //                }
-
-        //                //Lowest vis-direction is given
-        //                visibility.HasVisibilityLowestValue = groups[5].Success;
-        //                if (groups[5].Success == true)
-        //                {
-        //                    if (int.TryParse(groups[6].Value, out int LowestVisibility))
-        //                    {
-        //                        visibility.LowestVisibility = LowestVisibility;
-        //                    }
-
-        //                    string LowestVisibilityDirection = groups[7].Value;
-
-        //                    visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
-
-        //                    visibility.LowestVisibilityDirectionDecoded = CardinalDirection(
-        //                        LowestVisibilityDirection
-        //                    );
-        //                }
-
-        //                return visibility;
-        //            }
-        //            //Vis in Miles
-        //        }
-
-
-        //    }
-
-        //    //Vis in miles
-        //    Regex MilesRegex = new Regex(
-        //        @"\s(([0-9]{1,2})SM)\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?",
-        //        RegexOptions.None
-        //    );
-
-        //    MatchCollection MilesMatches = MilesRegex.Matches(raw);
-
-        //    //TODO 1/2 miles visibility regex
-        //    if (MilesMatches.Count == 1)
-        //    {
-        //        visibility.IsVisibilityMeasurable = true;
-
-        //        GroupCollection Groups = MilesMatches[0].Groups;
-
-        //        visibility.VisibilityRaw = Groups[1].Value;
-
-        //        visibility.VisibilityUnitRaw = "SM";
-        //        visibility.VisibilityUnitDecoded = "Statute Miles";
-
-        //        if (int.TryParse(Groups[2].Value, out int Visibility))
-        //        {
-        //            visibility.ReportedVisibility = Visibility;
-        //        }
-
-        //        visibility.HasVisibilityLowestValue = Groups[3].Success;
-        //        if (Groups[3].Success == true)
-        //        {
-        //            if (int.TryParse(Groups[4].Value, out int LowestVisibility))
-        //            {
-        //                visibility.LowestVisibility = LowestVisibility;
-        //            }
-
-        //            string LowestVisibilityDirection = Groups[5].Value;
-
-        //            visibility.LowestVisibilityDirectionRaw = LowestVisibilityDirection;
-
-        //            visibility.LowestVisibilityDirectionDecoded = CardinalDirection(
-        //                LowestVisibilityDirection
-        //            );
-        //        }
-        //        return visibility;
-        //    }
-
-        //    //Vis is not measurable (///)
-        //    visibility.IsVisibilityMeasurable = false;
-
-        //    return visibility;
-        //}
-
+        
         public static Visibility ReturnVisibility(string raw)
         {
             Regex visibilityRegex = new Regex(
@@ -164,7 +55,7 @@ namespace MetarSharp.Parse
         {
             Visibility visibility = new Visibility();
 
-            visibility.VisibilityRaw = groups[1].Value;
+            visibility.VisibilityRaw = visibilityType == VisibilityType.Meter ? groups[1].Value : groups[7].Value;
 
             visibility.IsVisibilityMeasurable = true;
 
@@ -233,7 +124,7 @@ namespace MetarSharp.Parse
                 "SW" => "South-West",
                 "W" => "West",
                 "NW" => "North-West",
-                _ => ""
+                _ => throw new Exception("Could not convert cardinal direction")
             };
     }
 }
