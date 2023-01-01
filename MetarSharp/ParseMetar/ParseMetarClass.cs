@@ -30,7 +30,7 @@ namespace MetarSharp
 
                 parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
 
-                parsed.ReportingTime = ParseReportingTime.ReturnReportingTime(RawMetarString.RawMetar);
+                parsed.ReportingTime = ParseReportingTime.ParseReportingTimeNew(RawMetarString.RawMetar);
 
                 //parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
                 parsed.Wind = ParseWind.ParseWindTemp(RawMetarString.RawMetar);

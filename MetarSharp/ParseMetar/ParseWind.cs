@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -208,7 +210,7 @@ namespace MetarSharp.Parse
             Wind wind = new Wind();
 
             Regex windRegex = new Regex(
-                @"((([0-9]{3})([0-9]{1,3})G([0-9]{1,3})(KT|MPH|MPS))|(([0-9]{3})([0-9]{1,3})(KT|MPH|MPS))|((VRB)([0-9]{1,3})(G([0-9]{1,3}))?(KT|MPH|MPS)))(\s([0-9]{3})V([0-9]{3}))?",
+                @"((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?",
                 RegexOptions.None
             );
 
@@ -220,22 +222,27 @@ namespace MetarSharp.Parse
             }
 
             GroupCollection groups = windMatches[0].Groups;
-            
+
             #region STANDARD
             //These always need to be set
 
             wind.WindRaw = groups[0].Value;
 
-            wind.WindDirection = TryParseWithThrow(groups[3].Value);
+            wind.IsWindMeasurable = groups[6].Success == false;
+            wind.IsWindDirectionMeasurable = groups[6].Success == false;
+            wind.IsWindStrengthMeasurable = groups[7].Success == false;
 
-            int windStrength = TryParseWithThrow(groups[4].Value);
+            int windStrength = groups[4].Success ? TryParseWithThrow(groups[4].Value) : 0;
             wind.WindStrength = windStrength;
 
-            wind.IsWindCalm = windStrength == 0;
+            bool isWindCalm = windStrength == 0;
+            wind.IsWindCalm = isWindCalm;
 
-            wind.IsWindGusting = groups[5].Success;
+            wind.WindDirection = isWindCalm ? null : TryParseWithThrow(groups[3].Value);
 
-            string windUnitRaw = groups[6].Value;
+            wind.IsWindGusting = groups[8].Success;
+
+            string windUnitRaw = groups[10].Value;
 
             wind.WindUnitRaw = windUnitRaw;
 
@@ -244,17 +251,17 @@ namespace MetarSharp.Parse
             #endregion
 
 
-            wind.WindGusts = groups[5].Success ? TryParseWithThrow(groups[5].Value) : null;
+            wind.WindGusts = groups[9].Success ? TryParseWithThrow(groups[9].Value) : null;
 
-            wind.IsWindVariable = groups[12].Success;
+            wind.IsWindVariable = groups[2].Value.Contains("VRB");
 
 
-            if (groups[17].Success)
+            if (groups[12].Success)
             {
-                wind.isWindDirectionVarying = groups[17].Success;
-                wind.WindDirectionVariationRaw = groups[17].Value;
-                wind.WindVariationLow = TryParseWithThrow(groups[18].Value);
-                wind.WindVariationHigh = TryParseWithThrow(groups[19].Value);
+                wind.isWindDirectionVarying = true;
+                wind.WindDirectionVariationRaw = groups[12].Value;
+                wind.WindVariationLow = TryParseWithThrow(groups[13].Value);
+                wind.WindVariationHigh = TryParseWithThrow(groups[14].Value);
             }
 
             return wind;
@@ -270,7 +277,7 @@ namespace MetarSharp.Parse
 
         private static int TryParseWithThrow(string value)
         {
-            return int.TryParse(value, out int converted) ? converted : throw new Exception($"Could not convert value {value} to number");
+            return int.TryParse(value, out int converted) ? converted : throw new Exception($"Could not convert value {value} to number Caller: {line}");
         }
     }
 }

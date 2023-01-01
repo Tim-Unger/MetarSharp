@@ -10,10 +10,10 @@ namespace MetarSharp.Tests.Tests.BasicTests
     internal class Wind
     {
         //TODO Currently broken
-        //[Test]
+        [Test]
         public void CheckWind_ReturnsTrue()
         {
-            int index = MetarsParsed.FindIndex(x => x.Wind.WindRaw == null);
+            //int index = MetarsParsed.FindIndex(x => x.Wind.WindRaw == null);
             if (MetarsParsed.Any(x => x.Wind.WindRaw == null)) 
             {
                 Assert.Fail();

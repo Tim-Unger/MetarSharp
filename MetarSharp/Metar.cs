@@ -53,7 +53,7 @@
          */
         public DateTime ReportingTimeZulu { get; set; }
 
-        public DateTime? ReportingTimeCustom { get; set; }
+        //public DateTime? ReportingTimeCustom { get; set; }
     }
 
     public enum WindUnit
@@ -67,7 +67,9 @@
     {
         //The Wind as String (23008KT)
         public string WindRaw { get; set; }
-
+        public bool IsWindMeasurable { get; set; }
+        public bool IsWindDirectionMeasurable { get; set; }
+        public bool IsWindStrengthMeasurable { get; set; }
         public bool IsWindCalm { get; set; }
 
         //The Wind Direction (230)
