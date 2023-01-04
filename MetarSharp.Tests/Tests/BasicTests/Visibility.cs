@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetarSharp.Tests.Tests.BasicTests
+namespace MetarSharp.Tests.Visibility
 {
     internal class Visibility
     {
         [Test]
         public void CheckVisibilityIsNotNull_ReturnsTrue()
         {
-            //Assert.That(MetarsParsed.Any(x => x.Visibility.VisibilityUnitRaw == null) == false);
+            
+            //Assert.That(MetarsParsed.All(x => new[] {"SM", "M"}.Any(y => x.Visibility.VisibilityRaw == y)));
             foreach (var metar in MetarsParsed)
             {
-                if(metar.Visibility.IsVisibilityMeasurable == false)
+                if (metar.Visibility.IsVisibilityMeasurable == false)
                 {
                     return;
                 }

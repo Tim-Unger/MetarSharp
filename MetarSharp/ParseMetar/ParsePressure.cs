@@ -13,35 +13,54 @@ namespace MetarSharp.Parse
         {
             Pressure pressure = new Pressure();
 
-            Regex pressureRegex = new Regex(@"(Q|A)([0-9]{4})", RegexOptions.None);
+            Regex pressureRegex = new Regex(@"(Q|A)([0-9]{4}|////)", RegexOptions.None);
 
             MatchCollection pressureMatches = pressureRegex.Matches(raw);
 
-            if (pressureMatches.Count == 1)
+            if (pressureMatches.Count == 0)
             {
-                pressure.PressureRaw = pressureMatches[0].ToString();
+                pressure.IsPressureMeasurable = false;
+                return pressure;
+                //throw new Exception("Could not find Pressure");
+            }
 
-                GroupCollection groups = pressureMatches[0].Groups;
+            pressure.PressureRaw = pressureMatches[0].ToString();
 
-                pressure.PressureType = groups[1].Value switch
-                {
-                    "A" => "Altimeter/Inches Mercury",
-                    "Q" => "QNH/Hectopascal",
-                    //_ => throw new NullReferenceException()
-                };
+            GroupCollection groups = pressureMatches[0].Groups;
 
-                string pressureTypeRaw = groups[1].Value == "A" ? "A" : "QNH";
-                pressure.PressureTypeRaw = pressureTypeRaw;
+            if (groups[2].Value == "////")
+            {
+                pressure.IsPressureMeasurable = false;
+                return pressure;
+            }
 
-                int pressureValue = int.TryParse(groups[2].Value, out int _pressureVal) ? _pressureVal : 0;
-                pressure.PressureOnly = pressureValue;
-                pressure.PressureAsAltimeter = Convert.ToInt32(Math.Round(pressureTypeRaw == "A" ? pressureValue : pressureValue / 33.87,0));
-                pressure.PressureAsQnh = Convert.ToInt32(Math.Round(pressureTypeRaw == "QNH" ? pressureValue : pressureValue * 33.87, 0));
+            (pressure.PressureTypeString, pressure.PressureType) = groups[1].Value switch
+            {
+                "A" => ("Altimeter/Inches Mercury", PressureType.InchesMercury),
+                "Q" => ("QNH/Hectopascal", PressureType.Hectopascal),
+                _ => throw new Exception("Pressure Type could not be converted")
+            };
 
-                if(pressureTypeRaw == "A")
-                {
-                    pressure.PressureWithSeperator = double.Parse(groups[2].Value.Substring(0, 2) + "." + groups[2].Value.Substring(2, 2)).ToString();
-                }
+            string pressureTypeRaw = groups[1].Value == "A" ? "A" : "QNH";
+            pressure.PressureTypeRaw = pressureTypeRaw;
+
+            int pressureValue = int.TryParse(groups[2].Value, out int _pressureVal)
+              ? _pressureVal
+              : 0;
+            pressure.PressureOnly = pressureValue;
+            pressure.PressureAsAltimeter = Convert.ToInt32(
+                Math.Round(pressureTypeRaw == "A" ? pressureValue : pressureValue / 33.8569518716, 0)
+            );
+            pressure.PressureAsQnh = Convert.ToInt32(
+                Math.Round(pressureTypeRaw == "QNH" ? pressureValue : pressureValue * 33.8569518716, 0)
+            );
+
+            if (pressureTypeRaw == "A")
+            {
+                string pressureWithSeparatorOne = groups[2].Value.Substring(0, 2) + ".";
+                string pressureWithSeparatorTwo = groups[2].Value.Length == 4 ? groups[2].Value.Substring(2, 2) : groups[2].Value.Substring(2, 1) + "0";
+
+                pressure.PressureWithSeperator = pressureWithSeparatorOne + pressureWithSeparatorTwo;
             }
 
             return pressure;

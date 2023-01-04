@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.Metrics;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,32 +12,34 @@ namespace MetarSharpDebugger;
 
 internal class Program
 {
-    static void Main(string[] args)
+    public class RawMetarString
+    {
+        public static string RawMetar { get; set; }
+
+        public static string RestOfMetar { get; set; }
+    }
+    static async Task Main(string[] args)
     {
         ///Just for diagnostics
         Stopwatch timer = new Stopwatch();
         timer.Start();
 
-        List<string> metars = new List<string>();
-        using (StreamReader streamReader = new StreamReader("../Metars.txt"))
-        {
-            string metarListRaw = streamReader.ReadToEnd();
-            metars = metarListRaw.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-        };
-
         //You can enter your metars here
-        List<Metar> m = new();
-        foreach (var metar in metars)
+
+        var lines = File.ReadAllLines("../Metars.txt");
+        List<Metar> metars = new();
+
+        foreach(var line in lines)
         {
-            Metar metarParsed = ParseMetar.ParseFromString(metar);
-            m.Add(metarParsed);
+            Metar metar = ParseMetar.ParseFromString(line);
+            metars.Add(metar);
         }
-        
-        //Metar metar = ParseMetar.ParseFromString("KCOU 182054Z 18011KT 10SM 0050E VCTS FEW031 FEW055 BKN120 25/22 A2995 WS R25 RESN BLU RMK HALLO");
-        
+
+        var gustCount = metars.Where(x => x.Wind.IsWindGusting == true).ToList().ConvertAll(y => y.Wind.WindRaw);
         ///Just for diagnostics/to check execution time 
         timer.Stop();
         var executeTime = timer.ElapsedMilliseconds;
+        var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
     }
 }
 

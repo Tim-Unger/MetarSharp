@@ -1,13 +1,19 @@
 ﻿
-namespace MetarSharp.Tests.Tests.BasicTests
+namespace MetarSharp.Tests.Tests.Airport
 {
     internal class Airport
     {
 
         [Test]
-        public void CheckAirport_ReturnsTrue()
+        public void CheckAirportIsNotNull_ReturnsTrue()
         {
             Assert.That(MetarsParsed.All(x => x.Airport != null));
+        }
+
+        [Test]
+        public void CheckAirportLength_ReturnsFour()
+        {
+            Assert.That(MetarsParsed.All(x => x.Airport.Length == 4), "Airport length was: ");
         }
     }
 }

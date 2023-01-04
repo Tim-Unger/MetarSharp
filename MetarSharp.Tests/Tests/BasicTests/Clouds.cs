@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetarSharp.Tests.Tests.BasicTests
+namespace MetarSharp.Tests.Clouds
 {
     internal class Clouds
     {

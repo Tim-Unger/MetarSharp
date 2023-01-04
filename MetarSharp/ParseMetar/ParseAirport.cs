@@ -16,7 +16,7 @@ namespace MetarSharp.Parse
 
             MatchCollection airportMatches = airportRegex.Matches(raw);
 
-            return airportMatches[0].Value ?? throw new Exception("Could not find Airport");
+            return airportMatches[0].Groups[1].Value ?? throw new Exception("Could not find Airport");
         } 
     }
 }

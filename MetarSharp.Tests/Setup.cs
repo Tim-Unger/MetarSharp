@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetarSharp;
 
 namespace MetarSharp.Tests
 {
@@ -23,11 +24,11 @@ namespace MetarSharp.Tests
             };
         }
 
-        [OneTimeTearDown]
-        public void TearDownClass() 
-        {
-            Metars.Clear();
-            MetarsParsed.Clear();
-        }
+        //[OneTimeTearDown]
+        //public void TearDownClass() 
+        //{
+        //    Metars.Clear();
+        //    MetarsParsed.Clear();
+        //}
     }
 }

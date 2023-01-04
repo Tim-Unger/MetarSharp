@@ -30,9 +30,9 @@ namespace MetarSharp.Parse
 
                 runwayVisibility.Runway = groups[1].Value;
 
-                runwayVisibility.ParallelRunwayDesignator = groups[3].Success
-                    ? groups[3].Value
-                    : null;
+                //runwayVisibility.ParallelRunwayDesignator = groups[3].Success
+                //    ? groups[3].Value
+                //    : null;
 
                 runwayVisibility.ParallelRunwayDesignatorDecoded = groups[3].Value switch
                 {

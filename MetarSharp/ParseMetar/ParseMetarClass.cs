@@ -20,42 +20,42 @@ namespace MetarSharp
 
         public static Metar ParseFromString(string metar)
         {
-            if(IsNotNullOrEmpty(metar))
+            if (CheckIfLineIsNullOrEmpty(metar))
             {
-                RawMetarString.RawMetar = metar;
-                Metar parsed = new Metar();
-                RawMetarString.RestOfMetar = RawMetarString.RawMetar;
-
-                parsed.MetarRaw = metar;
-
-                parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
-
-                parsed.ReportingTime = ParseReportingTime.ParseReportingTimeNew(RawMetarString.RawMetar);
-
-                //parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
-                parsed.Wind = ParseWind.ParseWindTemp(RawMetarString.RawMetar);
-
-                parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(RawMetarString.RawMetar);
-
-                parsed.Temperature = ParseTemperature.ReturnTemperature(RawMetarString.RawMetar);
-
-                parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
-
-                parsed.RunwayVisibilities = ParseRVR.ReturnRVR(RawMetarString.RawMetar);
-
-                parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
-
-                parsed.Visibility = ParseVisibility.ReturnVisibility(RawMetarString.RawMetar);
-
-                parsed.Weather = ParseWeather.ReturnWeather(RawMetarString.RestOfMetar);
-
-                parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(RawMetarString.RawMetar);
-
-                parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
-
-                return parsed;
+                throw new Exception("Metar is null or an empty line, check input");
             }
-            throw new Exception("Could not read Metar");
+
+            RawMetarString.RawMetar = metar;
+            Metar parsed = new Metar();
+            RawMetarString.RestOfMetar = RawMetarString.RawMetar;
+
+            parsed.Airport = ParseAirport.ReturnAirport(RawMetarString.RawMetar);
+
+            parsed.ReportingTime = ParseReportingTime.ParseReportingTimeNew(RawMetarString.RawMetar);
+
+            parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
+
+            parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(RawMetarString.RawMetar);
+                //parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
+            parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
+
+            parsed.Temperature = ParseTemperature.ReturnTemperature(RawMetarString.RawMetar);
+
+            parsed.Pressure = ParsePressure.ReturnPressure(RawMetarString.RawMetar);
+
+            parsed.RunwayVisibilities = ParseRVR.ReturnRVR(RawMetarString.RawMetar);
+
+            parsed.Clouds = ParseClouds.ReturnClouds(RawMetarString.RawMetar);
+
+            parsed.Visibility = ParseVisibility.ReturnVisibility(RawMetarString.RawMetar);
+
+            parsed.Weather = ParseWeather.ReturnWeather(RawMetarString.RestOfMetar);
+
+            parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(RawMetarString.RawMetar);
+
+            parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
+            
+            return parsed;
         }
 
         public static Metar ParseFromLink(string Link)
@@ -97,9 +97,9 @@ namespace MetarSharp
             return metars;
         }
 
-        private static bool IsNotNullOrEmpty(string input)
+        private static bool CheckIfLineIsNullOrEmpty(string input)
         {
-            if(input != null && !String.IsNullOrEmpty(input) && !String.IsNullOrWhiteSpace(input) && input != " ")
+            if(input == null || input == String.Empty || input == "" || String.IsNullOrWhiteSpace(input))
             {
                 return true;
             }

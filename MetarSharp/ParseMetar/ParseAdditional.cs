@@ -26,64 +26,67 @@ namespace MetarSharp.Parse
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            if (additionalMatches.Count > 0)
+            if(additionalMatches.Count == 0)
             {
-                foreach (Match Match in additionalMatches)
+                return new AdditionalInformation();
+            }
+            
+            foreach (Match Match in additionalMatches.Cast<Match>())
+            {
+                stringBuilder.Append(Match.ToString());
+
+                GroupCollection groups = Match.Groups;
+
+                //Recent Weather
+                if (groups[2].Success)
                 {
-                    stringBuilder.Append(Match.ToString());
+                    RecentWeather recent = new RecentWeather();
 
-                    GroupCollection groups = Match.Groups;
+                    recent.RecentWeatherRaw = groups[2].Value;
 
-                    //Recent Weather
-                    if (groups[2].Success)
+                    recent.RecentWeatherTypeRaw = groups[4].Value;
+
+                    recent.RecentWeatherDecoded = null; //TODO
+
+                    recentWeather.Add(recent);
+                    continue;
+                }
+
+                //Windshear
+                if (groups[5].Success == true)
+                {
+                    WindShear wind = new WindShear();
+
+                    wind.WindShearRaw = groups[5].Value;
+
+                    if (groups[7].Value == "ALL RWY")
                     {
-                        RecentWeather recent = new RecentWeather();
+                        wind.IsAllRunways = true;
 
-                        recent.RecentWeatherRaw = groups[2].Value;
+                        wind.Runway = null;
+                        windShear.Add(wind);
 
-                        recent.RecentWeatherTypeRaw = groups[4].Value;
-
-                        recent.RecentWeatherDecoded = null; //TODO
-
-                        recentWeather.Add(recent);
                         continue;
                     }
 
-                    //Windshear
-                    if (groups[5].Success == true)
-                    {
-                        WindShear wind = new WindShear();
-
-                        wind.WindShearRaw = groups[5].Value;
-
-                        if (groups[7].Value == "ALL RWY")
-                        {
-                            wind.IsAllRunways = true;
-
-                            wind.Runway = null;
-                            windShear.Add(wind);
-
-                            continue;
-                        }
-
-                        //TODO parallel runways
+                    //TODO parallel runways
                         
-                        wind.IsAllRunways = false;
+                    wind.IsAllRunways = false;
 
-                        if (int.TryParse(groups[9].Value, out int Runway))
-                        {
-                            wind.Runway = Runway;
-                        }
-                        wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new Exception("Could not read Runway");
-
-                    }
-                    //ColorCode
-                    else if (groups[9].Success == true)
+                    if (int.TryParse(groups[9].Value, out int Runway))
                     {
-                        //TODO
+                        wind.Runway = Runway;
                     }
+                    wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new Exception("Could not read Runway");
+
+                }
+                //ColorCode
+                else if (groups[9].Success == true)
+                {
+                    //TODO
                 }
             }
+            
 
 
             Regex RemarkRegex = new Regex("(RMK\\s(.*$))", RegexOptions.None);
