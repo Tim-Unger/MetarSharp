@@ -37,11 +37,29 @@ namespace MetarSharp.Parse
                 //Clouds not measurable
                 cloud.IsCloudMeasurable = groups[4].Value != "///";
                 //Vertical Visibility is used
-                cloud.IsVerticalVisibility = groups[4].Value == "VV";
+                bool isVerticalVisibiltiy = groups[4].Value == "VV";
+                cloud.IsVerticalVisibility = isVerticalVisibiltiy;
                 //Vertical Visibility not measurable
-                cloud.IsVerticalVisibilityMeasurable = groups[5].Value != "///";
 
-                cloud.VerticalVisibility = int.TryParse(groups[5].Value, out int verticalVisibiliy) ? verticalVisibiliy : throw new Exception("Could not read Vertical Visibility");
+                if (isVerticalVisibiltiy == true)
+                {
+                    //TODO
+                    bool isVerticalVisibilityMeasurable = groups[5].Value != "///";
+                    cloud.IsVerticalVisibilityMeasurable = isVerticalVisibilityMeasurable;
+
+                    if (isVerticalVisibilityMeasurable)
+                    {
+                        cloud.VerticalVisibility = int.TryParse(
+                        groups[5].Value,
+                        out int verticalVisibiliy
+                    )
+                      ? verticalVisibiliy
+                      : throw new Exception("Could not read Vertical Visibility");
+                    }
+
+                    clouds.Add(cloud);
+                    continue;
+                }
 
                 //Clouds Measurable
                 if (groups[4].Value != "///")
@@ -50,34 +68,36 @@ namespace MetarSharp.Parse
                     cloud.IsCloudMeasurable = true;
                     cloud.CloudCoverageTypeRaw = groups[4].Value;
 
-                    cloud.CloudCoverageTypeDecoded = groups[4].Value.ToUpper() switch
-                    {
-                        "FEW" => "Few Clouds",
-                        "SCT" => "Scattered Clouds",
-                        "BKN" => "Broken Clouds",
-                        "OVC" => "Overcast Clouds",
-                        "NSC" => "No Significant Clouds",
-                        "NCD" => "No Clouds detected",
-                        _ => "Can't read Clouds"
-
-                    };
+                    (cloud.CloudCoverageType, cloud.CloudCoverageTypeDecoded) = GetCloudType(
+                        groups[4].Value
+                    );
 
                     cloud.IsCeilingMeasurable = groups[4].Value != "///";
 
-                    cloud.CloudCeiling = int.TryParse(groups[5].Value, out int cloudCeiling) ? cloudCeiling : throw new Exception("Could not read Cloud Ceiling");
+                    cloud.CloudCeiling = int.TryParse(groups[5].Value, out int cloudCeiling)
+                      ? cloudCeiling
+                      : throw new Exception("Could not read Cloud Ceiling");
 
-                    cloud.IsCBTypeMeasurable = groups[6].Value != "///";
 
-                    cloud.HasCumulonimbusClouds = groups[6].Success;
-                    cloud.CBCloudTypeRaw = groups[6].Value;
-
-                    cloud.CBCloudTypeDecoded = groups[6].Value switch
+                    bool hasCumulonimbusClouds = groups[6].Success;
+                    if(hasCumulonimbusClouds)
                     {
-                        "CB" => "Cumulonimbus Clouds",
-                        "TC" or "TCU" => "Towering Cumulonimbus Clouds",
-                        null or "" => null,
-                        _ => throw new Exception("Could not read Cumulonimbus Cloud Type")
-                    };
+                        bool isCbTypeMesaurable = groups[6].Value != "///";
+                        cloud.IsCBTypeMeasurable = isCbTypeMesaurable;
+
+                        if(isCbTypeMesaurable)
+                        {
+                            cloud.CBCloudTypeRaw = groups[6].Value;
+
+                            cloud.CBCloudTypeDecoded = groups[6].Value switch
+                            {
+                                "CB" => "Cumulonimbus Clouds",
+                                "TC" or "TCU" => "Towering Cumulonimbus Clouds",
+                                null or "" => null,
+                                _ => throw new Exception("Could not read Cumulonimbus Cloud Type")
+                            };
+                        }
+                    }
                 }
 
                 clouds.Add(cloud);
@@ -85,5 +105,17 @@ namespace MetarSharp.Parse
 
             return clouds;
         }
+
+        private static (CloudType, string) GetCloudType(string input) =>
+            input.ToUpper() switch
+            {
+                "FEW" => (CloudType.Few, "Few Clouds"),
+                "SCT" => (CloudType.Scattered, "Scattered Clouds"),
+                "BKN" => (CloudType.Broken, "Broken Clouds"),
+                "OVC" => (CloudType.Overcast, "Overcast Clouds"),
+                "NSC" => (CloudType.NoSignificantClouds, "No Significant Clouds"),
+                "NCD" => (CloudType.NoCloudsDetected, "No Clouds detected"),
+                _ => throw new Exception("Can't read cloud type")
+            };
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetarSharp.TestMetar
+namespace MetarSharp
 {
     //TODO
     public class ReportingTime
