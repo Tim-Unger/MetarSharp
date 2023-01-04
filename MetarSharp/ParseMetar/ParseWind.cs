@@ -14,194 +14,75 @@ namespace MetarSharp.Parse
         {
             Wind wind = new Wind();
 
-            Regex WindRegex = new Regex(
-                @"((([0-9]{3})([0-9]{1,3})G([0-9]{1,3})(KT|MPH|MPS))|(([0-9]{3})([0-9]{1,3})(KT|MPH|MPS))|((VRB)([0-9]{1,3})(G([0-9]{1,3}))?(KT|MPH|MPS)))(\s([0-9]{3})V([0-9]{3}))?",
+            Regex windRegex = new Regex(
+                @"(?<!RMK.*)((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?",
                 RegexOptions.None
             );
 
-            MatchCollection WindMatches = WindRegex.Matches(raw);
+            MatchCollection windMatches = windRegex.Matches(raw);
 
-            if (WindMatches.Count == 1)
+            if (windMatches.Count == 0)
             {
-                GroupCollection groups = WindMatches[0].Groups;
-                wind.WindRaw = WindMatches[0].ToString();
+                wind.IsWindMeasurable = false;
+                return wind;
+            }
 
-                //Wind is not variable and not gusting
-                if (groups[7].Success == true)
-                {
-                    if (string.Concat(groups[8].Value, groups[9].Value) == "00000")
-                    {
-                        wind.IsWindCalm = true;
-                        wind.IsWindGusting = false;
-                        wind.IsWindVariable = false;
+            GroupCollection groups = windMatches[0].Groups;
 
-                        return wind;
-                    }
+            #region STANDARD
+            //These always need to be set
 
-                    wind.IsWindCalm = false;
-                    wind.IsWindGusting = false;
-                    wind.IsWindVariable = false;
+            wind.WindRaw = groups[0].Value;
 
-                    if (int.TryParse(groups[8].Value, out int windDirection))
-                    {
-                        wind.WindDirection = windDirection;
-                    }
-                    if (int.TryParse(groups[9].Value, out int windStrengthout))
-                    {
-                        wind.WindStrength = windStrengthout;
-                    }
+            wind.IsWindMeasurable = groups[6].Success == false;
+            wind.IsWindDirectionMeasurable = groups[6].Success == false;
+            wind.IsWindStrengthMeasurable = groups[7].Success == false;
 
-                    wind.WindUnitRaw = groups[10].Value;
+            int windStrength = groups[4].Success ? TryParseWithThrow(groups[4].Value) : 0;
+            wind.WindStrength = windStrength;
 
-                    string windUnitDecoded = null;
-                    windUnitDecoded = groups[10].Value switch
-                    {
-                        "KT" => "Knots",
-                        "MPH" => "Miles per Hour",
-                        "MPS" => "Meters per Second",
-                        _ => "Other",
-                    };
-                    wind.WindUnitDecoded = windUnitDecoded;
+            bool isWindCalm = windStrength == 0;
+            wind.IsWindCalm = isWindCalm;
 
-                    return wind;
-                }
+            wind.WindDirection = isWindCalm ? null : TryParseWithThrow(groups[3].Value);
 
-                //Wind is not variable and gusting
-                wind.IsWindCalm = false;
-                wind.IsWindGusting = true;
-                wind.IsWindVariable = false;
+            wind.IsWindGusting = groups[8].Success;
 
-                if (int.TryParse(groups[3].Value, out int WindDirection))
-                {
-                    wind.WindDirection = WindDirection;
-                }
-                if (int.TryParse(groups[3].Value, out int WindStrength))
-                {
-                    wind.WindStrength = WindStrength;
-                }
+            string windUnitRaw = groups[10].Value;
 
-                wind.WindUnitRaw = groups[6].Value;
+            wind.WindUnitRaw = windUnitRaw;
 
-                string WindUnitDecoded = null;
-                switch (groups[6].Value)
-                {
-                    case "KT":
-                        WindUnitDecoded = "Knots";
-                        break;
-                    case "MPH":
-                        WindUnitDecoded = "Miles per Hour";
-                        break;
-                    case "MPS":
-                        WindUnitDecoded = "Meters per Second";
-                        break;
-                }
-                wind.WindUnitDecoded = WindUnitDecoded;
+            (wind.WindUnitDecoded, wind.WindUnit) = GetUnit(windUnitRaw);
 
-                if (int.TryParse(groups[5].Value, out int WindGusts))
-                {
-                    wind.WindGusts = WindGusts;
-                }
-
-                //Wind is variable
-                wind.IsWindCalm = false;
-                wind.IsWindVariable = true;
-                //and gusting
-                wind.IsWindGusting = groups[14].Success;
-
-                if (int.TryParse(groups[13].Value, out int windStrength))
-                {
-                    wind.WindStrength = windStrength;
-                }
-
-                if (groups[14].Success == true)
-                {
-                    wind.WindDirection = null;
-
-                    if (int.TryParse(groups[13].Value, out int windStrength2))
-                    {
-                        wind.WindStrength = windStrength2;
-                    }
-
-                    wind.WindUnitRaw = groups[16].Value;
-
-                    string windUnitDecoded = null;
-                    switch (groups[16].Value)
-                    {
-                        case "KT":
-                            WindUnitDecoded = "Knots";
-                            break;
-                        case "MPH":
-                            WindUnitDecoded = "Miles per Hour";
-                            break;
-                        case "MPS":
-                            WindUnitDecoded = "Meters per Second";
-                            break;
-                    }
-                    wind.WindUnitDecoded = WindUnitDecoded;
-
-                    if (int.TryParse(groups[15].Value, out int WindGusts2))
-                    {
-                        wind.WindGusts = WindGusts2;
-                    }
-                }
-                //and not gusting
-                else
-                {
-                    wind.IsWindGusting = false;
-
-                    wind.WindDirection = null;
-
-                    if (int.TryParse(groups[13].Value, out int WindStrength2))
-                    {
-                        wind.WindStrength = WindStrength2;
-                    }
-
-                    wind.WindUnitRaw = groups[16].Value;
-
-                    string windUnitDecoded = null;
-                    switch (groups[16].Value)
-                    {
-                        case "KT":
-                            windUnitDecoded = "Knots";
-                            break;
-                        case "MPH":
-                            windUnitDecoded = "Miles per Hour";
-                            break;
-                        case "MPS":
-                            windUnitDecoded = "Meters per Second";
-                            break;
-                    }
-                    wind.WindUnitDecoded = windUnitDecoded;
-
-                    wind.WindUnitRaw = groups[16].Value;
-
-                }
+            #endregion
 
 
-                //wind has variations
-                if (groups[17].Success == true)
-                {
-                    wind.isWindDirectionVarying = true;
+            wind.WindGusts = groups[9].Success ? TryParseWithThrow(groups[9].Value) : null;
 
-                    wind.WindDirectionVariationRaw = groups[17].Value;
+            wind.IsWindVariable = groups[2].Value.Contains("VRB");
 
-                    if (int.TryParse(groups[18].Value, out int WindVarLow))
-                    {
-                        wind.WindVariationLow = WindVarLow;
-                    }
-                    if (int.TryParse(groups[19].Value, out int WindVarHigh))
-                    {
-                        wind.WindVariationHigh = WindVarHigh;
-                    }
-                }
-                else
-                {
-                    //wind has no variations
-                    wind.isWindDirectionVarying = false;
-                }
 
+            if (groups[12].Success)
+            {
+                wind.IsWindDirectionVarying = true;
+                wind.WindDirectionVariationRaw = groups[12].Value;
+                wind.WindVariationLow = TryParseWithThrow(groups[13].Value);
+                wind.WindVariationHigh = TryParseWithThrow(groups[14].Value);
             }
             return wind;
+        }
+
+        private static Tuple<string, WindUnit> GetUnit(string raw) => raw switch
+        {
+            "KT" => new Tuple<string, WindUnit>("Knots", WindUnit.Knots),
+            "MPH" => new Tuple<string, WindUnit>("Miles Per Hour", WindUnit.MilesPerHour),
+            "MPS" => new Tuple<string, WindUnit>("Meters per Second", WindUnit.MetersPerSecond),
+            _ => throw new Exception("Could not convert Wind Unit")
+        };
+
+        private static int TryParseWithThrow(string value)
+        {
+            return int.TryParse(value, out int converted) ? converted : throw new Exception($"Could not convert value {value} to number");
         }
     }
 }

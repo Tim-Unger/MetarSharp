@@ -30,6 +30,8 @@ namespace MetarSharp
             Parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
 
             Parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(RawMetarString.RawMetar);
+                //parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
+                parsed.Wind = ParseWind.ReturnWind(RawMetarString.RawMetar);
 
             Parsed.Temperature = ParseTemperature.ReturnTemperature(RawMetarString.RawMetar);
 
@@ -48,6 +50,11 @@ namespace MetarSharp
             Parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(Parsed);
             
             return Parsed;
+                parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
+
+                return parsed;
+            }
+            throw new Exception("Metar is null or an empty line, check input");
         }
 
         public static Metar ParseFromLink(string Link)

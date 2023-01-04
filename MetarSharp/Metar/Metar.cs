@@ -2,6 +2,7 @@
 {
     public class Metar
     {
+        public string MetarRaw { get; set; }
         //The Airport (EGLL)
         public string Airport { get; set; }
 
@@ -52,14 +53,23 @@
          */
         public DateTime ReportingTimeZulu { get; set; }
 
-        public DateTime? ReportingTimeCustom { get; set; }
+        //public DateTime? ReportingTimeCustom { get; set; }
+    }
+
+    public enum WindUnit
+    {
+        Knots,
+        MilesPerHour,
+        MetersPerSecond
     }
 
     public class Wind
     {
         //The Wind as String (23008KT)
         public string WindRaw { get; set; }
-
+        public bool IsWindMeasurable { get; set; }
+        public bool IsWindDirectionMeasurable { get; set; }
+        public bool IsWindStrengthMeasurable { get; set; }
         public bool IsWindCalm { get; set; }
 
         //The Wind Direction (230)
@@ -73,6 +83,7 @@
 
         public string WindUnitDecoded { get; set; }
 
+        public WindUnit WindUnit { get; set; }
         //Whether there are Wind Gusts
         public bool IsWindGusting { get; set; }
 
@@ -82,7 +93,7 @@
         //Whether the Wind is VRB (true)
         public bool IsWindVariable { get; set; }
 
-        public bool isWindDirectionVarying { get; set; }
+        public bool IsWindDirectionVarying { get; set; }
 
         public string? WindDirectionVariationRaw { get; set; }
 
@@ -93,21 +104,28 @@
         public int? WindVariationHigh { get; set; }
     }
 
+    public enum VisibilityUnit
+    {
+        Meters,
+        Miles,
+        Kilometers
+    }
     public class Visibility
     {
         public string VisibilityRaw { get; set; }
 
         public bool IsVisibilityMeasurable { get; set; }
 
-        public int ReportedVisibility { get; set; }
+        public double ReportedVisibility { get; set; }
 
+        public VisibilityUnit VisibilityUnit { get; set; }
         public string VisibilityUnitRaw { get; set; }
 
         public string VisibilityUnitDecoded { get; set; }
 
         public bool HasVisibilityLowestValue { get; set; }
 
-        public int? LowestVisibility { get; set; }
+        public double? LowestVisibility { get; set; }
 
         public string? LowestVisibilityDirectionRaw { get; set; }
 
@@ -190,21 +208,30 @@
 
     public class Temperature
     {
+        public bool IsTemperatureMeasurable { get; set; }
         public string TemperatureRaw { get; set; }
 
         public bool IsTemperatureBelowZero { get; set; }
-        public int TemperatureOnly { get; set; }
+        public int? TemperatureOnly { get; set; }
 
         public bool IsDewpointBelowZero { get; set; }
 
-        public int DewpointOnly { get; set; }
+        public int? DewpointOnly { get; set; }
+    }
+
+    public enum PressureType
+    {
+        InchesMercury,
+        Hectopascal
     }
 
     public class Pressure
     {
+        public bool IsPressureMeasurable { get; set; }
         public string PressureRaw { get; set; }
 
-        public string PressureType { get; set; }
+        public PressureType? PressureType { get; set; }
+        public string PressureTypeString { get; set; }
 
         public string PressureTypeRaw { get; set; }
 

@@ -27,7 +27,7 @@ namespace MetarDownloader
             Random random = new();
 
             List<string> randomIcaos = new();
-            while (randomIcaos.Count <= 200)
+            while (randomIcaos.Count <= 1000)
             {
                 string icao = icaoList[random.Next(0, icaoList.Count)].ident;
 
@@ -50,13 +50,16 @@ namespace MetarDownloader
                 {
                     metars.Add(webData);
                     Console.WriteLine($"Metar downloaded for {icao}: {webData}");
+                    File.AppendAllText("./Metars.txt", webData + "\n");
                     await Task.Delay(1000);
                 }
             }
 
             //string metarsString = String.Join("\n", metars);
 
-            File.WriteAllLines("../Metars.txt", metars);
+            //File.WriteAllLines("./Metars.txt", metars);
+
+            Console.WriteLine(metars.Count + " Metars downloaded");
         }
     }
 }

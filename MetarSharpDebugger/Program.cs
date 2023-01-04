@@ -30,6 +30,7 @@ internal class Program
         ///Just for diagnostics/to check execution time 
         timer.Stop();
         var executeTime = timer.ElapsedMilliseconds;
+        var timerPerMetar = Math.Round((double)executeTime / m.Count, 5);
     }
 }
 
