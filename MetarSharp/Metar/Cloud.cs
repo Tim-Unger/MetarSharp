@@ -15,7 +15,7 @@ namespace MetarSharp
         NoSignificantClouds,
         NoCloudsDetected
     }
-    //TODO
+
     public class Cloud
     {
         public bool IsCAVOK { get; set; }

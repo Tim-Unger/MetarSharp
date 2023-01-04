@@ -14,7 +14,7 @@ namespace MetarSharp.Tests.Wind
         [Test]
         public void CheckWindVariationCount_ReturnsTrue()
         {
-            Regex windVarRegex = new(@"(?<!RMK.*)[0-9]{3}[0-9]{2,3}(G[0-9]{2})?KT\s[0-9]{3}V[0-9]{3}\s", RegexOptions.Multiline);
+            Regex windVarRegex = new(@"(?<!RMK.*)[0-9]{3}[0-9]{2,3}(G[0-9]{2})?(KT|MPS|MPH)\s[0-9]{3}V[0-9]{3}\s", RegexOptions.Multiline);
             MatchCollection matches = windVarRegex.Matches(String.Join("\n", Metars));
 
             int windVarCount = MetarsParsed.Where(x => x.Wind.IsWindDirectionVarying).Count();
@@ -26,7 +26,7 @@ namespace MetarSharp.Tests.Wind
         [Test]
         public void CheckGustCount_ReturnsTrue()
         {
-            Regex gustVarRegex = new(@"(?<!TEMPO.*)G[0-9]{1,3}(KT|MPH|MPS)", RegexOptions.Multiline);
+            Regex gustVarRegex = new(@"(?<!(TEMPO|BECMG).*)G[0-9]{1,3}(KT|MPH|MPS)", RegexOptions.Multiline);
             MatchCollection matches = gustVarRegex.Matches(String.Join("\n", Metars));
 
             int gustCount = MetarsParsed.Where(x => x.Wind.IsWindGusting).Count();

@@ -34,16 +34,4 @@ namespace MetarSharp
 
         public string ReadableReport;
     }
-
-    public enum CardinalDirection
-    {
-        North,
-        NorthEast,
-        East,
-        SouthEast,
-        South,
-        SouthWest,
-        West,
-        NorthWest,
-    }
 }

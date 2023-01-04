@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace MetarSharp
 {
-    //TODO
     public class ReportingTime
     {
         public string ReportingTimeRaw { get; set; }
@@ -26,6 +25,7 @@ namespace MetarSharp
          */
         public DateTime ReportingTimeZulu { get; set; }
 
+        //TODO
         //public DateTime? ReportingTimeCustom { get; set; }
     }
 }

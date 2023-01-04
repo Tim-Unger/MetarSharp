@@ -35,6 +35,7 @@ internal class Program
             metars.Add(metar);
         }
 
+        var gustCount = metars.Where(x => x.Wind.IsWindGusting == true).ToList().ConvertAll(y => y.Wind.WindRaw);
         ///Just for diagnostics/to check execution time 
         timer.Stop();
         var executeTime = timer.ElapsedMilliseconds;

@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace MetarSharp
 {
-    //TODO?
+    public enum TrendType
+    {
+        NoSignificantChange,
+        Becoming,
+        Tempo,
+    }
     public class Trend
     {
         public bool IsNOSIG { get; set; }
 
         public string? TrendRaw { get; set; }
 
-        //TODO To enum?
-        public string? TrendType { get; set; }
+        public TrendType TrendType { get; set; }
+        public string? TrendTypeRaw { get; set; }
 
         public bool? IsTimeRestricted { get; set; }
 
