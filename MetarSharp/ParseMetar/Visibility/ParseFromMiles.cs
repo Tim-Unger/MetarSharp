@@ -11,7 +11,7 @@ namespace MetarSharp.Parse
     {
         internal static Visibility ParseVisibility(GroupCollection groups)
         {
-            return new Visibility();
+            Visibility visibility = new();
         }
     }
 }

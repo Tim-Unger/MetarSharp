@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarSharp", "MetarSharp\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarSharp.Debugger", "MetarSharpDebugger\MetarSharp.Debugger.csproj", "{812C941D-136C-4505-BBCA-2A74382DE73C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharp.Tests", "MetarSharp.Tests\MetarSharp.Tests.csproj", "{C6A54207-9A1C-4022-BD6D-E5DFE52F439D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarDownloader", "MetarDownloader\MetarDownloader.csproj", "{900D8957-C07E-4C7F-9D94-3225E40C1F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarDownloader", "MetarDownloader\MetarDownloader.csproj", "{900D8957-C07E-4C7F-9D94-3225E40C1F01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharp.Tests", "MetarSharp.Tests\MetarSharp.Tests.csproj", "{04174095-89F7-423D-AE35-E8F647D62834}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{812C941D-136C-4505-BBCA-2A74382DE73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{812C941D-136C-4505-BBCA-2A74382DE73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{812C941D-136C-4505-BBCA-2A74382DE73C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6A54207-9A1C-4022-BD6D-E5DFE52F439D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6A54207-9A1C-4022-BD6D-E5DFE52F439D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6A54207-9A1C-4022-BD6D-E5DFE52F439D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6A54207-9A1C-4022-BD6D-E5DFE52F439D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

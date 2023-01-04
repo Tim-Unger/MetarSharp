@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp;
 
 namespace MetarSharp.Parse
 {
@@ -40,7 +41,7 @@ namespace MetarSharp.Parse
                 return ParseFromMiles.ParseVisibility(groups);
             }
 
-            if (groups[12].Value == "KM6")
+            if (groups[12].Value == "KM")
             {
                 return ParseFromKilometer.ParseVisibility(groups);
             }
@@ -166,17 +167,17 @@ namespace MetarSharp.Parse
             #endregion
         }
 
-        private static string CardinalDirection(string raw) =>
+        internal static (CardinalDirection, string) GetCardinalDirection(string raw) =>
             raw switch
             {
-                "N" => "North",
-                "NE" => "North-East",
-                "E" => "East",
-                "SE" => "South-East",
-                "S" => "South",
-                "SW" => "South-West",
-                "W" => "West",
-                "NW" => "North-West",
+                "N" => (CardinalDirection.North, "North"),
+                "NE" => (CardinalDirection.NorthEast, "North-East"),
+                "E" => (CardinalDirection.East, "East"),
+                "SE" => (CardinalDirection.SouthEast, "South-East"),
+                "S" => (CardinalDirection.South, "South"),
+                "SW" => (CardinalDirection.SouthWest, "South-West"),
+                "W" => (CardinalDirection.West, "West"),
+                "NW" => (CardinalDirection.NorthWest, "North-West"),
                 _ => throw new Exception("Could not convert cardinal direction")
             };
     }

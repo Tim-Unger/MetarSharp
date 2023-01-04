@@ -71,5 +71,21 @@ namespace MetarSharp.Parse
 
             return reportingTime;
         }
+        private static int TryParseWithThrow(string value)
+        {
+            return int.TryParse(value, out int converted)
+              ? converted
+              : throw new Exception($"Could not convert value {value} to number");
+        }
+
+        private static int RemoveMonths(int months)
+        {
+            return DateTime.UtcNow.AddMonths(-months).Month;
+        }
+
+        private static int RemoveMonthsYear(int months)
+        {
+            return DateTime.UtcNow.AddMonths(-months).Year;
+        }
     }
 }

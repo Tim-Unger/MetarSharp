@@ -1,4 +1,5 @@
-﻿namespace MetarSharp
+﻿
+namespace MetarSharp
 {
     public class Metar
     {
@@ -110,6 +111,18 @@
         Miles,
         Kilometers
     }
+
+    public enum CardinalDirection
+    {
+        North,
+        NorthEast,
+        East,
+        SouthEast,
+        South,
+        SouthWest,
+        West,
+        NorthWest,
+    }
     public class Visibility
     {
         public string VisibilityRaw { get; set; }
@@ -127,9 +140,18 @@
 
         public double? LowestVisibility { get; set; }
 
+        public CardinalDirection LowestVisibilityDirection { get; set; }
+
         public string? LowestVisibilityDirectionRaw { get; set; }
 
         public string? LowestVisibilityDirectionDecoded { get; set; }
+    }
+
+    public enum ParallelRunwayDesignator
+    {
+        Left,
+        Center,
+        Right
     }
 
     //TODO
@@ -139,8 +161,9 @@
 
         public string Runway { get; set; }
 
-        //TODO IsParallelRunway bool?
-        public string? ParallelRunwayDesignator { get; set; }
+        public bool IsParallelRunway { get; set; }
+        public ParallelRunwayDesignator ParallelRunwayDesignator { get; set; }
+        public string? ParallelRunwayDesignatorRaw { get; set; }
         public string? ParallelRunwayDesignatorDecoded { get; set; }
         public int RunwayVisualRange { get; set; }
 
