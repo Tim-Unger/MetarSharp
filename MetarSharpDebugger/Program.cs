@@ -26,7 +26,7 @@ internal class Program
 
         //You can enter your metars here
 
-        MetarDefinition.Edit(Definitions.MeterLong, "Meta");
+        MetarDefinition.Edit(Definitions.MeterLong, "Test");
         timer.Stop();
 
         var lines = File.ReadAllLines("../Metars.txt");
@@ -39,6 +39,7 @@ internal class Program
         }
 
         var gustCount = metars.Where(x => x.Wind.IsWindGusting == true).ToList().ConvertAll(y => y.Wind.WindRaw);
+
         ///Just for diagnostics/to check execution time 
         var executeTime = timer.ElapsedMilliseconds;
         var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);

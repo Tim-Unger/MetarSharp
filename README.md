@@ -31,7 +31,7 @@ Metar StringMetar = ParseMetar.ParseFromString("EDDF 182320Z AUTO 26006KT 200V29
 Metar LinkMetar = ParseMetar.ParseFromLink("https://metar.vatsim.net/eddf");
 
 //Parse a list of Metars
-List<string> Metars = //Your list of Metars here (You can use Metars or a link to a website)
+List<string> Metars = //Your list of Metars here (You can use Metar strings or a link to a website)
 List<Metar> ListOfMetars = ParseMetar.ParseList(Metars); //Then you can run through the list
 ```
 
@@ -258,8 +258,8 @@ Automated weather report for EDDF.
 Reported today at 23:20 UTC
 Wind: 170 Degrees 1 Knot
 Ceiling and Visibility Okay
-Temperature: 7°C
-Dewpoint: 6°C
+Temperature: 7ï¿½C
+Dewpoint: 6ï¿½C
 Pressure: 1025hPa or 30.00inHg
 */
 ```
