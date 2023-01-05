@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp.Definitions;
 
 namespace MetarSharp.Parse
 {
@@ -36,12 +37,12 @@ namespace MetarSharp.Parse
 
             (pressure.PressureTypeString, pressure.PressureType) = groups[1].Value switch
             {
-                "A" => ("Altimeter/Inches Mercury", PressureType.InchesMercury),
-                "Q" => ("QNH/Hectopascal", PressureType.Hectopascal),
+                "A" => (PressureDefinitions.InchesMercuryLong, PressureType.InchesMercury),
+                "Q" => (PressureDefinitions.HectopascalsLong, PressureType.Hectopascal),
                 _ => throw new Exception("Pressure Type could not be converted")
             };
 
-            string pressureTypeRaw = groups[1].Value == "A" ? "A" : "QNH";
+            string pressureTypeRaw = groups[1].Value == "A" ? PressureDefinitions.InchesMercuryShort : PressureDefinitions.HectopascalsShort;
             pressure.PressureTypeRaw = pressureTypeRaw;
 
             int pressureValue = int.TryParse(groups[2].Value, out int _pressureVal)
@@ -49,10 +50,10 @@ namespace MetarSharp.Parse
               : 0;
             pressure.PressureOnly = pressureValue;
             pressure.PressureAsAltimeter = Convert.ToInt32(
-                Math.Round(pressureTypeRaw == "A" ? pressureValue : pressureValue / 33.8569518716, 0)
+                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : pressureValue / 33.8569518716, 0)
             );
             pressure.PressureAsQnh = Convert.ToInt32(
-                Math.Round(pressureTypeRaw == "QNH" ? pressureValue : pressureValue * 33.8569518716, 0)
+                Math.Round(pressureTypeRaw == PressureDefinitions.HectopascalsShort ? pressureValue : pressureValue * 33.8569518716, 0)
             );
 
             if (pressureTypeRaw == "A")

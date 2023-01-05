@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MetarSharp.Definitions;
+using MetarSharp.ParseOptions;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -54,8 +57,8 @@ namespace MetarSharp.Parse
             visibility.ReportedVisibility = reportedVisibilityConverted;
 
             visibility.VisibilityUnit = VisibilityUnit.Miles;
-            visibility.VisibilityUnitRaw = "SM";
-            visibility.VisibilityUnitDecoded = "Statute Miles";
+            visibility.VisibilityUnitRaw = DistanceDefinitions.StatuteMileShort;
+            visibility.VisibilityUnitDecoded = DistanceDefinitions.StatuteMileLong;
             #endregion
 
             //TODO

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MetarSharp.Definitions;
+using MetarSharp.ParseOptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +25,8 @@ namespace MetarSharp.Parse
             visibility.ReportedVisibility = double.Parse(groups[8].Value);
 
             visibility.VisibilityUnit = VisibilityUnit.Kilometers;
-            visibility.VisibilityUnitRaw = "KM";
-            visibility.VisibilityUnitDecoded = "Kilometers";
+            visibility.VisibilityUnitRaw = DistanceDefinitions.KilometerShort;
+            visibility.VisibilityUnitDecoded = DistanceDefinitions.KilometerLong;
 
             #endregion
 

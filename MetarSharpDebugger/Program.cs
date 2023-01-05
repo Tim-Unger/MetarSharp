@@ -5,8 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using MetarSharp;
+using MetarSharp.Definitions;
 using MetarSharp.ParseOptions;
-using MetarSharp.Parser;
 
 namespace MetarSharpDebugger;
 
@@ -26,6 +26,9 @@ internal class Program
 
         //You can enter your metars here
 
+        MetarDefinition.Edit(Definitions.MeterLong, "Meta");
+        timer.Stop();
+
         var lines = File.ReadAllLines("../Metars.txt");
         List<Metar> metars = new();
 
@@ -37,7 +40,6 @@ internal class Program
 
         var gustCount = metars.Where(x => x.Wind.IsWindGusting == true).ToList().ConvertAll(y => y.Wind.WindRaw);
         ///Just for diagnostics/to check execution time 
-        timer.Stop();
         var executeTime = timer.ElapsedMilliseconds;
         var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
     }

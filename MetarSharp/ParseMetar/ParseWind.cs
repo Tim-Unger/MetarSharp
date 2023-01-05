@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp.Definitions;
 
 namespace MetarSharp.Parse
 {
@@ -75,30 +76,17 @@ namespace MetarSharp.Parse
             return wind;
         }
 
-        private static Tuple<string, WindUnit> GetUnit(string raw) => raw switch
+        private static (string, WindUnit) GetUnit(string raw) => raw switch
         {
-            "KT" => new Tuple<string, WindUnit>("Knots", WindUnit.Knots),
-            "MPH" => new Tuple<string, WindUnit>("Miles Per Hour", WindUnit.MilesPerHour),
-            "MPS" => new Tuple<string, WindUnit>("Meters per Second", WindUnit.MetersPerSecond),
+            "KT" => (WindDefinitions.KnotsLong, WindUnit.Knots),
+            "MPH" => (WindDefinitions.MilesPerHourLong, WindUnit.MilesPerHour),
+            "MPS" => (WindDefinitions.MetersPerSecondLong, WindUnit.MetersPerSecond),
             _ => throw new Exception("Could not convert Wind Unit")
         };
 
         private static int TryParseWithThrow(string value)
         {
             return int.TryParse(value, out int converted) ? converted : throw new Exception($"Could not convert value {value} to number");
-        }
-
-        private static Tuple<string, WindUnit> GetUnit(string raw) => raw switch
-        {
-            "KT" => new Tuple<string, WindUnit>("Knots", WindUnit.Knots),
-            "MPH" => new Tuple<string, WindUnit>("Miles Per Hour", WindUnit.MilesPerHour),
-            "MPS" => new Tuple<string, WindUnit>("Meters per Second", WindUnit.MetersPerSecond),
-            _ => throw new Exception("Could not convert Wind Unit")
-        };
-
-        private static int TryParseWithThrow(string value)
-        {
-            return int.TryParse(value, out int converted) ? converted : throw new Exception($"Could not convert value {value} to number Caller: {line}");
         }
     }
 }

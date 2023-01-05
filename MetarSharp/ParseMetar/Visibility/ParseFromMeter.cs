@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MetarSharp.Definitions;
+using MetarSharp.ParseOptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +24,8 @@ namespace MetarSharp.Parse
             visibility.IsVisibilityMeasurable = true;
             
             visibility.VisibilityUnit = VisibilityUnit.Meters;
-            visibility.VisibilityUnitRaw = "M";
-            visibility.VisibilityUnitDecoded = "Meters";
+            visibility.VisibilityUnitRaw = DistanceDefinitions.MeterShort;
+            visibility.VisibilityUnitDecoded = DistanceDefinitions.MeterLong;
 
             #endregion
 

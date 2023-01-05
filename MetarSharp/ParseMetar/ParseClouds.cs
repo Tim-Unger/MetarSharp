@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp.Definitions;
 
 namespace MetarSharp.Parse
 {
@@ -91,8 +92,8 @@ namespace MetarSharp.Parse
 
                             cloud.CBCloudTypeDecoded = groups[6].Value switch
                             {
-                                "CB" => "Cumulonimbus Clouds",
-                                "TC" or "TCU" => "Towering Cumulonimbus Clouds",
+                                "CB" => CloudDefintions.CumulonimbusLong,
+                                "TC" or "TCU" => CloudDefintions.ToweringCumulonimbusLong,
                                 null or "" => null,
                                 _ => throw new Exception("Could not read Cumulonimbus Cloud Type")
                             };
@@ -109,12 +110,12 @@ namespace MetarSharp.Parse
         private static (CloudType, string) GetCloudType(string input) =>
             input.ToUpper() switch
             {
-                "FEW" => (CloudType.Few, "Few Clouds"),
-                "SCT" => (CloudType.Scattered, "Scattered Clouds"),
-                "BKN" => (CloudType.Broken, "Broken Clouds"),
-                "OVC" => (CloudType.Overcast, "Overcast Clouds"),
-                "NSC" => (CloudType.NoSignificantClouds, "No Significant Clouds"),
-                "NCD" => (CloudType.NoCloudsDetected, "No Clouds detected"),
+                "FEW" => (CloudType.Few, CloudDefintions.FewCloudsLong),
+                "SCT" => (CloudType.Scattered, CloudDefintions.ScatteredCloudsLong),
+                "BKN" => (CloudType.Broken, CloudDefintions.BrokenCloudsLong),
+                "OVC" => (CloudType.Overcast, CloudDefintions.OvercastCloudsLong),
+                "NSC" => (CloudType.NoSignificantClouds, CloudDefintions.NoSignificantCloudsLong),
+                "NCD" => (CloudType.NoCloudsDetected, CloudDefintions.NoCloudsDetectedLong),
                 _ => throw new Exception("Can't read cloud type")
             };
     }

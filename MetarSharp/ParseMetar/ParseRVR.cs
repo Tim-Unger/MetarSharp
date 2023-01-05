@@ -6,6 +6,7 @@ using System.Runtime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp.Definitions;
 
 namespace MetarSharp.Parse
 {
@@ -36,9 +37,9 @@ namespace MetarSharp.Parse
 
                 runwayVisibility.ParallelRunwayDesignatorDecoded = groups[3].Value switch
                 {
-                    "L" => "Left",
-                    "C" => "Center",
-                    "R" => "Right",
+                    "L" => RunwayDefinition.LeftRunwayLong,
+                    "C" => RunwayDefinition.CenterRunwayLong,
+                    "R" => RunwayDefinition.RightRunwayLong,
                     null or "" => null,
                     _
                       => throw new Exception(
@@ -67,12 +68,12 @@ namespace MetarSharp.Parse
 
                 (
                     runwayVisibility.RVRTendencyRaw,
-                    runwayVisibility.ParallelRunwayDesignatorDecoded
+                    runwayVisibility.RVRTendencyDecoded
                 ) = groups[9].Value switch
                 {
-                    "U" => ("U", "Upward"),
-                    "N" => ("N", "Stagnant"),
-                    "D" => ("D", "Downward"),
+                    "U" => (RVRDefinitions.TendencyDownwardShort, RVRDefinitions.TendencyUpwardLong),
+                    "N" => (RVRDefinitions.TendencyStagnantShort, RVRDefinitions.TendencyStagnantLong),
+                    "D" => (RVRDefinitions.TendencyDownwardShort, RVRDefinitions.TendencyDownwardLong),
                     _
                       => throw new Exception(
                           $"Could not read RVR-Tendency for Runway {groups[1].Value}"
@@ -84,8 +85,8 @@ namespace MetarSharp.Parse
 
                 runwayVisibility.RVRVariationMoreOrLessDecoded = groups[7].Value switch
                 {
-                    "M" => "Less",
-                    "P" => "More",
+                    "M" => RVRDefinitions.ValueLessThanLong,
+                    "P" => RVRDefinitions.ValueMoreThanLong,
                     null or "" => null,
                     _ => ""
                 };

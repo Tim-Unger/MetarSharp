@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MetarSharp;
+using static MetarSharp.Definitions.CardinalDirectionDefinitions;
 
 namespace MetarSharp.Parse
 {
@@ -54,14 +55,14 @@ namespace MetarSharp.Parse
         internal static (CardinalDirection, string) GetCardinalDirection(string raw) =>
             raw switch
             {
-                "N" => (CardinalDirection.North, "North"),
-                "NE" => (CardinalDirection.NorthEast, "North-East"),
-                "E" => (CardinalDirection.East, "East"),
-                "SE" => (CardinalDirection.SouthEast, "South-East"),
-                "S" => (CardinalDirection.South, "South"),
-                "SW" => (CardinalDirection.SouthWest, "South-West"),
-                "W" => (CardinalDirection.West, "West"),
-                "NW" => (CardinalDirection.NorthWest, "North-West"),
+                "N" => (CardinalDirection.North, NorthLong),
+                "NE" => (CardinalDirection.NorthEast, NorthEastLong),
+                "E" => (CardinalDirection.East, EastLong),
+                "SE" => (CardinalDirection.SouthEast, SouthEastLong),
+                "S" => (CardinalDirection.South, SouthLong),
+                "SW" => (CardinalDirection.SouthWest, SouthWestLong),
+                "W" => (CardinalDirection.West, WestLong),
+                "NW" => (CardinalDirection.NorthWest, NorthWestLong),
                 _ => throw new Exception("Could not convert cardinal direction")
             };
     }
