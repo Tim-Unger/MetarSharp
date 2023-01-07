@@ -20,4 +20,9 @@
     <ProjectReference Include="..\MetarSharp\MetarSharp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tests\Clouds\" />
+    <Folder Include="Tests\Temperature\" />
+  </ItemGroup>
+
 </Project>

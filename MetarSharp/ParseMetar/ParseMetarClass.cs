@@ -53,9 +53,11 @@ namespace MetarSharp
 
             parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(RawMetarString.RawMetar);
 
-            parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
-            
-            return parsed;
+                parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
+
+                return parsed;
+            }
+            throw new Exception("Metar is null or an empty line, check input");
         }
 
         public static Metar ParseFromLink(string Link)

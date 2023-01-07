@@ -10,7 +10,6 @@ namespace MetarSharp.Tests.Wind
 {
     internal class Wind
     {
-        //TODO Currently broken
         [Test]
         public void CheckWind_ReturnsTrue()
         {
@@ -20,26 +19,6 @@ namespace MetarSharp.Tests.Wind
                 Assert.Fail();
                 return;
             }
-
-            //foreach (var metar in MetarsParsed)
-            //{
-                
-            //    if (metar.Wind.WindRaw == null)
-            //    {
-            //        string unit = metar.Wind.WindRaw;
-            //        Assert.Fail($"Failed with: {unit}");
-            //        return;
-            //    }
-
-            //    Assert.Pass();
-
-            //    //Assert.NotNull(metar.Wind.WindRaw);
-            //    //Assert.Fail($"failed for: {metar.Airport} value was {metar.Wind.WindRaw}");
-
-            //}
-            ////Assert.That(MetarsParsed.All(x => x.Wind.WindRaw != null));
         }
-
-        
     }
 }
