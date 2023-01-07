@@ -55,8 +55,9 @@ namespace MetarSharp
 
             parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
 
-            return parsed;
-        
+                return parsed;
+            }
+            throw new Exception("Could not read Metar");
         }
 
         public static Metar ParseFromLink(string Link)
