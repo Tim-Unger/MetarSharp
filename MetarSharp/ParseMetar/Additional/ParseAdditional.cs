@@ -40,48 +40,19 @@ namespace MetarSharp.Parse
                 //Recent Weather
                 if (groups[2].Success)
                 {
-                    RecentWeather recent = new RecentWeather();
-
-                    recent.RecentWeatherRaw = groups[2].Value;
-
-                    recent.RecentWeatherTypeRaw = groups[4].Value;
-
-                    recent.RecentWeatherDecoded = null; //TODO
-
-                    recentWeather.Add(recent);
+                    recentWeather.Add(RecentWeatherParse.Parse(groups));
                     continue;
                 }
 
                 //Windshear
                 if (groups[5].Success == true)
                 {
-                    WindShear wind = new WindShear();
-
-                    wind.WindShearRaw = groups[5].Value;
-
-                    if (groups[7].Value == "ALL RWY")
-                    {
-                        wind.IsAllRunways = true;
-
-                        wind.Runway = null;
-                        windShear.Add(wind);
-
-                        continue;
-                    }
-
-                    //TODO parallel runways
-                        
-                    wind.IsAllRunways = false;
-
-                    if (int.TryParse(groups[9].Value, out int Runway))
-                    {
-                        wind.Runway = Runway;
-                    }
-                    wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new Exception("Could not read Runway");
-
+                    windShear.Add(WindshearParse.Parse(groups));
+                    continue;
                 }
+
                 //ColorCode
-                else if (groups[9].Success == true)
+                if (groups[9].Success == true)
                 {
                     //TODO
                 }
