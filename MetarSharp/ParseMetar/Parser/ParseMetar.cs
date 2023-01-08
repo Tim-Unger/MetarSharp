@@ -9,24 +9,24 @@ namespace MetarSharp
 {
     public class ParseMetar
     {
-        public static Metar ParseFromString(string metar)
+        public static Metar ParseFromString(string input)
         {
-            if(IsStringNullOrEmpty(metar))
+            if(IsStringNullOrEmpty(input))
             {
                 throw new Exception();
             }
 
-            return FromString.Parse(metar);
+            return FromString.Parse(input);
         }
 
-        public static Metar ParseFromLink(string link)
+        public static Metar ParseFromLink(string input)
         {
-            if(IsStringNullOrEmpty(link))
+            if(IsStringNullOrEmpty(input))
             {
                 throw new Exception();
             }
 
-            return FromLink.Parse(link);
+            return FromLink.Parse(input);
         }
 
         public static List<Metar> ParseFromList(List<string> input)
@@ -51,6 +51,18 @@ namespace MetarSharp
             RemoveEmptyEntriesFromCollection(input);
 
             return FromArray.Parse(input);
+        }
+
+        public static IEnumerable<Metar> ParseFromCollection<T>(T input)
+        {
+            if(IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new Exception();
+            }
+
+            RemoveEmptyEntriesFromCollection(input);
+
+            return FromCollection.Parse(input);
         }
     }
 }
