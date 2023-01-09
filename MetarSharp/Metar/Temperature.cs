@@ -10,12 +10,9 @@ namespace MetarSharp
     {
         public bool IsTemperatureMeasurable { get; set; }
         public string TemperatureRaw { get; set; }
-
         public bool IsTemperatureBelowZero { get; set; }
-        public int? TemperatureOnly { get; set; }
-
+        public int? TemperatureOnly { get; set; } 
         public bool IsDewpointBelowZero { get; set; }
-
         public int? DewpointOnly { get; set; }
     }
 }

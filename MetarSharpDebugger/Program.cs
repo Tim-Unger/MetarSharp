@@ -12,12 +12,6 @@ namespace MetarSharpDebugger;
 
 internal class Program
 {
-    public class RawMetarString
-    {
-        public static string RawMetar { get; set; }
-
-        public static string RestOfMetar { get; set; }
-    }
     static async Task Main(string[] args)
     {
         ///Just for diagnostics
@@ -38,7 +32,7 @@ internal class Program
             metars.Add(metar);
         }
 
-        var gustCount = metars.Where(x => x.Wind.IsWindGusting == true).ToList().ConvertAll(y => y.Wind.WindRaw);
+        var gustCount = metars.Where(x => x.Wind.IsWindGusting).ToList().ConvertAll(y => y.Wind.WindRaw);
 
         ///Just for diagnostics/to check execution time 
         var executeTime = timer.ElapsedMilliseconds;

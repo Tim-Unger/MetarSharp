@@ -1,27 +1,64 @@
 ﻿using MetarSharp.Parser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static MetarSharp.Parser.Helpers;
 
 namespace MetarSharp
 {
     public class ParseMetar
     {
-        public static Metar ParseFromString(string metar)
+        public static Metar ParseFromString(string input)
         {
-            return FromString.Parse(metar);
+            if(IsStringNullOrEmpty(input))
+            {
+                throw new Exception();
+            }
+
+            return FromString.Parse(input);
         }
 
-        public static Metar ParseFromLink(string link)
+        public static Metar ParseFromLink(string input)
         {
-            return FromLink.Parse(link);
+            if(IsStringNullOrEmpty(input))
+            {
+                throw new Exception();
+            }
+
+            return FromLink.Parse(input);
         }
 
         public static List<Metar> ParseFromList(List<string> input)
         {
-            return FromList.Parse(input);
+            if(IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new Exception();
+            }
+
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
+
+            return FromList.Parse(cleanedInput.ToList());
+        }
+
+        public static Metar[] ParseFromArray(string[] input)
+        {
+            if(IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new Exception();
+            }
+
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
+
+            return FromArray.Parse(cleanedInput.ToArray());
+        }
+
+        public static IEnumerable<Metar> ParseFromCollection(IEnumerable<string> input)
+        {
+            if(IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new Exception();
+            }
+
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
+
+            return FromCollection.Parse(cleanedInput);
         }
     }
 }

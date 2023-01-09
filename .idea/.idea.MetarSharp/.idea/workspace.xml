@@ -7,56 +7,7 @@
     <projectFile>MetarSharpDebugger/MetarSharp.Debugger.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a590756-3976-4447-bbf6-8622d302ecc5" name="Changes" comment="restructure">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/MetarStringCreator/CreateMetarString.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/MetarStringCreator/WriteAirport.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/MetarStringCreator/WriteReportingTime.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/MetarStringCreator/WriteVisibility.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/MetarStringCreator/WriteWind.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Additional/RecentWeather.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Additional/WindShear.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Cloud/GetCloudType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromArray.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromEnumerable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromLink.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromList.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromString.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/Helpers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/ParseMetar.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReportingTime/Helpers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp.Tests/Setup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Tests/Setup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp.Tests/Tests/Pressure/PressureTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Tests/Tests/Pressure/PressureTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp.Tests/Tests/Wind/WindTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Tests/Tests/Wind/WindTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/AdditionalIformation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/AdditionalIformation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/CardinalDirection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/CardinalDirection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Cloud.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Cloud.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/ColorCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/ColorCode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Metar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Metar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Pressure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Pressure.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/RecentWeather.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/RecentWeather.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/ReportingTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/ReportingTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/RunwayVisibility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/RunwayVisibility.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseAdditional.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Additional/ParseAdditional.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseAirport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Airport/ParseAirport.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseAuto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Automated/ParseAuto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseClouds.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Cloud/ParseClouds.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseMetarClass.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParsePressure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Pressure/ParsePressure.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseRVR.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/RVR/ParseRVR.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseReadableReport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReadableReport/ParseReadableReport.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseReportingTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReportingTime/ParseReportingTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseTemperature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Temperature/ParseTemperature.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseTrend.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Trend/ParseTrend.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseWeather.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Weather/ParseWeather.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ParseWind.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Wind/ParseWind.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="4a590756-3976-4447-bbf6-8622d302ecc5" name="Changes" comment="restructure" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +21,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/46a322d26154b982566e1817203e5452c91223f93b0e392d9c5b4806696fdc1/Assert.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/575c31ecc35a636b6f962cb71d53992552941a18982aae1c8e6c16305cc3761b/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a9cbda3784706aeeed61f1a08a18046925b69f777943eca27fbbcca09dff60/DateTime.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MetarSharp/ParseMetar/RVR/ParseRVR.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -87,25 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;RiderUnitTestingPageId&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "RiderNuGetOptionsPageId",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\timiu\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\timiu\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Project.MetarSharp.Debugger">
     <configuration name="MetarDownloader" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -186,6 +136,7 @@
       <workItem from="1672965969313" duration="124000" />
       <workItem from="1672966145986" duration="2735000" />
       <workItem from="1673051339155" duration="3247000" />
+      <workItem from="1673223071332" duration="2396000" />
     </task>
     <servers />
   </component>
@@ -216,30 +167,17 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/Helpers.cs</url>
-          <line>11</line>
-          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\ParseMetar\Parser\Helpers.cs" initialLine="11" containingFunctionPresentation="method 'IsCollectionNullOrEmpty'">
+          <url>file://$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromCollection.cs</url>
+          <line>14</line>
+          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\ParseMetar\Parser\FromCollection.cs" initialLine="14" containingFunctionPresentation="method 'Parse'">
             <startOffsets>
-              <option value="328" />
+              <option value="467" />
             </startOffsets>
             <endOffsets>
-              <option value="383" />
+              <option value="507" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/MetarSharpDebugger/Program.cs</url>
-          <line>27</line>
-          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharpDebugger\Program.cs" initialLine="27" containingFunctionPresentation="method 'Main'">
-            <startOffsets>
-              <option value="642" />
-            </startOffsets>
-            <endOffsets>
-              <option value="711" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
