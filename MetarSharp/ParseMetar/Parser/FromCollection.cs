@@ -1,17 +1,18 @@
+using System.Collections;
+using static MetarSharp.Parser.Helpers;
 namespace MetarSharp.Parser
 {
     internal class FromCollection
     {
         internal static IEnumerable<Metar> Parse<T>(T input)
         {
-            var inputConvert = input as IEnumerable;
+            var inputConvert = input as List<string>;
 
-            var cleanInput = inputConvert.Where(x => x != IsStringNullOrEmpty(x));
+            var cleanInput = inputConvert.Where(x => IsStringNullOrEmpty(x) == false);
 
-            List<Metar> returnList = cleanInput.Select(x => ParseMetar.ParseFromString(x)).ToList();
+            List<Metar> returnList = cleanInput.Select(MetarSharp.ParseMetar.ParseFromString).ToList();
 
-            IEnumerable<Metar> returnEnumerable = returnList;
-            return returnEnumerable;
+            return returnList as IEnumerable<Metar>;
         }
     }
 }

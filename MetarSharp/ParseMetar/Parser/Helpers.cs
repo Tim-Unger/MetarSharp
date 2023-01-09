@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetarSharp.Parser
+﻿namespace MetarSharp.Parser
 {
     internal class Helpers
     {
         internal static bool IsStringNullOrEmpty(string input)
         {
-            return input == null || input == String.Empty || input == "" || String.IsNullOrWhiteSpace(input)
+            return input == null || input == String.Empty || input == "" || String.IsNullOrWhiteSpace(input);
         }
 
         internal static bool IsEntireCollectionNullOrEmpty<T>(T input)
         {
-            return T == null || T == Enumerable.Empty<T>();
+            return input == null || input as IEnumerable<T> == Enumerable.Empty<T>();
         }
 
-        internal static void RemoveEmptyEntriesFromCollection<T>(T input)
+        internal static IEnumerable<string> RemoveEmptyEntriesFromCollection<T>(T input)
         {
-            return T.Where(x => x != IsNullOrWhiteSpace(x));
+
+            var convertedInput = input as IEnumerable<string>;
+
+            var cleanedInput = convertedInput.Where(x => IsStringNullOrEmpty(x) == false);
+
+            return  cleanedInput as IEnumerable<string>;
         }
     }
 }

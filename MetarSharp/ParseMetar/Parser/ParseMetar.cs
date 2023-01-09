@@ -1,9 +1,5 @@
 ﻿using MetarSharp.Parser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static MetarSharp.Parser.Helpers;
 
 namespace MetarSharp
 {
@@ -36,9 +32,9 @@ namespace MetarSharp
                 throw new Exception();
             }
 
-            RemoveEmptyEntriesFromCollection(input);
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
-            return FromList.Parse(input);
+            return FromList.Parse(cleanedInput.ToList());
         }
 
         public static Metar[] ParseFromArray(string[] input)
@@ -48,21 +44,21 @@ namespace MetarSharp
                 throw new Exception();
             }
 
-            RemoveEmptyEntriesFromCollection(input);
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
-            return FromArray.Parse(input);
+            return FromArray.Parse(cleanedInput.ToArray());
         }
 
-        public static IEnumerable<Metar> ParseFromCollection<T>(T input)
+        public static IEnumerable<Metar> ParseFromCollection(IEnumerable<string> input)
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
                 throw new Exception();
             }
 
-            RemoveEmptyEntriesFromCollection(input);
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
-            return FromCollection.Parse(input);
+            return FromCollection.Parse(cleanedInput);
         }
     }
 }

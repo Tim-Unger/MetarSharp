@@ -1,4 +1,7 @@
-namepace MetarSharp.Parse.Windshear
+using System.Text.RegularExpressions;
+using MetarSharp;
+
+namespace MetarSharp.Parse.Additional
 {
     internal class WindshearParse
     {
@@ -13,7 +16,6 @@ namepace MetarSharp.Parse.Windshear
                     wind.IsAllRunways = true;
 
                     wind.Runway = null;
-                    windShear.Add(wind);
 
                     return wind;
                 }
@@ -28,6 +30,7 @@ namepace MetarSharp.Parse.Windshear
             }
             wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new Exception("Could not read Runway");
 
+            return wind;
         }
     }
 }

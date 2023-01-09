@@ -2,6 +2,7 @@
 {
     public enum Definitions
     {
+        #region DISTANCE
         KilometerShort,
         KilometerLong,
         MeterShort,
@@ -10,6 +11,9 @@
         StatuteMileLong,
         MileShort,
         MileLong,
+        #endregion
+
+        #region CARDINALDIRECTION
         NorthShort,
         NorthLong,
         NorthEastShort,
@@ -26,6 +30,9 @@
         WestLong,
         NorthWestShort,
         NorthWestLong,
+        #endregion
+        
+        #region CLOUDTYPE
         CumulonimbusShort,
         CumulonimbusLong,
         ToweringCumulonimbusShort,
@@ -42,16 +49,25 @@
         NoSignificantCloudsLong,
         NoCloudsDetectedShort,
         NoCloudsDetectedLong,
+        #endregion
+
+        #region PRESSURE
         InchesMercuryShort,
         InchesMercuryLong,
         HectopascalsShort,
         HectopascalsLong,
+        #endregion
+
+        #region RUNWAY
         LeftRunwayShort,
         LeftRunwayLong,
         CenterRunwayShort,
         CenterRunwayLong,
         RightRunwayShort,
         RightRunwayLong,
+        #endregion
+
+        #region RVR
         TendencyUpwardShort,
         TendencyUpwardLong,
         TendencyStagnantShort,
@@ -62,12 +78,16 @@
         ValueLessThanLong,
         ValueMoreThanShort,
         ValueMoreThanLong,
+        #endregion
+
+        #region WIND
         KnotsShort,
         KnotsLong,
         MilesPerHourShort,
         MilesPerHourLong,
         MetersPerSecondShort,
         MetersPerSecondLong
+        #endregion
     }
 
     public class DistanceDefinitions

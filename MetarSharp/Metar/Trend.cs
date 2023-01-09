@@ -15,16 +15,11 @@ namespace MetarSharp
     public class Trend
     {
         public bool IsNOSIG { get; set; }
-
         public string? TrendRaw { get; set; }
-
         public TrendType TrendType { get; set; }
         public string? TrendTypeRaw { get; set; }
-
         public bool? IsTimeRestricted { get; set; }
-
         public int? TimeRestrictionRaw { get; set; }
-
         public DateTime? TimeRestrictionDateTime { get; set; }
     }
 }
