@@ -21,5 +21,7 @@ namespace MetarSharp
     public class ColorCode
     {
         public Color Color { get; set; }
+        public string ColorCodeShort { get; set; }
+        public string ColorCodeLong { get; set; }
     }
 }

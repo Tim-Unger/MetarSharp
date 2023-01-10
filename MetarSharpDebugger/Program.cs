@@ -15,7 +15,7 @@ internal class Program
     static async Task Main(string[] args)
     {
         ///Just for diagnostics
-        Stopwatch timer = new Stopwatch();
+        var timer = new Stopwatch();
         timer.Start();
 
         //You can enter your metars here

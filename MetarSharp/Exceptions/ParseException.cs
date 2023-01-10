@@ -1,42 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MetarSharp.Exceptions
 {
-    public enum ParseType
+    [Serializable]
+    public class ParseException : Exception
     {
-        AdditionalInfo,
-        CardinalDirection,
-        Cloud,
-        ColorCode,
-        Pressure,
-        RecentWeather,
-        ReportingTime,
-        RunwayCondition,
-        RunwayVisibility,
-        Temperature,
-        Trend,
-        Visibility,
-        Weather,
-        Wind,
-        WindShear
-    }
-
-    internal class Exceptions
-    {
-        public static Exception ParseException(ParseType type, string input)
+        public ParseException()
         {
-            string messageType = type switch
-            {
-                ParseType.AdditionalInfo => ""
-            };
-
-            string message = $"Could not convert {input} to {messageType}";
-
-            return new Exception(message);
         }
+
+        public ParseException(string message) : base(message)
+        {
+        }
+
+        public ParseException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+        
     }
 }

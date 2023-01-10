@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp.Definitions;
 using MetarSharp.Parse.Additional;
 
 namespace MetarSharp.Parse
@@ -23,9 +24,9 @@ namespace MetarSharp.Parse
                 RegexOptions.None
             );
 
-            MatchCollection additionalMatches = additionalRegex.Matches(raw);
+            var additionalMatches = additionalRegex.Matches(raw);
 
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             if(additionalMatches.Count == 0)
             {
@@ -53,9 +54,16 @@ namespace MetarSharp.Parse
                 }
 
                 //ColorCode
-                if (groups[9].Success == true)
+                if (groups[11].Success == true)
                 {
-                    //TODO
+                    var colorCodeTuple = Additional.ColorCode.GetColorCode(groups).ToTuple();
+                    
+                    additionalInformation.ColorCode = new ColorCode()
+                    {
+                        Color = colorCodeTuple.Item1,
+                        ColorCodeShort = colorCodeTuple.Item2,
+                        ColorCodeLong = colorCodeTuple.Item3
+                    };
                 }
             }
             

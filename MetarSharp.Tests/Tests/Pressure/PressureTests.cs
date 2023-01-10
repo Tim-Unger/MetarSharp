@@ -13,22 +13,29 @@ namespace MetarSharp.Tests.Pressure
         {
             foreach (var metar in MetarsParsed.Where(x => x.Pressure.IsPressureMeasurable))
             {
-                if (metar.Pressure.PressureType == PressureType.Hectopascal)
+                switch (metar.Pressure.PressureType)
                 {
-                    double convertToAltimeter = Math.Round(
-                        metar.Pressure.PressureOnly / 33.8569518716,
-                        2
-                    );
-                    Assert.That(metar.Pressure.PressureAsAltimeter, Is.EqualTo(convertToAltimeter));
-                }
-
-                if (metar.Pressure.PressureType == PressureType.InchesMercury)
-                {
-                    int convertToHectopascal = (int)Math.Round(
-                        metar.Pressure.PressureOnly * 33.8569518716,
-                        0
-                    );
-                    Assert.That(metar.Pressure.PressureAsQnh, Is.EqualTo(convertToHectopascal));
+                    case PressureType.Hectopascal:
+                    {
+                        double convertToAltimeter = Math.Round(
+                            metar.Pressure.PressureOnly / 33.8569518716,
+                            2
+                        );
+                        Assert.That(metar.Pressure.PressureAsAltimeter, Is.EqualTo(convertToAltimeter));
+                        break;
+                    }
+                    case PressureType.InchesMercury:
+                    {
+                        int convertToHectopascal = (int)Math.Round(
+                            metar.Pressure.PressureOnly * 33.8569518716,
+                            0
+                        );
+                        Assert.That(metar.Pressure.PressureAsQnh, Is.EqualTo(convertToHectopascal));
+                        break;
+                    }
+                    default:
+                        throw new Exception();
+                        break;
                 }
             }
         }
@@ -42,37 +49,37 @@ namespace MetarSharp.Tests.Pressure
                 )
             )
             {
-                int convertHectospascals = (int)Math.Round(
+                var convertHectospascals = (int)Math.Round(
                     metar.Pressure.PressureAsQnh / 33.8569518716 ?? throw new Exception(),
                     0
                 );
 
-                string convertHectopascalsOne = String.Join(
+                var convertHectopascalsOne = String.Join(
                     String.Empty,
                     convertHectospascals.ToString().Take(2)
                 );
-                string convertHectopascalsTwo = String.Join(
+                var convertHectopascalsTwo = String.Join(
                     String.Empty,
                     convertHectospascals.ToString().Skip(2).Take(2)
                 );
 
-                string convertHectopascalsAndCheck =
+                var convertHectopascalsAndCheck =
                     convertHectopascalsOne + "." + convertHectopascalsTwo;
 
-                string takeMetarPartOne = String.Join(
+                var takeMetarPartOne = String.Join(
                     String.Empty,
                     metar.Pressure.PressureRaw.ToString().Skip(1).Take(2)
                 );
-                string takeMetarPartTwo = String.Join(
+                var takeMetarPartTwo = String.Join(
                     String.Empty,
                     metar.Pressure.PressureRaw.ToString().Skip(3).Take(2)
                 );
 
-                string hectopascalsAndCheck = takeMetarPartOne + "." + takeMetarPartTwo;
+                var hectopascalsAndCheck = takeMetarPartOne + "." + takeMetarPartTwo;
 
-                string checkConverted = metar.Pressure.PressureWithSeperator;
+                var checkConverted = metar.Pressure.PressureWithSeperator;
 
-                bool allTheSame =
+                var allTheSame =
                     convertHectopascalsAndCheck == hectopascalsAndCheck
                     && convertHectopascalsAndCheck == checkConverted;
                 Assert.That(

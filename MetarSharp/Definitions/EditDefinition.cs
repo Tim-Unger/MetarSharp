@@ -89,6 +89,25 @@ namespace MetarSharp.Definitions
             Definitions.MetersPerSecondShort => WindDefinitions.MetersPerSecondShort = newName,
             Definitions.MetersPerSecondLong => WindDefinitions.MetersPerSecondLong = newName,
             #endregion
+
+            #region COLOR
+            Definitions.BluePlusShort => ColorCodeDefinitions.BluePlusShort = newName,
+            Definitions.BluePlusLong => ColorCodeDefinitions.BluePlusLong = newName,
+            Definitions.BlueShort => ColorCodeDefinitions.BlueShort = newName,
+            Definitions.BlueLong => ColorCodeDefinitions.BlueLong = newName,
+            Definitions.WhiteShort => ColorCodeDefinitions.WhiteShort = newName,
+            Definitions.WhiteLong => ColorCodeDefinitions.WhiteLong = newName,
+            Definitions.GreenShort => ColorCodeDefinitions.GreenShort = newName,
+            Definitions.GreenLong => ColorCodeDefinitions.GreenLong = newName,
+            Definitions.YellowShort => ColorCodeDefinitions.YellowShort = newName,
+            Definitions.YellowLong => ColorCodeDefinitions.YellowLong = newName,
+            Definitions.AmberShort => ColorCodeDefinitions.AmberShort = newName,
+            Definitions.AmberLong => ColorCodeDefinitions.AmberLong = newName,
+            Definitions.RedShort => ColorCodeDefinitions.RedShort = newName,
+            Definitions.RedLong => ColorCodeDefinitions.RedLong = newName,
+            Definitions.BlackShort => ColorCodeDefinitions.BlackShort = newName,
+            Definitions.BlackLong => ColorCodeDefinitions.BlackLong = newName
+            #endregion
         };
     }
 }
