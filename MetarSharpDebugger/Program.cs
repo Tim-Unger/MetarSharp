@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using MetarSharp;
 using MetarSharp.Definitions;
 using MetarSharp.ParseOptions;
+using MetarSharp.Extensions;
 
 namespace MetarSharpDebugger;
 
@@ -32,6 +33,7 @@ internal class Program
             metars.Add(metar);
         }
 
+        var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
         var gustCount = metars.Where(x => x.Wind.IsWindGusting).ToList().ConvertAll(y => y.Wind.WindRaw);
 
         ///Just for diagnostics/to check execution time 

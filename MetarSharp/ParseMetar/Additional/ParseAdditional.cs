@@ -33,11 +33,11 @@ namespace MetarSharp.Parse
                 return new AdditionalInformation();
             }
             
-            foreach (Match Match in additionalMatches.Cast<Match>())
+            foreach (var match in additionalMatches.Cast<Match>())
             {
-                stringBuilder.Append(Match.ToString());
+                stringBuilder.Append(match);
 
-                GroupCollection groups = Match.Groups;
+                GroupCollection groups = match.Groups;
 
                 //Recent Weather
                 if (groups[2].Success)
@@ -58,7 +58,7 @@ namespace MetarSharp.Parse
                 {
                     var colorCodeTuple = Additional.ColorCode.GetColorCode(groups).ToTuple();
                     
-                    additionalInformation.ColorCode = new ColorCode()
+                    additionalInformation.ColorCode = new ColorCode
                     {
                         Color = colorCodeTuple.Item1,
                         ColorCodeShort = colorCodeTuple.Item2,
@@ -69,12 +69,12 @@ namespace MetarSharp.Parse
             
 
 
-            Regex RemarkRegex = new Regex("(RMK\\s(.*$))", RegexOptions.None);
+            var remarkRegex = new Regex("(RMK\\s(.*$))", RegexOptions.None);
             //TODO
 
-            MatchCollection RemarkMatches = RemarkRegex.Matches(raw);
+            MatchCollection remarkMatches = remarkRegex.Matches(raw);
 
-            additionalInformation.Remarks = RemarkMatches.Count == 1 ? RemarkMatches[0].Groups[2].Value : null;
+            additionalInformation.Remarks = remarkMatches.Count == 1 ? remarkMatches[0].Groups[2].Value : null;
 
             additionalInformation.AdditionalInformationRaw = stringBuilder.ToString();
 

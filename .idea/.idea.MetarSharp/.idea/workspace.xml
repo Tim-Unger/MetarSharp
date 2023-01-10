@@ -8,25 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a590756-3976-4447-bbf6-8622d302ecc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MetarSharp.Tests/Tests/ColorCode/ColorCodeTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/CardinalDirection.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/Cloud.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/ColorCode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/Distance.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/Pressure.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/RVR.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/Runway.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/Weather.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions/Wind.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Additional/ColorCode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/Extensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/ReturnFullString.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/ReturnJustNumber.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/ReturnLongUnit.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/ReturnShortUnit.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/TimeSinceMetar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp.Tests/Tests/Pressure/PressureTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Tests/Tests/Pressure/PressureTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Definitions/EditDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Definitions/EditDefinition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Exceptions/ParseException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Exceptions/ParseException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/ColorCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/ColorCode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Additional/ParseAdditional.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Additional/ParseAdditional.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Airport/ParseAirport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Airport/ParseAirport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReportingTime/ParseReportingTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReportingTime/ParseReportingTime.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,25 +56,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TODO_SCOPE": "All Places",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\timiu\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\timiu\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Project.MetarSharp.Debugger">
     <configuration name="MetarDownloader" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -167,8 +158,17 @@
       <workItem from="1673051339155" duration="3247000" />
       <workItem from="1673223071332" duration="2396000" />
       <workItem from="1673310199403" duration="1136000" />
-      <workItem from="1673311385167" duration="2386000" />
+      <workItem from="1673311385167" duration="2751000" />
+      <workItem from="1673352305167" duration="6612000" />
     </task>
+    <task id="LOCAL-00001" summary="restructure default defintions">
+      <created>1673314082584</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1673314082584</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +200,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="restructure" />
-    <option name="LAST_COMMIT_MESSAGE" value="restructure" />
+    <MESSAGE value="restructure default defintions" />
+    <option name="LAST_COMMIT_MESSAGE" value="restructure default defintions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -223,6 +224,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/MetarSharpDebugger/Program.cs</url>
+          <line>35</line>
+          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharpDebugger\Program.cs" initialLine="35" containingFunctionPresentation="method 'Main'">
+            <startOffsets>
+              <option value="834" />
+            </startOffsets>
+            <endOffsets>
+              <option value="947" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/MetarSharp/Methods/TimeSinceMetar/TimeSinceMetar.cs</url>
+          <line>58</line>
+          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\Methods\TimeSinceMetar\TimeSinceMetar.cs" initialLine="58" containingFunctionPresentation="method 'GetTimeSinceMetar'">
+            <startOffsets>
+              <option value="2067" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2113" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
