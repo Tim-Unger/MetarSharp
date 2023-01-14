@@ -107,6 +107,12 @@
         BlackShort,
         BlackLong
         #endregion
+
+        #region WEATHER
+
+        
+
+        #endregion
     }
 
     public class DefaultDefinitions

@@ -20,12 +20,17 @@ namespace MetarSharp.Parser
             }
 
             Metar parsed = new Metar();
+
+            parsed.MetarRaw = input;
+
             parsed.Airport = ParseAirport.ReturnAirport(input);
 
             parsed.ReportingTime = ParseReportingTime.ParseReportingTimeNew(input);
+
             parsed.Wind = ParseWind.ReturnWind(input);
 
             parsed.IsAutomatedReport = ParseAuto.ReturnIsAutomated(input);
+
             parsed.Wind = ParseWind.ReturnWind(input);
 
             parsed.Temperature = ParseTemperature.ReturnTemperature(input);

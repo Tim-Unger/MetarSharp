@@ -11,7 +11,7 @@ namespace MetarSharp
         public Wind Wind;
         public Visibility Visibility;
         public List<RunwayVisibility>? RunwayVisibilities;
-        public List<Weather>? Weather;
+        public Weather? Weather;
         //Non-nullable as it must be at least CAVOK
         public List<Cloud> Clouds;
         public Temperature Temperature;

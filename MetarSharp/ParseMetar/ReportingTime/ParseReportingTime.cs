@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MetarSharp.Exceptions;
 
 namespace MetarSharp.Parse
 {
@@ -18,27 +19,48 @@ namespace MetarSharp.Parse
 
             MatchCollection reportingTimeMatches = reportingTimeRegex.Matches(raw);
 
+            GroupCollection missingGroups = null;
+            bool isNormalParseFailed = false;
             if (reportingTimeMatches.Count == 0)
             {
-                throw new Exception("Could not find Reporting Time");
+                isNormalParseFailed = true;
+                
+                Regex missingLetterRegex = new("([0-9]{2})([0-9]{1})([0-9]{2})Z", RegexOptions.None);
+
+                var matches = missingLetterRegex.Matches(raw);
+
+                if (matches.Count == 0)
+                {
+                    throw new ParseException("Could not find Reporting Time");
+                }
+
+                missingGroups = matches[0].Groups;
+
             }
 
-            GroupCollection groups = reportingTimeMatches[0].Groups;
+            GroupCollection normalGroups = null;
+
+            if (!isNormalParseFailed)
+            {
+                normalGroups = reportingTimeMatches[0].Groups;
+            }
+
+            var groups = isNormalParseFailed ? missingGroups : normalGroups;
 
             reportingTime.ReportingTimeRaw = groups[0].Value;
 
-            int reportingDate = TryParseWithThrow(groups[1].Value);
+            var reportingDate = TryParseWithThrow(groups[1].Value);
             reportingTime.ReportingDateRaw = reportingDate;
 
-            int reportingHour = TryParseWithThrow(groups[2].Value);
-            int reportingMinute = TryParseWithThrow(groups[3].Value);
+            var reportingHour = TryParseWithThrow(groups[2].Value);
+            var reportingMinute = TryParseWithThrow(groups[3].Value);
             reportingTime.ReportingTimeZuluRaw = TryParseWithThrow(
                 groups[2].Value + groups[3].Value
             );
 
-            int yearNow = DateTime.UtcNow.Year;
-            int monthNow = DateTime.UtcNow.Month;
-            int dayNow = DateTime.UtcNow.Day;
+            var yearNow = DateTime.UtcNow.Year;
+            var monthNow = DateTime.UtcNow.Month;
+            var dayNow = DateTime.UtcNow.Day;
 
             //This switch is very complicated, I am sorry
             var dateValues = reportingDate switch

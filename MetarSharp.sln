@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarDownloader", "MetarDow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharp.Tests", "MetarSharp.Tests\MetarSharp.Tests.csproj", "{04174095-89F7-423D-AE35-E8F647D62834}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharp.Benchmarks", "MetarSharp.Benchmarks\MetarSharp.Benchmarks.csproj", "{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{04174095-89F7-423D-AE35-E8F647D62834}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04174095-89F7-423D-AE35-E8F647D62834}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04174095-89F7-423D-AE35-E8F647D62834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

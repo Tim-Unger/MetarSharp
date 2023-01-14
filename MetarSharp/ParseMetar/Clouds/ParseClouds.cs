@@ -50,12 +50,7 @@ namespace MetarSharp.Parse
 
                     if (isVerticalVisibilityMeasurable)
                     {
-                        cloud.VerticalVisibility = int.TryParse(
-                        groups[5].Value,
-                        out int verticalVisibiliy
-                    )
-                      ? verticalVisibiliy
-                      : throw new Exception("Could not read Vertical Visibility");
+                        cloud.VerticalVisibility = TryParseWithThrow(groups[5].Value, raw);
                     }
 
                     clouds.Add(cloud);
@@ -75,9 +70,11 @@ namespace MetarSharp.Parse
 
                     cloud.IsCeilingMeasurable = groups[5].Value != "///";
 
-                    cloud.CloudCeiling = int.TryParse(groups[5].Value, out int cloudCeiling)
-                      ? cloudCeiling
-                      : throw new Exception("Could not read Cloud Ceiling");
+                    if (cloud.IsCeilingMeasurable == true)
+                    {
+                        cloud.CloudCeiling = TryParseWithThrow(groups[5].Value, raw);
+
+                    }
 
 
                     bool hasCumulonimbusClouds = groups[6].Success;
@@ -118,5 +115,12 @@ namespace MetarSharp.Parse
                 "NCD" => (CloudType.NoCloudsDetected, CloudDefintions.NoCloudsDetectedLong),
                 _ => throw new Exception("Can't read cloud type")
             };
+
+        private static int TryParseWithThrow(string value, string raw)
+        {
+            return int.TryParse(value, out int converted)
+              ? converted
+              : throw new Exception($"Could not convert value {value} {raw} to number");
+        }
     }
 }

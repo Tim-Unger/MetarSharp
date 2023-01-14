@@ -14,7 +14,8 @@ namespace MetarSharp
     }
     public class Trend
     {
-        public bool IsNOSIG { get; set; }
+        //TODO move NOSIG
+        //public bool IsNOSIG { get; set; }
         public string? TrendRaw { get; set; }
         public TrendType TrendType { get; set; }
         public string? TrendTypeRaw { get; set; }

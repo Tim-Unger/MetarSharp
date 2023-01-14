@@ -182,10 +182,7 @@ namespace MetarSharp.Parse
             //Weather
             if (metar.Weather != null)
             {
-                foreach (var weather in metar.Weather)
-                {
-                    //TODO
-                }
+               
             }
 
             //Clouds
@@ -262,7 +259,13 @@ namespace MetarSharp.Parse
                 }
 
                 //TODO null exception here
-                cloudString = (bool)cloud.IsVerticalVisibilityMeasurable ? "Vertical Visibility not measurable" : "Vertical Visibility: " + cloud.VerticalVisibility;
+                if(cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
+                {
+                    cloudString = "Vertical Visibility not measurable";
+                    reportBuilder.AppendLine(cloudString);
+                }
+
+                cloudString = "Vertical Visibility: " + cloud.VerticalVisibility;
                 reportBuilder.AppendLine(cloudString);
             }
 

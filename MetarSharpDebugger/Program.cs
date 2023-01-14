@@ -8,6 +8,7 @@ using MetarSharp;
 using MetarSharp.Definitions;
 using MetarSharp.ParseOptions;
 using MetarSharp.Extensions;
+using ValueType = MetarSharp.Extensions.ValueType;
 
 namespace MetarSharpDebugger;
 
@@ -34,6 +35,7 @@ internal class Program
         }
 
         var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
+        dynamic highestcolorcode = ValueRecords.GetLowestValue(metars, ValueType.Wind);
         var gustCount = metars.Where(x => x.Wind.IsWindGusting).ToList().ConvertAll(y => y.Wind.WindRaw);
 
         ///Just for diagnostics/to check execution time 
