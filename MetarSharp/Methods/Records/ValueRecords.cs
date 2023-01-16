@@ -1,3 +1,5 @@
+using MetarSharp.Methods.Records;
+
 namespace MetarSharp.Extensions
 {
     public enum ValueType
@@ -9,6 +11,24 @@ namespace MetarSharp.Extensions
         Temperature,
         Visibility,
         Wind
+    }
+
+    public enum AverageValueType
+    {
+        CloudCeiling,
+        VerticalVisibility,
+        PressureQNH,
+        PressureINHG,
+        RunwayVisualRange,
+        TemperatureCelsius,
+        TemperatureFahrenheit,
+        DewpointCelsius,
+        DewpointFahrenheit,
+        Visibility,
+        LowestVisibility,
+        WindDirection,
+        WindStrength,
+        WindGustStrength,
     }
 
     public enum ValueReturnType
@@ -82,6 +102,14 @@ namespace MetarSharp.Extensions
         public static dynamic GetLowestValue(IEnumerable<Metar> metars, ValueType valueType, ValueReturnType returnType)
         {
             return LowestValue.Get(metars.ToList(), valueType, returnType);
+        }
+        #endregion
+
+        #region AVERAGEVALUE
+
+        public static double GetAverageValue(List<Metar> metars, AverageValueType averageValueType, byte decimalPlaces)
+        {
+            return AverageValue.Get(metars, averageValueType, decimalPlaces);
         }
         #endregion
     }

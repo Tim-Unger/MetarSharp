@@ -9,29 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a590756-3976-4447-bbf6-8622d302ecc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MetarSharp.Benchmarks/MetarSharp.Benchmarks.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp.Benchmarks/Metars.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp.Benchmarks/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Exceptions/ReadMetarException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/Records/GetHighestValue.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/Records/GetLowestValue.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MetarSharp/Methods/Records/ValueRecords.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarDownloader/MetarDownloader.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarDownloader/MetarDownloader.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp.Tests/MetarSharp.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Tests/MetarSharp.Tests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp.sln" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Definitions/DefaultDefinitions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/AdditionalIformation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/AdditionalIformation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Metar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Metar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Trend.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Trend.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Weather.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Weather.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/MetarSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/MetarSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReadableReport/ParseReadableReport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReadableReport/ParseReadableReport.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReportingTime/ParseReportingTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/ReportingTime/ParseReportingTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Trend/ParseTrend.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Trend/ParseTrend.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Weather/ParseWeather.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Weather/ParseWeather.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharpDebugger/MetarSharp.Debugger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharpDebugger/MetarSharp.Debugger.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/Methods/Records/ValueRecords.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Methods/Records/ValueRecords.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,6 +179,7 @@
       <workItem from="1673395656112" duration="1112000" />
       <workItem from="1673480320988" duration="6381000" />
       <workItem from="1673723130966" duration="4181000" />
+      <workItem from="1673821636767" duration="26000" />
     </task>
     <task id="LOCAL-00001" summary="restructure default defintions">
       <created>1673314082584</created>

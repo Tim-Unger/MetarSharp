@@ -33,21 +33,43 @@ namespace MetarSharp.Parse
                 temperature.IsTemperatureMeasurable = false;
                 return temperature;
             }
+
+            temperature.IsTemperatureMeasurable = true;
+
             temperature.TemperatureRaw = temperatureMatches[0].ToString();
 
             temperature.IsTemperatureBelowZero = groups[1].Success;
 
             temperature.IsDewpointBelowZero = groups[3].Success;
 
-            temperature.TemperatureOnly = int.TryParse(groups[2].Value, out int temperatureValue)
-              ? temperatureValue
-              : throw new Exception($"Could not convert temperature {groups[2].Value} to number");
+            double tempCelsius = TryParseWithThrow(groups[2].Value, raw);
+            double dewpointCelsius = TryParseWithThrow(groups[2].Value, raw);
 
-            temperature.DewpointOnly = int.TryParse(groups[4].Value, out int dewpointValue)
-              ? dewpointValue
-              : throw new Exception($"Could not convert Temperature {groups[2].Value} to number");
+            if (groups[1].Success)
+            {
+                tempCelsius *= -1;
+            }
+
+            temperature.TemperatureCelsius = tempCelsius;
+            temperature.DewpointCelsius = (tempCelsius * 1.8) + 32;
+
+            if (groups[3].Success)
+            {
+                dewpointCelsius *= -1;
+            }
+
+            temperature.DewpointCelsius = dewpointCelsius;
+            temperature.DewpointFahrenheit = (tempCelsius * 1.8) + 32;
 
             return temperature;
         }
+
+        private static double TryParseWithThrow(string value, string raw)
+        {
+            return int.TryParse(value, out int converted)
+              ? converted
+              : throw new Exception($"Could not convert value {value} {raw} to number");
+        }
+
     }
 }

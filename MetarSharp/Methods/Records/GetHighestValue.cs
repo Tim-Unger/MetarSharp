@@ -15,7 +15,7 @@ namespace MetarSharp.Extensions
             //     .SelectMany(x => x).ToList().First()
             ValueType.Temperature => metars.Where(x => x.Temperature.IsTemperatureMeasurable)
                 .ToList()
-                .OrderByDescending(x => (int)x.Temperature.TemperatureOnly)
+                .OrderByDescending(x => (int)x.Temperature.TemperatureCelsius)
                 .First(),
             ValueType.Visibility => metars.Where(x => x.Visibility.IsVisibilityMeasurable)
                 .ToList()
@@ -53,7 +53,7 @@ namespace MetarSharp.Extensions
                 case ValueType.Temperature:
                     var temperatureHighest = metars.Where(x => x.Temperature.IsTemperatureMeasurable)
                         .ToList()
-                        .OrderByDescending(x => (int)x.Temperature.TemperatureOnly)
+                        .OrderByDescending(x => (int)x.Temperature.TemperatureCelsius)
                         .First();
                     return GetReturnType(temperatureHighest, valueType, returnType);
                 
@@ -79,6 +79,7 @@ namespace MetarSharp.Extensions
             throw new Exception();
         }
 
+        //TODO idk
         private static dynamic GetReturnType(Metar metar, ValueType valueType, ValueReturnType returnType)
         {
             return valueType switch
@@ -105,7 +106,7 @@ namespace MetarSharp.Extensions
                 {
                     ValueReturnType.FullMetar => metar,
                     ValueReturnType.JustValueClass => metar.Temperature,
-                    ValueReturnType.OnlyValue => metar.Temperature.TemperatureOnly
+                    ValueReturnType.OnlyValue => metar.Temperature.TemperatureCelsius
                 },
                 ValueType.Visibility => returnType switch
                 {
@@ -119,6 +120,7 @@ namespace MetarSharp.Extensions
                     ValueReturnType.JustValueClass => metar.Wind,
                     ValueReturnType.OnlyValue => metar.Wind.WindStrength
                 },
+                ValueType.RunwayVisibility => throw new NotImplementedException(),
                 _ => throw new Exception()
             };
         }

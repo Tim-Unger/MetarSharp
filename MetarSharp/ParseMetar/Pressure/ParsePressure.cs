@@ -45,25 +45,17 @@ namespace MetarSharp.Parse
             string pressureTypeRaw = groups[1].Value == "A" ? PressureDefinitions.InchesMercuryShort : PressureDefinitions.HectopascalsShort;
             pressure.PressureTypeRaw = pressureTypeRaw;
 
-            int pressureValue = int.TryParse(groups[2].Value, out int _pressureVal)
-              ? _pressureVal
+            double pressureValue = double.TryParse(groups[2].Value, out double pressureVal)
+              ? pressureVal
               : 0;
             pressure.PressureOnly = pressureValue;
-            pressure.PressureAsAltimeter = Convert.ToInt32(
-                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : pressureValue / 33.8569518716, 0)
+            pressure.PressureAsAltimeter = Convert.ToDouble(
+                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : pressureValue / 33.8569518716, 2)
             );
             pressure.PressureAsQnh = Convert.ToInt32(
                 Math.Round(pressureTypeRaw == PressureDefinitions.HectopascalsShort ? pressureValue : pressureValue * 33.8569518716, 0)
             );
-
-            if (pressureTypeRaw == "A")
-            {
-                string pressureWithSeparatorOne = groups[2].Value.Substring(0, 2) + ".";
-                string pressureWithSeparatorTwo = groups[2].Value.Length == 4 ? groups[2].Value.Substring(2, 2) : groups[2].Value.Substring(2, 1) + "0";
-
-                pressure.PressureWithSeperator = pressureWithSeparatorOne + pressureWithSeparatorTwo;
-            }
-
+            
             return pressure;
         }
     }

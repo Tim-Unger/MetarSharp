@@ -274,12 +274,12 @@ namespace MetarSharp.Parse
             string dewpoint = null;
 
             temperature = metar.Temperature.IsTemperatureBelowZero
-                ? "Temperature: " + "-" + metar.Temperature.TemperatureOnly + "°C"
-                : "Temperature: " + metar.Temperature.TemperatureOnly + "°C";
+                ? "Temperature: " + "-" + metar.Temperature.TemperatureCelsius + "°C"
+                : "Temperature: " + metar.Temperature.TemperatureCelsius + "°C";
 
             dewpoint = metar.Temperature.IsDewpointBelowZero
-                ? "Dewpoint: " + "-" + metar.Temperature.DewpointOnly + "°C"
-                : "Dewpoint: " + metar.Temperature.DewpointOnly + "°C";
+                ? "Dewpoint: " + "-" + metar.Temperature.DewpointCelsius + "°C"
+                : "Dewpoint: " + metar.Temperature.DewpointCelsius + "°C";
 
             reportBuilder.AppendLine(temperature);
             reportBuilder.AppendLine(dewpoint);

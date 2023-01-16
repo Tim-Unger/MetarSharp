@@ -35,7 +35,9 @@ internal class Program
         }
 
         var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
-        dynamic highestcolorcode = ValueRecords.GetLowestValue(metars, ValueType.Wind);
+        //dynamic highestcolorcode = ValueRecords.GetLowestValue(metars, ValueType.Wind);
+        var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
+        var lo = ValueRecords.GetLowestValue(metars, ValueType.Visibility);
         var gustCount = metars.Where(x => x.Wind.IsWindGusting).ToList().ConvertAll(y => y.Wind.WindRaw);
 
         ///Just for diagnostics/to check execution time 

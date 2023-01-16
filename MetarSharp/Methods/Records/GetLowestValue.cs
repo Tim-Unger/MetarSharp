@@ -15,7 +15,7 @@ namespace MetarSharp.Extensions
             //     .SelectMany(x => x).ToList().First()
             ValueType.Temperature => metars.Where(x => x.Temperature.IsTemperatureMeasurable)
                 .ToList()
-                .OrderBy(x => (int)x.Temperature.TemperatureOnly)
+                .OrderBy(x => (int)x.Temperature.TemperatureCelsius)
                 .First(),
             ValueType.Visibility => metars.Where(x => x.Visibility.IsVisibilityMeasurable)
                 .ToList()
@@ -53,7 +53,7 @@ namespace MetarSharp.Extensions
                 case ValueType.Temperature:
                     var temperatureHighest = metars.Where(x => x.Temperature.IsTemperatureMeasurable)
                         .ToList()
-                        .OrderBy(x => (int)x.Temperature.TemperatureOnly)
+                        .OrderBy(x => (int)x.Temperature.TemperatureCelsius)
                         .First();
                     return GetReturnType(temperatureHighest, valueType, returnType);
                 
@@ -105,7 +105,7 @@ namespace MetarSharp.Extensions
                 {
                     ValueReturnType.FullMetar => metar,
                     ValueReturnType.JustValueClass => metar.Temperature,
-                    ValueReturnType.OnlyValue => metar.Temperature.TemperatureOnly
+                    ValueReturnType.OnlyValue => metar.Temperature.TemperatureCelsius
                 },
                 ValueType.Visibility => returnType switch
                 {

@@ -50,7 +50,7 @@ namespace MetarSharp.Parse
 
                     if (isVerticalVisibilityMeasurable)
                     {
-                        cloud.VerticalVisibility = TryParseWithThrow(groups[5].Value, raw);
+                        cloud.VerticalVisibility = TryParseWithThrow(groups[5].Value, raw) * 100;
                     }
 
                     clouds.Add(cloud);
@@ -72,7 +72,7 @@ namespace MetarSharp.Parse
 
                     if (cloud.IsCeilingMeasurable == true)
                     {
-                        cloud.CloudCeiling = TryParseWithThrow(groups[5].Value, raw);
+                        cloud.CloudCeiling = TryParseWithThrow(groups[5].Value, raw) * 100;
 
                     }
 
