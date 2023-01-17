@@ -2,6 +2,7 @@ using MetarSharp.Methods.Records;
 
 namespace MetarSharp.Extensions
 {
+    //TODO an average anpassen
     public enum ValueType
     {
         ColorCode,

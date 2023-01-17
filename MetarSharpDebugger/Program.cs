@@ -39,6 +39,7 @@ internal class Program
         var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
         var lo = ValueRecords.GetLowestValue(metars, ValueType.Visibility);
         var gustCount = metars.Where(x => x.Wind.IsWindGusting).ToList().ConvertAll(y => y.Wind.WindRaw);
+        var conv = FromMeter.ToKilometer(1000);
 
         ///Just for diagnostics/to check execution time 
         var executeTime = timer.ElapsedMilliseconds;

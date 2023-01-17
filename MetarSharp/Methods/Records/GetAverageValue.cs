@@ -117,7 +117,8 @@ namespace MetarSharp.Methods.Records
                       decimalPlaces
                   ),
 
-                AverageValueType.WindGustStrength =>GetAverageWindGustStrength(metars.Where(x => x.Wind.IsWindGusting).ToList(), decimalPlaces)
+                AverageValueType.WindGustStrength =>GetAverageWindGustStrength(metars.Where(x => x.Wind.IsWindGusting).ToList(), decimalPlaces),
+                _ => throw new ArgumentOutOfRangeException()
             };
 
         #region CLOUDS
