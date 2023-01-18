@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MetarSharp.Extensions
 {
-    public static class FromMeter
+    public static class ConvertFromMeter
     {
         public static decimal ToKilometer(this double value)
         {

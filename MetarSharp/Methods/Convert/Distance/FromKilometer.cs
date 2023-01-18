@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetarSharp.Methods.Convert.Distance
+﻿namespace MetarSharp.Methods.Convert.Distance
 {
-    public static class FromKilometer
+    public static class ConvertFromKilometer
     {
         public static decimal ToMeter(this double value)
         {

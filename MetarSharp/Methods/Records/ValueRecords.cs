@@ -107,10 +107,43 @@ namespace MetarSharp.Extensions
         #endregion
 
         #region AVERAGEVALUE
+        //TODO
+        public static Metar GetAverageValue(List<Metar> metars, AverageValueType averageValueType)
+        {
+            return AverageValue.Get(metars, averageValueType);
+        }
+
+        public static Metar GetAverageValue(Metar[] metars, AverageValueType averageValueType)
+        {
+            return AverageValue.Get(metars.ToList(), averageValueType);
+        }
+
+        public static Metar GetAverageValue(IEnumerable<Metar> metars, AverageValueType averageValueType)
+        {
+            return AverageValue.Get(metars.ToList(), averageValueType);
+        }
 
         public static double GetAverageValue(List<Metar> metars, AverageValueType averageValueType, byte decimalPlaces)
         {
             return AverageValue.Get(metars, averageValueType, decimalPlaces);
+        }
+
+        public static double GetAverageValue(Metar[] metars, AverageValueType averageValueType, byte decimalPlaces)
+        {
+            return AverageValue.Get(metars.ToList(), averageValueType, decimalPlaces);
+        }
+
+        public static double GetAverageValue(IEnumerable<Metar> metars, AverageValueType averageValueType, byte decimalPlaces)
+        {
+            return AverageValue.Get(metars.ToList(), averageValueType, decimalPlaces);
+        }
+        #endregion
+
+        #region MEDIANVALUE
+
+        public static Metar GetMedianValue(List<Metar> metars, AverageValueType averageValueType)
+        {
+
         }
         #endregion
     }

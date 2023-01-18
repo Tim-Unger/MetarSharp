@@ -11,6 +11,12 @@ namespace MetarSharp.Methods.Records
     //TODO Version without custom decimal places
     internal class AverageValue
     {
+        internal static Metar Get(List<Metar> metars, AverageValueType averageValueType)
+        {
+            //TODO
+            throw new Exception();
+        }
+
         //TODO umlagern/auslagern
         internal static double Get(
             List<Metar> metars,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MetarSharp.Methods.Convert.Distance
 {
-    public static class FromStatuteMile
+    public static class ConvertFromStatuteMile
     {
         public static decimal ToMeter(this double value)
         {
