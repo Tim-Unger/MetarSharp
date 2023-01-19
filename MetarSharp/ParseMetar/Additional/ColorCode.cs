@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using MetarSharp.Definitions;
+using MetarSharp.Exceptions;
 
 namespace MetarSharp.Parse.Additional
 {
@@ -15,7 +16,8 @@ namespace MetarSharp.Parse.Additional
             "YLO" => (Color.YLO, ColorCodeDefinitions.YellowShort, ColorCodeDefinitions.YellowLong),
             "AMB" => (Color.AMB, ColorCodeDefinitions.AmberShort, ColorCodeDefinitions.AmberLong),
             "RED" => (Color.RED, ColorCodeDefinitions.RedShort, ColorCodeDefinitions.RedLong),
-            "BLACK" => (Color.BLACK, ColorCodeDefinitions.BlackShort, ColorCodeDefinitions.BlackLong)
+            "BLACK" => (Color.BLACK, ColorCodeDefinitions.BlackShort, ColorCodeDefinitions.BlackLong),
+            "" or null => throw new ParseException()
         };
     }
 }

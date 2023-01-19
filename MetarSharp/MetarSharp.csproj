@@ -25,4 +25,10 @@
     <PackageReference Include="BenchmarkDotNet" Version="0.13.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Methods\Records\LowestValue\" />
+    <Folder Include="Methods\Records\HighestValue\" />
+    <Folder Include="Methods\Records\MedianValue\" />
+  </ItemGroup>
+
 </Project>

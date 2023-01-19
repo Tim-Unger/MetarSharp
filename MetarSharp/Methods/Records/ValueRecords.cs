@@ -1,4 +1,5 @@
 using MetarSharp.Methods.Records;
+using MetarSharp.Methods.Records.AverageValue;
 
 namespace MetarSharp.Extensions
 {
@@ -140,10 +141,14 @@ namespace MetarSharp.Extensions
         #endregion
 
         #region MEDIANVALUE
-
         public static Metar GetMedianValue(List<Metar> metars, AverageValueType averageValueType)
         {
+            return MedianValue.Get(metars, averageValueType);
+        }
 
+        public static Metar GetMedianValue(List<Metar> metars, AverageValueType averageValueType, MidpointRounding midpointRounding)
+        {
+            return MedianValue.Get(metars, averageValueType, midpointRounding);
         }
         #endregion
     }

@@ -5,27 +5,27 @@ namespace MetarSharp
 {
     public class ParseMetar
     {
-        public static Metar ParseFromString(string input)
+        public static Metar FromString(string input)
         {
             if(IsStringNullOrEmpty(input))
             {
                 throw new Exception();
             }
 
-            return FromString.Parse(input);
+            return Parser.FromString.Parse(input);
         }
 
-        public static Metar ParseFromLink(string input)
+        public static Metar FromLink(string input)
         {
             if(IsStringNullOrEmpty(input))
             {
                 throw new Exception();
             }
 
-            return FromLink.Parse(input);
+            return Parser.FromLink.Parse(input);
         }
 
-        public static List<Metar> ParseFromList(List<string> input)
+        public static List<Metar> FromList(List<string> input)
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
@@ -34,10 +34,10 @@ namespace MetarSharp
 
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
-            return FromList.Parse(cleanedInput.ToList());
+            return Parser.FromList.Parse(cleanedInput.ToList());
         }
 
-        public static Metar[] ParseFromArray(string[] input)
+        public static Metar[] FromArray(string[] input)
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
@@ -46,10 +46,10 @@ namespace MetarSharp
 
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
-            return FromArray.Parse(cleanedInput.ToArray());
+            return Parser.FromArray.Parse(cleanedInput.ToArray());
         }
 
-        public static IEnumerable<Metar> ParseFromCollection(IEnumerable<string> input)
+        public static IEnumerable<Metar> FromCollection(IEnumerable<string> input)
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
@@ -58,7 +58,7 @@ namespace MetarSharp
 
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
-            return FromCollection.Parse(cleanedInput);
+            return Parser.FromCollection.Parse(cleanedInput);
         }
     }
 }

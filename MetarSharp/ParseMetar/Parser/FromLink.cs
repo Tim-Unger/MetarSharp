@@ -11,13 +11,11 @@ namespace MetarSharp.Parser
         internal static Metar Parse(string input)
         {
             Metar parsed = new Metar();
-            string webData = null;
-            System.Net.WebClient wc = new System.Net.WebClient();
-            byte[] raw = null;
-            raw = wc.DownloadData(input);
-            webData = Encoding.UTF8.GetString(raw);
 
-            parsed = FromString.Parse(webData);
+            System.Net.WebClient wc = new();
+            string raw = wc.DownloadString(input);
+
+            parsed = FromString.Parse(raw);
 
             return parsed;
         }

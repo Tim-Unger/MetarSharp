@@ -32,48 +32,48 @@ namespace MetarSharp.Tests.Tests.ColorCode
             Color.BLACK => true, //You are fucked anyways if you are here
         };
 
-        private bool IsBluePlusCorrect(Metar metar)
+        private static bool IsBluePlusCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
             return orderedCloudList.CloudCeiling >= 2000 && metar.Visibility.ReportedVisibility >= 8000;
         }
 
-        private bool IsBlueCorrect(Metar metar)
+        private static bool IsBlueCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
             return orderedCloudList.CloudCeiling >= 2500 && metar.Visibility.ReportedVisibility >= 8000;
         }
 
-        private bool IsWhiteCorrect(Metar metar)
+        private static bool IsWhiteCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
             return orderedCloudList.CloudCeiling >= 1500 && metar.Visibility.ReportedVisibility >= 5000;
         }
 
-        private bool IsGreenCorrect(Metar metar)
+        private static bool IsGreenCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
             return orderedCloudList.CloudCeiling >= 700 && metar.Visibility.ReportedVisibility >= 3700;
         }
-        private bool IsYellowCorrect(Metar metar)
+        private static bool IsYellowCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
             return orderedCloudList.CloudCeiling >= 300 && metar.Visibility.ReportedVisibility >= 1600;
         }
 
-        private bool IsAmberCorrect(Metar metar)
+        private static bool IsAmberCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
             return orderedCloudList.CloudCeiling >= 200 && metar.Visibility.ReportedVisibility >= 800;
         }
 
-        private bool IsRedCorrect(Metar metar)
+        private static bool IsRedCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 

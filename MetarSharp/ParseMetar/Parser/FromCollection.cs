@@ -10,7 +10,7 @@ namespace MetarSharp.Parser
 
             var cleanInput = inputConvert.Where(x => IsStringNullOrEmpty(x) == false);
 
-            List<Metar> returnList = cleanInput.Select(MetarSharp.ParseMetar.ParseFromString).ToList();
+            List<Metar> returnList = cleanInput.Select(MetarSharp.ParseMetar.FromString).ToList();
 
             return returnList as IEnumerable<Metar>;
         }

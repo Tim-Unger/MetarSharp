@@ -1,3 +1,6 @@
+using MetarSharp.Exceptions;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
 namespace MetarSharp.Extensions
 {
     internal class Extensions
@@ -8,7 +11,8 @@ namespace MetarSharp.Extensions
             TimeUnit.Minutes => timeSpan.TotalMinutes,
             TimeUnit.Hours => timeSpan.TotalHours,
             TimeUnit.Days => timeSpan.TotalDays,
-            TimeUnit.Weeks => timeSpan.TotalDays / 7
+            TimeUnit.Weeks => timeSpan.TotalDays / 7,
+            _ => throw new ParseException()
         };
 
         internal enum UnitType
@@ -27,7 +31,8 @@ namespace MetarSharp.Extensions
                     TimeUnit.Minutes => "m",
                     TimeUnit.Hours => "h",
                     TimeUnit.Days => "d",
-                    TimeUnit.Weeks => "w"
+                    TimeUnit.Weeks => "w",
+                    _ => throw new ParseException()
                 };
             }
 
@@ -38,7 +43,8 @@ namespace MetarSharp.Extensions
                 TimeUnit.Minutes => "minutes",
                 TimeUnit.Hours => "hours",
                 TimeUnit.Days => "days",
-                TimeUnit.Weeks => "weeks"
+                TimeUnit.Weeks => "weeks",
+                _ => throw new ParseException()
             };
             
         }
@@ -49,7 +55,8 @@ namespace MetarSharp.Extensions
             TimeUnit.Minutes => value > 1 ? "minutes" : "minute",
             TimeUnit.Hours => value > 1 ? "hours" : "hour",
             TimeUnit.Days => value > 1 ? "days" : "day",
-            TimeUnit.Weeks => value > 1 ? "weeks" : "week"
+            TimeUnit.Weeks => value > 1 ? "weeks" : "week",
+            _ => throw new ParseException()
         };
     }
 }
