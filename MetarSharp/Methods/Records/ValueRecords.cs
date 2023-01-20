@@ -1,5 +1,7 @@
 using MetarSharp.Methods.Records;
 using MetarSharp.Methods.Records.AverageValue;
+using MetarSharp.Methods.Records.HighestValue;
+using MetarSharp.Methods.Records.LowestValue;
 
 namespace MetarSharp.Extensions
 {
@@ -7,12 +9,14 @@ namespace MetarSharp.Extensions
     public enum ValueType
     {
         ColorCode,
-        Pressure,
+        PressureQNH,
+        PressureINHG,
         ReportingTime,
         RunwayVisibility,
-        Temperature,
+        TemperatureCelsius,
+        TemperatureFahrenheit,
         Visibility,
-        Wind
+        WindSpeed,
     }
 
     public enum AverageValueType
@@ -108,22 +112,6 @@ namespace MetarSharp.Extensions
         #endregion
 
         #region AVERAGEVALUE
-        //TODO
-        public static Metar GetAverageValue(List<Metar> metars, AverageValueType averageValueType)
-        {
-            return AverageValue.Get(metars, averageValueType);
-        }
-
-        public static Metar GetAverageValue(Metar[] metars, AverageValueType averageValueType)
-        {
-            return AverageValue.Get(metars.ToList(), averageValueType);
-        }
-
-        public static Metar GetAverageValue(IEnumerable<Metar> metars, AverageValueType averageValueType)
-        {
-            return AverageValue.Get(metars.ToList(), averageValueType);
-        }
-
         public static double GetAverageValue(List<Metar> metars, AverageValueType averageValueType, byte decimalPlaces)
         {
             return AverageValue.Get(metars, averageValueType, decimalPlaces);
