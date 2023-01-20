@@ -1,6 +1,3 @@
-using System.Timers;
-using static MetarSharp.Extensions.Extensions;
-
 namespace MetarSharp.Extensions
 {
     public enum ReturnType

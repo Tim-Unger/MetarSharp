@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetarSharp.Parser;
-
-namespace MetarSharp.Parser
+﻿namespace MetarSharp.Parser
 {
     internal class FromList
     {

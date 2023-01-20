@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using MetarSharp;
+﻿using System.Text.RegularExpressions;
 using static MetarSharp.Definitions.CardinalDirectionDefinitions;
 
 namespace MetarSharp.Parse

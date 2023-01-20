@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MetarSharp;
-using MetarSharp.Parse;
+﻿using MetarSharp.Parse;
 using static MetarSharp.Parser.Helpers;
 
 namespace MetarSharp.Parser

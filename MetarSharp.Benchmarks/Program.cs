@@ -1,24 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using MetarSharp;
-using MetarSharp.Definitions;
-using MetarSharp.ParseOptions;
-using MetarSharp.Extensions;
-using ValueType = MetarSharp.Extensions.ValueType;
-using BenchmarkDotNet;
-using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Jobs;
-using BenchmarkDotNet.Loggers;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using BenchmarkDotNet.Toolchains.InProcess;
-using BenchmarkDotNet.Toolchains.InProcess.Emit;
-using Perfolizer.Horology;
 
 namespace MetarSharp.Benchmarks;
 

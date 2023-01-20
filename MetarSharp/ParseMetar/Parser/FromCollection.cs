@@ -1,4 +1,3 @@
-using System.Collections;
 using static MetarSharp.Parser.Helpers;
 namespace MetarSharp.Parser
 {

@@ -1,5 +1,4 @@
-﻿using MetarSharp.Parser;
-using static MetarSharp.Parser.Helpers;
+﻿using static MetarSharp.Parser.Helpers;
 
 namespace MetarSharp
 {

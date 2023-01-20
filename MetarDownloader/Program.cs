@@ -1,8 +1,6 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json;
+using System.Net;
 using System.Text;
-using Newtonsoft.Json;
-using MetarDownloader;
-using Newtonsoft.Json.Linq;
 
 namespace MetarDownloader
 {

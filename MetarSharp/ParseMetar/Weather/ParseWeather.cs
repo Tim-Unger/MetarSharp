@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+using MetarSharp.Exceptions;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using MetarSharp.Exceptions;
-using Microsoft.Extensions.Primitives;
 
 namespace MetarSharp.Parse
 {
-    
+
 
     public class ParseWeather
     {

@@ -1,20 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using MetarSharp;
+﻿using MetarSharp;
 using MetarSharp.Definitions;
-using MetarSharp.ParseOptions;
 using MetarSharp.Extensions;
-using ValueType = MetarSharp.Extensions.ValueType;
-using MetarSharp.Methods.Convert.Pressure;
-using MetarSharp.Methods.Convert.Temperature;
-using MetarSharp.Methods.Convert.Speed;
 using MetarSharp.Methods.Convert.Time;
+using System.Diagnostics;
 
-namespace MetarSharpDebugger {
+namespace MetarSharpDebugger
+{
 
     internal class Program
     {

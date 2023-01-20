@@ -1,4 +1,3 @@
-using System.ComponentModel.Design.Serialization;
 using static MetarSharp.Extensions.Extensions;
 namespace MetarSharp.Extensions
 {

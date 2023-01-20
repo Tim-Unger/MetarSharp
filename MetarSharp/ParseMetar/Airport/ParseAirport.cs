@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using MetarSharp;
 using MetarSharp.Exceptions;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {

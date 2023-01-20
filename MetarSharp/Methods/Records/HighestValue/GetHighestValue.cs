@@ -1,6 +1,5 @@
 using MetarSharp.Extensions;
 using MetarSharp.Methods.Records.LowestValue;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using ValueType = MetarSharp.Extensions.ValueType;
 
 namespace MetarSharp.Methods.Records.HighestValue

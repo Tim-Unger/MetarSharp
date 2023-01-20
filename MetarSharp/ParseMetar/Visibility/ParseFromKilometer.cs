@@ -1,11 +1,5 @@
 ﻿using MetarSharp.Definitions;
-using MetarSharp.ParseOptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using static MetarSharp.Parse.ParseVisibility;
 
 namespace MetarSharp.Parse

@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
+using MetarSharp.Parse.Additional;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using MetarSharp.Definitions;
-using MetarSharp.Parse.Additional;
 
 namespace MetarSharp.Parse
 {

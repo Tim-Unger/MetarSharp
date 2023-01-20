@@ -1,10 +1,4 @@
 ﻿using MetarSharp.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MetarSharp.Methods.Records
 {

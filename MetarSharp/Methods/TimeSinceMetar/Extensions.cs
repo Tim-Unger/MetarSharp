@@ -1,5 +1,4 @@
 using MetarSharp.Exceptions;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MetarSharp.Extensions
 {

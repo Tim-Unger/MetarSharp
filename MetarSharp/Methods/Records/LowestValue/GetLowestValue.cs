@@ -1,5 +1,4 @@
 using MetarSharp.Extensions;
-using System.Reflection.Metadata.Ecma335;
 using ValueType = MetarSharp.Extensions.ValueType;
 
 namespace MetarSharp.Methods.Records.LowestValue

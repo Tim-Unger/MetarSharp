@@ -1,12 +1,4 @@
-﻿using MetarSharp.Parse;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace MetarSharp.Definitions
+﻿namespace MetarSharp.Definitions
 {
     public class MetarDefinition
     {

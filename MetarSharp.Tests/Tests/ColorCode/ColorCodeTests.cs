@@ -1,7 +1,3 @@
-using MetarSharp;
-using MetarSharp.Definitions;
-using ColorCode = MetarSharp.ColorCode;
-
 namespace MetarSharp.Tests.Tests.ColorCode
 {
     public class ColorCodeTests
