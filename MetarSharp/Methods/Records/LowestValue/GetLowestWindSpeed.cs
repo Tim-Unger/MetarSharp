@@ -1,4 +1,5 @@
-﻿using MetarSharp.Extensions;
+﻿using MetarSharp.Exceptions;
+using MetarSharp.Extensions;
 
 namespace MetarSharp.Methods.Records.LowestValue
 {
@@ -23,7 +24,7 @@ namespace MetarSharp.Methods.Records.LowestValue
 
         private static int GetValue(List<Metar> metars)
         {
-            return SortWind(metars).Wind.WindStrength ?? throw new Exception();
+            return SortWind(metars).Wind.WindStrength ?? throw new ParseException();
         }
 
         private static Metar SortWind(List<Metar> metars)

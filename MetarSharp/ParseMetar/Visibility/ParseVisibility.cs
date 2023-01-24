@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using MetarSharp.Exceptions;
+using System.Text.RegularExpressions;
 using static MetarSharp.Definitions.CardinalDirectionDefinitions;
 
 namespace MetarSharp.Parse
@@ -19,12 +20,17 @@ namespace MetarSharp.Parse
             {
                 if (Regex.IsMatch(raw, "\\sAUTO\\s") || Regex.IsMatch(raw, "\\sCAVOK\\s"))
                 {
-                    return new Visibility();
+                    return new Visibility()
+                    {
+                        IsVisibilityMeasurable = true,
+                        ReportedVisibility = 9999,
+                        VisibilityRaw = "9999"
+                    };
                 }
 
-                throw new Exception("Could not find Visibility");
+                throw new ParseException("Could not find Visibility");
             }
-            
+
             GroupCollection groups = matches[0].Groups;
             if (groups[2].Success)
             {
@@ -57,7 +63,7 @@ namespace MetarSharp.Parse
                 "SW" => (CardinalDirection.SouthWest, SouthWestLong),
                 "W" => (CardinalDirection.West, WestLong),
                 "NW" => (CardinalDirection.NorthWest, NorthWestLong),
-                _ => throw new Exception("Could not convert cardinal direction")
+                _ => throw new ParseException("Could not convert cardinal direction")
             };
     }
 }

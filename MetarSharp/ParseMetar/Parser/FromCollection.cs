@@ -3,15 +3,13 @@ namespace MetarSharp.Parser
 {
     internal class FromCollection
     {
-        internal static IEnumerable<Metar> Parse<T>(T input)
+        internal static IEnumerable<Metar> Parse(IEnumerable<string> input)
         {
-            var inputConvert = input as List<string>;
+            input = input.Where(x => IsStringNullOrEmpty(x) == false);
 
-            var cleanInput = inputConvert.Where(x => IsStringNullOrEmpty(x) == false);
+            List<Metar> returnList = input.Select(MetarSharp.ParseMetar.FromString).ToList();
 
-            List<Metar> returnList = cleanInput.Select(MetarSharp.ParseMetar.FromString).ToList();
-
-            return returnList as IEnumerable<Metar>;
+            return returnList;
         }
     }
 }

@@ -2,6 +2,7 @@ using MetarSharp.Methods.Records;
 using MetarSharp.Methods.Records.AverageValue;
 using MetarSharp.Methods.Records.HighestValue;
 using MetarSharp.Methods.Records.LowestValue;
+using MetarSharp.Methods.Records.MedianValue;
 
 namespace MetarSharp.Extensions
 {

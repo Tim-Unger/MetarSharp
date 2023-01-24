@@ -1,4 +1,5 @@
 using MetarSharp.Definitions;
+using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
@@ -17,10 +18,11 @@ namespace MetarSharp.Parse
             {
                 pressure.IsPressureMeasurable = false;
                 return pressure;
-                //throw new Exception("Could not find Pressure");
+                //throw new ParseException("Could not find Pressure");
             }
 
             pressure.PressureRaw = pressureMatches[0].ToString();
+            pressure.IsPressureMeasurable = true;
 
             GroupCollection groups = pressureMatches[0].Groups;
 
@@ -34,7 +36,7 @@ namespace MetarSharp.Parse
             {
                 "A" => (PressureDefinitions.InchesMercuryLong, PressureType.InchesMercury),
                 "Q" => (PressureDefinitions.HectopascalsLong, PressureType.Hectopascal),
-                _ => throw new Exception("Pressure Type could not be converted")
+                _ => throw new ParseException("Pressure Type could not be converted")
             };
 
             string pressureTypeRaw = groups[1].Value == "A" ? PressureDefinitions.InchesMercuryShort : PressureDefinitions.HectopascalsShort;

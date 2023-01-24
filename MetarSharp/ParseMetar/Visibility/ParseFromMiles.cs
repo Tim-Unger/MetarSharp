@@ -1,5 +1,6 @@
 ﻿using MetarSharp.Definitions;
 using System.Text.RegularExpressions;
+using MetarSharp.Exceptions;
 
 namespace MetarSharp.Parse
 {
@@ -8,8 +9,6 @@ namespace MetarSharp.Parse
         internal static Visibility ParseVisibility(GroupCollection groups)
         {
             Visibility visibility = new();
-
-            #region STANDARD
 
             visibility.VisibilityRaw = groups[7].Value;
 
@@ -42,7 +41,7 @@ namespace MetarSharp.Parse
             {
                 reportedVisibility = int.TryParse(groups[8].Value, out int visParse)
                   ? visParse
-                  : throw new Exception(
+                  : throw new ParseException(
                         $"Could not convert Visibility {groups[8].Value} to Number"
                     );
             }
@@ -52,13 +51,6 @@ namespace MetarSharp.Parse
             visibility.VisibilityUnit = VisibilityUnit.Miles;
             visibility.VisibilityUnitRaw = DistanceDefinitions.StatuteMileShort;
             visibility.VisibilityUnitDecoded = DistanceDefinitions.StatuteMileLong;
-            #endregion
-
-            //TODO
-            //if (groups[11].Success)
-            //{
-
-            //}
 
             return visibility;
         }

@@ -1,4 +1,5 @@
-﻿using MetarSharp.Extensions;
+﻿using MetarSharp.Exceptions;
+using MetarSharp.Extensions;
 
 namespace MetarSharp.Methods.Records.LowestValue
 {
@@ -14,6 +15,7 @@ namespace MetarSharp.Methods.Records.LowestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => GetValue(metars),
+            _ => throw new ParseException()
         };
 
         private static Visibility GetClass(List<Metar> metars)
@@ -26,7 +28,7 @@ namespace MetarSharp.Methods.Records.LowestValue
         {
             return SortVisibility(metars)
                     .Visibility
-                    .LowestVisibility ?? throw new Exception();
+                    .LowestVisibility ?? throw new ParseException();
         }
 
         private static Metar SortVisibility(List<Metar> metars)

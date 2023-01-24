@@ -3,7 +3,7 @@
     public enum WeatherIntensity
     {
         Light,
-        Moderate,
+        Normal,
         Heavy
     }
     

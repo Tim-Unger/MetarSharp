@@ -1,3 +1,4 @@
+using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
@@ -63,7 +64,7 @@ namespace MetarSharp.Parse
         {
             return int.TryParse(value, out int converted)
               ? converted
-              : throw new Exception($"Could not convert value {value} {raw} to number");
+              : throw new ParseException($"Could not convert value {value} {raw} to number");
         }
 
     }

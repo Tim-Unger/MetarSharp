@@ -1,4 +1,5 @@
-﻿using MetarSharp.Extensions;
+﻿using MetarSharp.Exceptions;
+using MetarSharp.Extensions;
 
 namespace MetarSharp.Methods.Records.HighestValue
 {
@@ -26,7 +27,7 @@ namespace MetarSharp.Methods.Records.HighestValue
         {
             return SortVisibility(metars)
                     .Visibility
-                    .LowestVisibility ?? throw new Exception();
+                    .LowestVisibility ?? throw new ParseException();
         }
 
         private static Metar SortVisibility(List<Metar> metars)

@@ -82,7 +82,7 @@ namespace MetarSharp.Parse
                         && DateTime.DaysInMonth(yearNow, RemoveMonths(2)) >= reportingDate
                     => new Tuple<int, int>(RemoveMonths(2),RemoveMonthsYear(1)),
 
-                _ => throw new Exception("Could not convert Reporting Date")
+                _ => throw new ParseException("Could not convert Reporting Date")
             };
 
             DateTime ReportingDateTime =
@@ -95,7 +95,7 @@ namespace MetarSharp.Parse
         {
             return int.TryParse(value, out int converted)
               ? converted
-              : throw new Exception($"Could not convert value {value} to number");
+              : throw new ParseException($"Could not convert value {value} to number");
         }
 
         private static int RemoveMonths(int months)

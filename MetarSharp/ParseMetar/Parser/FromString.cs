@@ -1,4 +1,5 @@
-﻿using MetarSharp.Parse;
+﻿using MetarSharp.Exceptions;
+using MetarSharp.Parse;
 using static MetarSharp.Parser.Helpers;
 
 namespace MetarSharp.Parser
@@ -9,7 +10,7 @@ namespace MetarSharp.Parser
         {
             if (IsStringNullOrEmpty(input))
             {
-                throw new Exception("input is null or an empty line, check input");
+                throw new ParseException("input is null or an empty line, check input");
             }
 
             Metar parsed = new Metar();
@@ -37,6 +38,8 @@ namespace MetarSharp.Parser
             parsed.Visibility = ParseVisibility.ReturnVisibility(input);
 
             parsed.Weather = ParseWeather.ReturnWeather(input);
+
+            parsed.Trends = ParseTrend.ReturnTrend(input, parsed);
 
             parsed.AdditionalInformation = ParseAdditional.ReturnAdditional(input);
 

@@ -21,13 +21,13 @@ public class BenchMarks
     [Benchmark]
     public void ParseMetarsEach()
     {
-        var parse = metars.Select(x => ParseMetar.ParseFromString(x)).ToList();
+        var parse = metars.Select(x => ParseMetar.FromString(x)).ToList();
     }
 
     [Benchmark]
     public void ParseMetarsAll()
     {
-        var parse = ParseMetar.ParseFromList(metars);
+        var parse = ParseMetar.FromList(metars);
     }
 
     [Benchmark]
@@ -37,14 +37,16 @@ public class BenchMarks
         
         foreach (var metar in metars)
         {
-            metarList.Add(ParseMetar.ParseFromString(metar));
+            metarList.Add(ParseMetar.FromString(metar));
         }
     }
 
     [Benchmark]
     public void ParseSingleMetar()
     {
-        var parse = ParseMetar.ParseFromString(metars.First());
+        var rand = new Random(42069).Next(0, metars.Count);
+
+        var parse = ParseMetar.FromString(metars[rand]);
     }
 }
 

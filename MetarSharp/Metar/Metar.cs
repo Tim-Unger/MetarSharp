@@ -16,7 +16,7 @@ namespace MetarSharp
         public List<Cloud> Clouds;
         public Temperature Temperature;
         public Pressure Pressure;
-        public Trend Trend;
+        public List<Trend> Trends;
         public List<RunwayCondition>? RunwayConditions;
         public AdditionalInformation AdditionalInformation;
         public string ReadableReport;

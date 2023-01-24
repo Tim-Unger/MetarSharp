@@ -1,4 +1,5 @@
 using MetarSharp.Definitions;
+using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
@@ -86,7 +87,7 @@ namespace MetarSharp.Parse
                                 "CB" => CloudDefintions.CumulonimbusLong,
                                 "TC" or "TCU" => CloudDefintions.ToweringCumulonimbusLong,
                                 null or "" => null,
-                                _ => throw new Exception("Could not read Cumulonimbus Cloud Type")
+                                _ => throw new ParseException("Could not read Cumulonimbus Cloud Type")
                             };
                         }
                     }
@@ -107,14 +108,14 @@ namespace MetarSharp.Parse
                 "OVC" => (CloudType.Overcast, CloudDefintions.OvercastCloudsLong),
                 "NSC" => (CloudType.NoSignificantClouds, CloudDefintions.NoSignificantCloudsLong),
                 "NCD" => (CloudType.NoCloudsDetected, CloudDefintions.NoCloudsDetectedLong),
-                _ => throw new Exception("Can't read cloud type")
+                _ => throw new ParseException("Can't read cloud type")
             };
 
         private static int TryParseWithThrow(string value, string raw)
         {
             return int.TryParse(value, out int converted)
               ? converted
-              : throw new Exception($"Could not convert value {value} {raw} to number");
+              : throw new ParseException($"Could not convert value {value} {raw} to number");
         }
     }
 }

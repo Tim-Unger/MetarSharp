@@ -1,4 +1,5 @@
 using MetarSharp.Exceptions;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -19,7 +20,7 @@ namespace MetarSharp.Parse
 
             if (weatherMatches.Count == 0)
             {
-                return null;
+                return new Weather();
             }
 
             var groups = weatherMatches[0].Groups;
@@ -67,7 +68,7 @@ namespace MetarSharp.Parse
                 stringBuilder.Append("Vicinity").Append(' ');
             }
 
-            if (weather.WeatherIntensity != WeatherIntensity.Moderate)
+            if (weather.WeatherIntensity != WeatherIntensity.Normal)
             {
                 stringBuilder.Append(weather.WeatherIntensityDecoded).Append(' ');
             }
@@ -78,11 +79,75 @@ namespace MetarSharp.Parse
             return weather;
         }
 
+        public static Weather GetWeatherFromTrend(string raw)
+        {
+            var weather = new Weather();
+            var weatherRegex = new Regex(@"(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s");
+            GroupCollection groups = weatherRegex.Match(raw).Groups;
+
+            weather.WeatherRaw = groups[0].Value;
+
+            weather.IsInTheVicinity = groups[2].Value == "VC";
+            weather.WeatherIntensityRaw = groups[2].Value;
+
+            if (groups[2].Value == "VC")
+            {
+                weather.WeatherIntensity = null;
+                weather.WeatherIntensityDecoded = null;
+
+                return weather;
+            }
+
+            (weather.WeatherIntensity, weather.WeatherIntensityDecoded) = groups[2].Value switch
+            {
+                "-" => (WeatherIntensity.Light, "Light"),
+                "" or null => (WeatherIntensity.Normal, "Moderate"),
+                "+" => (WeatherIntensity.Heavy, "Heavy"),
+                _ => throw new ParseException()
+            };
+
+            var weatherCaptures = groups[3].Captures;
+
+            List<SingleWeather> weathers = new List<SingleWeather>();
+            for (var i = 0; i < weatherCaptures.Count; i++)
+            {
+                var singleWeather = new SingleWeather();
+                singleWeather.WeatherTypeRaw = weatherCaptures[i].Value;
+                (singleWeather.WeatherType, singleWeather.WeatherTypeDecoded) = GetWeatherType(weatherCaptures[i].Value);
+
+                weathers.Add(singleWeather);
+            }
+
+            weather.Weathers = weathers;
+
+            StringBuilder stringBuilder = new();
+
+            if (weather.IsRecent)
+            {
+                stringBuilder.Append("Recent").Append(' ');
+            }
+
+            if (weather.IsInTheVicinity)
+            {
+                stringBuilder.Append("Vicinity").Append(' ');
+            }
+
+            if (weather.WeatherIntensity != WeatherIntensity.Normal)
+            {
+                stringBuilder.Append(weather.WeatherIntensityDecoded).Append(' ');
+            }
+
+            weather.Weathers.ForEach(x => stringBuilder.Append(x.WeatherTypeDecoded).Append(' '));
+
+            weather.WeatherCombinedDecoded = stringBuilder.ToString();
+            return weather;
+        }
+
         private static (WeatherIntensity, string) GetWeatherIntensity(GroupCollection groups) =>
             groups[3].Value switch
             {
                 "-" => (WeatherIntensity.Light,"Light"),
-                "" or null => (WeatherIntensity.Moderate, "Moderate"),
+                "" or null => (WeatherIntensity.Normal, "Moderate"),
                 "+" => (WeatherIntensity.Heavy, "Heavy"),
                 _ => throw  new ParseException()
             };
@@ -112,7 +177,7 @@ namespace MetarSharp.Parse
             "SQ" => (WeatherType.Squall, "Squall"),
             "FC" => (WeatherType.Tornado, "Tornado"),
             "SS" => (WeatherType.Sandstorm, "Sand Storm"),
-            _ => (WeatherType.Unknown, "Unknow")
+            _ => (WeatherType.Unknown, "Unknown")
         };
 
     }

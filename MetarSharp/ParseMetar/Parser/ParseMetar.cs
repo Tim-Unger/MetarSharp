@@ -1,4 +1,5 @@
-﻿using static MetarSharp.Parser.Helpers;
+﻿using MetarSharp.Exceptions;
+using static MetarSharp.Parser.Helpers;
 
 namespace MetarSharp
 {
@@ -8,7 +9,7 @@ namespace MetarSharp
         {
             if(IsStringNullOrEmpty(input))
             {
-                throw new Exception();
+                throw new ParseException();
             }
 
             return Parser.FromString.Parse(input);
@@ -18,7 +19,7 @@ namespace MetarSharp
         {
             if(IsStringNullOrEmpty(input))
             {
-                throw new Exception();
+                throw new ParseException();
             }
 
             return Parser.FromLink.Parse(input);
@@ -28,7 +29,7 @@ namespace MetarSharp
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
-                throw new Exception();
+                throw new ParseException();
             }
 
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);
@@ -40,7 +41,7 @@ namespace MetarSharp
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
-                throw new Exception();
+                throw new ParseException();
             }
 
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);
@@ -52,7 +53,7 @@ namespace MetarSharp
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
-                throw new Exception();
+                throw new ParseException();
             }
 
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);

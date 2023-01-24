@@ -1,3 +1,4 @@
+using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse.Additional
@@ -27,7 +28,7 @@ namespace MetarSharp.Parse.Additional
             {
                 wind.Runway = Runway;
             }
-            wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new Exception("Could not read Runway");
+            wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new ParseException("Could not read Runway");
 
             return wind;
         }

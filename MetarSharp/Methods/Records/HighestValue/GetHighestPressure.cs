@@ -1,4 +1,5 @@
-﻿using MetarSharp.Extensions;
+﻿using MetarSharp.Exceptions;
+using MetarSharp.Extensions;
 
 namespace MetarSharp.Methods.Records.HighestValue
 {
@@ -31,7 +32,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             return metars
                     .OrderByDescending(x => x.Pressure.PressureOnly)
                     .First()
-                    .Pressure.PressureAsQnh ?? throw new Exception();
+                    .Pressure.PressureAsQnh ?? throw new ParseException();
         }
 
         private static double GetValueINHG(List<Metar> metars)
@@ -39,7 +40,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             return metars
                     .OrderByDescending(x => x.Pressure.PressureOnly)
                     .First()
-                    .Pressure.PressureAsAltimeter ?? throw new Exception();
+                    .Pressure.PressureAsAltimeter ?? throw new ParseException();
         }
     }
 }

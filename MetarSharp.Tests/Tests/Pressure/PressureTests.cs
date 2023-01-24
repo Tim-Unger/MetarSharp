@@ -1,4 +1,6 @@
-﻿namespace MetarSharp.Tests.Pressure
+﻿using MetarSharp.Exceptions;
+
+namespace MetarSharp.Tests.Pressure
 {
     internal class PressureTests
     {
@@ -28,8 +30,7 @@
                         break;
                     }
                     default:
-                        throw new Exception();
-                        break;
+                        throw new ParseException();
                 }
             }
         }
@@ -44,7 +45,7 @@
             )
             {
                 var convertHectospascals = (int)Math.Round(
-                    metar.Pressure.PressureAsQnh / 33.8569518716 ?? throw new Exception(),
+                    metar.Pressure.PressureAsQnh / 33.8569518716 ?? throw new ParseException(),
                     0
                 );
 
@@ -71,7 +72,7 @@
 
                 var hectopascalsAndCheck = takeMetarPartOne + "." + takeMetarPartTwo;
 
-                var checkConverted = metar.Pressure.PressureWithSeperator;
+                var checkConverted = metar.Pressure.PressureAsAltimeter.ToString();
 
                 var allTheSame =
                     convertHectopascalsAndCheck == hectopascalsAndCheck

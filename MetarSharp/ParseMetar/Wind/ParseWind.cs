@@ -1,4 +1,5 @@
 using MetarSharp.Definitions;
+using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
@@ -51,11 +52,9 @@ namespace MetarSharp.Parse
 
             #endregion
 
-
             wind.WindGusts = groups[9].Success ? TryParseWithThrow(groups[9].Value) : null;
 
             wind.IsWindVariable = groups[2].Value.Contains("VRB");
-
 
             if (groups[12].Success)
             {
@@ -72,12 +71,12 @@ namespace MetarSharp.Parse
             "KT" => (WindDefinitions.KnotsLong, WindUnit.Knots),
             "MPH" => (WindDefinitions.MilesPerHourLong, WindUnit.MilesPerHour),
             "MPS" => (WindDefinitions.MetersPerSecondLong, WindUnit.MetersPerSecond),
-            _ => throw new Exception("Could not convert Wind Unit")
+            _ => throw new ParseException("Could not convert Wind Unit")
         };
 
         private static int TryParseWithThrow(string value)
         {
-            return int.TryParse(value, out int converted) ? converted : throw new Exception($"Could not convert value {value} to number");
+            return int.TryParse(value, out int converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
         }
     }
 }

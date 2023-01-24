@@ -1,4 +1,5 @@
 using MetarSharp.Definitions;
+using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
@@ -35,14 +36,14 @@ namespace MetarSharp.Parse
                     "R" => RunwayDefinition.RightRunwayLong,
                     null or "" => null,
                     _
-                      => throw new Exception(
+                      => throw new ParseException(
                           $"Could not read Runway Designator of RVR runway {groups[1].Value}"
                       )
                 };
 
                 runwayVisibility.RunwayVisualRange = int.TryParse(groups[5].Value, out int _rvr)
                   ? _rvr
-                  : throw new Exception(
+                  : throw new ParseException(
                         $"Could not Convert Runway Visual Range of Runway {groups[1].Value} to Number"
                     );
 
@@ -54,7 +55,7 @@ namespace MetarSharp.Parse
                     "P" => "More",
                     null or "" => "",
                     _
-                      => throw new Exception(
+                      => throw new ParseException(
                           $"Could not read RVR-More or Less Value of Runway {groups[1].Value}"
                       )
                 };
@@ -68,7 +69,7 @@ namespace MetarSharp.Parse
                     "N" => (RVRDefinitions.TendencyStagnantShort, RVRDefinitions.TendencyStagnantLong),
                     "D" => (RVRDefinitions.TendencyDownwardShort, RVRDefinitions.TendencyDownwardLong),
                     _
-                      => throw new Exception(
+                      => throw new ParseException(
                           $"Could not read RVR-Tendency for Runway {groups[1].Value}"
                       )
                 };
