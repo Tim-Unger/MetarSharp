@@ -13,7 +13,7 @@
         public string RunwayVisibilityRaw { get; set; }
         public string Runway { get; set; }
         public bool IsParallelRunway { get; set; }
-        public ParallelRunwayDesignator ParallelRunwayDesignator { get; set; }
+        public ParallelRunwayDesignator? ParallelRunwayDesignator { get; set; }
         public string? ParallelRunwayDesignatorRaw { get; set; }
         public string? ParallelRunwayDesignatorDecoded { get; set; }
         public int RunwayVisualRange { get; set; }

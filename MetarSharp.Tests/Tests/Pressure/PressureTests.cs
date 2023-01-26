@@ -49,23 +49,23 @@ namespace MetarSharp.Tests.Pressure
                     0
                 );
 
-                var convertHectopascalsOne = String.Join(
-                    String.Empty,
+                var convertHectopascalsOne = string.Join(
+                    string.Empty,
                     convertHectospascals.ToString().Take(2)
                 );
-                var convertHectopascalsTwo = String.Join(
-                    String.Empty,
+                var convertHectopascalsTwo = string.Join(
+                    string.Empty,
                     convertHectospascals.ToString().Skip(2).Take(2)
                 );
 
                 var convertHectopascalsAndCheck =
                     convertHectopascalsOne + "." + convertHectopascalsTwo;
 
-                var takeMetarPartOne = String.Join(
-                    String.Empty,
+                var takeMetarPartOne = string.Join(
+                    string.Empty,
                     metar.Pressure.PressureRaw.ToString().Skip(1).Take(2)
                 );
-                var takeMetarPartTwo = String.Join(
+                var takeMetarPartTwo = string.Join(
                     String.Empty,
                     metar.Pressure.PressureRaw.ToString().Skip(3).Take(2)
                 );

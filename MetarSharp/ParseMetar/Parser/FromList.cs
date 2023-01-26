@@ -2,6 +2,11 @@
 {
     internal class FromList
     {
+        /// <summary>
+        /// This parses the input from a list
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         internal static List<Metar> Parse (List<string> input)
         {
             List<Metar> metars = new List<Metar>();
@@ -10,19 +15,11 @@
             {
                 if (listMetar.StartsWith("http"))
                 {
-                    Metar addNewMetar = new Metar();
-
-                    addNewMetar = FromLink.Parse(listMetar);
-
-                    metars.Add(addNewMetar);
+                    metars.Add(FromLink.Parse(listMetar));
                     continue;
                 }
 
-                Metar addMetar = new Metar();
-
-                addMetar = FromString.Parse(listMetar);
-
-                metars.Add(addMetar);
+                metars.Add(FromString.Parse(listMetar));
             }
             return metars;
         }

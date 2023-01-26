@@ -12,10 +12,10 @@
 
     public class Cloud
     {
-        public bool IsCAVOK { get; set; }
+        public bool IsCAVOK { get; set; } = true;
         public bool? IsCloudMeasurable { get; set; }
         public string? CloudRaw { get; set; }
-        public CloudType CloudCoverageType { get; set; }
+        public CloudType CloudCoverageType { get; set; } = CloudType.NoCloudsDetected;
         public string? CloudCoverageTypeRaw { get; set; }
         public string? CloudCoverageTypeDecoded { get; set; }
         public bool? IsCeilingMeasurable { get; set; }

@@ -6,6 +6,12 @@ namespace MetarSharp.Parse
 {
     public class ParseAdditional
     {
+        /// <summary>
+        /// this returns the additional information part of the metar
+        /// this part is optional, so if the regex doesn't match, an empty class will be returned
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
         public static AdditionalInformation ReturnAdditional(string raw)
         {
             AdditionalInformation additionalInformation = new AdditionalInformation();
@@ -50,6 +56,7 @@ namespace MetarSharp.Parse
                 //ColorCode
                 if (groups[11].Success == true)
                 {
+                    //GetColorCode returns the ColorCode enum, the ColorCode in short and in long
                     var colorCodeTuple = Additional.ColorCode.GetColorCode(groups).ToTuple();
                     
                     additionalInformation.ColorCode = new ColorCode

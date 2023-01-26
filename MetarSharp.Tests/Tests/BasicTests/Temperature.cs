@@ -7,7 +7,7 @@
         {
             foreach (var metar in MetarsParsed.Where(x => x.Temperature.IsTemperatureMeasurable).ToList())
             {
-                Assert.That(metar.Temperature.TemperatureOnly, Is.Not.EqualTo(null), $"Metar {metar.MetarRaw} has no temperature");
+                Assert.That(metar.Temperature.TemperatureCelsius, Is.Not.EqualTo(null), $"Metar {metar.MetarRaw} has no temperature");
             }
         }
 
@@ -16,7 +16,7 @@
         {
             foreach (var metar in MetarsParsed.Where(x => x.Temperature.IsTemperatureMeasurable).ToList())
             {
-                Assert.That(metar.Temperature.DewpointOnly, Is.Not.EqualTo(null), $"Metar {metar.MetarRaw} has no dewpoint");
+                Assert.That(metar.Temperature.DewpointCelsius, Is.Not.EqualTo(null), $"Metar {metar.MetarRaw} has no dewpoint");
             }
         }
     }

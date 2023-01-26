@@ -3,22 +3,22 @@ namespace MetarSharp
 {
     public class Metar
     {
-        public string MetarRaw { get; set; }
+        public string MetarRaw { get; set; } = "";
         //The Airport (EGLL)
-        public string Airport { get; set; }
-        public ReportingTime ReportingTime;
-        public bool IsAutomatedReport { get; set; }
-        public Wind Wind;
-        public Visibility Visibility;
+        public string Airport { get; set; } = "AAAA";
+        public ReportingTime ReportingTime = new ReportingTime();
+        public bool IsAutomatedReport { get; set; } = false;
+        public Wind Wind = new Wind(); 
+        public Visibility Visibility = new Visibility();
         public List<RunwayVisibility>? RunwayVisibilities;
-        public Weather? Weather;
+        public Weather? Weather = new Weather();
         //Non-nullable as it must be at least CAVOK
-        public List<Cloud> Clouds;
-        public Temperature Temperature;
-        public Pressure Pressure;
-        public List<Trend> Trends;
+        public List<Cloud> Clouds = new List<Cloud>();
+        public Temperature Temperature = new Temperature();
+        public Pressure Pressure = new Pressure();
+        public List<Trend> Trends = new List<Trend>();
         public List<RunwayCondition>? RunwayConditions;
-        public AdditionalInformation AdditionalInformation;
-        public string ReadableReport;
+        public AdditionalInformation AdditionalInformation = new AdditionalInformation();
+        public string ReadableReport = "";
     }
 }

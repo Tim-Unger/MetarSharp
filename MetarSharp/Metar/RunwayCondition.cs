@@ -17,6 +17,6 @@
     public class RunwayCondition
     {
         public string? RunwayConditionRaw { get; set; }
-        public Condition Condition { get; set; }
+        public Condition Condition { get; set; } = Condition.ClearAndDry;
     }
 }

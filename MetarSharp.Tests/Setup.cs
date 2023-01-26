@@ -13,7 +13,7 @@
             {
                 string metarListRaw = streamReader.ReadToEnd();
                 Metars = metarListRaw.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-                MetarsParsed = Metars.Select(x => ParseMetar.ParseFromString(x)).ToList();
+                MetarsParsed = Metars.Select(x => ParseMetar.FromString(x)).ToList();
             };
         }
 

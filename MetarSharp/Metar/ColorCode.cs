@@ -14,8 +14,8 @@
     }
     public class ColorCode
     {
-        public Color Color { get; set; }
-        public string ColorCodeShort { get; set; }
-        public string ColorCodeLong { get; set; }
+        public Color Color { get; set; } = Color.NIL;
+        public string ColorCodeShort { get; set; } = "NIL";
+        public string ColorCodeLong { get; set; } = "Nil";
     }
 }

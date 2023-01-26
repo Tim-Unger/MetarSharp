@@ -2,7 +2,7 @@
 {
     public class ReportingTime
     {
-        public string ReportingTimeRaw { get; set; }
+        public string ReportingTimeRaw { get; set; } = "None"; 
         //The Reporting Date (01)
         public int ReportingDateRaw { get; set; }
         //The Reporting Time (1100)

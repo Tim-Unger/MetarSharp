@@ -1,11 +1,18 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Parse;
 using static MetarSharp.Parser.Helpers;
+using MetarSharp.Parse.ReadableReport;
 
 namespace MetarSharp.Parser
 {
     internal class FromString
     {
+        /// <summary>
+        /// This is the main parser class which calls all the individual parts of the metar parser 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseException"></exception>
         internal static Metar Parse(string input)
         {
             if (IsStringNullOrEmpty(input))

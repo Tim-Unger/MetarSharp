@@ -6,7 +6,13 @@ namespace MetarSharp.Parse.Additional
 {
     internal class ColorCode
     {
-        //Color Code Enum, Color Code short, Color Code long
+        /// <summary>
+        /// this will return the Color Code Enum, Color Code short, Color Code long.
+        /// Definitions can be changed in the default definitions
+        /// </summary>
+        /// <param name="groups"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseException"></exception>
         internal static (Color, string, string) GetColorCode(GroupCollection groups) => groups[11].Value switch
         {
             "BLU+" => (Color.BLUPLUS, ColorCodeDefinitions.BluePlusShort, ColorCodeDefinitions.BluePlusLong),

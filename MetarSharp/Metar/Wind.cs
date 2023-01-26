@@ -9,7 +9,7 @@
     public class Wind
     {
         //The Wind as String (23008KT)
-        public string WindRaw { get; set; }
+        public string WindRaw { get; set; } = "None";
         public bool IsWindMeasurable { get; set; }
         public bool IsWindDirectionMeasurable { get; set; }
         public bool IsWindStrengthMeasurable { get; set; }
@@ -19,8 +19,8 @@
         //The Wind Strength (3)
         public int? WindStrength { get; set; }
         //The Wind Unit (KT)
-        public string WindUnitRaw { get; set; }
-        public string WindUnitDecoded { get; set; }
+        public string WindUnitRaw { get; set; } = "None";
+        public string WindUnitDecoded { get; set; } = "None";
         public WindUnit WindUnit { get; set; }
         //Whether there are Wind Gusts
         public bool IsWindGusting { get; set; }

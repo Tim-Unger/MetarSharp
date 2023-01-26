@@ -2,9 +2,9 @@
 {
     public class RecentWeather
     {
-        public string RecentWeatherRaw { get; set; }
-        public string RecentWeatherTypeRaw { get; set; }
-        public string RecentWeatherDecoded { get; set; }
+        public string RecentWeatherRaw { get; set; } = "NaN";
+        public string RecentWeatherTypeRaw { get; set; } = "None";
+        public string RecentWeatherDecoded { get; set; } = "None";
     }
     
 }

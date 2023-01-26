@@ -6,6 +6,13 @@ namespace MetarSharp.Parse
 {
     public class ParseClouds
     {
+        /// <summary>
+        /// this returns a list of all clouds in the metar.
+        /// if the report is CAVOK or if no clouds are reported, it will return an empty enumerable
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseException"></exception>
         public static List<Cloud> ReturnClouds(string raw)
         {
             List<Cloud> clouds = new List<Cloud>();
@@ -30,13 +37,15 @@ namespace MetarSharp.Parse
                 }
 
                 cloud.CloudRaw = groups[0].Value;
+
                 //Clouds not measurable
                 cloud.IsCloudMeasurable = groups[4].Value != "///";
+
                 //Vertical Visibility is used
                 bool isVerticalVisibiltiy = groups[4].Value == "VV";
                 cloud.IsVerticalVisibility = isVerticalVisibiltiy;
-                //Vertical Visibility not measurable
 
+                //Vertical Visibility not measurable
                 if (isVerticalVisibiltiy == true)
                 {
                     //TODO
@@ -71,7 +80,6 @@ namespace MetarSharp.Parse
 
                     }
 
-
                     bool hasCumulonimbusClouds = groups[6].Success;
                     if(hasCumulonimbusClouds)
                     {
@@ -96,7 +104,14 @@ namespace MetarSharp.Parse
                 clouds.Add(cloud);
             }
 
-            return clouds;
+            //This will only return the list if it has any clouds
+            if(clouds.Count > 0)
+            {
+                return clouds;
+            }
+
+            //It will otherwise return an empty enumerable
+            return Enumerable.Empty<Cloud>().ToList();
         }
 
         private static (CloudType, string) GetCloudType(string input) =>

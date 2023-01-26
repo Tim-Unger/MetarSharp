@@ -37,38 +37,38 @@
         Sandstorm,
         Duststorm
     }
-
-    public enum Precipitation
-    {
+    //public enum Precipitation
+    //{
         
-    }
+    //}
 
-    public enum Clouding
-    {
+    //public enum Clouding
+    //{
         
-    }
+    //}
 
-    public enum OtherWeather
-    {
+    //public enum OtherWeather
+    //{
         
-    }
+    //}
+
     public class Weather
     {
-        public string WeatherRaw { get; set; }
-        public string WeatherIntensityRaw { get; set; }
+        public string WeatherRaw { get; set; } = "None"; 
+        public string WeatherIntensityRaw { get; set; } = "None";
         public WeatherIntensity? WeatherIntensity { get; set; }
         public string? WeatherIntensityDecoded { get; set; }
-        public List<SingleWeather> Weathers { get; set; }
-        public string WeatherCombinedDecoded { get; set; }
+        public List<SingleWeather> Weathers { get; set; } = new List<SingleWeather>();
+        public string WeatherCombinedDecoded { get; set; } = "None";
         public bool IsInTheVicinity { get; set; }
         public bool IsRecent { get; set; }
     }
 
     public class SingleWeather
     {
-        public string WeatherTypeRaw { get; set; }
+        public string WeatherTypeRaw { get; set; } = "None";
         public WeatherType WeatherType { get; set; }
         
-        public string WeatherTypeDecoded { get; set; } 
+        public string WeatherTypeDecoded { get; set; } = "None"; 
     }
 }
