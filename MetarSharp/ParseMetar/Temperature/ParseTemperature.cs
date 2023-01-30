@@ -47,7 +47,7 @@ namespace MetarSharp.Parse
             }
 
             temperature.TemperatureCelsius = tempCelsius;
-            temperature.DewpointCelsius = (tempCelsius * 1.8) + 32;
+            temperature.DewpointCelsius = Math.Round((tempCelsius * 1.8) + 32, 2);
 
             if (groups[3].Success)
             {
@@ -55,7 +55,7 @@ namespace MetarSharp.Parse
             }
 
             temperature.DewpointCelsius = dewpointCelsius;
-            temperature.DewpointFahrenheit = (tempCelsius * 1.8) + 32;
+            temperature.DewpointFahrenheit = Math.Round((tempCelsius * 1.8) + 32, 2);
 
             return temperature;
         }

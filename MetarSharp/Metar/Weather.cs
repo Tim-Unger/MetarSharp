@@ -55,18 +55,26 @@
     public class Weather
     {
         public string WeatherRaw { get; set; } = "None"; 
+
         public string WeatherIntensityRaw { get; set; } = "None";
+
         public WeatherIntensity? WeatherIntensity { get; set; }
+
         public string? WeatherIntensityDecoded { get; set; }
+
         public List<SingleWeather> Weathers { get; set; } = new List<SingleWeather>();
+
         public string WeatherCombinedDecoded { get; set; } = "None";
+
         public bool IsInTheVicinity { get; set; }
+
         public bool IsRecent { get; set; }
     }
 
     public class SingleWeather
     {
         public string WeatherTypeRaw { get; set; } = "None";
+
         public WeatherType WeatherType { get; set; }
         
         public string WeatherTypeDecoded { get; set; } = "None"; 

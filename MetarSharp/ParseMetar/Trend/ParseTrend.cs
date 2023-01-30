@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using MetarSharp.Exceptions;
 
@@ -15,7 +14,7 @@ namespace MetarSharp.Parse
 
             if (trendMatches.Count == 0)
             {
-                return new List<Trend>();
+                return Enumerable.Empty<Trend>().ToList();
             }
 
             List<Trend> trends = new List<Trend>();
@@ -38,10 +37,10 @@ namespace MetarSharp.Parse
                     _ => throw new ParseException()
                 };
 
+                trend.IsTimeRestricted = groups[3].Success;
+
                 if (groups[3].Success)
                 {
-                    trend.IsTimeRestricted = true;
-
                     trend.TimeRestrictionRaw = groups[3].Value;
 
                     trend.TimeRestriction = TryParseWithThrow(groups[5].Value, raw);
@@ -67,7 +66,6 @@ namespace MetarSharp.Parse
                     trend.TimeRestrictionDateTime = timeRestriction;
                 }
 
-                trend.IsTimeRestricted = true;
                 //TODO
                 //Somehow, the capture is also successful, if it shouldn't be/if the string is empty
                 if (groups[6].Success && groups[6].Value != "" && !string.IsNullOrWhiteSpace(groups[6].Value))
@@ -87,14 +85,14 @@ namespace MetarSharp.Parse
 
             //First, all trend objects are split by this big regex
             Regex trendRegex = new Regex
-                (@"(\s[0-9]{4}\s)|(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s|((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?|((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))");
+                (@"(\s[0-9]{4}(?:\s|$))|(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s|((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?|((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))", RegexOptions.Multiline);
 
             MatchCollection matches = trendRegex.Matches(input);
 
             //this uses the individual regex on each trend object and checks which one it is
             foreach (var match in matches.Cast<Match>())
             {
-                Regex visRegex = new Regex(@"(\s[0-9]{4}\s)", RegexOptions.None);
+                Regex visRegex = new Regex(@"(\s[0-9]{4}(?:\s|$))", RegexOptions.Multiline);
                 if (visRegex.IsMatch(match.Value))
                 {
                     result.Add(GetVisibility(match.Value));

@@ -19,8 +19,6 @@ namespace MetarSharpDebugger
 
             //You can enter your metars here
 
-            MetarDefinition.Edit(Definitions.MeterLong, "Test");
-            timer.Stop();
 
             var lines = File.ReadAllLines("../Metars.txt");
             List<Metar> metars = new();
@@ -35,8 +33,9 @@ namespace MetarSharpDebugger
             var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
             var lo = ValueRecords.GetMedianValue(metars, AverageValueType.PressureQNH, MidpointRounding.AwayFromZero);
             var conv = ConvertFromYears.ToMilliseconds(300);
-    
+
             ///Just for diagnostics/to check execution time 
+            timer.Stop();
             var executeTime = timer.ElapsedMilliseconds;
             var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
         }

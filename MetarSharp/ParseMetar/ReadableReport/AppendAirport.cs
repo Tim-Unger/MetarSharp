@@ -4,7 +4,7 @@
     {
         internal static string Append(Metar metar)
         {
-            return "for " + metar.Airport + "." + "\n";
+            return $"for {metar.Airport}. ";
         }
     }
 }

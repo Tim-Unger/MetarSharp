@@ -1,4 +1,5 @@
 ﻿using System.Text;
+#pragma warning disable CS8602
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -11,8 +12,6 @@ namespace MetarSharp.Parse.ReadableReport
         /// <returns></returns>
         internal static string Append(Metar metar)
         {
-#pragma warning disable CS8602
-
             var weather = metar.Weather;
 
             StringBuilder stringBuilder = new StringBuilder();

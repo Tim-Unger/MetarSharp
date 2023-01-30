@@ -7,10 +7,10 @@ namespace MetarSharp.Parse
     public class ParseVisibility
     {
         //TODO
-        public static MetarSharp.Visibility ReturnVisibility(string raw)
+        public static Visibility ReturnVisibility(string raw)
         {
             Regex visibilityRegex = new Regex(
-                @"(\s([0-9]{4})\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9]))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s",
+                @"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9]))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s",
                 RegexOptions.None
             );
 

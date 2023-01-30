@@ -20,9 +20,4 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.3" />
-  </ItemGroup>
-
 </Project>

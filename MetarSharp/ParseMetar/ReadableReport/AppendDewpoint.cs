@@ -7,7 +7,7 @@ namespace MetarSharp.Parse.ReadableReport
     {
         internal static string Append(Metar metar)
         {
-            string dewpoint = metar.Temperature.DewpointCelsius + "°C" + " (" + metar.Temperature.DewpointFahrenheit + "°F)");
+            string dewpoint = metar.Temperature.DewpointCelsius + "°C" + " (" + metar.Temperature.DewpointFahrenheit + "°F)";
 
             return dewpoint;
         } 

@@ -1,5 +1,4 @@
-﻿using Gee.External.Capstone.Arm64;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -15,8 +14,9 @@ namespace MetarSharp.Parse.ReadableReport
             string reportingDate = "";
 
             string reportingTime =
-                " at " + metar.ReportingTime.ReportingTimeZulu.ToString("t") + " UTC" + "\n";
+                " at " + metar.ReportingTime.ReportingTimeZulu.ToString("t") + " UTC";
 
+            //Returns if the metar was reported today
             if (metar.ReportingTime.ReportingTimeZulu.Day == DateTime.UtcNow.Day)
             {
                 reportingDate = "Reported today";
@@ -28,6 +28,7 @@ namespace MetarSharp.Parse.ReadableReport
             int dayNumber = metar.ReportingTime.ReportingTimeZulu.Day;
             string dayWritten = ConvertDay(dayNumber);
 
+            //returns the written out month in English
             string monthWritten = metar.ReportingTime.ReportingTimeZulu.ToString("MMMM", new CultureInfo("en-UK"));
             reportingDate = "Reported on the " + dayWritten + " of " + monthWritten;
 

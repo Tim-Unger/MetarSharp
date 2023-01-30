@@ -19,6 +19,8 @@ namespace MetarSharp.Parse.ReadableReport
             //Airport
             reportBuilder.Append(Airport.Append(metar));
 
+            reportBuilder.AppendLine();
+
             //Reporting Time
             reportBuilder.AppendLine(ReportingTime.Append(metar));
 
@@ -36,7 +38,7 @@ namespace MetarSharp.Parse.ReadableReport
             }
 
             //Weather
-            if (metar.Weather != null)
+            if (metar.Weather != null && metar.Weather.Weathers.Count > 0)
             {
                 reportBuilder.AppendLine(Weather.Append(metar));
             }
@@ -56,6 +58,12 @@ namespace MetarSharp.Parse.ReadableReport
 
             //Pressure
             reportBuilder.AppendLine(Pressure.Append(metar));
+
+            //Trends
+            if (metar.Trends.Count > 0)
+            {
+                reportBuilder.AppendLine(Trend.Append(metar));
+            }
 
             return reportBuilder.ToString();
         }
