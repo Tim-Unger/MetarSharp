@@ -237,11 +237,10 @@ namespace MetarSharp.Parse.ReadableReport
                 return cloudString;
             }
 
-            //TODO null exception here
-            if (cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
-            {
-                return "Vertical Visibility not measurable";
-            }
+            //if (cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
+            //{
+            //    return "Vertical Visibility not measurable";
+            //}
 
             return "Vertical Visibility: " + cloud.VerticalVisibility;
         }

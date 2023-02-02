@@ -66,8 +66,8 @@ namespace MetarSharp.Parse
                     trend.TimeRestrictionDateTime = timeRestriction;
                 }
 
-                //TODO
-                //Somehow, the capture is also successful, if it shouldn't be/if the string is empty
+                //Somehow, the capture is also successful if it shouldn't be/if the string is empty
+                //that's why the NullOrWhiteSpace Check is here
                 if (groups[6].Success && groups[6].Value != "" && !string.IsNullOrWhiteSpace(groups[6].Value))
                 {
                     trend.TrendList = GetTrendObjects(match.Value);
@@ -127,7 +127,6 @@ namespace MetarSharp.Parse
 
         private static Weather GetWeather(string input)
         {
-            //TODO
             return ParseWeather.GetWeatherFromTrend(input);
         }
 

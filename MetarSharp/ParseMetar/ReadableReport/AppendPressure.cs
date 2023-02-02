@@ -4,9 +4,12 @@
     {
         internal static string Append(Metar metar)
         {
-            string pressure = "Pressure: " + metar.Pressure.PressureAsQnh + "hPa" + " or " + metar.Pressure.PressureAsAltimeter + "inHg";
+            if (metar.Pressure.PressureType == PressureType.Hectopascal)
+            {
+                return $"Pressure: {metar.Pressure.PressureAsQnh}hPa ({metar.Pressure.PressureAsAltimeter}inHg)";
+            }
 
-            return pressure;
+            return $"Pressure: {metar.Pressure.PressureAsAltimeter}inHg ({metar.Pressure.PressureAsQnh}hPa)";
         }
     }
 }

@@ -110,8 +110,11 @@ namespace MetarSharp.Parse
                 return clouds;
             }
 
-            //It will otherwise return an empty enumerable
-            return Enumerable.Empty<Cloud>().ToList();
+            //It will otherwise return a CAVOK Element
+            //TODO better empty element
+            Cloud emptyCloud = new() { IsCAVOK = true, CloudCeiling = 9999, IsCeilingMeasurable = true, IsCloudMeasurable = true };
+            clouds.Add(emptyCloud);
+            return clouds;
         }
 
         private static (CloudType, string) GetCloudType(string input) =>

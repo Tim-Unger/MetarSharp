@@ -20,7 +20,7 @@ namespace MetarSharp.Tests.Wind
         [Test]
         public void CheckGustCount_ReturnsTrue()
         {
-            Regex gustVarRegex = new(@"(?<!(TEMPO|BECMG).*)G[0-9]{1,3}(KT|MPH|MPS)", RegexOptions.Multiline);
+            Regex gustVarRegex = new(@"(?<!(TEMPO|BECMG|RMK).*)G[0-9]{1,3}(KT|MPH|MPS)", RegexOptions.Multiline);
             MatchCollection matches = gustVarRegex.Matches(String.Join("\n", Metars));
 
             int gustCount = MetarsParsed.Where(x => x.Wind.IsWindGusting).Count();

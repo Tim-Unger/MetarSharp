@@ -39,7 +39,7 @@ namespace MetarSharp.Parse
             temperature.IsDewpointBelowZero = groups[3].Success;
 
             double tempCelsius = TryParseWithThrow(groups[2].Value, raw);
-            double dewpointCelsius = TryParseWithThrow(groups[2].Value, raw);
+            double dewpointCelsius = TryParseWithThrow(groups[4].Value, raw);
 
             if (groups[1].Success)
             {
@@ -47,7 +47,7 @@ namespace MetarSharp.Parse
             }
 
             temperature.TemperatureCelsius = tempCelsius;
-            temperature.DewpointCelsius = Math.Round((tempCelsius * 1.8) + 32, 2);
+            temperature.TemperatureFahrenheit = Math.Round((tempCelsius * 1.8) + 32, 2);
 
             if (groups[3].Success)
             {
@@ -55,7 +55,7 @@ namespace MetarSharp.Parse
             }
 
             temperature.DewpointCelsius = dewpointCelsius;
-            temperature.DewpointFahrenheit = Math.Round((tempCelsius * 1.8) + 32, 2);
+            temperature.DewpointFahrenheit = Math.Round((dewpointCelsius * 1.8) + 32, 2);
 
             return temperature;
         }

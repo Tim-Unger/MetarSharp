@@ -6,7 +6,7 @@ namespace MetarSharp.Parse
 {
     internal class ParseFromMeter
     {
-        internal static Visibility ParseVisibiltiy(GroupCollection groups)
+        internal static Visibility ParseVisibility(GroupCollection groups)
         {
             Visibility visibility = new();
 

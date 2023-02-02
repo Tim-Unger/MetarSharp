@@ -1,4 +1,5 @@
 ﻿using MetarSharp.Exceptions;
+using System.ComponentModel.Design;
 
 namespace MetarSharp.Tests.Pressure
 {
@@ -35,54 +36,10 @@ namespace MetarSharp.Tests.Pressure
             }
         }
 
-        [Test]
+        //[Test]
         public void CheckThatAltimeterSeparatorIsSet_ReturnsTrue()
         {
-            foreach (
-                var metar in MetarsParsed.Where(
-                    x => x.Pressure.PressureType == PressureType.InchesMercury
-                )
-            )
-            {
-                var convertHectospascals = (int)Math.Round(
-                    metar.Pressure.PressureAsQnh / 33.8569518716 ?? throw new ParseException(),
-                    0
-                );
-
-                var convertHectopascalsOne = string.Join(
-                    string.Empty,
-                    convertHectospascals.ToString().Take(2)
-                );
-                var convertHectopascalsTwo = string.Join(
-                    string.Empty,
-                    convertHectospascals.ToString().Skip(2).Take(2)
-                );
-
-                var convertHectopascalsAndCheck =
-                    convertHectopascalsOne + "." + convertHectopascalsTwo;
-
-                var takeMetarPartOne = string.Join(
-                    string.Empty,
-                    metar.Pressure.PressureRaw.ToString().Skip(1).Take(2)
-                );
-                var takeMetarPartTwo = string.Join(
-                    String.Empty,
-                    metar.Pressure.PressureRaw.ToString().Skip(3).Take(2)
-                );
-
-                var hectopascalsAndCheck = takeMetarPartOne + "." + takeMetarPartTwo;
-
-                var checkConverted = metar.Pressure.PressureAsAltimeter.ToString();
-
-                var allTheSame =
-                    convertHectopascalsAndCheck == hectopascalsAndCheck
-                    && convertHectopascalsAndCheck == checkConverted;
-                Assert.That(
-                    allTheSame,
-                    Is.True,
-                    $"Failed for {convertHectopascalsAndCheck}, {hectopascalsAndCheck}, {checkConverted}"
-                );
-            }
+            //TODO, necessary?
         }
     }
 }

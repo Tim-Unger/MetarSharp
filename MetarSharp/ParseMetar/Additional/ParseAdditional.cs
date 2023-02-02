@@ -20,8 +20,8 @@ namespace MetarSharp.Parse
             List<WindShear> windShear = new List<WindShear>();
 
             Regex additionalRegex = new Regex(
-                "(((RE(MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS)){1,})|((WS\\s((R([0-9]{1,2}))|(ALL RWY))){1,})|(BLU+|BLU|WHT|GRN|YLO|AMB|RED|BLACK))",
-                RegexOptions.None
+                "(((RE(MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS)){1,})|((WS\\\\s((R([0-9]{1,2}))|(ALL RWY))){1,})|\\s(BLU+|BLU|WHT|GRN|YLO|AMB|RED|BLACK))(?>\\s|$)",
+                RegexOptions.Multiline
             );
 
             var additionalMatches = additionalRegex.Matches(raw);

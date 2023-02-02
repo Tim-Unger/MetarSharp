@@ -33,7 +33,7 @@ namespace MetarSharp.Parse
             //TODO
             if (groups[10].Success)
             {
-                convertedValue *= -1;
+                //Visibility is less than 1/4SM
             }
 
             double reportedVisibility = 0;

@@ -24,7 +24,7 @@
 
         public double? LowestVisibility { get; set; }
 
-        public CardinalDirection LowestVisibilityDirection { get; set; }
+        public CardinalDirection? LowestVisibilityDirection { get; set; } = null;
 
         public string? LowestVisibilityDirectionRaw { get; set; }
 

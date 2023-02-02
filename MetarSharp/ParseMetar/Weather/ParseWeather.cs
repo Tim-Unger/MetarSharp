@@ -1,5 +1,4 @@
 using MetarSharp.Exceptions;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -13,14 +12,13 @@ namespace MetarSharp.Parse
         {
             Weather weather = new ();
 
-            //TODO
             Regex weatherRegex = new Regex(@"(?<!(TEMPO|RMK|TREND|BECMG).*)\s(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s", RegexOptions.None);
 
             MatchCollection weatherMatches = weatherRegex.Matches(raw);
 
             if (weatherMatches.Count == 0)
             {
-                return new Weather();
+                return new Weather() { Weathers = Enumerable.Empty<SingleWeather>().ToList() };
             }
 
             var groups = weatherMatches[0].Groups;

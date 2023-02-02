@@ -90,5 +90,15 @@ namespace MetarSharp
 
             return Parser.FromCollection.Parse(cleanedInput);
         }
+
+        public static string ToString(Metar metar)
+        {
+            return Parser.ParseToString.Parse(metar);
+        }
+
+        public static List<string> ToStringList(List<Metar> metars)
+        {
+            return Parser.ParseToStringList.Parse(metars);
+        }
     }
 }

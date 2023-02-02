@@ -19,9 +19,9 @@ namespace MetarSharp.Parse.ReadableReport
             //Returns if the metar was reported today
             if (metar.ReportingTime.ReportingTimeZulu.Day == DateTime.UtcNow.Day)
             {
-                reportingDate = "Reported today";
+                reportingDate = "Reported today ";
 
-                return reportingDate + ' ' + reportingTime;
+                return reportingDate + reportingTime;
             }
 
             //Turns the day into a written day (1st, 2nd, 12th, etc)
@@ -30,9 +30,11 @@ namespace MetarSharp.Parse.ReadableReport
 
             //returns the written out month in English
             string monthWritten = metar.ReportingTime.ReportingTimeZulu.ToString("MMMM", new CultureInfo("en-UK"));
-            reportingDate = "Reported on the " + dayWritten + " of " + monthWritten;
+            var reportingYear = metar.ReportingTime.ReportingTimeZulu.Year;
+            string? yearwritten = reportingYear < DateTime.UtcNow.Year ? $" {reportingYear}" : null;
+            reportingDate = $"Reported on the {dayWritten} of {monthWritten}{yearwritten}";
 
-            return reportingDate + ' ' + reportingTime;
+            return reportingDate + reportingTime;
         }
 
         private static string ConvertDay(int dayNumber) => dayNumber switch

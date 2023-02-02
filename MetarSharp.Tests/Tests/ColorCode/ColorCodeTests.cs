@@ -7,7 +7,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
         public void CheckColorCodeMatchesMetarValues_ReturnsTrue()
         {
             
-            var metarsWithColorCode = MetarsParsed.Where(x => x.AdditionalInformation.ColorCode != null).ToList();
+            var metarsWithColorCode = MetarsParsed.Where(x => x.AdditionalInformation.ColorCode.Color != Color.NIL).ToList();
             
             foreach (var colorCode in metarsWithColorCode)
             {
@@ -17,12 +17,14 @@ namespace MetarSharp.Tests.Tests.ColorCode
             Assert.That(metarsWithColorCode.All(x => AreColorCodeValuesCorrect(x.AdditionalInformation.ColorCode.Color, x)));
         }
 
-        private bool AreColorCodeValuesCorrect(Color colorCode, Metar metar) => colorCode switch
+        private static bool AreColorCodeValuesCorrect(Color colorCode, Metar metar) => colorCode switch
         {
+            Color.NIL => true,
             Color.BLUPLUS => IsBluePlusCorrect(metar),
             Color.BLU => IsBlueCorrect(metar),
             Color.WHT => IsWhiteCorrect(metar),
             Color.GRN => IsGreenCorrect(metar),
+            Color.YLO => IsYellowCorrect(metar),
             Color.AMB => IsAmberCorrect(metar),
             Color.RED => IsRedCorrect(metar),
             Color.BLACK => true, //You are fucked anyways if you are here
@@ -37,14 +39,33 @@ namespace MetarSharp.Tests.Tests.ColorCode
 
         private static bool IsBlueCorrect(Metar metar)
         {
+            //if(metar.Clouds.Any(x => x.IsCAVOK))
+            //{
+            //    Assert.Pass();
+            //}
+
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            return orderedCloudList.CloudCeiling >= 2500 && metar.Visibility.ReportedVisibility >= 8000;
+            double vis = metar.Visibility.ReportedVisibility;
+
+            if(metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
+            {
+                vis *= 1000;
+            }
+
+            return orderedCloudList.CloudCeiling >= 2500 && vis >= 8000;
         }
 
         private static bool IsWhiteCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
+
+            double vis = metar.Visibility.ReportedVisibility;
+
+            if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
+            {
+                vis *= 1000;
+            }
 
             return orderedCloudList.CloudCeiling >= 1500 && metar.Visibility.ReportedVisibility >= 5000;
         }
@@ -59,12 +80,26 @@ namespace MetarSharp.Tests.Tests.ColorCode
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
+            double vis = metar.Visibility.ReportedVisibility;
+
+            if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
+            {
+                vis *= 1000;
+            }
+
             return orderedCloudList.CloudCeiling >= 300 && metar.Visibility.ReportedVisibility >= 1600;
         }
 
         private static bool IsAmberCorrect(Metar metar)
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
+
+            double vis = metar.Visibility.ReportedVisibility;
+
+            if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
+            {
+                vis *= 1000;
+            }
 
             return orderedCloudList.CloudCeiling >= 200 && metar.Visibility.ReportedVisibility >= 800;
         }
@@ -73,7 +108,15 @@ namespace MetarSharp.Tests.Tests.ColorCode
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            return orderedCloudList.CloudCeiling < 200 && metar.Visibility.ReportedVisibility >= 800;
+            double vis = metar.Visibility.ReportedVisibility;
+
+            if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
+            {
+                vis *= 1000;
+            }
+
+            //This should technically be less than 200 and 800 although most metars report red with either at 200 or 800
+            return orderedCloudList.CloudCeiling <= 200 && metar.Visibility.ReportedVisibility <= 800;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MetarSharp.Parse.ReadableReport
+﻿using MetarSharp.Exceptions;
+
+namespace MetarSharp.Parse.ReadableReport
 {
     internal class Visibility
     {
@@ -10,7 +12,7 @@
         internal static string Append(Metar metar)
         {
             string visibility = null;
-            //TODO CAVOK
+
             if (metar.Visibility.IsVisibilityMeasurable == false)
             {
                 return "Visibility not measurable";
@@ -43,7 +45,7 @@
                 return visibility + lowestVisibility;
             }
 
-            return visibility;
+            return visibility ?? throw new ParseException();
         }
     }
 }

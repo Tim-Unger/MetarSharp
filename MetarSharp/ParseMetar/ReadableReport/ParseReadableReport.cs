@@ -30,6 +30,7 @@ namespace MetarSharp.Parse.ReadableReport
             //Visibility
             reportBuilder.AppendLine(Visibility.Append(metar));
 
+
             //RVRs
             //Null check is not really necessary, just to prevent any possible exceptions
             if (metar.RunwayVisibilities != null && metar.RunwayVisibilities.Count > 0)
@@ -45,7 +46,7 @@ namespace MetarSharp.Parse.ReadableReport
 
             //Clouds
             //Null check is not really necessary, just to prevent any possible exceptions
-            if(metar.Clouds != null && metar.Clouds.Count > 0)
+            if(metar.Clouds.Count > 0)
             {
                 //TODO
             }

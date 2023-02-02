@@ -79,12 +79,11 @@ namespace MetarSharp.Parse.ReadableReport
                     continue;
                 }
 
-                //TODO null exception here
-                if (cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
-                {
-                    cloudString = "Vertical Visibility not measurable";
-                    stringBuilder.AppendLine(cloudString);
-                }
+                //if (cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
+                //{
+                //    cloudString = "Vertical Visibility not measurable";
+                //    stringBuilder.AppendLine(cloudString);
+                //}
 
                 cloudString = "Vertical Visibility: " + cloud.VerticalVisibility;
                 stringBuilder.AppendLine(cloudString);

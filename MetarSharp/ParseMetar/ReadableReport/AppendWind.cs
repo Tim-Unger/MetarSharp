@@ -53,8 +53,8 @@
 
         private static string ConvertGusts(Metar metar)
         {
-            return "\n"
-                + "Gusting up to "
+            return
+                " gusting up to "
                 + metar.Wind.WindGusts
                 + " "
                 + metar.Wind.WindUnitDecoded;
@@ -62,8 +62,8 @@
 
         private static string ConvertVariation(Metar metar)
         {
-            return "\n"
-                + "Variable between "
+            return
+                " variable between "
                 + metar.Wind.WindVariationLow
                 + " Degrees and "
                 + metar.Wind.WindVariationHigh

@@ -20,4 +20,8 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ParseMetar\ParseToString\" />
+  </ItemGroup>
 </Project>

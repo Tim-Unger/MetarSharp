@@ -6,7 +6,6 @@ namespace MetarSharp.Parse
 {
     public class ParseVisibility
     {
-        //TODO
         public static Visibility ReturnVisibility(string raw)
         {
             Regex visibilityRegex = new Regex(
@@ -34,7 +33,7 @@ namespace MetarSharp.Parse
             GroupCollection groups = matches[0].Groups;
             if (groups[2].Success)
             {
-                return ParseFromMeter.ParseVisibiltiy(groups);
+                return ParseFromMeter.ParseVisibility(groups);
             }
 
             if (groups[12].Value == "SM")
@@ -47,7 +46,6 @@ namespace MetarSharp.Parse
                 return ParseFromKilometer.ParseVisibility(groups);
             }
 
-            //TODO
             //This also covers the //// case
             return new Visibility { IsVisibilityMeasurable = false };
         }
