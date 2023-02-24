@@ -23,7 +23,8 @@ namespace MetarSharp.Parse
                     {
                         IsVisibilityMeasurable = true,
                         ReportedVisibility = 9999,
-                        VisibilityRaw = "9999"
+                        VisibilityRaw = "9999",
+                        VisibilityUnitRaw = "M"
                     };
                 }
 

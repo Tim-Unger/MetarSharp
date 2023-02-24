@@ -36,6 +36,8 @@ namespace MetarSharp.Parse
                     continue;
                 }
 
+                cloud.IsCAVOK = false;
+
                 cloud.CloudRaw = groups[0].Value;
 
                 //Clouds not measurable
@@ -129,11 +131,8 @@ namespace MetarSharp.Parse
                 _ => throw new ParseException("Can't read cloud type")
             };
 
-        private static int TryParseWithThrow(string value, string raw)
-        {
-            return int.TryParse(value, out int converted)
+        private static int TryParseWithThrow(string value, string raw) => int.TryParse(value, out int converted)
               ? converted
               : throw new ParseException($"Could not convert value {value} {raw} to number");
-        }
     }
 }

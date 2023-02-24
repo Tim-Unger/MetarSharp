@@ -19,5 +19,11 @@
         public string ColorCodeShort { get; set; } = "NIL";
 
         public string ColorCodeLong { get; set; } = "Nil";
+
+        public Color? ColorForecast { get; set; } = null;
+
+        public string? ColorCodeForecastShort { get; set; } = null;
+
+        public string? ColorCodeForecastLong { get; set; } = null;
     }
 }

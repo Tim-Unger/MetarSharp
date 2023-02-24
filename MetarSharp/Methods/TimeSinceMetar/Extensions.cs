@@ -2,8 +2,10 @@ using MetarSharp.Exceptions;
 
 namespace MetarSharp.Extensions
 {
+    //TODO Class name
     internal class Extensions
     {
+        #region TIME
         internal static double ReturnSetUnit(TimeSpan timeSpan, TimeUnit timeUnit) => timeUnit switch
         {
             TimeUnit.Seconds => timeSpan.TotalSeconds,
@@ -57,5 +59,18 @@ namespace MetarSharp.Extensions
             TimeUnit.Weeks => value > 1 ? "weeks" : "week",
             _ => throw new ParseException()
         };
+
+        #endregion
+
+        #region DISTANCE
+
+        internal static string DistanceValueSingularOrPlural(double value, VisibilityUnit visibilityUnit) => visibilityUnit switch
+        {
+            VisibilityUnit.Meters => value > 1 ? "Meters" : "Meter",
+            VisibilityUnit.Kilometers => value > 1 ? "Kilometer" : "Kilometers",
+            VisibilityUnit.Miles => value > 1 ? "Mile" : "Miles",
+            _ => throw new ParseException()
+        };
+        #endregion
     }
 }

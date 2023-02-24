@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -7,13 +9,13 @@ namespace MetarSharp.Parse.ReadableReport
         internal static string Append(Metar metar)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var cloud in metar.Clouds)
+            foreach (Cloud cloud in metar.Clouds)
             {
                 StringBuilder cloudBuilder = new StringBuilder();
 
                 string cloudString = null;
 
-                if (cloud.IsCAVOK)
+                if (cloud.IsCAVOK || cloud.CloudCoverageType == CloudType.NoCloudsDetected)
                 {
                     //"Ceiling and Visibility Okay" is already set in the Visibility Class,
                     //hence it is not needed a second time
@@ -27,69 +29,68 @@ namespace MetarSharp.Parse.ReadableReport
                     continue;
                 }
 
-                //TODO
-                if (cloud.HasCumulonimbusClouds == false)
-                {
-                    if (cloud.IsCeilingMeasurable == true)
-                    {
-                        cloudString = "Cloud: " + cloud.CloudCoverageTypeDecoded + " at " + cloud.CloudCeiling;
-                        stringBuilder.AppendLine(cloudString);
-                        continue;
-                    }
+                string cloudType = GetCloudType(cloud);
+                string cloudCeiling = GetCloudCeiling(cloud);
 
-                    cloudString = "Cloud: " + cloud.CloudCoverageTypeDecoded + " Ceiling not measurable";
-                    stringBuilder.AppendLine(cloudString);
-                    continue;
-                }
+                cloudString = cloudType + cloudCeiling;
 
-                if (cloud.IsCeilingMeasurable == true)
-                {
-                    cloudString = (bool)cloud.IsCeilingMeasurable ? cloudString =
-                            "Cloud: "
-                            + cloud.CloudCoverageTypeDecoded
-                            + " with "
-                            + cloud.CBCloudTypeDecoded
-                            + " at "
-                            + cloud.CloudCeiling
-                            :
-                            cloudString =
-                            "Cloud: "
-                            + cloud.CloudCoverageTypeDecoded
-                            + " CB-Type not measurable at"
-                            + cloud.CloudCeiling;
-                    stringBuilder.AppendLine(cloudString);
-                    continue;
-                }
-
-                if (cloud.IsCBTypeMeasurable == true)
-                {
-                    cloudString = (bool)cloud.IsCBTypeMeasurable ? cloudString =
-                        "Cloud: "
-                        + cloud.CloudCoverageTypeDecoded
-                        + " with "
-                        + cloud.CBCloudTypeDecoded
-                        + " Ceiling not measurable"
-                        :
-                        cloudString =
-                        "Cloud: "
-                        + cloud.CloudCoverageTypeDecoded
-                        + " CB-Type not measurable "
-                        + " Ceiling not measurable";
-                    stringBuilder.AppendLine(cloudString);
-                    continue;
-                }
-
-                //if (cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
-                //{
-                //    cloudString = "Vertical Visibility not measurable";
-                //    stringBuilder.AppendLine(cloudString);
-                //}
-
-                cloudString = "Vertical Visibility: " + cloud.VerticalVisibility;
                 stringBuilder.AppendLine(cloudString);
             }
 
+            //this removes the last \r\n from the string
+            if(stringBuilder.Length > 2)
+            {
+                stringBuilder.Length -= 2;
+            }
+
             return stringBuilder.ToString();
+        }
+
+#pragma warning disable CS8603
+        //TODO pragma
+        internal static string GetCloudType(Cloud cloud)
+        {
+            if (cloud.IsCloudMeasurable == false)
+            {
+                return "Cloud type not measurable";
+            }
+
+            if(cloud.IsCBTypeMeasurable== false)
+            {
+                return "Cumulonimbus Cloud type not measurable";
+            }
+
+            if (cloud.HasCumulonimbusClouds == true)
+            {
+                return cloud.CBCloudTypeDecoded;
+            }
+
+            if(cloud.IsVerticalVisibility == true)
+            {
+                return "Vertical Visibility";
+            }
+
+            return cloud.CloudCoverageTypeDecoded;
+        }
+
+        internal static string GetCloudCeiling(Cloud cloud)
+        {
+            if(cloud.IsCeilingMeasurable == false)
+            {
+                return ", Ceiling not measurable";
+            }
+
+            if(cloud.IsVerticalVisibilityMeasurable == false)
+            {
+                return ", not measurable";
+            }
+
+            if(cloud.IsVerticalVisibilityMeasurable == true)
+            {
+                return ' ' + cloud.VerticalVisibility.ToString();
+            }
+
+            return " at " + cloud.CloudCeiling.ToString() + "ft";
         }
     }
 }

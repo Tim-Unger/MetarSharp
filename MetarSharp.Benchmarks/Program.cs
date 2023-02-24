@@ -1,5 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
+using MetarSharp.Methods;
+using MetarSharp.Methods.Convert.Distance;
+using MetarSharp.Methods.Convert.Pressure;
+using MetarSharp.Methods.Convert.Speed;
+using MetarSharp.Methods.Convert.Temperature;
+using MetarSharp.Methods.Convert.Time;
+using MetarSharp.Methods.Download;
 
 namespace MetarSharp.Benchmarks;
 
@@ -48,6 +55,61 @@ public class BenchMarks
 
         var parse = ParseMetar.FromString(metars[rand]);
     }
+
+    [Benchmark]
+    public void ConvertDistance()
+    {
+        var distance = ConvertFromKilometer.ToMeter(1000);
+    }
+
+    [Benchmark]
+    public void ConvertPressure()
+    {
+        var pressure = ConvertFromHectopascals.ToInchesMercury(1035);
+    }
+
+    [Benchmark]
+    public void ConvertSpeed()
+    {
+        var speed = ConvertFromMetersPerSecond.ToKilometersPerHour(500);
+    }
+
+    [Benchmark]
+    public void ConvertTemperature()
+    {
+        var temperature = ConvertFromFahrenheit.ToCelsius(46);
+    }
+
+    [Benchmark]
+    public void ConvertTime()
+    {
+        var time = ConvertFromSeconds.ToWeeks(10000);
+    }
+
+    [Benchmark]
+    public void DownloadFromVatsimSingle()
+    {
+        var download = DownloadMetar.FromVatsimSingle("eddf");
+    }
+
+    [Benchmark]
+    public void DownloadFromVatsimMultiple()
+    {
+        var download = DownloadMetar.FromVatsimMultiple("e");
+    }
+
+    [Benchmark]
+    public void DownloadFromAvWeatherWithHours()
+    {
+        var download = DownloadMetar.FromAviationWeather("eddf");
+    }
+
+    [Benchmark]
+    public void DownloadFromAvWeatherWithoutHours()
+    {
+        var download = DownloadMetar.FromAviationWeather("eddf", 10);
+    }
+
 }
 
 public class Program

@@ -35,11 +35,5 @@ namespace MetarSharp.Tests.Pressure
                 }
             }
         }
-
-        //[Test]
-        public void CheckThatAltimeterSeparatorIsSet_ReturnsTrue()
-        {
-            //TODO, necessary?
-        }
     }
 }

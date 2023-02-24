@@ -1,7 +1,6 @@
 ﻿using MetarSharp.Exceptions;
-using System.Diagnostics.Metrics;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using static MetarSharp.Extensions.Extensions;
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -11,6 +10,7 @@ namespace MetarSharp.Parse.ReadableReport
         {
             //TODO
             StringBuilder stringBuilder = new StringBuilder();
+            List<string> trendElementsDecoded = new List<string>();
 
             var trends = metar.Trends;
             if (trends.Any(x => x.TrendType == TrendType.NoSignificantChange))
@@ -30,9 +30,10 @@ namespace MetarSharp.Parse.ReadableReport
                         _ => throw new ParseException()
                     };
 
-                    DateTime timeRestrictionDateTime = trend.TimeRestrictionDateTime ?? throw new ParseException();
+                    DateTime timeRestrictionDateTime =
+                        trend.TimeRestrictionDateTime ?? throw new ParseException();
                     string time = timeRestrictionDateTime.ToString("HH:mm");
-                    stringBuilder.Append($"{decodeTimeRestriction} {time} Zulu ");
+                    stringBuilder.Append($"{decodeTimeRestriction} {time} Zulu: ");
                 }
 
                 stringBuilder.Append($"{trend.TrendTypeDecoded ?? throw new ParseException()} ");
@@ -49,14 +50,13 @@ namespace MetarSharp.Parse.ReadableReport
                         _ => throw new ParseException()
                     };
 
-                    stringBuilder.Append(parseSingleTrend + " ");
+                    trendElementsDecoded.Add(parseSingleTrend);
                 }
             }
 
-            return stringBuilder.ToString();
+            return AddCommas(trendElementsDecoded);
         }
 
-        //TODO refactor all of these
         private static string ParseVisibility(MetarSharp.Visibility visibility)
         {
             string visibilityString = null;
@@ -66,12 +66,13 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Visibility not measurable";
             }
 
+            string visibilityUnit = DistanceValueSingularOrPlural(visibility.ReportedVisibility, visibility.VisibilityUnit);
+
             visibilityString =
                 "Visibility: "
                 + visibility.ReportedVisibility
                 + " "
-                + visibility.VisibilityUnitDecoded
-                + " ";
+                + visibilityUnit;
 
             if (visibility.HasVisibilityLowestValue)
             {
@@ -79,10 +80,9 @@ namespace MetarSharp.Parse.ReadableReport
                     "Lowest Visibility: "
                     + visibility.LowestVisibility
                     + " "
-                    + visibility.VisibilityUnitDecoded
+                    + visibilityUnit
                     + " in the"
-                    + visibility.LowestVisibilityDirectionDecoded
-                    + " ";
+                    + visibility.LowestVisibilityDirectionDecoded;
 
                 return visibilityString + lowestVisibility;
             }
@@ -101,14 +101,14 @@ namespace MetarSharp.Parse.ReadableReport
 
             if (weather.WeatherIntensity != WeatherIntensity.Normal)
             {
-                stringBuilder.Append(weather.WeatherIntensityDecoded + " ");
+                stringBuilder.Append(weather.WeatherIntensityDecoded);
             }
 
-            stringBuilder.Append(weather.WeatherCombinedDecoded + " ");
+            stringBuilder.Append(weather.WeatherCombinedDecoded);
 
             if (weather.IsInTheVicinity)
             {
-                stringBuilder.Append("In the vicinity");
+                stringBuilder.Append(" In the vicinity");
             }
 
             return stringBuilder.ToString();
@@ -177,72 +177,52 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string ParseCloud(MetarSharp.Cloud cloud)
         {
+            StringBuilder stringBuilder = new StringBuilder();
+
             string cloudString = null;
 
             if (cloud.IsCAVOK)
             {
+                //"Ceiling and Visibility Okay" is already set in the Visibility Class,
+                //hence it is not needed a second time
                 return "Ceiling and Visibility Okay";
             }
 
             if (cloud.IsCloudMeasurable == false)
             {
-                return "Cloud not measurable";
+                cloudString = "Cloud not measurable";
+                stringBuilder.AppendLine(cloudString);
             }
 
-            //TODO
-            if (cloud.HasCumulonimbusClouds == false)
-            {
-                if (cloud.IsCeilingMeasurable == true)
-                {
-                    return "Cloud: " + cloud.CloudCoverageTypeDecoded + " at " + cloud.CloudCeiling;
-                }
+            string cloudType = Clouds.GetCloudType(cloud);
+            string cloudCeiling = Clouds.GetCloudCeiling(cloud);
 
-                return "Cloud: " + cloud.CloudCoverageTypeDecoded + " Ceiling not measurable";
-            }
+            cloudString = cloudType + cloudCeiling;
 
-            if (cloud.IsCeilingMeasurable == true)
-            {
-                cloudString = (bool)cloud.IsCeilingMeasurable
-                    ? cloudString =
-                          "Cloud: "
-                          + cloud.CloudCoverageTypeDecoded
-                          + " with "
-                          + cloud.CBCloudTypeDecoded
-                          + " at "
-                          + cloud.CloudCeiling
-                    : cloudString =
-                          "Cloud: "
-                          + cloud.CloudCoverageTypeDecoded
-                          + " CB-Type not measurable at"
-                          + cloud.CloudCeiling;
+            stringBuilder.AppendLine(cloudString);
 
-                return cloudString;
-            }
+            //this removes the last \r\n from the string
+            stringBuilder.Length -= 2;
 
-            if (cloud.IsCBTypeMeasurable == true)
-            {
-                cloudString = (bool)cloud.IsCBTypeMeasurable
-                    ? cloudString =
-                          "Cloud: "
-                          + cloud.CloudCoverageTypeDecoded
-                          + " with "
-                          + cloud.CBCloudTypeDecoded
-                          + " Ceiling not measurable"
-                    : cloudString =
-                          "Cloud: "
-                          + cloud.CloudCoverageTypeDecoded
-                          + " CB-Type not measurable "
-                          + " Ceiling not measurable";
+            return stringBuilder.ToString();
+        }
 
-                return cloudString;
-            }
+        private static string AddCommas(List<string> trendElements)
+        {
+            List<string> editedList = new List<string>();
 
-            //if (cloud.IsVerticalVisibilityMeasurable == true || cloud.IsVerticalVisibility == null)
-            //{
-            //    return "Vertical Visibility not measurable";
-            //}
+            //Adds a comma for every item except the last one
+            trendElements.SkipLast(1)
+                .ToList()
+                .ForEach(x => editedList.Add(x + ", "));
 
-            return "Vertical Visibility: " + cloud.VerticalVisibility;
+            //Adds the last element to the edited list
+            editedList.Add(trendElements.Last());
+
+            StringBuilder stringBuilder = new StringBuilder();
+            editedList.ForEach(x => stringBuilder.AppendLine(x));
+
+            return stringBuilder.ToString();
         }
     }
 }

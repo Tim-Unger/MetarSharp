@@ -1,4 +1,5 @@
 ﻿using MetarSharp.Exceptions;
+using static MetarSharp.Extensions.Extensions;
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -23,11 +24,13 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Ceiling and Visibility okay";
             }
 
+            string visibilityUnit = DistanceValueSingularOrPlural(metar.Visibility.ReportedVisibility, metar.Visibility.VisibilityUnit);
+
             visibility =
                 "Visibility: "
                 + metar.Visibility.ReportedVisibility
                 + " "
-                + metar.Visibility.VisibilityUnitDecoded
+                + visibilityUnit
                 + " ";
 
 
@@ -37,7 +40,7 @@ namespace MetarSharp.Parse.ReadableReport
                     "Lowest Visibility: "
                     + metar.Visibility.LowestVisibility
                     + " "
-                    + metar.Visibility.VisibilityUnitDecoded
+                    + visibilityUnit
                     + " in the"
                     + metar.Visibility.LowestVisibilityDirectionDecoded
                     + " ";
@@ -47,5 +50,6 @@ namespace MetarSharp.Parse.ReadableReport
 
             return visibility ?? throw new ParseException();
         }
+
     }
 }

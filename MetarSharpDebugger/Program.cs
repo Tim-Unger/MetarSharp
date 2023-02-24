@@ -2,6 +2,7 @@
 using MetarSharp.Definitions;
 using MetarSharp.Extensions;
 using MetarSharp.Methods.Convert.Time;
+using MetarSharp.Methods.Download;
 using System.Diagnostics;
 #pragma warning disable IDE0059
 
@@ -26,14 +27,12 @@ namespace MetarSharpDebugger
                 metars.Add(metar);
             }
 
+            var strings = DownloadMetar.FromAviationWeather("eddf", 5);
             var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
             var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
             var lo = ValueRecords.GetMedianValue(metars, AverageValueType.PressureQNH, MidpointRounding.AwayFromZero);
             var conv = ConvertFromYears.ToMilliseconds(300);
             var metString = ParseMetar.ToStringList(metars);
-
-
-            var lists = metars.Where(x => x.Trends.Count > 0 && !x.Trends.Any(x => x.TrendType == TrendType.NoSignificantChange) && x.Visibility.ReportedVisibility > 9000).ToList();
 
             ///Just for diagnostics/to check execution time 
             timer.Stop();

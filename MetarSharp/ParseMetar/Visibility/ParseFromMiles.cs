@@ -29,15 +29,17 @@ namespace MetarSharp.Parse
                 convertedValue = firstValue / lastValue;
             }
 
-            //Vis less than
-            //TODO
-            if (groups[10].Success)
-            {
-                //Visibility is less than 1/4SM
-            }
+            
 
             double reportedVisibility = 0;
-            if(!hasVisibilitySlash)
+            
+            //Vis less than 1/4 SM
+            if (groups[10].Success)
+            {
+                reportedVisibility = 0;
+            }
+
+            if (!hasVisibilitySlash)
             {
                 reportedVisibility = int.TryParse(groups[8].Value, out int visParse)
                   ? visParse
