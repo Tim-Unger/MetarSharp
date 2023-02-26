@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using MetarSharp.Exceptions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
@@ -43,7 +44,7 @@ namespace MetarSharp.Parse
                 {
                     trend.TimeRestrictionRaw = groups[3].Value;
 
-                    trend.TimeRestriction = TryParseWithThrow(groups[5].Value, raw);
+                    trend.TimeRestriction = IntTryParseWithThrow(groups[5].Value);
 
                     trend.TimeRestrictionType = groups[4].Value switch
                     {
@@ -58,8 +59,8 @@ namespace MetarSharp.Parse
                     var year = reportingTime.Year;
                     var month = reportingTime.Month;
                     var day = reportingTime.Day;
-                    int hour = TryParseWithThrow(groups[5].Value[..2], raw);
-                    int minute = TryParseWithThrow(groups[5].Value[2..], raw);
+                    int hour = IntTryParseWithThrow(groups[5].Value[..2]);
+                    int minute = IntTryParseWithThrow(groups[5].Value[2..]);
 
                     DateTime timeRestriction = new DateTime(year, month, day, hour, minute, 00);
 
@@ -138,13 +139,6 @@ namespace MetarSharp.Parse
         private static Cloud GetCloud(string input)
         {
             return ParseClouds.ReturnClouds(input).First();
-        }
-
-        private static int TryParseWithThrow(string value, string raw)
-        {
-            return int.TryParse(value, out int converted)
-              ? converted
-              : throw new ParseException($"Could not convert value {value} {raw} to number");
         }
     }
 }

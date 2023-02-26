@@ -1,4 +1,7 @@
-using static MetarSharp.Extensions.Extensions;
+using MetarSharp.Exceptions;
+using System.Runtime.CompilerServices;
+using static MetarSharp.Extensions.Helpers;
+
 namespace MetarSharp.Extensions
 {
     internal class FullString
@@ -9,8 +12,9 @@ namespace MetarSharp.Extensions
 
             if (timeUnit != null)
             {
+                var value = GetCorrectTimeValue(elapsedTime);
                 return
-                    $"Reported {ReturnSetUnit(elapsedTime, timeUnit.Value)} {ReturnUnitString(timeUnit.Value, UnitType.Long)} ago";
+                    $"Reported {ReturnSetUnit(elapsedTime, timeUnit.Value)} {ReturnUnitString(timeUnit.Value, UnitType.Long, value)} ago";
             }
 
             if (unitReturnType != null)
@@ -19,13 +23,14 @@ namespace MetarSharp.Extensions
                 {
                     UnitReturnType.OneUnit => ReturnOneUnit(elapsedTime),
                     UnitReturnType.AllUnits => ReturnAllUnits(elapsedTime),
-                    UnitReturnType.AllUnitsWithValue => ReturnAllUnitsWithValue(elapsedTime)
-                };
+                    UnitReturnType.AllUnitsWithValue => ReturnAllUnitsWithValue(elapsedTime),
+                    _ => throw new ParseException()
+                } ;
             }
             
             return ReturnAllUnitsWithValue(elapsedTime);
         }
-
+        
         private static string ReturnOneUnit(TimeSpan elapsedTime)
         {
             if (elapsedTime.TotalSeconds <= 60)

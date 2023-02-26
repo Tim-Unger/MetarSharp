@@ -18,8 +18,5 @@
          * If not (e.g. 31st in February) it will use the month before that
          */
         public DateTime ReportingTimeZulu { get; set; }
-
-        //TODO
-        //public DateTime? ReportingTimeCustom { get; set; }
     }
 }

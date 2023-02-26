@@ -1,6 +1,7 @@
 using MetarSharp.Definitions;
 using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
@@ -50,14 +51,11 @@ namespace MetarSharp.Parse
                 //Vertical Visibility not measurable
                 if (isVerticalVisibiltiy == true)
                 {
-                    //TODO
-                    bool isVerticalVisibilityMeasurable = groups[5].Value != "///";
-                    cloud.IsVerticalVisibilityMeasurable = isVerticalVisibilityMeasurable;
+                    (string, bool, int?) verticalVisTuple = GetVerticalVisibility(groups);
 
-                    if (isVerticalVisibilityMeasurable)
-                    {
-                        cloud.VerticalVisibility = TryParseWithThrow(groups[5].Value, raw) * 100;
-                    }
+                    cloud.VerticalVisibilityRaw = verticalVisTuple.Item1;
+                    cloud.IsVerticalVisibilityMeasurable = verticalVisTuple.Item2;
+                    cloud.VerticalVisibility = verticalVisTuple.Item3;
 
                     clouds.Add(cloud);
                     continue;
@@ -78,28 +76,17 @@ namespace MetarSharp.Parse
 
                     if (cloud.IsCeilingMeasurable == true)
                     {
-                        cloud.CloudCeiling = TryParseWithThrow(groups[5].Value, raw) * 100;
-
+                        cloud.CloudCeiling = IntTryParseWithThrow(groups[5].Value) * 100;
                     }
 
                     bool hasCumulonimbusClouds = groups[6].Success;
                     if(hasCumulonimbusClouds)
                     {
-                        bool isCbTypeMesaurable = groups[6].Value != "///";
-                        cloud.IsCBTypeMeasurable = isCbTypeMesaurable;
+                        (bool, string, string) cbTuple = GetCBClouds(groups);
 
-                        if(isCbTypeMesaurable)
-                        {
-                            cloud.CBCloudTypeRaw = groups[6].Value;
-
-                            cloud.CBCloudTypeDecoded = groups[6].Value switch
-                            {
-                                "CB" => CloudDefintions.CumulonimbusLong,
-                                "TC" or "TCU" => CloudDefintions.ToweringCumulonimbusLong,
-                                null or "" => null,
-                                _ => throw new ParseException("Could not read Cumulonimbus Cloud Type")
-                            };
-                        }
+                        cloud.IsCBTypeMeasurable = cbTuple.Item1;
+                        cloud.CBCloudTypeRaw = cbTuple.Item2;
+                        cloud.CBCloudTypeDecoded = cbTuple.Item3;
                     }
                 }
 
@@ -131,8 +118,41 @@ namespace MetarSharp.Parse
                 _ => throw new ParseException("Can't read cloud type")
             };
 
-        private static int TryParseWithThrow(string value, string raw) => int.TryParse(value, out int converted)
-              ? converted
-              : throw new ParseException($"Could not convert value {value} {raw} to number");
+        private static (string, bool, int?) GetVerticalVisibility(GroupCollection groups)
+        {
+            string verticalVisibilityRaw = groups[4].Value + groups[5].Value;
+
+            bool isVerticalVisibilityMeasurable = groups[5].Value != "///";
+
+            int? verticalVisibility = null;
+            if (isVerticalVisibilityMeasurable)
+            {
+                verticalVisibility = IntTryParseWithThrow(groups[5].Value) * 100;
+            }
+
+            return (verticalVisibilityRaw, isVerticalVisibilityMeasurable, verticalVisibility);
+        }
+
+        private static (bool, string, string) GetCBClouds(GroupCollection groups)
+        {
+            bool isCbTypeMesaurable = groups[6].Value != "///";
+
+            string CBCloudTypeRaw = "";
+            string CBCloudTypeDecoded = "";
+
+            if (isCbTypeMesaurable)
+            {
+                CBCloudTypeRaw = groups[6].Value;
+
+                CBCloudTypeDecoded = groups[6].Value switch
+                {
+                    "CB" => CloudDefintions.CumulonimbusLong,
+                    "TC" or "TCU" => CloudDefintions.ToweringCumulonimbusLong,
+                    _ => throw new ParseException("Could not read Cumulonimbus Cloud Type")
+                };
+            }
+
+            return (isCbTypeMesaurable, CBCloudTypeRaw, CBCloudTypeDecoded);
+        }
     }
 }

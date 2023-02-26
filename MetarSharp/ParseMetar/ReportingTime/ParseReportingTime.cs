@@ -1,5 +1,6 @@
 using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
@@ -43,12 +44,12 @@ namespace MetarSharp.Parse
 
             reportingTime.ReportingTimeRaw = groups[0].Value;
 
-            var reportingDate = TryParseWithThrow(groups[1].Value);
+            var reportingDate = IntTryParseWithThrow(groups[1].Value);
             reportingTime.ReportingDateRaw = reportingDate;
 
-            var reportingHour = TryParseWithThrow(groups[2].Value);
-            var reportingMinute = TryParseWithThrow(groups[3].Value);
-            reportingTime.ReportingTimeZuluRaw = TryParseWithThrow(
+            var reportingHour = IntTryParseWithThrow(groups[2].Value);
+            var reportingMinute = IntTryParseWithThrow(groups[3].Value);
+            reportingTime.ReportingTimeZuluRaw = IntTryParseWithThrow(
                 groups[2].Value + groups[3].Value
             );
 
@@ -90,12 +91,6 @@ namespace MetarSharp.Parse
 
             reportingTime.ReportingTimeZulu = ReportingDateTime;
             return reportingTime;
-        }
-        private static int TryParseWithThrow(string value)
-        {
-            return int.TryParse(value, out int converted)
-              ? converted
-              : throw new ParseException($"Could not convert value {value} to number");
         }
 
         private static int RemoveMonths(int months)

@@ -1,5 +1,6 @@
 using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
@@ -38,8 +39,8 @@ namespace MetarSharp.Parse
 
             temperature.IsDewpointBelowZero = groups[3].Success;
 
-            double tempCelsius = TryParseWithThrow(groups[2].Value, raw);
-            double dewpointCelsius = TryParseWithThrow(groups[4].Value, raw);
+            double tempCelsius = DoubleTryParseWithThrow(groups[2].Value);
+            double dewpointCelsius = DoubleTryParseWithThrow(groups[4].Value);
 
             if (groups[1].Success)
             {
@@ -59,13 +60,5 @@ namespace MetarSharp.Parse
 
             return temperature;
         }
-
-        private static double TryParseWithThrow(string value, string raw)
-        {
-            return int.TryParse(value, out int converted)
-              ? converted
-              : throw new ParseException($"Could not convert value {value} {raw} to number");
-        }
-
     }
 }

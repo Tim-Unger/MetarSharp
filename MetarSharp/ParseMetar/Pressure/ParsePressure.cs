@@ -25,7 +25,6 @@ namespace MetarSharp.Parse
             {
                 pressure.IsPressureMeasurable = false;
                 return pressure;
-                //throw new ParseException("Could not find Pressure");
             }
 
             pressure.PressureRaw = pressureMatches[0].ToString();

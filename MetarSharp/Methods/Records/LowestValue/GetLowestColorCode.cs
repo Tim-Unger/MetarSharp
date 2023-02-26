@@ -34,10 +34,9 @@ namespace MetarSharp.Methods.Records.LowestValue
 
         private static Metar SortColorCodes(List<Metar> metars)
         {
-            //TODO might need to switch orderby with orderbydescending
-            return metars.Where(x => x.AdditionalInformation.ColorCode != null)
+            return metars.Where(x => x.AdditionalInformation.ColorCode.Color != Color.NIL)
                  .ToList()
-                 .OrderBy(x => x.AdditionalInformation.ColorCode.Color)
+                 .OrderByDescending(x => x.AdditionalInformation.ColorCode.Color)
                  .First();
         }
     }

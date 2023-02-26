@@ -44,13 +44,13 @@ namespace MetarSharp.Parse.ReadableReport
             }
 
             //Clouds
-            if(metar.Clouds.Count > 0)
+            if(!metar.Clouds.Any(x => x.IsCAVOK))
             {
                 reportBuilder.AppendLine(Clouds.Append(metar));
             }
 
             //Temperature
-            reportBuilder.Append(Temperature.Append(metar));
+            reportBuilder.Append(Temperature.Append(metar)).Append(' ');
 
             //Dewpoint
             reportBuilder.AppendLine(Dewpoint.Append(metar));
@@ -59,11 +59,13 @@ namespace MetarSharp.Parse.ReadableReport
             reportBuilder.AppendLine(Pressure.Append(metar));
 
             //Trends
+            foreach (var trend in metar.Trends) 
             if (metar.Trends.Count > 0)
             {
+                reportBuilder.AppendLine(TrendBase.Append(trend));
                 reportBuilder.AppendLine(Trend.Append(metar));
             }
-
+            
             return reportBuilder.ToString();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using MetarSharp.Exceptions;
 using System.Net;
+#pragma warning disable SYSLIB0014 //WebClient is deprecated
 
 namespace MetarSharp.Methods.Download
 {

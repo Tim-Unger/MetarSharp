@@ -18,12 +18,12 @@ namespace MetarSharp.Parse
 
             MatchCollection airportMatches = airportRegex.Matches(raw);
 
-            if (airportMatches.Count == 1)
+            if (airportMatches.Count != 1)
             {
-                return airportMatches[0].Groups[1].Value;
+                throw new ParseException();
             }
 
-            throw new ParseException();
+            return airportMatches[0].Groups[1].Value;
         } 
     }
 }

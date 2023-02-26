@@ -1,34 +1,48 @@
 using MetarSharp.Exceptions;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse.Additional
 {
     internal class WindshearParse
     {
-        internal static WindShear Parse(GroupCollection groups)
+        internal static WindShear Parse(MatchCollection matches)
         {
             WindShear wind = new WindShear();
 
-                wind.WindShearRaw = groups[5].Value;
+            StringBuilder stringBuilder = new StringBuilder();
+            matches.ToList().ForEach(x => stringBuilder.Append(x.ToString().Append(' ')));
+            wind.WindShearRaw = stringBuilder.ToString();
 
-                if (groups[7].Value == "ALL RWY")
+            List<string> runways = new List<string>();
+
+            if (matches.Count == 1)
+            {
+                GroupCollection groups = matches[0].Groups;
+
+                if (groups[0].Value == "WS ALL RWY")
                 {
                     wind.IsAllRunways = true;
 
-                    wind.Runway = null;
-
                     return wind;
                 }
-            
-            wind.IsAllRunways = false;
 
-            //TODO parallel runways
+                runways.Add(groups[2].Value);
+                wind.Runways = runways;
 
-            if (int.TryParse(groups[9].Value, out int Runway))
-            {
-                wind.Runway = Runway;
+                return wind;
             }
-            wind.Runway = int.TryParse(groups[9].Value, out int runway) ? runway : throw new ParseException("Could not read Runway");
+
+            foreach(Match match in matches.Cast<Match>()) 
+            {
+                GroupCollection groups = match.Groups;
+                
+                wind.IsAllRunways = false;
+
+                runways.Add(groups[2].Value);
+
+                wind.Runways = runways;
+            }
 
             return wind;
         }

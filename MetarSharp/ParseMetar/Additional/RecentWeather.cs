@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using MetarSharp.Parser;
 
 namespace MetarSharp.Parse.Additional
 {
@@ -6,14 +7,14 @@ namespace MetarSharp.Parse.Additional
     {
         internal static RecentWeather Parse(GroupCollection groups)
         {
-            //TODO
             RecentWeather recent = new RecentWeather();
 
             recent.RecentWeatherRaw = groups[2].Value;
 
             recent.RecentWeatherTypeRaw = groups[4].Value;
 
-            recent.RecentWeatherDecoded = null; //TODO
+            string weatherDecoded = ParseWeather.GetWeatherType(groups[4].Value).Item2;
+            recent.RecentWeatherDecoded = $"Recent {weatherDecoded}";
 
             return recent;
         }

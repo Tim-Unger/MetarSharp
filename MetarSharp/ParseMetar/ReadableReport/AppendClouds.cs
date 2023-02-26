@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using MetarSharp.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -46,8 +47,6 @@ namespace MetarSharp.Parse.ReadableReport
             return stringBuilder.ToString();
         }
 
-#pragma warning disable CS8603
-        //TODO pragma
         internal static string GetCloudType(Cloud cloud)
         {
             if (cloud.IsCloudMeasurable == false)
@@ -62,7 +61,8 @@ namespace MetarSharp.Parse.ReadableReport
 
             if (cloud.HasCumulonimbusClouds == true)
             {
-                return cloud.CBCloudTypeDecoded;
+                //Exception should never be thrown, this is just to surpress the warning
+                return cloud.CBCloudTypeDecoded ?? throw new ParseException();
             }
 
             if(cloud.IsVerticalVisibility == true)
@@ -70,7 +70,8 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Vertical Visibility";
             }
 
-            return cloud.CloudCoverageTypeDecoded;
+            //Exception should never be thrown, this is just to surpress the warning
+            return cloud.CloudCoverageTypeDecoded ?? throw new ParseException();
         }
 
         internal static string GetCloudCeiling(Cloud cloud)

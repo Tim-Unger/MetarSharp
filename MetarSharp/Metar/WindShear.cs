@@ -6,6 +6,6 @@
 
         public bool IsAllRunways { get; set; }
 
-        public int? Runway { get; set; }
+        public List<string>? Runways { get; set; }
     }
 }

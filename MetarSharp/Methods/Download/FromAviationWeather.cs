@@ -1,6 +1,8 @@
 ﻿using MetarSharp.Exceptions;
 using System.Net;
 using System.Xml;
+#pragma warning disable SYSLIB0014 //WebClient is deprecated
+#pragma warning disable CS8602 //Dereference of a possible null reference
 
 namespace MetarSharp.Methods.Download
 {
@@ -36,7 +38,14 @@ namespace MetarSharp.Methods.Download
 
             foreach (XmlNode metar in metars.Cast<XmlNode>())
             {
+                if(metar.ChildNodes.Count == 0)
+                {
+                    throw new NullReferenceException();
+                }
+
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 metarsList.Add(metar.ChildNodes[0].InnerText);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
             //if(metarsList.Any(x => !x.StartsWith(icao, StringComparison.OrdinalIgnoreCase)))

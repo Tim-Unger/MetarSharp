@@ -28,8 +28,6 @@
 
         public int? CloudCeiling { get; set; }
 
-        //TODO Cloud-Ceiling converted to ft
-
         public bool? HasCumulonimbusClouds { get; set; }
 
         public bool? IsCBTypeMeasurable { get; set; }
@@ -40,7 +38,7 @@
 
         public bool? IsVerticalVisibility { get; set; }
 
-        //public string? VerticalVisibilityRaw { get; set; }
+        public string? VerticalVisibilityRaw { get; set; }
 
         public bool? IsVerticalVisibilityMeasurable { get; set; }
 

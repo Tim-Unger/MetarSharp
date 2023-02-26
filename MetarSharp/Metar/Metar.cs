@@ -3,7 +3,7 @@ namespace MetarSharp
 {
     public class Metar
     {
-        public string MetarRaw { get; set; } = "";
+        public string? MetarRaw { get; set; } = "";
 
         public string Airport { get; set; } = "AAAA";
 

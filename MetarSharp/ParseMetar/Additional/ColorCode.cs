@@ -13,7 +13,7 @@ namespace MetarSharp.Parse.Additional
         /// <param name="groups"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        internal static (Color, string, string) GetColorCode(GroupCollection groups) => groups[11].Value switch
+        internal static (Color, string, string) GetColorCode(GroupCollection groups) => groups[9].Value switch
         {
             "BLU+" => (Color.BLUPLUS, ColorCodeDefinitions.BluePlusShort, ColorCodeDefinitions.BluePlusLong),
             "BLU" => (Color.BLU, ColorCodeDefinitions.BlueShort, ColorCodeDefinitions.BlueLong),
@@ -23,7 +23,7 @@ namespace MetarSharp.Parse.Additional
             "AMB" => (Color.AMB, ColorCodeDefinitions.AmberShort, ColorCodeDefinitions.AmberLong),
             "RED" => (Color.RED, ColorCodeDefinitions.RedShort, ColorCodeDefinitions.RedLong),
             "BLACK" => (Color.BLACK, ColorCodeDefinitions.BlackShort, ColorCodeDefinitions.BlackLong),
-            "" or null => throw new ParseException()
+            _ => throw new ParseException()
         };
     }
 }

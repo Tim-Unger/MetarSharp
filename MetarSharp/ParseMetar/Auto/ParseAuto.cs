@@ -9,12 +9,6 @@ namespace MetarSharp.Parse
         /// </summary>
         /// <param name="raw"></param>
         /// <returns></returns>
-        public static bool ReturnIsAutomated(string raw)
-        {
-            Regex autoRegex = new Regex("(AUTO)", RegexOptions.None);
-
-            //If the regex matches, the metar is automated, if not it isn't
-            return autoRegex.IsMatch(raw);
-        }
+        public static bool ReturnIsAutomated(string raw) => Regex.IsMatch(raw, "(AUTO)");
     }
 }

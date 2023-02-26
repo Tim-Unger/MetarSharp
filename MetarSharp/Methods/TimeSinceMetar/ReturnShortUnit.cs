@@ -1,4 +1,5 @@
-using static MetarSharp.Extensions.Extensions;
+using MetarSharp.Exceptions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Extensions
 {
@@ -10,7 +11,8 @@ namespace MetarSharp.Extensions
 
             if (timeUnit != null)
             {
-                return ReturnSetUnit(elapsedTime, timeUnit.Value) + ReturnUnitString(timeUnit.Value, UnitType.Short);
+                var value = GetCorrectTimeValue(elapsedTime);
+                return ReturnSetUnit(elapsedTime, timeUnit.Value) + ReturnUnitString(timeUnit.Value, UnitType.Short, value);
             }
 
             if (unitReturnType != null)
@@ -19,7 +21,8 @@ namespace MetarSharp.Extensions
                 {
                     UnitReturnType.OneUnit => ReturnOneUnit(elapsedTime),
                     UnitReturnType.AllUnits => ReturnAllUnits(elapsedTime),
-                    UnitReturnType.AllUnitsWithValue => ReturnAllUnitsWithValue(elapsedTime)
+                    UnitReturnType.AllUnitsWithValue => ReturnAllUnitsWithValue(elapsedTime),
+                    _ => throw new ParseException()
                 };
             }
 
@@ -29,25 +32,29 @@ namespace MetarSharp.Extensions
 
         private static string ReturnOneUnit(TimeSpan elapsedTime)
         {
+            int elapsed = 0;
             if (elapsedTime.TotalSeconds <= 60)
             {
-                return elapsedTime.Seconds + ReturnUnitString(TimeUnit.Seconds, UnitType.Short);
+                elapsed = elapsedTime.Seconds;
+                return elapsedTime.Seconds + ReturnUnitString(TimeUnit.Seconds, UnitType.Short, elapsed);
             }
 
             if (elapsedTime.TotalMinutes <= 60)
             {
-                return elapsedTime.Minutes + ReturnUnitString(TimeUnit.Minutes, UnitType.Short);
+                elapsed = elapsedTime.Minutes;
+                return elapsedTime.Minutes + ReturnUnitString(TimeUnit.Minutes, UnitType.Short, elapsed);
             }
 
             if (elapsedTime.TotalHours <= 24)
             {
-                return elapsedTime.Hours + ReturnUnitString(TimeUnit.Hours, UnitType.Short);
+                elapsed = elapsedTime.Hours;
+                return elapsedTime.Hours + ReturnUnitString(TimeUnit.Hours, UnitType.Short, elapsed);
             }
-            
-            return elapsedTime.Days + ReturnUnitString(TimeUnit.Days, UnitType.Short);
+
+            elapsed = elapsedTime.Days;
+            return elapsedTime.Days + ReturnUnitString(TimeUnit.Days, UnitType.Short, elapsed);
         }
 
-        //TODO Edit Time Definitions
         private static string ReturnAllUnits(TimeSpan elapsedTime)
         {
             return $"{elapsedTime.Days}d {elapsedTime.Hours}h {elapsedTime.Minutes}m {elapsedTime.Seconds}s";

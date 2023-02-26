@@ -1,4 +1,4 @@
-using static MetarSharp.Parser.Helpers;
+using static MetarSharp.Extensions.Helpers;
 namespace MetarSharp.Parser
 {
     internal class FromCollection

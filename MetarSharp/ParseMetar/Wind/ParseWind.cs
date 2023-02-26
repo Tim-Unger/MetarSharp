@@ -1,6 +1,7 @@
 using MetarSharp.Definitions;
 using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
@@ -34,13 +35,13 @@ namespace MetarSharp.Parse
             wind.IsWindDirectionMeasurable = groups[6].Success == false;
             wind.IsWindStrengthMeasurable = groups[7].Success == false;
 
-            int windStrength = groups[4].Success ? TryParseWithThrow(groups[4].Value) : 0;
+            int windStrength = groups[4].Success ? IntTryParseWithThrow(groups[4].Value) : 0;
             wind.WindStrength = windStrength;
 
             bool isWindCalm = windStrength == 0;
             wind.IsWindCalm = isWindCalm;
 
-            wind.WindDirection = isWindCalm ? null : TryParseWithThrow(groups[3].Value);
+            wind.WindDirection = isWindCalm ? null : IntTryParseWithThrow(groups[3].Value);
 
             wind.IsWindGusting = groups[8].Success;
 
@@ -52,7 +53,7 @@ namespace MetarSharp.Parse
 
             #endregion
 
-            wind.WindGusts = groups[9].Success ? TryParseWithThrow(groups[9].Value) : null;
+            wind.WindGusts = groups[9].Success ? IntTryParseWithThrow(groups[9].Value) : null;
 
             wind.IsWindVariable = groups[2].Value.Contains("VRB");
 
@@ -60,8 +61,8 @@ namespace MetarSharp.Parse
             {
                 wind.IsWindDirectionVarying = true;
                 wind.WindDirectionVariationRaw = groups[12].Value;
-                wind.WindVariationLow = TryParseWithThrow(groups[13].Value);
-                wind.WindVariationHigh = TryParseWithThrow(groups[14].Value);
+                wind.WindVariationLow = IntTryParseWithThrow(groups[13].Value);
+                wind.WindVariationHigh = IntTryParseWithThrow(groups[14].Value);
             }
             return wind;
         }
@@ -73,10 +74,5 @@ namespace MetarSharp.Parse
             "MPS" => (WindDefinitions.MetersPerSecondLong, WindUnit.MetersPerSecond),
             _ => throw new ParseException("Could not convert Wind Unit")
         };
-
-        private static int TryParseWithThrow(string value)
-        {
-            return int.TryParse(value, out int converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
-        }
     }
 }

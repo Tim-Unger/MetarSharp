@@ -1,7 +1,4 @@
-﻿using MetarSharp.Exceptions;
-using System.Net;
-
-namespace MetarSharp.Methods.Download
+﻿namespace MetarSharp.Methods.Download
 {
     public class DownloadMetar
     {

@@ -1,4 +1,6 @@
-﻿namespace MetarSharp.Methods.Records.AverageValue
+﻿using MetarSharp.Exceptions;
+
+namespace MetarSharp.Methods.Records.AverageValue
 {
     internal class AverageCeiling
     {
@@ -17,11 +19,12 @@
             int sum = 0;
             int count = 0;
 
-            //TODO ?? operator
+            clouds.RemoveAll(x => x.CloudCeiling == null);
+
             clouds.ForEach(
                 x =>
                 {
-                    sum += x.CloudCeiling ?? 0;
+                    sum += x.CloudCeiling ?? throw new ParseException();
                     count++;
                 }
             );
@@ -29,12 +32,14 @@
             return Math.Round(sum / (double)count, decimalPlaces);
         }
 
-        private static double AverageVerticalVis(List<Cloud> metars, byte decimalPlaces)
+        private static double AverageVerticalVis(List<Cloud> clouds, byte decimalPlaces)
         {
             int sum = 0;
             int count = 0;
 
-            metars.ForEach(
+            clouds.RemoveAll(x => x.VerticalVisibility == null);
+
+            clouds.ForEach(
                 x =>
                 {
                     sum += x.VerticalVisibility ?? 0;

@@ -1,6 +1,6 @@
 ﻿using MetarSharp.Exceptions;
 using System.Text;
-using static MetarSharp.Extensions.Extensions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -8,7 +8,6 @@ namespace MetarSharp.Parse.ReadableReport
     {
         internal static string Append(Metar metar)
         {
-            //TODO
             StringBuilder stringBuilder = new StringBuilder();
             List<string> trendElementsDecoded = new List<string>();
 
@@ -20,24 +19,6 @@ namespace MetarSharp.Parse.ReadableReport
 
             foreach (var trend in trends)
             {
-                if (trend.IsTimeRestricted)
-                {
-                    string decodeTimeRestriction = trend.TimeRestrictionType switch
-                    {
-                        TimeRestrictionType.From => "From",
-                        TimeRestrictionType.At => "At",
-                        TimeRestrictionType.Until => "Until",
-                        _ => throw new ParseException()
-                    };
-
-                    DateTime timeRestrictionDateTime =
-                        trend.TimeRestrictionDateTime ?? throw new ParseException();
-                    string time = timeRestrictionDateTime.ToString("HH:mm");
-                    stringBuilder.Append($"{decodeTimeRestriction} {time} Zulu: ");
-                }
-
-                stringBuilder.Append($"{trend.TrendTypeDecoded ?? throw new ParseException()} ");
-
                 foreach (var singleTrend in trend.TrendList ?? Enumerable.Empty<object>())
                 {
                     //Casts the single trend to the appropriate metar class as the list item is an object
@@ -219,6 +200,7 @@ namespace MetarSharp.Parse.ReadableReport
             //Adds the last element to the edited list
             editedList.Add(trendElements.Last());
 
+            //Turns the list into a single string
             StringBuilder stringBuilder = new StringBuilder();
             editedList.ForEach(x => stringBuilder.AppendLine(x));
 

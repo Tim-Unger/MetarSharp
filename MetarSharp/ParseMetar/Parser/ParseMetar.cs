@@ -1,5 +1,5 @@
 ﻿using MetarSharp.Exceptions;
-using static MetarSharp.Parser.Helpers;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp
 {

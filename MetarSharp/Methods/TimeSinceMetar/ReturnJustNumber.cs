@@ -1,4 +1,4 @@
-using static MetarSharp.Extensions.Extensions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Extensions
 {

@@ -20,7 +20,7 @@ namespace MetarSharp.Parse
             List<WindShear> windShear = new List<WindShear>();
 
             Regex additionalRegex = new Regex(
-                "(((RE(MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS)){1,})|((WS\\\\s((R([0-9]{1,2}))|(ALL RWY))){1,})|\\s(BLU+|BLU|WHT|GRN|YLO|AMB|RED|BLACK))(?>\\s|$)",
+                @"(((RE(MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS)){1,})|(WS\sR([0-9]{1,2}(L|C|R)?))|(WS ALL RWY)|\s(BLU+|BLU|WHT|GRN|YLO|AMB|RED|BLACK))(?>\s|$)",
                 RegexOptions.Multiline
             );
 
@@ -47,14 +47,15 @@ namespace MetarSharp.Parse
                 }
 
                 //Windshear
-                if (groups[5].Success == true)
+                if (groups[5].Success || groups[8].Success)
                 {
-                    windShear.Add(WindshearParse.Parse(groups));
+                    MatchCollection allRunways = Regex.Matches(raw, @"(WS\sR([0-9]{1,2}(L|C|R)?))|(WS ALL RWY)");
+                    windShear.Add(WindshearParse.Parse(allRunways));
                     continue;
                 }
 
                 //ColorCode
-                if (groups[11].Success == true)
+                if (groups[9].Success)
                 {
                     //GetColorCode returns the ColorCode enum, the ColorCode in short and in long
                     var colorCodeTuple = Additional.ColorCode.GetColorCode(groups).ToTuple();

@@ -1,5 +1,5 @@
 ﻿using MetarSharp.Exceptions;
-using static MetarSharp.Extensions.Extensions;
+using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -19,6 +19,8 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Visibility not measurable";
             }
 
+            //TODO
+            //I don't know why this is here instead of AppendClouds
             if(metar.Clouds.Any(x => x.IsCAVOK))
             {
                 return "Ceiling and Visibility okay";

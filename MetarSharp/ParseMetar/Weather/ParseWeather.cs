@@ -4,8 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {
-
-
     public class ParseWeather
     {
         public static Weather ReturnWeather(string raw)
@@ -73,6 +71,9 @@ namespace MetarSharp.Parse
             
             weather.Weathers.ForEach(x => stringBuilder.Append(x.WeatherTypeDecoded).Append(' '));
 
+            //Removes the last space from the combined string
+            stringBuilder.Remove(stringBuilder.Length - 1, 1);
+
             weather.WeatherCombinedDecoded = stringBuilder.ToString();
             return weather;
         }
@@ -137,11 +138,14 @@ namespace MetarSharp.Parse
 
             weather.Weathers.ForEach(x => stringBuilder.Append(x.WeatherTypeDecoded).Append(' '));
 
+            //Removes the last space from the combined string
+            stringBuilder.Remove(stringBuilder.Length - 1, 1);
+
             weather.WeatherCombinedDecoded = stringBuilder.ToString();
             return weather;
         }
 
-        private static (WeatherIntensity, string) GetWeatherIntensity(GroupCollection groups) =>
+        internal static (WeatherIntensity, string) GetWeatherIntensity(GroupCollection groups) =>
             groups[3].Value switch
             {
                 "-" => (WeatherIntensity.Light,"Light"),
@@ -150,7 +154,7 @@ namespace MetarSharp.Parse
                 _ => throw  new ParseException()
             };
 
-        private static (WeatherType, string) GetWeatherType(string input) => input switch
+        internal static (WeatherType, string) GetWeatherType(string input) => input switch
         {
             "BC" => (WeatherType.Patches, "Patches"),
             "BL" => (WeatherType.Blowing, "Blowing"),
