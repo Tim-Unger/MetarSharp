@@ -11,9 +11,9 @@ namespace MetarSharp.Parse.ReadableReport {
 
             if(trend.IsTimeRestricted)
             {
-                //null check
+                //TODO null check
                 stringBuilder.Append(trend.TimeRestrictionType.ToString()).Append(' ');
-                stringBuilder.Append(trend.TimeRestrictionDateTime.Value.ToString("HH:mm")).Append("UTC ");
+                stringBuilder.Append(trend.TimeRestrictionDateTime!.Value.ToString("HH:mm")).Append("UTC ");
             }
 
             if (trend.TrendType != TrendType.NoSignificantChange)

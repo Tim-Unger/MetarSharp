@@ -23,11 +23,12 @@ namespace MetarSharp.Parse
             foreach (var match in trendMatches.Cast<Match>())
             {
                 GroupCollection groups = match.Groups;
-                var trend = new Trend();
+                var trend = new Trend
+                {
+                    TrendRaw = groups[0].Value,
 
-                trend.TrendRaw = groups[0].Value;
-
-                trend.TrendTypeRaw = groups[1].Value;
+                    TrendTypeRaw = groups[1].Value
+                };
 
                 (trend.TrendType, trend.TrendTypeDecoded) = groups[1].Value switch
                 {
@@ -121,24 +122,12 @@ namespace MetarSharp.Parse
             return result;
         }
 
-        private static Visibility GetVisibility(string input)
-        {
-            return ParseVisibility.ReturnVisibility(input);
-        }
+        private static Visibility GetVisibility(string input) => ParseVisibility.ReturnVisibility(input);
 
-        private static Weather GetWeather(string input)
-        {
-            return ParseWeather.GetWeatherFromTrend(input);
-        }
+        private static Weather GetWeather(string input) => ParseWeather.GetWeatherFromTrend(input);
 
-        private static Wind GetWind(string input)
-        {
-            return ParseWind.ReturnWind(input);
-        }
+        private static Wind GetWind(string input) => ParseWind.ReturnWind(input);
 
-        private static Cloud GetCloud(string input)
-        {
-            return ParseClouds.ReturnClouds(input).First();
-        }
+        private static Cloud GetCloud(string input) => ParseClouds.ReturnClouds(input).First();
     }
 }

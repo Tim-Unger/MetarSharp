@@ -1,6 +1,5 @@
 namespace MetarSharp.Definitions
 {
-    //TODO
     public class WeatherDefinitions
     {
         public static string Recent { get; set; } = "Recent";
@@ -37,7 +36,5 @@ namespace MetarSharp.Definitions
         public static string Tornado { get; set; } = "Tornado";
         public static string Sandstorm { get; set; } = "Sandstorm";
         public static string Duststorm { get; set; } = "Duststorm";
-
-
     }
 }

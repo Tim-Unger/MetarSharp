@@ -19,14 +19,14 @@ namespace MetarSharp.Methods.Download
                 throw new ParseException("Please use a four letter ICAO, for multiple metars, please use FromVatsimMultiple");
             }
 
-            var raw = await Client.GetStringAsync($"https://metar.vatsim.net/{icao}");
+            var metar = await Client.GetStringAsync($"https://metar.vatsim.net/{icao}");
 
-            if (string.IsNullOrEmpty(raw))
+            if (string.IsNullOrEmpty(metar))
             {
                 throw new ParseException();
             }
 
-            return raw;
+            return metar;
         }
 
         internal static async Task<List<string>> Multiple(string icao)

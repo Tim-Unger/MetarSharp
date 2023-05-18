@@ -17,7 +17,7 @@ namespace MetarSharp.Parse
 
             if (matches.Count == 0)
             {
-                if (Regex.IsMatch(raw, "\\sAUTO\\s") || Regex.IsMatch(raw, "\\sCAVOK\\s"))
+                if (Regex.IsMatch(raw, @"\sAUTO\s") || Regex.IsMatch(raw, @"\sCAVOK\s"))
                 {
                     return new Visibility()
                     {

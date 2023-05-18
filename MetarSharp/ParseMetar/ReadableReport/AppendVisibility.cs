@@ -27,24 +27,11 @@ namespace MetarSharp.Parse.ReadableReport
 
             var visibilityUnit = DistanceValueSingularOrPlural(metar.Visibility.ReportedVisibility, metar.Visibility.VisibilityUnit);
 
-            visibility =
-                "Visibility: "
-                + metar.Visibility.ReportedVisibility
-                + " "
-                + visibilityUnit
-                + " ";
-
+            visibility = $"Visibility: {metar.Visibility.ReportedVisibility} {visibilityUnit}";
 
             if (metar.Visibility.HasVisibilityLowestValue)
             {
-                var lowestVisibility =
-                    "Lowest Visibility: "
-                    + metar.Visibility.LowestVisibility
-                    + " "
-                    + visibilityUnit
-                    + " in the"
-                    + metar.Visibility.LowestVisibilityDirectionDecoded
-                    + " ";
+                var lowestVisibility = $"Lowest Visibility: {metar.Visibility.LowestVisibility} {visibilityUnit} in the {metar.Visibility.LowestVisibilityDirectionDecoded} ";
 
                 return visibility + lowestVisibility;
             }

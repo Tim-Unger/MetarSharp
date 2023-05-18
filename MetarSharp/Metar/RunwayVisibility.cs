@@ -7,7 +7,6 @@
         Right
     }
 
-    //TODO
     public class RunwayVisibility
     {
         public string RunwayVisibilityRaw { get; set; } = "";

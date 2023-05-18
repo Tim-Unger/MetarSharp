@@ -9,6 +9,6 @@ namespace MetarSharp.Parser
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static async Task<Metar> Parse(string input) => FromString.Parse(await new HttpClient().GetStringAsync(input));
+        internal static Metar Parse(string input) => FromString.Parse(new HttpClient().GetStringAsync(input).Result);
     }
 }

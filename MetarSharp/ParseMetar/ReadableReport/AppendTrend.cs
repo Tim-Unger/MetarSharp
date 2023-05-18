@@ -40,7 +40,6 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string ParseVisibility(MetarSharp.Visibility visibility)
         {
-            string visibilityString = null;
             //TODO CAVOK
             if (visibility.IsVisibilityMeasurable == false)
             {
@@ -123,37 +122,25 @@ namespace MetarSharp.Parse.ReadableReport
         {
             if (wind.IsWindVariable)
             {
-                return "Wind variable " + wind.WindStrength + " " + wind.WindUnitDecoded;
+                return $"Wind variable {wind.WindStrength} {wind.WindUnitDecoded}";
             }
 
-            return "Wind: "
-                + wind.WindDirection
-                + " Degrees "
-                + wind.WindStrength
-                + " "
-                + wind.WindUnitDecoded;
+            return $"Wind: {wind.WindDirection} Degrees {wind.WindStrength} {wind.WindUnitDecoded}";
         }
 
         private static string ConvertGusts(MetarSharp.Wind wind)
         {
-            return "\n" + "Gusting up to " + wind.WindGusts + " " + wind.WindUnitDecoded;
+            return "\n" + $"Gusting up to {wind.WindGusts} {wind.WindUnitDecoded}";
         }
 
         private static string ConvertVariation(MetarSharp.Wind wind)
         {
-            return "\n"
-                + "Variable between "
-                + wind.WindVariationLow
-                + " Degrees and "
-                + wind.WindVariationHigh
-                + " Degrees.";
+            return "\n" + $"Variable between {wind.WindVariationLow} Degrees and {wind.WindVariationHigh} Degrees.";
         }
 
         private static string ParseCloud(MetarSharp.Cloud cloud)
         {
             var stringBuilder = new StringBuilder();
-
-            string cloudString = null;
 
             if (cloud.IsCAVOK)
             {
@@ -164,16 +151,13 @@ namespace MetarSharp.Parse.ReadableReport
 
             if (cloud.IsCloudMeasurable == false)
             {
-                cloudString = "Cloud not measurable";
-                stringBuilder.AppendLine(cloudString);
+                stringBuilder.AppendLine("Cloud not measurable");
             }
 
             var cloudType = Clouds.GetCloudType(cloud);
             var cloudCeiling = Clouds.GetCloudCeiling(cloud);
 
-            cloudString = cloudType + cloudCeiling;
-
-            stringBuilder.AppendLine(cloudString);
+            stringBuilder.AppendLine(cloudType + cloudCeiling);
 
             //this removes the last \r\n from the string
             stringBuilder.Length -= 2;

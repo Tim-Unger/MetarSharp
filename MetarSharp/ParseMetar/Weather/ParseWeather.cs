@@ -43,8 +43,11 @@ namespace MetarSharp.Parse
             var weathers = new List<SingleWeather>();
             for (var i = 0; i < weatherCaptures.Count; i++)
             {
-                var singleWeather = new SingleWeather();
-                singleWeather.WeatherTypeRaw = weatherCaptures[i].Value;
+                var singleWeather = new SingleWeather
+                {
+                    WeatherTypeRaw = weatherCaptures[i].Value
+                };
+
                 (singleWeather.WeatherType, singleWeather.WeatherTypeDecoded) = GetWeatherType(weatherCaptures[i].Value);
                 
                 weathers.Add(singleWeather);
@@ -53,7 +56,6 @@ namespace MetarSharp.Parse
             weather.Weathers = weathers;
             
             StringBuilder stringBuilder = new();
-
             
             if (weather.IsRecent)
             {
@@ -111,8 +113,11 @@ namespace MetarSharp.Parse
             var weathers = new List<SingleWeather>();
             for (var i = 0; i < weatherCaptures.Count; i++)
             {
-                var singleWeather = new SingleWeather();
-                singleWeather.WeatherTypeRaw = weatherCaptures[i].Value;
+                var singleWeather = new SingleWeather
+                {
+                    WeatherTypeRaw = weatherCaptures[i].Value
+                };
+
                 (singleWeather.WeatherType, singleWeather.WeatherTypeDecoded) = GetWeatherType(weatherCaptures[i].Value);
 
                 weathers.Add(singleWeather);
@@ -182,6 +187,5 @@ namespace MetarSharp.Parse
             "SS" => (WeatherType.Sandstorm, "Sand Storm"),
             _ => (WeatherType.Unknown, "Unknown")
         };
-
     }
 }

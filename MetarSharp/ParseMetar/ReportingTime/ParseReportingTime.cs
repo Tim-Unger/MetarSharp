@@ -30,10 +30,9 @@ namespace MetarSharp.Parse
                 }
 
                 missingGroups = matches[0].Groups;
-
             }
 
-            GroupCollection normalGroups = null;
+            GroupCollection? normalGroups = null;
 
             if (!isNormalParseFailed)
             {
@@ -64,12 +63,12 @@ namespace MetarSharp.Parse
                 int when reportingDate == dayNow => new Tuple<int, int>(monthNow,yearNow),
                 
                 //current day is larger than reporting day
-                //= this month
+                //=> this month
                 int when reportingDate < dayNow => new Tuple<int, int>(monthNow, yearNow),
                 
                 //current day is smaller than reporting day
                 //and days in month are greater or equal than reporting day
-                //= last month
+                //=> last month
                 int
                     when reportingDate > dayNow
                         && DateTime.DaysInMonth(yearNow, RemoveMonths(1)) >= reportingDate
@@ -77,7 +76,7 @@ namespace MetarSharp.Parse
                 
                 //current day is smaller than reporting day
                 //and days in month are smaller than reporting day
-                //= month before last
+                //=> month before last
                 int
                     when reportingDate > dayNow
                         && DateTime.DaysInMonth(yearNow, RemoveMonths(2)) >= reportingDate
@@ -93,14 +92,20 @@ namespace MetarSharp.Parse
             return reportingTime;
         }
 
-        private static int RemoveMonths(int months)
-        {
-            return DateTime.UtcNow.AddMonths(-months).Month;
-        }
+        /// <summary>
+        /// This removes the given number of months from the current UTC-DateTime and returns the Month of the DateTime
+        /// Do NOT add a 
+        /// </summary>
+        /// <param name="months"></param>
+        /// <returns></returns>
+        private static int RemoveMonths(int months) => DateTime.UtcNow.AddMonths(-months).Month;
 
-        private static int RemoveMonthsYear(int months)
-        {
-            return DateTime.UtcNow.AddMonths(-months).Year;
-        }
+        /// <summary>
+        /// This removes the given number of months from the current UTC-DateTime and returns the year of the DateTime
+        /// Do NOT add a 
+        /// </summary>
+        /// <param name="months"></param>
+        /// <returns></returns>
+        private static int RemoveMonthsYear(int months) => DateTime.UtcNow.AddMonths(-months).Year;
     }
 }

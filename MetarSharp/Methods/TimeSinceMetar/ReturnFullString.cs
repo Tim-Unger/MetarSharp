@@ -1,5 +1,4 @@
 using MetarSharp.Exceptions;
-using System.Runtime.CompilerServices;
 using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Extensions

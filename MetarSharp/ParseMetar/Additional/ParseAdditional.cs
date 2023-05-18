@@ -69,7 +69,7 @@ namespace MetarSharp.Parse
                 }
             }
 
-            var remarkRegex = new Regex("(RMK\\s(.*$))", RegexOptions.None);
+            var remarkRegex = new Regex(@"(RMK\s(.*$))", RegexOptions.None);
             //TODO
 
             MatchCollection remarkMatches = remarkRegex.Matches(raw);

@@ -59,12 +59,12 @@ namespace MetarSharp.Parse.ReadableReport
             reportBuilder.AppendLine(Pressure.Append(metar));
 
             //Trends
-            foreach (var trend in metar.Trends) 
-            if (metar.Trends.Count > 0)
+            if(metar.Trends.Count == 0)
             {
-                reportBuilder.AppendLine(TrendBase.Append(trend));
-                reportBuilder.AppendLine(Trend.Append(metar));
+                return reportBuilder.ToString();
             }
+
+            metar.Trends.ForEach(trend => { reportBuilder.AppendLine(TrendBase.Append(trend)); Trend.Append(metar); });
             
             return reportBuilder.ToString();
         }

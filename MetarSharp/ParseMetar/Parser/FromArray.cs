@@ -7,16 +7,7 @@ namespace MetarSharp.Parser
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static Metar[] Parse(string[] input)
-        {
-            List<Metar> returnList = new();
+        internal static Metar[] Parse(string[] input) => input.ToList().Select(x => FromString.Parse(x)).ToArray();
 
-            foreach(var metar in input)
-            {
-                returnList.Add(FromString.Parse(metar));
-            }
-
-            return returnList.ToArray();
-        }
     }
 }

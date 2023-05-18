@@ -35,6 +35,9 @@ namespace MetarSharp.Parse
             wind.IsWindDirectionMeasurable = groups[6].Success == false;
             wind.IsWindStrengthMeasurable = groups[7].Success == false;
 
+            var isWindVRB = groups[2].Value.Contains("VRB");
+            wind.IsWindVariable = isWindVRB;
+
             var windStrength = groups[4].Success ? IntTryParseWithThrow(groups[4].Value) : 0;
             wind.WindStrength = windStrength;
 
@@ -55,7 +58,10 @@ namespace MetarSharp.Parse
 
             wind.WindGusts = groups[9].Success ? IntTryParseWithThrow(groups[9].Value) : null;
 
-            wind.IsWindVariable = groups[2].Value.Contains("VRB");
+            if (isWindVRB)
+            {
+                wind.WindStrength = IntTryParseWithThrow(groups[5].Value);
+            }
 
             if (groups[12].Success)
             {

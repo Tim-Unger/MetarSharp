@@ -8,13 +8,12 @@ namespace MetarSharp.Parse.ReadableReport
         /// This appends the reporting time and date to the readable report
         /// </summary>
         /// <param name="metar"></param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         internal static string Append(Metar metar)
         {
             var reportingDate = "";
 
-            var reportingTime =
-                " at " + metar.ReportingTime.ReportingTimeZulu.ToString("t") + " UTC";
+            var reportingTime = $" at {metar.ReportingTime.ReportingTimeZulu:t} UTC";
 
             //Returns if the metar was reported today
             if (metar.ReportingTime.ReportingTimeZulu.Day == DateTime.UtcNow.Day)

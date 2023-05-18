@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-
-namespace MetarSharp.Parse.ReadableReport
+﻿namespace MetarSharp.Parse.ReadableReport
 {
     internal class IsAutomated
     {
@@ -9,9 +7,6 @@ namespace MetarSharp.Parse.ReadableReport
         /// </summary>
         /// <param name="metar"></param>
         /// <returns></returns>
-        internal static string Append(Metar metar)
-        {
-            return metar.IsAutomatedReport ? "Automated weather report " : "Weather report ";
-        }
+        internal static string Append(Metar metar) => metar.IsAutomatedReport ? "Automated weather report " : "Weather report ";
     }
 }

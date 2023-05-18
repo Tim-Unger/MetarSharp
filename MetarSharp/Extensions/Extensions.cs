@@ -148,10 +148,7 @@ namespace MetarSharp.Extensions
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static bool IsStringNullOrEmpty(string input)
-        {
-            return input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
-        }
+        internal static bool IsStringNullOrEmpty(string input) => input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
 
         /// <summary>
         /// This checks whether an entire collection is null or empty

@@ -42,6 +42,7 @@ namespace MetarSharp.Parse
             var tempCelsius = DoubleTryParseWithThrow(groups[2].Value);
             var dewpointCelsius = DoubleTryParseWithThrow(groups[4].Value);
 
+            //Temperature is negative (e.g. M1)
             if (groups[1].Success)
             {
                 tempCelsius *= -1;
@@ -50,6 +51,7 @@ namespace MetarSharp.Parse
             temperature.TemperatureCelsius = tempCelsius;
             temperature.TemperatureFahrenheit = Math.Round((tempCelsius * 1.8) + 32, 2);
 
+            //Dewpoint is negative (e.g. M3)
             if (groups[3].Success)
             {
                 dewpointCelsius *= -1;

@@ -8,11 +8,12 @@ namespace MetarSharp.Parse
     {
         internal static Visibility ParseVisibility(GroupCollection groups)
         {
-            Visibility visibility = new();
+            var visibility = new Visibility()
+            {
+                VisibilityRaw = groups[7].Value,
 
-            visibility.VisibilityRaw = groups[7].Value;
-
-            visibility.IsVisibilityMeasurable = true;
+                IsVisibilityMeasurable = true
+            };
 
             //Vis is less than 1 Mile (1/2 SM)
             var hasVisibilitySlash = false;
@@ -28,8 +29,6 @@ namespace MetarSharp.Parse
 
                 convertedValue = firstValue / lastValue;
             }
-
-            
 
             double reportedVisibility = 0;
             

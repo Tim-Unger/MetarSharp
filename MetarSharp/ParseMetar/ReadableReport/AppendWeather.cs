@@ -9,7 +9,7 @@ namespace MetarSharp.Parse.ReadableReport
         /// This adds the weather to the readable report
         /// </summary>
         /// <param name="metar"></param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         internal static string Append(Metar metar)
         {
             var weather = metar.Weather;

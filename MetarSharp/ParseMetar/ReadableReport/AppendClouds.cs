@@ -61,8 +61,7 @@ namespace MetarSharp.Parse.ReadableReport
 
             if (cloud.HasCumulonimbusClouds == true)
             {
-                //Exception should never be thrown, this is just to surpress the warning
-                return cloud.CBCloudTypeDecoded ?? throw new ParseException();
+                return cloud.CBCloudTypeDecoded!;
             }
 
             if(cloud.IsVerticalVisibility == true)
@@ -70,8 +69,7 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Vertical Visibility";
             }
 
-            //Exception should never be thrown, this is just to surpress the warning
-            return cloud.CloudCoverageTypeDecoded ?? throw new ParseException();
+            return cloud.CloudCoverageTypeDecoded!;
         }
 
         internal static string GetCloudCeiling(Cloud cloud)
@@ -88,10 +86,10 @@ namespace MetarSharp.Parse.ReadableReport
 
             if(cloud.IsVerticalVisibilityMeasurable == true)
             {
-                return ' ' + cloud.VerticalVisibility.ToString();
+                return $" {cloud.VerticalVisibility}";
             }
 
-            return " at " + cloud.CloudCeiling.ToString() + "ft";
+            return $" at {cloud.CloudCeiling} ft";
         }
     }
 }

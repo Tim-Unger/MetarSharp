@@ -13,6 +13,7 @@ namespace MetarSharp.Methods.Records.HighestValue
                 ValueType.CloudCeiling => HighestCeiling.Get(metars),
                 ValueType.VerticalVisibility => HighestVerticalVisibility.Get(metars),
                 ValueType.PressureQNH => HighestPressure.GetQNH(metars),
+                ValueType.PressureINHG => HighestPressure.GetINHG(metars),
                 ValueType.ReportingTime => HighestReportingTime.Get(metars),
                 ValueType.RunwayVisibility => throw new NotImplementedException(),  //TODO
                 ValueType.TemperatureCelsius or ValueType.TemperatureFahrenheit => HighestTemperature.Get(metars),
@@ -23,15 +24,16 @@ namespace MetarSharp.Methods.Records.HighestValue
 
         internal static dynamic Get(List<Metar> metars, ValueType valueType, ValueReturnType returnType) => valueType switch
         {
-            ValueType.ColorCode => LowestColorCode.GetReturn(metars, returnType),
-            ValueType.PressureQNH => LowestPressure.GetReturn(metars, returnType, true),
-            ValueType.PressureINHG => LowestPressure.GetReturn(metars, returnType, false),
-            ValueType.ReportingTime => LowestReportingTime.GetReturn(metars, returnType),
+            ValueType.CloudCeiling => HighestCeiling.GetReturn(metars, returnType),
+            ValueType.ColorCode => HighestColorCode.GetReturn(metars, returnType),
+            ValueType.PressureQNH => HighestPressure.GetQNHReturn(metars, returnType, true),
+            ValueType.PressureINHG => HighestPressure.GetINHGReturn(metars, returnType, false),
+            ValueType.ReportingTime => HighestReportingTime.GetReturn(metars, returnType),
             ValueType.RunwayVisibility => throw new NotImplementedException(), //TODO
-            ValueType.TemperatureCelsius => LowestTemperature.GetReturn(metars, returnType, true),
-            ValueType.TemperatureFahrenheit => LowestTemperature.GetReturn(metars, returnType, false),
-            ValueType.Visibility => LowestVisibility.GetReturn(metars, returnType),
-            ValueType.WindStrength => LowestWindSpeed.GetReturn(metars, returnType),
+            ValueType.TemperatureCelsius => HighestTemperature.GetReturn(metars, returnType, true),
+            ValueType.TemperatureFahrenheit => HighestTemperature.GetReturn(metars, returnType, false),
+            ValueType.Visibility => HighestVisibility.GetReturn(metars, returnType),
+            ValueType.WindStrength => HighestWindStrength.GetReturn(metars, returnType),
             _ => throw new ArgumentOutOfRangeException(),
         };
     }
