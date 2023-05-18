@@ -14,7 +14,7 @@ namespace MetarSharp.Parse
         /// <exception cref="ParseException"></exception>
         public static string ReturnAirport(string raw)
         {
-            Regex airportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
+            var airportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
 
             MatchCollection airportMatches = airportRegex.Matches(raw);
 

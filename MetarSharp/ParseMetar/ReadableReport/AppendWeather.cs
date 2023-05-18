@@ -14,7 +14,7 @@ namespace MetarSharp.Parse.ReadableReport
         {
             var weather = metar.Weather;
 
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             if(weather.IsRecent)
             {

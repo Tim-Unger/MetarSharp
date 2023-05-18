@@ -1,5 +1,6 @@
-﻿namespace MetarSharp.Extensions
+﻿namespace MetarSharp.Converter.Distance
 {
+
     public static class ConvertFromMeter
     {
         public static decimal ToKilometer(this double value)

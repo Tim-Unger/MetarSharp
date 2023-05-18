@@ -26,7 +26,7 @@ namespace MetarSharp.Methods.Records.AverageValue
         private static double GetAverageWindDirection(List<Metar> metars, byte? decimalPlaces)
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             metars.ForEach(
                 x =>
@@ -42,7 +42,7 @@ namespace MetarSharp.Methods.Records.AverageValue
         private static double GetAverageWindStrength(List<Metar> metars, byte? decimalPlaces)
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             metars.ForEach(
                 x =>
@@ -58,7 +58,7 @@ namespace MetarSharp.Methods.Records.AverageValue
         private static double GetAverageWindGustStrength(List<Metar> metars, byte? decimalPlaces)
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             metars.ForEach(
                 x =>

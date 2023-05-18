@@ -11,7 +11,7 @@ namespace MetarSharp.Parse
         {
             Weather weather = new ();
 
-            Regex weatherRegex = new Regex(@"(?<!(TEMPO|RMK|TREND|BECMG).*)\s(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s", RegexOptions.None);
+            var weatherRegex = new Regex(@"(?<!(TEMPO|RMK|TREND|BECMG).*)\s(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s", RegexOptions.None);
 
             MatchCollection weatherMatches = weatherRegex.Matches(raw);
 
@@ -40,7 +40,7 @@ namespace MetarSharp.Parse
 
             var weatherCaptures = groups[4].Captures;
 
-            List<SingleWeather> weathers = new List<SingleWeather>();
+            var weathers = new List<SingleWeather>();
             for (var i = 0; i < weatherCaptures.Count; i++)
             {
                 var singleWeather = new SingleWeather();
@@ -108,7 +108,7 @@ namespace MetarSharp.Parse
 
             var weatherCaptures = groups[3].Captures;
 
-            List<SingleWeather> weathers = new List<SingleWeather>();
+            var weathers = new List<SingleWeather>();
             for (var i = 0; i < weatherCaptures.Count; i++)
             {
                 var singleWeather = new SingleWeather();

@@ -14,8 +14,8 @@
             byte decimalPlaces
         )
         {
-            int sum = 0;
-            int count = 0;
+            var sum = 0;
+            var count = 0;
 
             runwayVisibilities.ForEach(
                 x =>

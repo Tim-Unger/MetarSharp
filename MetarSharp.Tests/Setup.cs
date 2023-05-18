@@ -9,9 +9,9 @@
         [OneTimeSetUp]
         public void SetupClass()
         {
-            using (StreamReader streamReader = new StreamReader("../Metars.txt"))
+            using (var streamReader = new StreamReader("../Metars.txt"))
             {
-                string metarListRaw = streamReader.ReadToEnd();
+                var metarListRaw = streamReader.ReadToEnd();
                 Metars = metarListRaw.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
                 MetarsParsed = Metars.Select(x => ParseMetar.FromString(x)).ToList();
             };

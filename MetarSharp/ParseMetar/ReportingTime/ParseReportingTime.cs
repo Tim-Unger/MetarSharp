@@ -15,7 +15,7 @@ namespace MetarSharp.Parse
             MatchCollection reportingTimeMatches = reportingTimeRegex.Matches(raw);
 
             GroupCollection missingGroups = null;
-            bool isNormalParseFailed = false;
+            var isNormalParseFailed = false;
             if (reportingTimeMatches.Count == 0)
             {
                 isNormalParseFailed = true;

@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Distance
+﻿namespace MetarSharp.Converter.Distance
 {
     public static class ConvertFromStatuteMile
     {

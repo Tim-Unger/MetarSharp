@@ -11,10 +11,10 @@ namespace MetarSharp.Parse.ReadableReport
         /// <returns></returns>
         internal static string Append(Metar metar)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             foreach (var RVR in metar.RunwayVisibilities)
             {
-                StringBuilder visibility = new StringBuilder();
+                var visibility = new StringBuilder();
 
                 visibility.Append("Runway-Visibility for Runway " + RVR.Runway + " ");
 
@@ -48,7 +48,7 @@ namespace MetarSharp.Parse.ReadableReport
                     variation = "Variating up to: " + RVR.RVRVariationValue + " Meter";
                 }
 
-                string tendency = " " + RVR.RVRTendencyDecoded;
+                var tendency = " " + RVR.RVRTendencyDecoded;
                 
                 stringBuilder.AppendLine(visibility + " " + variation + " " + tendency);
             }

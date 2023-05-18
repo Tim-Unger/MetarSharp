@@ -32,7 +32,7 @@
         )
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             if (isCelsius)
             {
@@ -65,7 +65,7 @@
         )
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             if (isCelsius)
             {

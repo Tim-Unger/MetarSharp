@@ -127,7 +127,7 @@ namespace MetarSharp.Extensions
         /// <exception cref="ParseException"></exception>
         internal static int IntTryParseWithThrow(string value)
         {
-            return int.TryParse(value, out int converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
+            return int.TryParse(value, out var converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace MetarSharp.Extensions
         /// <exception cref="ParseException"></exception>
         internal static double DoubleTryParseWithThrow(string value)
         {
-            return double.TryParse(value, out double converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
+            return double.TryParse(value, out var converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
         }
         #endregion
 
@@ -172,13 +172,7 @@ namespace MetarSharp.Extensions
         /// <returns></returns>
         internal static IEnumerable<string> RemoveEmptyEntriesFromCollection<T>(T input)
         {
-            var convertedInput = input as IEnumerable<string>;
-
-            if (convertedInput == null)
-            {
-                throw new ParseException();
-            }
-
+            var convertedInput = input as IEnumerable<string> ?? throw new ParseException();
             var cleanedInput = convertedInput.Where(x => IsStringNullOrEmpty(x) == false);
 
             return cleanedInput;

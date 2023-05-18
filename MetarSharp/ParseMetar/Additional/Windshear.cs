@@ -8,13 +8,13 @@ namespace MetarSharp.Parse.Additional
     {
         internal static WindShear Parse(MatchCollection matches)
         {
-            WindShear wind = new WindShear();
+            var wind = new WindShear();
 
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             matches.ToList().ForEach(x => stringBuilder.Append(x.ToString().Append(' ')));
             wind.WindShearRaw = stringBuilder.ToString();
 
-            List<string> runways = new List<string>();
+            var runways = new List<string>();
 
             if (matches.Count == 1)
             {

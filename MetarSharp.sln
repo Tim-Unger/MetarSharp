@@ -9,9 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarSharp.Debugger", "Meta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarDownloader", "MetarDownloader\MetarDownloader.csproj", "{900D8957-C07E-4C7F-9D94-3225E40C1F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharp.Tests", "MetarSharp.Tests\MetarSharp.Tests.csproj", "{04174095-89F7-423D-AE35-E8F647D62834}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarSharp.Tests", "MetarSharp.Tests\MetarSharp.Tests.csproj", "{04174095-89F7-423D-AE35-E8F647D62834}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarSharp.Benchmarks", "MetarSharp.Benchmarks\MetarSharp.Benchmarks.csproj", "{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarSharp.Benchmarks", "MetarSharp.Benchmarks\MetarSharp.Benchmarks.csproj", "{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE7C7F37-D574-4E1F-A404-5AFFF7E8A84D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

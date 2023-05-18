@@ -19,7 +19,7 @@
         private static double GetAverageVisibility(List<Metar> metars, byte decimalPlaces)
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             metars.ForEach(
                 x =>
@@ -35,7 +35,7 @@
         private static double GetAverageLowestVisibility(List<Metar> metars, byte decimalPlaces)
         {
             double sum = 0;
-            int count = 0;
+            var count = 0;
 
             metars.ForEach(
                 x =>

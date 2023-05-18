@@ -15,9 +15,9 @@ namespace MetarSharp.Parse
         /// <exception cref="ParseException"></exception>
         public static Pressure ReturnPressure(string raw)
         {
-            Pressure pressure = new Pressure();
+            var pressure = new Pressure();
 
-            Regex pressureRegex = new Regex(@"(Q|A)([0-9]{4}|////)", RegexOptions.None);
+            var pressureRegex = new Regex(@"(Q|A)([0-9]{4}|////)", RegexOptions.None);
 
             MatchCollection pressureMatches = pressureRegex.Matches(raw);
 
@@ -47,10 +47,10 @@ namespace MetarSharp.Parse
                 _ => throw new ParseException("Pressure Type could not be converted")
             };
 
-            string pressureTypeRaw = groups[1].Value == "A" ? PressureDefinitions.InchesMercuryShort : PressureDefinitions.HectopascalsShort;
+            var pressureTypeRaw = groups[1].Value == "A" ? PressureDefinitions.InchesMercuryShort : PressureDefinitions.HectopascalsShort;
             pressure.PressureTypeRaw = pressureTypeRaw;
 
-            double pressureValue = double.TryParse(groups[2].Value, out double pressureVal)
+            var pressureValue = double.TryParse(groups[2].Value, out var pressureVal)
              ? pressureVal
              : 0;
 

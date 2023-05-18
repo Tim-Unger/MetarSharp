@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Time
+﻿namespace MetarSharp.Converter.Time
 {
     public static class ConvertFromMinutes
     {

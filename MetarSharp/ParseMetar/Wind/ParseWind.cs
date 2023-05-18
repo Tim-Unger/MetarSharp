@@ -9,9 +9,9 @@ namespace MetarSharp.Parse
     {
         public static Wind ReturnWind(string raw)
         {
-            Wind wind = new Wind();
+            var wind = new Wind();
 
-            Regex windRegex = new Regex(
+            var windRegex = new Regex(
                 @"(?<!(?>RMK|TEMPO|BECMG).*)((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?",
                 RegexOptions.None
             );
@@ -35,17 +35,17 @@ namespace MetarSharp.Parse
             wind.IsWindDirectionMeasurable = groups[6].Success == false;
             wind.IsWindStrengthMeasurable = groups[7].Success == false;
 
-            int windStrength = groups[4].Success ? IntTryParseWithThrow(groups[4].Value) : 0;
+            var windStrength = groups[4].Success ? IntTryParseWithThrow(groups[4].Value) : 0;
             wind.WindStrength = windStrength;
 
-            bool isWindCalm = windStrength == 0;
+            var isWindCalm = windStrength == 0;
             wind.IsWindCalm = isWindCalm;
 
             wind.WindDirection = isWindCalm ? null : IntTryParseWithThrow(groups[3].Value);
 
             wind.IsWindGusting = groups[8].Success;
 
-            string windUnitRaw = groups[10].Value;
+            var windUnitRaw = groups[10].Value;
 
             wind.WindUnitRaw = windUnitRaw;
 

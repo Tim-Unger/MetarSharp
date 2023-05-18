@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Temperature
+﻿namespace MetarSharp.Converter.Temperature
 {
     public static class ConvertFromCelsius
     {

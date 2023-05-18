@@ -31,7 +31,7 @@ namespace MetarSharp.Extensions
 
         private static string ReturnOneUnit(TimeSpan elapsedTime)
         {
-            int elapsed = 0;
+            var elapsed = 0;
             if (elapsedTime.TotalSeconds <= 60)
             {
                 elapsed = elapsedTime.Seconds;

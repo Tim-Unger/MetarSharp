@@ -7,7 +7,7 @@
             var measurableMetars = metars.Where(x => x.Pressure.IsPressureMeasurable).ToList();
 
             //Rounds to the set value by the user, otherwise up
-            int medianIndex = (int)Math.Round(
+            var medianIndex = (int)Math.Round(
                 (double)measurableMetars.Count / 2,
                 0,
                 midpointRounding ?? MidpointRounding.AwayFromZero

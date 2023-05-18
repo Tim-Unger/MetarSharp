@@ -8,7 +8,7 @@
                 .Where(x => x.Temperature.IsTemperatureMeasurable)
                 .ToList();
 
-            int medianIndex = (int)Math.Round(
+            var medianIndex = (int)Math.Round(
                 (double)measurableMetars.Count / 2,
                 0,
                 midpointRounding ?? MidpointRounding.AwayFromZero

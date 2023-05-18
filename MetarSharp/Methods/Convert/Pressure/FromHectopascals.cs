@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Pressure
+﻿namespace MetarSharp.Converter.Pressure
 {
     public static class ConvertFromHectopascals
     {

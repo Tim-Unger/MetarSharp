@@ -1,27 +1,27 @@
 ﻿using MetarSharp.Exceptions;
 
-namespace MetarSharp.Methods.Convert.Time
+namespace MetarSharp.Converter.Time
 {
     public static class ConvertFromWeeks
     {
         public static ulong ToMilliseconds(this double value)
         {
             var val = Math.Round(value * 604800000000, 0);
-            ulong parseUlong = ulong.TryParse(val.ToString(), out ulong output) ? output : throw new ParseException();
+            var parseUlong = ulong.TryParse(val.ToString(), out var output) ? output : throw new ParseException();
             return parseUlong;
         }
 
         public static ulong ToSeconds(this double value)
         {
             var val = Math.Round(value * 604800, 0);
-            ulong parseUlong = ulong.TryParse(val.ToString(), out ulong output) ? output : throw new ParseException();
+            var parseUlong = ulong.TryParse(val.ToString(), out var output) ? output : throw new ParseException();
             return parseUlong;
         }
 
         public static ulong ToMinutes(this double value)
         {
             var val = Math.Round(value * 10080, 0);
-            ulong parseUlong = ulong.TryParse(val.ToString(), out ulong output) ? output : throw new ParseException();
+            var parseUlong = ulong.TryParse(val.ToString(), out var output) ? output : throw new ParseException();
             return parseUlong;
         }
 

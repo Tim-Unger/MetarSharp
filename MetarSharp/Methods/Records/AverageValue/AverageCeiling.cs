@@ -16,8 +16,8 @@ namespace MetarSharp.Methods.Records.AverageValue
 
         private static double AverageClouds(List<Cloud> clouds, byte decimalPlaces)
         {
-            int sum = 0;
-            int count = 0;
+            var sum = 0;
+            var count = 0;
 
             clouds.RemoveAll(x => x.CloudCeiling == null);
 
@@ -34,8 +34,8 @@ namespace MetarSharp.Methods.Records.AverageValue
 
         private static double AverageVerticalVis(List<Cloud> clouds, byte decimalPlaces)
         {
-            int sum = 0;
-            int count = 0;
+            var sum = 0;
+            var count = 0;
 
             clouds.RemoveAll(x => x.VerticalVisibility == null);
 

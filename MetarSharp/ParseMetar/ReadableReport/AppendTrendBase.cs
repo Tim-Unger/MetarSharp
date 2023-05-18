@@ -5,7 +5,7 @@ namespace MetarSharp.Parse.ReadableReport {
     {
         internal static string Append(MetarSharp.Trend trend)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             stringBuilder.Append("Trend: ");
 

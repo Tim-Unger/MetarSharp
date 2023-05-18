@@ -15,7 +15,7 @@
                     return;
                 }
 
-                bool isPass = new[] { "SM", "M" }.Any(x => metar.Visibility.VisibilityUnitRaw == x);
+                var isPass = new[] { "SM", "M" }.Any(x => metar.Visibility.VisibilityUnitRaw == x);
                 Assert.That(isPass);
             }
         }

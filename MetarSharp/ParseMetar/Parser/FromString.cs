@@ -20,7 +20,7 @@ namespace MetarSharp.Parser
                 throw new ParseException("input is null or an empty line, check input");
             }
 
-            Metar parsed = new Metar();
+            var parsed = new Metar();
 
             parsed.MetarRaw = input;
 

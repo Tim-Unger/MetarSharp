@@ -32,7 +32,7 @@
         NorthWestShort,
         NorthWestLong,
         #endregion
-        
+
         #region CLOUDTYPE
         CumulonimbusShort,
         CumulonimbusLong,
@@ -149,30 +149,14 @@
 
     public class DefaultDefinitions
     {
-        public DistanceDefinitions DistanceDefinitions;
-        public CardinalDirectionDefinitions CardinalDirectionDefinitions;
-        public CloudDefintions CloudDefintions;
-        public PressureDefinitions PressureDefinitions;
-        public RunwayDefinition RunwayDefinition;
-        public RVRDefinitions RvrDefinitions;
-        public WeatherDefinitions WeatherDefinitions;
-        public WindDefinitions WindDefinitions;
-        public ColorCodeDefinitions CodeDefinitions;
+        public DistanceDefinitions DistanceDefinitions = new();
+        public CardinalDirectionDefinitions CardinalDirectionDefinitions = new();
+        public CloudDefintions CloudDefintions = new();
+        public PressureDefinitions PressureDefinitions = new();
+        public RunwayDefinition RunwayDefinition = new();
+        public RVRDefinitions RvrDefinitions = new();
+        public WeatherDefinitions WeatherDefinitions = new();
+        public WindDefinitions WindDefinitions = new();
+        public ColorCodeDefinitions CodeDefinitions = new();
     }
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-   
-
-    
 }

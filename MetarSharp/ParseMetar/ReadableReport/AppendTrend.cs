@@ -8,8 +8,8 @@ namespace MetarSharp.Parse.ReadableReport
     {
         internal static string Append(Metar metar)
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            List<string> trendElementsDecoded = new List<string>();
+            var stringBuilder = new StringBuilder();
+            var trendElementsDecoded = new List<string>();
 
             var trends = metar.Trends;
             if (trends.Any(x => x.TrendType == TrendType.NoSignificantChange))
@@ -22,7 +22,7 @@ namespace MetarSharp.Parse.ReadableReport
                 foreach (var singleTrend in trend.TrendList ?? Enumerable.Empty<object>())
                 {
                     //Casts the single trend to the appropriate metar class as the list item is an object
-                    string parseSingleTrend = singleTrend.GetType().Name switch
+                    var parseSingleTrend = singleTrend.GetType().Name switch
                     {
                         "Visibility" => ParseVisibility((MetarSharp.Visibility)singleTrend),
                         "Weather" => ParseWeather((MetarSharp.Weather)singleTrend),
@@ -48,9 +48,9 @@ namespace MetarSharp.Parse.ReadableReport
             }
 
 
-            string visibilityUnit = DistanceValueSingularOrPlural(visibility.ReportedVisibility, visibility.VisibilityUnit);
+            var visibilityUnit = DistanceValueSingularOrPlural(visibility.ReportedVisibility, visibility.VisibilityUnit);
 
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             stringBuilder.Append($"Visibility: {visibility.ReportedVisibility} {visibilityUnit}");
 
@@ -66,7 +66,7 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string ParseWeather(MetarSharp.Weather weather)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             if (weather.IsRecent)
             {
@@ -151,7 +151,7 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string ParseCloud(MetarSharp.Cloud cloud)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             string cloudString = null;
 
@@ -168,8 +168,8 @@ namespace MetarSharp.Parse.ReadableReport
                 stringBuilder.AppendLine(cloudString);
             }
 
-            string cloudType = Clouds.GetCloudType(cloud);
-            string cloudCeiling = Clouds.GetCloudCeiling(cloud);
+            var cloudType = Clouds.GetCloudType(cloud);
+            var cloudCeiling = Clouds.GetCloudCeiling(cloud);
 
             cloudString = cloudType + cloudCeiling;
 
@@ -183,7 +183,7 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string AddCommas(List<string> trendElements)
         {
-            List<string> editedList = new List<string>();
+            var editedList = new List<string>();
 
             //Adds a comma for every item except the last one
             trendElements.SkipLast(1)
@@ -194,7 +194,7 @@ namespace MetarSharp.Parse.ReadableReport
             editedList.Add(trendElements.Last());
 
             //Turns the list into a single string
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             editedList.ForEach(x => stringBuilder.AppendLine(x));
 
             return stringBuilder.ToString();

@@ -12,19 +12,19 @@ namespace MetarSharp.Parse.ReadableReport
             }
 
             //non-nulls the pressure (0 is fine here as this is only executed if the pressure is measurable)
-            double nonNullablePressure = metar.Pressure.PressureAsAltimeter ?? 0;
+            var nonNullablePressure = metar.Pressure.PressureAsAltimeter ?? 0;
 
             //This counts the decimal places of the altimeter pressure value
             var getDecimalPlaces = nonNullablePressure.ToString("R").Split('.');
             
-            int decimalPlaces = 0;
+            var decimalPlaces = 0;
             if(getDecimalPlaces.Length > 1)
             {
                 decimalPlaces = getDecimalPlaces[1].Length;
             }
 
             //This adds a zero if the pressure has only one decimal place (30.1) or two zeros if it is a round number (30)
-            string correctDecimalPlaces = AddDecimalPlaces(nonNullablePressure.ToString(), decimalPlaces);
+            var correctDecimalPlaces = AddDecimalPlaces(nonNullablePressure.ToString(), decimalPlaces);
 
             if (metar.Pressure.PressureType == PressureType.Hectopascal)
             {

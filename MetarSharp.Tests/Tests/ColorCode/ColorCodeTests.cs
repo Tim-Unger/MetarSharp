@@ -11,7 +11,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
             
             foreach (var colorCode in metarsWithColorCode)
             {
-                bool isColorCodeCorrect = AreColorCodeValuesCorrect(colorCode.AdditionalInformation.ColorCode.Color, colorCode);
+                var isColorCodeCorrect = AreColorCodeValuesCorrect(colorCode.AdditionalInformation.ColorCode.Color, colorCode);
                 Assert.That(isColorCodeCorrect, Is.True);
             }
             Assert.That(metarsWithColorCode.All(x => AreColorCodeValuesCorrect(x.AdditionalInformation.ColorCode.Color, x)));
@@ -46,7 +46,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
 
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            double vis = metar.Visibility.ReportedVisibility;
+            var vis = metar.Visibility.ReportedVisibility;
 
             if(metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
             {
@@ -60,7 +60,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            double vis = metar.Visibility.ReportedVisibility;
+            var vis = metar.Visibility.ReportedVisibility;
 
             if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
             {
@@ -80,7 +80,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            double vis = metar.Visibility.ReportedVisibility;
+            var vis = metar.Visibility.ReportedVisibility;
 
             if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
             {
@@ -94,7 +94,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            double vis = metar.Visibility.ReportedVisibility;
+            var vis = metar.Visibility.ReportedVisibility;
 
             if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
             {
@@ -108,7 +108,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
         {
             var orderedCloudList = metar.Clouds.OrderByDescending(x => x.CloudCeiling).ToList().First();
 
-            double vis = metar.Visibility.ReportedVisibility;
+            var vis = metar.Visibility.ReportedVisibility;
 
             if (metar.Visibility.VisibilityUnit == VisibilityUnit.Miles || metar.Visibility.VisibilityUnit == VisibilityUnit.Kilometers)
             {

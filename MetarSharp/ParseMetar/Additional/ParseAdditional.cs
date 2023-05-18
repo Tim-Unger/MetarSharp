@@ -14,12 +14,12 @@ namespace MetarSharp.Parse
         /// <returns></returns>
         public static AdditionalInformation ReturnAdditional(string raw)
         {
-            AdditionalInformation additionalInformation = new AdditionalInformation();
+            var additionalInformation = new AdditionalInformation();
 
-            List<RecentWeather> recentWeather = new List<RecentWeather>();
-            List<WindShear> windShear = new List<WindShear>();
+            var recentWeather = new List<RecentWeather>();
+            var windShear = new List<WindShear>();
 
-            Regex additionalRegex = new Regex(
+            var additionalRegex = new Regex(
                 @"(((RE(MI|BC|PR|DR|BL|SH|TS|FZ|DZ|RA|SN|SG|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PO|SQ|FC|SS|DS)){1,})|(WS\sR([0-9]{1,2}(L|C|R)?))|(WS ALL RWY)|\s(BLU+|BLU|WHT|GRN|YLO|AMB|RED|BLACK))(?>\s|$)",
                 RegexOptions.Multiline
             );

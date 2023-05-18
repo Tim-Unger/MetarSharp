@@ -16,16 +16,16 @@ namespace MetarSharp.Parse
         /// <exception cref="ParseException"></exception>
         public static List<Cloud> ReturnClouds(string raw)
         {
-            List<Cloud> clouds = new List<Cloud>();
+            var clouds = new List<Cloud>();
 
-            Regex cloudRegex = new Regex(
+            var cloudRegex = new Regex(
                 @"((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))",
                 RegexOptions.None
             );
 
             foreach (Match cloudMatch in cloudRegex.Matches(raw).Cast<Match>())
             {
-                Cloud cloud = new Cloud();
+                var cloud = new Cloud();
 
                 GroupCollection groups = cloudMatch.Groups;
 
@@ -45,7 +45,7 @@ namespace MetarSharp.Parse
                 cloud.IsCloudMeasurable = groups[4].Value != "///";
 
                 //Vertical Visibility is used
-                bool isVerticalVisibiltiy = groups[4].Value == "VV";
+                var isVerticalVisibiltiy = groups[4].Value == "VV";
                 cloud.IsVerticalVisibility = isVerticalVisibiltiy;
 
                 //Vertical Visibility not measurable
@@ -79,7 +79,7 @@ namespace MetarSharp.Parse
                         cloud.CloudCeiling = IntTryParseWithThrow(groups[5].Value) * 100;
                     }
 
-                    bool hasCumulonimbusClouds = groups[6].Success;
+                    var hasCumulonimbusClouds = groups[6].Success;
                     if(hasCumulonimbusClouds)
                     {
                         (bool, string, string) cbTuple = GetCBClouds(groups);
@@ -120,9 +120,9 @@ namespace MetarSharp.Parse
 
         private static (string, bool, int?) GetVerticalVisibility(GroupCollection groups)
         {
-            string verticalVisibilityRaw = groups[4].Value + groups[5].Value;
+            var verticalVisibilityRaw = groups[4].Value + groups[5].Value;
 
-            bool isVerticalVisibilityMeasurable = groups[5].Value != "///";
+            var isVerticalVisibilityMeasurable = groups[5].Value != "///";
 
             int? verticalVisibility = null;
             if (isVerticalVisibilityMeasurable)
@@ -135,10 +135,10 @@ namespace MetarSharp.Parse
 
         private static (bool, string, string) GetCBClouds(GroupCollection groups)
         {
-            bool isCbTypeMesaurable = groups[6].Value != "///";
+            var isCbTypeMesaurable = groups[6].Value != "///";
 
-            string CBCloudTypeRaw = "";
-            string CBCloudTypeDecoded = "";
+            var CBCloudTypeRaw = "";
+            var CBCloudTypeDecoded = "";
 
             if (isCbTypeMesaurable)
             {

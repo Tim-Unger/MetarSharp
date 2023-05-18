@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Temperature
+﻿namespace MetarSharp.Converter.Temperature
 {
     public static class ConvertFromKelvin
     {
@@ -7,7 +7,7 @@
             return Math.Round((decimal)value - (decimal)273.15, 2);
         }
 
-        public static decimal Tocelsius(this double value, byte decimalPlaces)
+        public static decimal ToCelsius(this double value, byte decimalPlaces)
         {
             return Math.Round((decimal)value - (decimal)273.15, decimalPlaces);
         }

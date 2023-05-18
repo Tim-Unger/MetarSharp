@@ -8,16 +8,16 @@ namespace MetarSharp.Parse
     {
         public static List<RunwayVisibility> ReturnRVR(string raw)
         {
-            List<RunwayVisibility> runwayVisibilities = new List<RunwayVisibility>();
+            var runwayVisibilities = new List<RunwayVisibility>();
 
-            Regex RVRRegex = new Regex(
+            var RVRRegex = new Regex(
                 "R(([0-9]{2})(L|R|C)?)/(P|M)?([0-9]{4})(?:(V?(P|M)?([0-9]{4})?))(U|D|N)",
                 RegexOptions.None
             );
 
             foreach (Match match in RVRRegex.Matches(raw).Cast<Match>())
             {
-                RunwayVisibility runwayVisibility = new RunwayVisibility();
+                var runwayVisibility = new RunwayVisibility();
 
                 runwayVisibility.RunwayVisibilityRaw = match.ToString();
 
@@ -41,7 +41,7 @@ namespace MetarSharp.Parse
                       )
                 };
 
-                runwayVisibility.RunwayVisualRange = int.TryParse(groups[5].Value, out int _rvr)
+                runwayVisibility.RunwayVisualRange = int.TryParse(groups[5].Value, out var _rvr)
                   ? _rvr
                   : throw new ParseException(
                         $"Could not Convert Runway Visual Range of Runway {groups[1].Value} to Number"
@@ -85,7 +85,7 @@ namespace MetarSharp.Parse
                     _ => ""
                 };
 
-                runwayVisibility.RVRVariationValue = int.TryParse(groups[8].Value, out int rvrVar)
+                runwayVisibility.RVRVariationValue = int.TryParse(groups[8].Value, out var rvrVar)
                   ? rvrVar
                   : null;
 

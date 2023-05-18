@@ -25,7 +25,7 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Ceiling and Visibility okay";
             }
 
-            string visibilityUnit = DistanceValueSingularOrPlural(metar.Visibility.ReportedVisibility, metar.Visibility.VisibilityUnit);
+            var visibilityUnit = DistanceValueSingularOrPlural(metar.Visibility.ReportedVisibility, metar.Visibility.VisibilityUnit);
 
             visibility =
                 "Visibility: "
@@ -37,7 +37,7 @@ namespace MetarSharp.Parse.ReadableReport
 
             if (metar.Visibility.HasVisibilityLowestValue)
             {
-                string lowestVisibility =
+                var lowestVisibility =
                     "Lowest Visibility: "
                     + metar.Visibility.LowestVisibility
                     + " "

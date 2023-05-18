@@ -16,15 +16,15 @@ namespace MetarSharp.Methods.Download
 
             var client = new HttpClient();
 
-            byte hoursNonNull = hours ?? 1;
-            string raw = await client.GetStringAsync($"https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString={icao}&hoursBeforeNow={hoursNonNull}");
+            var hoursNonNull = hours ?? 1;
+            var raw = await client.GetStringAsync($"https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString={icao}&hoursBeforeNow={hoursNonNull}");
 
-            XmlDocument document = new XmlDocument();
+            var document = new XmlDocument();
 
             document.LoadXml(raw);
 
             var resultNumber = document.GetElementsByTagName("data")[0].Attributes["num_results"].Value ?? throw new ParseException();
-            int parseNumber = int.TryParse(resultNumber, out int parse) ? parseNumber = parse : throw new ParseException();
+            var parseNumber = int.TryParse(resultNumber, out var parse) ? parse : throw new ParseException();
 
             if(parseNumber == 0)
             {
@@ -33,7 +33,7 @@ namespace MetarSharp.Methods.Download
 
             var metars = document.GetElementsByTagName("METAR") ?? throw new ParseException();
 
-            List<string> metarsList = new List<string>();
+            var metarsList = new List<string>();
 
             foreach (XmlNode metar in metars.Cast<XmlNode>())
             {

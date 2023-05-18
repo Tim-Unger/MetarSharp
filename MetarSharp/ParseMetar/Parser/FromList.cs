@@ -9,7 +9,7 @@
         /// <returns></returns>
         internal static List<Metar> Parse (List<string> input)
         {
-            List<Metar> metars = new List<Metar>();
+            var metars = new List<Metar>();
 
             foreach (var listMetar in input)
             {

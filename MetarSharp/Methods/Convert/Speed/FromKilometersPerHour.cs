@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Speed
+﻿namespace MetarSharp.Converter.Speed
 {
     public static class ConvertFromKilometersPerHour
     {

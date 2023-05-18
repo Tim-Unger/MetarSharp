@@ -11,9 +11,9 @@ namespace MetarSharp.Parse.ReadableReport
         /// <returns></returns>
         internal static string Append(Metar metar)
         {
-            string reportingDate = "";
+            var reportingDate = "";
 
-            string reportingTime =
+            var reportingTime =
                 " at " + metar.ReportingTime.ReportingTimeZulu.ToString("t") + " UTC";
 
             //Returns if the metar was reported today
@@ -25,13 +25,13 @@ namespace MetarSharp.Parse.ReadableReport
             }
 
             //Turns the day into a written day (1st, 2nd, 12th, etc)
-            int dayNumber = metar.ReportingTime.ReportingTimeZulu.Day;
-            string dayWritten = ConvertDay(dayNumber);
+            var dayNumber = metar.ReportingTime.ReportingTimeZulu.Day;
+            var dayWritten = ConvertDay(dayNumber);
 
             //returns the written out month in English
-            string monthWritten = metar.ReportingTime.ReportingTimeZulu.ToString("MMMM", new CultureInfo("en-UK"));
+            var monthWritten = metar.ReportingTime.ReportingTimeZulu.ToString("MMMM", new CultureInfo("en-UK"));
             var reportingYear = metar.ReportingTime.ReportingTimeZulu.Year;
-            string? yearwritten = reportingYear < DateTime.UtcNow.Year ? $" {reportingYear}" : null;
+            var yearwritten = reportingYear < DateTime.UtcNow.Year ? $" {reportingYear}" : null;
             reportingDate = $"Reported on the {dayWritten} of {monthWritten}{yearwritten}";
 
             return reportingDate + reportingTime;

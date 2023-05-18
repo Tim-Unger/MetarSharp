@@ -7,23 +7,23 @@ namespace MetarDownloader
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             var list = new List<string>();
 
             Console.WriteLine("Downloaded JSON");
 
             var client = new HttpClient();
-            var icaoListUnformatted = await client.GetFromJsonAsync<List<Airport>>("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json")!;
+            var icaoListUnformatted = await client.GetFromJsonAsync<List<Airport>>("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json");
 
             //List<Airport> icaoList = icaoListUnformatted.FindAll(airport => letters.All(letter => airport.ident.Contains(letter)));
-            List<Airport> icaoList = icaoListUnformatted.FindAll(airport => airport.ident.All(char.IsLetter));
+            List<Airport> icaoList = icaoListUnformatted!.FindAll(airport => airport.ident.All(char.IsLetter));
             Random random = new();
 
             List<string> randomIcaos = new();
             while (randomIcaos.Count <= 1000)
             {
-                string icao = icaoList[random.Next(0, icaoList.Count)].ident;
+                var icao = icaoList[random.Next(0, icaoList.Count)].ident;
 
                 if (!randomIcaos.Contains(icao))
                 {

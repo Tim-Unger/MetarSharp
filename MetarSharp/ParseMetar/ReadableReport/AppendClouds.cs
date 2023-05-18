@@ -9,10 +9,10 @@ namespace MetarSharp.Parse.ReadableReport
     {
         internal static string Append(Metar metar)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             foreach (Cloud cloud in metar.Clouds)
             {
-                StringBuilder cloudBuilder = new StringBuilder();
+                var cloudBuilder = new StringBuilder();
 
                 string cloudString = null;
 
@@ -30,8 +30,8 @@ namespace MetarSharp.Parse.ReadableReport
                     continue;
                 }
 
-                string cloudType = GetCloudType(cloud);
-                string cloudCeiling = GetCloudCeiling(cloud);
+                var cloudType = GetCloudType(cloud);
+                var cloudCeiling = GetCloudCeiling(cloud);
 
                 cloudString = cloudType + cloudCeiling;
 

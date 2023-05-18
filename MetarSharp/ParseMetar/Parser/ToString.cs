@@ -7,7 +7,7 @@ namespace MetarSharp.Parser
         internal static string Parse(Metar metar)
         {
             //TODO implement
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             stringBuilder.Append(metar.Airport + " ");
 

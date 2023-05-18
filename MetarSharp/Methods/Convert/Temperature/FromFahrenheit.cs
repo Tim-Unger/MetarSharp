@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Convert.Temperature
+﻿namespace MetarSharp.Converter.Temperature
 {
     public static class ConvertFromFahrenheit
     {
@@ -7,7 +7,7 @@
             return Math.Round(((decimal)value - 32) * 5/9, 2);
         }
 
-        public static decimal Tocelsius(this double value, byte decimalPlaces)
+        public static decimal ToCelsius(this double value, byte decimalPlaces)
         {
             return Math.Round(((decimal)value - 32) * 5/9, decimalPlaces);
         }

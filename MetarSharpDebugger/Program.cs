@@ -1,18 +1,17 @@
 ﻿using MetarSharp;
 using MetarSharp.Definitions;
 using MetarSharp.Extensions;
-using MetarSharp.Methods.Convert.Time;
+using MetarSharp.Converter;
 using MetarSharp.Methods.Download;
 using System.Diagnostics;
-#pragma warning disable IDE0059
+using MetarSharp.Converter.Time;
 
 namespace MetarSharpDebugger
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-
             ///Just for diagnostics
             var timer = new Stopwatch();
             timer.Start();
@@ -28,7 +27,7 @@ namespace MetarSharpDebugger
             var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
             var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
             var lo = ValueRecords.GetMedianValue(metars, AverageValueType.PressureQNH, MidpointRounding.AwayFromZero);
-            var conv = ConvertFromYears.ToMilliseconds(300);
+            var conv = ConvertFromMinutes.ToHours(60);
             var metString = ParseMetar.ToStringList(metars);
             var loco = ValueRecords.GetLowestValue(metars, MetarSharp.Extensions.ValueType.ColorCode);
             var clo = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);

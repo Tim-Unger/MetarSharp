@@ -11,7 +11,7 @@
 
         private static List<Metar> GetCloudsWithMesaurableCeiling(List<Metar> metars)
         {
-            List<Metar> measurableClouds = new List<Metar>();
+            var measurableClouds = new List<Metar>();
             
             //Runs through all the metars, then adds all metars where the vis is measurable
             metars.ForEach(
@@ -33,7 +33,7 @@
             //Sorts all Metars by the cloud ceiling of the cloud with the highest ceiling
             metars.OrderBy(x => x.Clouds.First().CloudCeiling);
 
-            int middleValue = int.Parse(
+            var middleValue = int.Parse(
                 Math.Round((double)metars.Count / 2, 0, midpointRounding ?? MidpointRounding.ToEven).ToString()
             );
 

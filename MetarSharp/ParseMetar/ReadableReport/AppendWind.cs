@@ -45,7 +45,7 @@ namespace MetarSharp.Parse.ReadableReport
                     + metar.Wind.WindUnitDecoded;
             }
 
-            string windDirection = metar.Wind.WindDirection.ToString() ?? throw new ParseException();
+            var windDirection = metar.Wind.WindDirection.ToString() ?? throw new ParseException();
 
             //This adds a leading zero if the windDirection does not have 3 digits (50 > 050)
             if (windDirection.Length == 2)

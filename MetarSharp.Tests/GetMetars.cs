@@ -7,37 +7,37 @@ namespace MetarSharp.Tests
 {
     public class Airport
     {
-        public string Icao { get; set; }
-        public string Iata { get; set; }
-        public string Name { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public string Elevation { get; set; }
-        public string Lat { get; set; }
-        public string Lon { get; set; }
-        public string Tz { get; set; }
+        public string Icao { get; set; } = "AAAA";
+        public string Iata { get; set; } = "AAA";
+        public string Name { get; set; } = "Airport";
+        public string City { get; set; } = "City";
+        public string State { get; set; } = "State";
+        public string Country { get; set; } = "Country";
+        public string Elevation { get; set; } = "0";
+        public string Lat { get; set; } = "0000";
+        public string Lon { get; set; } = "0000";
+        public string Tz { get; set; } = "UTC";
     }
     internal class GetMetars
     {
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly HttpClient Client = new();
 
         public static async Task<List<string>> Metars()
         {
             var letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
-            List<string> returnMetars = new List<string>();
+            var returnMetars = new List<string>();
 
-            Random rand = new Random();
+            var rand = new Random();
 
 
-            List<string> airports = new List<string>();
-            for (int x = 0; x < 500; x++)
+            var airports = new List<string>();
+            for (var x = 0; x < 500; x++)
             {
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int y = 0; y < 4; y++)
+                var stringBuilder = new StringBuilder();
+                for (var y = 0; y < 4; y++)
                 {
-                    int letterIndex = rand.Next(0, 26);
+                    var letterIndex = rand.Next(0, 26);
                     stringBuilder.Append(letters[letterIndex]);
                 }
 

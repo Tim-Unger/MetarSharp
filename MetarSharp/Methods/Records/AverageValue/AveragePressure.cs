@@ -16,8 +16,8 @@
 
         private static double GetAveragePressure(List<Metar> metars, bool IsQnh, byte decimalPlaces)
         {
-            int sum = 0;
-            int count = 0;
+            var sum = 0;
+            var count = 0;
             if (IsQnh)
             {
                 metars.ForEach(

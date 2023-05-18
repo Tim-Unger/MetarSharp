@@ -11,7 +11,7 @@ namespace MetarSharp.Parse.ReadableReport
         /// <returns></returns>
         public static string ReturnReadableReport(Metar metar)
         {
-            StringBuilder reportBuilder = new StringBuilder();
+            var reportBuilder = new StringBuilder();
 
             //Is Automated
             reportBuilder.Append(IsAutomated.Append(metar));

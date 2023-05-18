@@ -14,7 +14,7 @@ namespace MetarSharp.Tests.Pressure
                 {
                     case PressureType.Hectopascal:
                     {
-                        double convertToAltimeter = Math.Round(
+                        var convertToAltimeter = Math.Round(
                             metar.Pressure.PressureOnly / 33.8569518716,
                             2
                         );
@@ -23,7 +23,7 @@ namespace MetarSharp.Tests.Pressure
                     }
                     case PressureType.InchesMercury:
                     {
-                        int convertToHectopascal = (int)Math.Round(
+                        var convertToHectopascal = (int)Math.Round(
                             metar.Pressure.PressureOnly * 33.8569518716,
                             0
                         );

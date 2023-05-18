@@ -15,16 +15,16 @@ namespace MetarSharp.Parse
             visibility.IsVisibilityMeasurable = true;
 
             //Vis is less than 1 Mile (1/2 SM)
-            bool hasVisibilitySlash = false;
+            var hasVisibilitySlash = false;
             double convertedValue = 0;
             if (groups[8].Value.Contains('/'))
             {
-                int indexNegative = groups[10].Success ? 1 : 0;
+                var indexNegative = groups[10].Success ? 1 : 0;
                 hasVisibilitySlash = true;
 
                 var valueArray = groups[8].Value.ToCharArray();
-                double firstValue = double.Parse(valueArray[indexNegative].ToString());
-                double lastValue = double.Parse(valueArray.Last().ToString());
+                var firstValue = double.Parse(valueArray[indexNegative].ToString());
+                var lastValue = double.Parse(valueArray.Last().ToString());
 
                 convertedValue = firstValue / lastValue;
             }
@@ -41,13 +41,13 @@ namespace MetarSharp.Parse
 
             if (!hasVisibilitySlash)
             {
-                reportedVisibility = int.TryParse(groups[8].Value, out int visParse)
+                reportedVisibility = int.TryParse(groups[8].Value, out var visParse)
                   ? visParse
                   : throw new ParseException(
                         $"Could not convert Visibility {groups[8].Value} to Number"
                     );
             }
-            double reportedVisibilityConverted = hasVisibilitySlash ? convertedValue : reportedVisibility;
+            var reportedVisibilityConverted = hasVisibilitySlash ? convertedValue : reportedVisibility;
             visibility.ReportedVisibility = reportedVisibilityConverted;
 
             visibility.VisibilityUnit = VisibilityUnit.Miles;
