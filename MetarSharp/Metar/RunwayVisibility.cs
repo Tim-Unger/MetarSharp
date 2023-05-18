@@ -12,7 +12,7 @@
     {
         public string RunwayVisibilityRaw { get; set; } = "";
 
-        public string Runway { get; set; } = "45R";
+        public string Runway { get; set; } = "";
 
         public bool IsParallelRunway { get; set; }
 
@@ -24,10 +24,8 @@
 
         public int RunwayVisualRange { get; set; }
 
-        //TODO
         public bool? IsRVRValueMoreOrLess { get; set; }
 
-        //TODO more or less raw
         public string? RVRMoreOrLessDecoded { get; set; }
 
         public string? RVRTendencyRaw { get; set; }
@@ -38,13 +36,9 @@
 
         public bool? IsRVRVariationMoreOrLess { get; set; }
 
-        //TODO more or less raw
-
         public string? RVRVariationMoreOrLessDecoded { get; set; }
 
         public int? RVRVariationValue { get; set; }
-
-        //TODO überflüssig?
 
         public string? RVRVariationTendencyRaw { get; set; }
 

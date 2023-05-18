@@ -47,28 +47,21 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Visibility not measurable";
             }
 
+
             string visibilityUnit = DistanceValueSingularOrPlural(visibility.ReportedVisibility, visibility.VisibilityUnit);
 
-            visibilityString =
-                "Visibility: "
-                + visibility.ReportedVisibility
-                + " "
-                + visibilityUnit;
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.Append($"Visibility: {visibility.ReportedVisibility} {visibilityUnit}");
 
             if (visibility.HasVisibilityLowestValue)
             {
-                string lowestVisibility =
-                    "Lowest Visibility: "
-                    + visibility.LowestVisibility
-                    + " "
-                    + visibilityUnit
-                    + " in the"
-                    + visibility.LowestVisibilityDirectionDecoded;
+                stringBuilder.Append($" Lowest Visibility: {visibility.LowestVisibility} in the {visibility.LowestVisibilityDirectionDecoded}");
 
-                return visibilityString + lowestVisibility;
+                return stringBuilder.ToString();
             }
 
-            return visibilityString;
+            return stringBuilder.ToString();
         }
 
         private static string ParseWeather(MetarSharp.Weather weather)

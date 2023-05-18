@@ -58,7 +58,7 @@ namespace MetarSharp.Parse
                 if (groups[9].Success)
                 {
                     //GetColorCode returns the ColorCode enum, the ColorCode in short and in long
-                    var colorCodeTuple = Additional.ColorCode.GetColorCode(groups).ToTuple();
+                    (Color, string, string) colorCodeTuple = Additional.ColorCode.GetColorCode(groups);
                     
                     additionalInformation.ColorCode = new ColorCode
                     {
@@ -68,8 +68,6 @@ namespace MetarSharp.Parse
                     };
                 }
             }
-            
-
 
             var remarkRegex = new Regex("(RMK\\s(.*$))", RegexOptions.None);
             //TODO

@@ -19,8 +19,7 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Visibility not measurable";
             }
 
-            //TODO
-            //I don't know why this is here instead of AppendClouds
+            //This is here instead of clouds, as the readable report shows the vis first
             if(metar.Clouds.Any(x => x.IsCAVOK))
             {
                 return "Ceiling and Visibility okay";

@@ -1,4 +1,6 @@
-﻿namespace MetarSharp.Definitions
+﻿using System.Runtime.CompilerServices;
+
+namespace MetarSharp.Definitions
 {
     public class MetarDefinition
     {
@@ -70,7 +72,21 @@
             #endregion
 
             #region WEATHER
-            //TODO
+            Definitions.Recent => WeatherDefinitions.Recent = newName,
+            Definitions.InTheVicinity => WeatherDefinitions.InTheVicinity = newName,
+
+            Definitions.LightIntensity => WeatherDefinitions.LightIntensity = newName,
+            Definitions.NormalIntensity => WeatherDefinitions.NormalIntensity = newName,
+            Definitions.HeavyItensity => WeatherDefinitions.HeavyItensity = newName,
+
+            Definitions.Patches => WeatherDefinitions.Patches = newName,
+            Definitions.Partial => WeatherDefinitions.Partial = newName,
+            Definitions.LowDrifting => WeatherDefinitions.LowDrifting = newName,
+            Definitions.Blowing => WeatherDefinitions.Blowing = newName,
+            Definitions.Shower => WeatherDefinitions.Shower = newName,
+            Definitions.Thunderstorm => WeatherDefinitions.Thunderstorm = newName,
+            Definitions.Freezing => WeatherDefinitions.Freezing = newName,
+            Definitions.Drizzle => WeatherDefinitions.Drizzle = newName,
             #endregion
 
             #region WIND

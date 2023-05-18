@@ -1,3 +1,4 @@
+using MetarSharp.Definitions;
 using MetarSharp.Exceptions;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -99,9 +100,9 @@ namespace MetarSharp.Parse
 
             (weather.WeatherIntensity, weather.WeatherIntensityDecoded) = groups[2].Value switch
             {
-                "-" => (WeatherIntensity.Light, "Light"),
-                "" or null => (WeatherIntensity.Normal, "Moderate"),
-                "+" => (WeatherIntensity.Heavy, "Heavy"),
+                "-" => (WeatherIntensity.Light, WeatherDefinitions.LightIntensity),
+                "" or null => (WeatherIntensity.Normal, WeatherDefinitions.NormalIntensity),
+                "+" => (WeatherIntensity.Heavy, WeatherDefinitions.HeavyItensity),
                 _ => throw new ParseException()
             };
 
@@ -148,9 +149,9 @@ namespace MetarSharp.Parse
         internal static (WeatherIntensity, string) GetWeatherIntensity(GroupCollection groups) =>
             groups[3].Value switch
             {
-                "-" => (WeatherIntensity.Light,"Light"),
-                "" or null => (WeatherIntensity.Normal, "Moderate"),
-                "+" => (WeatherIntensity.Heavy, "Heavy"),
+                "-" => (WeatherIntensity.Light,WeatherDefinitions.LightIntensity),
+                "" or null => (WeatherIntensity.Normal, WeatherDefinitions.NormalIntensity),
+                "+" => (WeatherIntensity.Heavy, WeatherDefinitions.HeavyItensity),
                 _ => throw  new ParseException()
             };
 

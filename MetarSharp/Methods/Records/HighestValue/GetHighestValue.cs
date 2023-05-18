@@ -10,12 +10,14 @@ namespace MetarSharp.Methods.Records.HighestValue
             valueType switch
             {
                 ValueType.ColorCode => HighestColorCode.Get(metars),
-                ValueType.PressureQNH or ValueType.PressureINHG => HighestPressure.Get(metars),
+                ValueType.CloudCeiling => HighestCeiling.Get(metars),
+                ValueType.VerticalVisibility => HighestVerticalVisibility.Get(metars),
+                ValueType.PressureQNH => HighestPressure.GetQNH(metars),
                 ValueType.ReportingTime => HighestReportingTime.Get(metars),
                 ValueType.RunwayVisibility => throw new NotImplementedException(),  //TODO
                 ValueType.TemperatureCelsius or ValueType.TemperatureFahrenheit => HighestTemperature.Get(metars),
                 ValueType.Visibility => HighestVisibility.Get(metars),
-                ValueType.WindSpeed => HighestWindSpeed.Get(metars),
+                ValueType.WindStrength => HighestWindStrength.Get(metars),
                 _ => throw new ArgumentOutOfRangeException(nameof(valueType), valueType, null)
             };
 
@@ -29,7 +31,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             ValueType.TemperatureCelsius => LowestTemperature.GetReturn(metars, returnType, true),
             ValueType.TemperatureFahrenheit => LowestTemperature.GetReturn(metars, returnType, false),
             ValueType.Visibility => LowestVisibility.GetReturn(metars, returnType),
-            ValueType.WindSpeed => LowestWindSpeed.GetReturn(metars, returnType),
+            ValueType.WindStrength => LowestWindSpeed.GetReturn(metars, returnType),
             _ => throw new ArgumentOutOfRangeException(),
         };
     }

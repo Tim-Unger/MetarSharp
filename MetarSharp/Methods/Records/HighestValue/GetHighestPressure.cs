@@ -5,18 +5,31 @@ namespace MetarSharp.Methods.Records.HighestValue
 {
     internal class HighestPressure
     {
-        internal static Metar Get(List<Metar> metars)
+        internal static Metar GetQNH(List<Metar> metars)
         {
             return metars
-                    .OrderByDescending(x => x.Pressure.PressureOnly)
+                    .OrderByDescending(x => x.Pressure.PressureAsQnh)
                     .First();
         }
 
-        internal static dynamic GetReturn(List<Metar> metars, ValueReturnType returnType, bool isQNH) => returnType switch
+        internal static Metar GetINHG(List<Metar> metars)
         {
-            ValueReturnType.FullMetar => Get(metars),
+            return metars.OrderByDescending(x => x.Pressure.PressureAsAltimeter)
+                .First();
+        }
+
+        internal static dynamic GetQNHReturn(List<Metar> metars, ValueReturnType returnType, bool isQNH) => returnType switch
+        {
+            ValueReturnType.FullMetar => GetQNH(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => isQNH? GetValueQNH(metars) : GetValueINHG(metars),
+        };
+
+        internal static dynamic GetINHGReturn(List<Metar> metars, ValueReturnType returnType, bool isQNH) => returnType switch
+        {
+            ValueReturnType.FullMetar => GetQNH(metars),
+            ValueReturnType.JustValueClass => GetClass(metars),
+            ValueReturnType.OnlyValue => isQNH ? GetValueQNH(metars) : GetValueINHG(metars),
         };
 
         private static Pressure GetClass(List<Metar> metars)

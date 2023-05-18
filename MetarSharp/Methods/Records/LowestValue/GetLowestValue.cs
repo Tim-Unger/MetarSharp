@@ -13,7 +13,7 @@ namespace MetarSharp.Methods.Records.LowestValue
             ValueType.RunwayVisibility => throw new NotImplementedException(), //TODO
             ValueType.TemperatureCelsius or ValueType.TemperatureFahrenheit => LowestTemperature.Get(metars),
             ValueType.Visibility => LowestVisibility.Get(metars),
-            ValueType.WindSpeed => LowestWindSpeed.Get(metars),
+            ValueType.WindStrength => LowestWindSpeed.Get(metars),
             _ => throw new ArgumentOutOfRangeException()
         };
 
@@ -29,7 +29,7 @@ namespace MetarSharp.Methods.Records.LowestValue
                 ValueType.TemperatureCelsius => LowestTemperature.GetReturn(metars, returnType, true),
                 ValueType.TemperatureFahrenheit => LowestTemperature.GetReturn(metars, returnType, false),
                 ValueType.Visibility => LowestVisibility.GetReturn(metars, returnType),
-                ValueType.WindSpeed => LowestWindSpeed.GetReturn(metars, returnType),
+                ValueType.WindStrength => LowestWindSpeed.GetReturn(metars, returnType),
                 _ => throw new ArgumentOutOfRangeException(nameof(valueType), valueType, null),
             };
         }

@@ -14,7 +14,7 @@
     {
         public bool IsCAVOK { get; set; } = true;
 
-        public bool? IsCloudMeasurable { get; set; }
+        public bool IsCloudMeasurable { get; set; }
 
         public string? CloudRaw { get; set; }
 

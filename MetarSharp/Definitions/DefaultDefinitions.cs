@@ -2,6 +2,7 @@
 {
     public enum Definitions
     {
+        //TODO units singular or plural (second, seconds)?
         #region DISTANCE
         KilometerShort,
         KilometerLong,
@@ -105,13 +106,44 @@
         RedShort,
         RedLong,
         BlackShort,
-        BlackLong
+        BlackLong,
         #endregion
 
         #region WEATHER
+        Recent,
+        InTheVicinity,
 
-        
+        LightIntensity,
+        NormalIntensity,
+        HeavyItensity,
 
+        Patches,
+        Partial,
+        LowDrifting,
+        Blowing,
+        Shower,
+        Thunderstorm,
+        Freezing,
+        Drizzle,
+        Rain,
+        Snow,
+        SnowGrains,
+        IcePellets,
+        Hail,
+        SmallHail,
+        Unknown,
+        Mist,
+        Fog,
+        Smoke,
+        VolcanicAsh,
+        WidespreadDust,
+        Sand,
+        Haze,
+        SandWhirls,
+        Squall,
+        Tornado,
+        Sandstorm,
+        Duststorm
         #endregion
     }
 

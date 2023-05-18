@@ -23,6 +23,7 @@ namespace MetarSharpDebugger
 
             lines.ToList().ForEach(x => metars.Add(ParseMetar.FromString(x)));
 
+            MetarDefinition.Edit(Definitions.MileLong, "Mile");
             //var strings = DownloadMetar.FromVatsimSingle("eddf");
             var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
             var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
@@ -30,6 +31,7 @@ namespace MetarSharpDebugger
             var conv = ConvertFromYears.ToMilliseconds(300);
             var metString = ParseMetar.ToStringList(metars);
             var loco = ValueRecords.GetLowestValue(metars, MetarSharp.Extensions.ValueType.ColorCode);
+            var clo = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);
 
             ///Just for diagnostics/to check execution time 
             timer.Stop();

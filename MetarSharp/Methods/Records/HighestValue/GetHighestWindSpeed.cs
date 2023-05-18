@@ -3,7 +3,7 @@ using MetarSharp.Extensions;
 
 namespace MetarSharp.Methods.Records.HighestValue
 {
-    internal class HighestWindSpeed
+    internal class HighestWindStrength
     {
         internal static Metar Get(List<Metar> metars)
         {

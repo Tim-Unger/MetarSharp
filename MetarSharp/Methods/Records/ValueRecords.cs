@@ -10,6 +10,8 @@ namespace MetarSharp.Extensions
     public enum ValueType
     {
         ColorCode,
+        CloudCeiling,
+        VerticalVisibility,
         PressureQNH,
         PressureINHG,
         ReportingTime,
@@ -17,7 +19,10 @@ namespace MetarSharp.Extensions
         TemperatureCelsius,
         TemperatureFahrenheit,
         Visibility,
-        WindSpeed,
+        LowestVisibility,
+        WindDirection,
+        WindStrength,
+        WindGustStrength
     }
 
     public enum AverageValueType
