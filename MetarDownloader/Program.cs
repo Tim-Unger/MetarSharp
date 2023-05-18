@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace MetarDownloader
@@ -8,17 +9,12 @@ namespace MetarDownloader
     {
         static async Task Main(string[] args)
         {
-            List<string> list = new();
-
-            string webData = null;
-            WebClient wc = new WebClient();
-            byte[] raw;
-            raw = wc.DownloadData("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json");
-            webData = Encoding.UTF8.GetString(raw);
+            var list = new List<string>();
 
             Console.WriteLine("Downloaded JSON");
 
-            var icaoListUnformatted = JsonConvert.DeserializeObject<List<Airport>>(webData);
+            var client = new HttpClient();
+            var icaoListUnformatted = await client.GetFromJsonAsync<List<Airport>>("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json")!;
 
             //List<Airport> icaoList = icaoListUnformatted.FindAll(airport => letters.All(letter => airport.ident.Contains(letter)));
             List<Airport> icaoList = icaoListUnformatted.FindAll(airport => airport.ident.All(char.IsLetter));
@@ -41,31 +37,18 @@ namespace MetarDownloader
 
             foreach (var icao in randomIcaos)
             {
-                raw = wc.DownloadData("https://metar.vatsim.net/" + icao);
-                webData = Encoding.UTF8.GetString(raw);
+                var metar = await client.GetStringAsync($"https://metar.vatsim.net/{icao}");
 
-                if (!String.IsNullOrWhiteSpace(webData) || !String.IsNullOrEmpty(webData))
+                if (!string.IsNullOrWhiteSpace(metar) || !string.IsNullOrEmpty(metar))
                 {
-                    metars.Add(webData);
-                    Console.WriteLine($"Metar downloaded for {icao}: {webData}");
-                    File.AppendAllText("./Metars.txt", webData + "\n");
+                    metars.Add(metar);
+                    Console.WriteLine($"Metar downloaded for {icao}: {metar}");
+                    File.AppendAllText("./Metars.txt", metar + "\n");
                     await Task.Delay(1000);
                 }
             }
-
-            //string metarsString = String.Join("\n", metars);
-
-            //File.WriteAllLines("./Metars.txt", metars);
 
             Console.WriteLine(metars.Count + " Metars downloaded");
         }
     }
 }
-
-
-    
-
-
-
-
-//string s = "Y";

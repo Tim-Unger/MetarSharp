@@ -1,24 +1,23 @@
 ﻿using MetarSharp.Exceptions;
 using System.Net;
 using System.Xml;
-#pragma warning disable SYSLIB0014 //WebClient is deprecated
 #pragma warning disable CS8602 //Dereference of a possible null reference
 
 namespace MetarSharp.Methods.Download
 {
     internal class AviationWeather
     {
-        internal static List<string> Get(string icao, byte? hours)
+        internal static async Task<List<string>> Get(string icao, byte? hours)
         {
             if (string.IsNullOrEmpty(icao))
             {
                 throw new ParseException("Input is null or empty");
             }
 
-            WebClient webClient = new WebClient();
+            var client = new HttpClient();
 
             byte hoursNonNull = hours ?? 1;
-            string raw = webClient.DownloadString($"https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString={icao}&hoursBeforeNow={hoursNonNull}");
+            string raw = await client.GetStringAsync($"https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString={icao}&hoursBeforeNow={hoursNonNull}");
 
             XmlDocument document = new XmlDocument();
 
@@ -43,9 +42,7 @@ namespace MetarSharp.Methods.Download
                     throw new NullReferenceException();
                 }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 metarsList.Add(metar.ChildNodes[0].InnerText);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
             //if(metarsList.Any(x => !x.StartsWith(icao, StringComparison.OrdinalIgnoreCase)))

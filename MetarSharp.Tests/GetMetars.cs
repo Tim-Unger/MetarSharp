@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace MetarSharp.Tests
@@ -17,59 +18,39 @@ namespace MetarSharp.Tests
         public string Lon { get; set; }
         public string Tz { get; set; }
     }
-    public class Rootobject
+    internal class GetMetars
     {
-        internal class GetMetars
+        private static readonly HttpClient Client = new HttpClient();
+
+        public static async Task<List<string>> Metars()
         {
-            public static async Task<List<string>> Metars()
+            var letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+            List<string> returnMetars = new List<string>();
+
+            Random rand = new Random();
+
+
+            List<string> airports = new List<string>();
+            for (int x = 0; x < 500; x++)
             {
-                var letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-
-                List<string> returnMetars = new List<string>();
-
-                Random rand = new Random();
-
-
-                List<string> airports = new List<string>();
-                for (int x = 0; x < 500; x++)
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int y = 0; y < 4; y++)
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (int y = 0; y < 4; y++)
-                    {
-                        int letterIndex = rand.Next(0, 26);
-                        stringBuilder.Append(letters[letterIndex]);
-                    }
-
-                    airports.Add(stringBuilder.ToString());
+                    int letterIndex = rand.Next(0, 26);
+                    stringBuilder.Append(letters[letterIndex]);
                 }
 
-                string webData = null;
-                WebClient wc = new WebClient();
-                foreach (var airport in airports)
-                {
-                    byte[] raw = wc.DownloadData("https://metar.vatsim.net/" + airport);
-                    webData = Encoding.UTF8.GetString(raw);
-
-                    returnMetars.Add(webData);
-
-                    await Task.Delay(5000);
-                }
-                return returnMetars;
+                airports.Add(stringBuilder.ToString());
             }
 
-            private static List<string> getJson()
-            {
-                List<string> list = new List<string>();
+            //This should be thread safe and nicer to the Vatsim API than Parallel.ForEach()
+            await Task.WhenAll(airports.Select(async x => { returnMetars.Add(await Client.GetStringAsync($"https://metar.vatsim.net/{x}")); await Task.Delay(500); }));
+            
+            return returnMetars;
+        }
 
-                string webData = null;
-                WebClient wc = new WebClient();
-                byte[] raw = wc.DownloadData("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json");
-                webData = Encoding.UTF8.GetString(raw);
-
-                var icaoList = JsonConvert.DeserializeObject<List<Airport>>(webData);
-
-                return list;
-            }
-        }     
-    }
+        //TODO?
+        //private static List<string> GetJson() => await Client.GetFromJsonAsync<List<Airport>>("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json");
+    }    
 }
