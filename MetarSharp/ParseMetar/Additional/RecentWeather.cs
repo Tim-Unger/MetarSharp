@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using MetarSharp.Parser;
 
 namespace MetarSharp.Parse.Additional
 {

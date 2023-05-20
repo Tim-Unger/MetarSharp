@@ -11,7 +11,7 @@ namespace MetarSharp.Extensions
         /// </summary>
         /// <param name="timeSpan"></param>
         /// <param name="timeUnit"></param>
-        /// <returns></returns>
+        /// <returns>double</returns>
         /// <exception cref="ParseException"></exception>
         internal static double ReturnSetUnit(TimeSpan timeSpan, TimeUnit timeUnit) => timeUnit switch
         {
@@ -35,7 +35,7 @@ namespace MetarSharp.Extensions
         /// <param name="timeUnit"></param>
         /// <param name="unitType"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>the time unit as a short single letter or fully written out either in singular or plural</returns>
         /// <exception cref="ParseException"></exception>
         internal static string ReturnUnitString(TimeUnit timeUnit, UnitType unitType, int value)
         {
@@ -61,7 +61,7 @@ namespace MetarSharp.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <param name="timeUnit"></param>
-        /// <returns></returns>
+        /// <returns>the time unit written out either in singular or plural</returns>
         /// <exception cref="ParseException"></exception>
         internal static string TimeValueSingularOrPlural(int value, TimeUnit timeUnit) => timeUnit switch
         {
@@ -70,15 +70,15 @@ namespace MetarSharp.Extensions
             TimeUnit.Hours => value > 1 ? "hours" : "hour",
             TimeUnit.Days => value > 1 ? "days" : "day",
             TimeUnit.Weeks => value > 1 ? "weeks" : "week",
-            _ => throw new ParseException()
+            _ => throw new ArgumentOutOfRangeException()
         };
 
 
         /// <summary>
-        /// returns the correct value of the elapsed time, depending on how many time is elapsed
+        /// returns the correct value of the elapsed time, depending on how much time is elapsed
         /// </summary>
         /// <param name="elapsedTime"></param>
-        /// <returns></returns>
+        /// <returns>int of the highest elapsed time</returns>
         internal static int GetCorrectTimeValue(TimeSpan elapsedTime)
         {
             if (elapsedTime.TotalSeconds <= 60)
@@ -107,7 +107,7 @@ namespace MetarSharp.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <param name="visibilityUnit"></param>
-        /// <returns></returns>
+        /// <returns>the distance as a string either singular or plural</returns>
         /// <exception cref="ParseException"></exception>
         internal static string DistanceValueSingularOrPlural(double value, VisibilityUnit visibilityUnit) => visibilityUnit switch
         {
@@ -123,7 +123,7 @@ namespace MetarSharp.Extensions
         /// Parses string to an int and throws if the parse fails
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>the parsed int otherwise throws</returns>
         /// <exception cref="ParseException"></exception>
         internal static int IntTryParseWithThrow(string value)
         {
@@ -134,7 +134,7 @@ namespace MetarSharp.Extensions
         /// Parses string to a double and throws if the parse fails
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>the parsed double, otherwise throws</returns>
         /// <exception cref="ParseException"></exception>
         internal static double DoubleTryParseWithThrow(string value)
         {
@@ -147,7 +147,7 @@ namespace MetarSharp.Extensions
         /// This checks if the the input string is null or empty
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>
+        /// <returns>whether the string is null/empty/only whitespace</returns>
         internal static bool IsStringNullOrEmpty(string input) => input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace MetarSharp.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
-        /// <returns></returns>
+        /// <returns>whether the entire collection null or empty</returns>
         internal static bool IsEntireCollectionNullOrEmpty<T>(T input)
         {
             return input == null || input as IEnumerable<T> == Enumerable.Empty<T>();
@@ -166,7 +166,7 @@ namespace MetarSharp.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
-        /// <returns></returns>
+        /// <returns>the given collection without any empty entries</returns>
         internal static IEnumerable<string> RemoveEmptyEntriesFromCollection<T>(T input)
         {
             var convertedInput = input as IEnumerable<string> ?? throw new ParseException();

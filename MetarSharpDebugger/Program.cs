@@ -6,6 +6,7 @@ using MetarSharp.Methods.Download;
 using System.Diagnostics;
 using MetarSharp.Converter.Time;
 using System.Reflection;
+using MetarSharp.Converter.Distance;
 
 namespace MetarSharpDebugger
 {
@@ -26,7 +27,7 @@ namespace MetarSharpDebugger
             var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
             var lo = ValueRecords.GetMedianValue(metars, AverageValueType.PressureQNH, MidpointRounding.AwayFromZero);
             var cc = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);
-            var conv = ConvertFromMinutes.ToHours(60);
+            var conv = ConvertFromKilometer.ToMeter(5);
             List<string> metString = ParseMetar.ToStringList(metars);
             var loco = ValueRecords.GetLowestValue(metars, MetarSharp.Extensions.ValueType.ColorCode);
             var clo = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);

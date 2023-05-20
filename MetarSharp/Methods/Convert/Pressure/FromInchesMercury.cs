@@ -2,13 +2,18 @@
 {
     public static class ConvertFromInchesMercury
     {
-        public static decimal ToHectopascals(this double value)
-        {
-            return Math.Round((decimal)value * (decimal)33.86388666666671, 2);
-        }
-        public static decimal ToHectopascals(this double value, byte decimalPlaces)
-        {
-            return Math.Round((decimal)value * (decimal)33.86388666666671, decimalPlaces);
-        }
+        /// <summary>
+        /// Converts the given value from Inches Mercury to Hectopascals
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>the value converted to Hectopascals as a decimal</returns>
+        public static decimal ToHectopascals(this double value) => Math.Round((decimal)value * (decimal)33.86388666666671, 2);
+
+        /// <summary>
+        /// Converts the given value from Inches Mercury to Hectopascals with a given amount of decimal places
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>the value converted to Hectopascals as a decimal with set decimal places</returns>
+        public static decimal ToHectopascals(this double value, byte decimalPlaces) => Math.Round((decimal)value * (decimal)33.86388666666671, decimalPlaces);
     }
 }

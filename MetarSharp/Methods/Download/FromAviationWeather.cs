@@ -1,5 +1,4 @@
 ﻿using MetarSharp.Exceptions;
-using System.Net;
 using System.Xml;
 #pragma warning disable CS8602 //Dereference of a possible null reference
 
@@ -44,11 +43,6 @@ namespace MetarSharp.Methods.Download
 
                 metarsList.Add(metar.ChildNodes[0].InnerText);
             }
-
-            //if(metarsList.Any(x => !x.StartsWith(icao, StringComparison.OrdinalIgnoreCase)))
-            //{
-            //    throw new ParseException("Something went wrong");
-            //}
 
             return metarsList;
         }

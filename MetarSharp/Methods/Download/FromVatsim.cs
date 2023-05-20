@@ -5,7 +5,7 @@ namespace MetarSharp.Methods.Download
 {
     internal class Vatsim
     {
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly HttpClient Client = new();
 
         internal static async Task<string> Single(string icao)
         {

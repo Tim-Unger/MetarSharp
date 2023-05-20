@@ -29,28 +29,18 @@ namespace MetarSharp.Methods.Records.AverageValue
             averageValueType switch
             {
                 AverageValueType.CloudCeiling => AverageCeiling.Get(metars, decimalPlaces, false),
-                AverageValueType.VerticalVisibility
-                  => AverageCeiling.Get(metars, decimalPlaces, true),
+                AverageValueType.VerticalVisibility => AverageCeiling.Get(metars, decimalPlaces, true),
                 AverageValueType.PressureINHG => AveragePressure.Get(metars, decimalPlaces, false),
                 AverageValueType.PressureQNH => AveragePressure.Get(metars, decimalPlaces, true),
                 AverageValueType.RunwayVisualRange => AverageRvr.Get(metars, decimalPlaces),
-                AverageValueType.TemperatureCelsius
-                  => AverageTempDewpoint.Get(metars, true, true, decimalPlaces),
-                AverageValueType.TemperatureFahrenheit
-                  => AverageTempDewpoint.Get(metars, false, true, decimalPlaces),
-                AverageValueType.DewpointCelsius
-                  => AverageTempDewpoint.Get(metars, true, false, decimalPlaces),
-                AverageValueType.DewpointFahrenheit
-                  => AverageTempDewpoint.Get(metars, false, false, decimalPlaces),
+                AverageValueType.TemperatureFahrenheit => AverageTempDewpoint.Get(metars, false, true, decimalPlaces),
+                AverageValueType.DewpointCelsius => AverageTempDewpoint.Get(metars, true, false, decimalPlaces),
+                AverageValueType.DewpointFahrenheit => AverageTempDewpoint.Get(metars, false, false, decimalPlaces),
                 AverageValueType.Visibility => AverageVisibility.Get(metars, false, decimalPlaces),
-                AverageValueType.LowestVisibility
-                  => AverageVisibility.Get(metars, true, decimalPlaces),
-                AverageValueType.WindDirection
-                  => AverageWind.Get(metars, WindType.Direction, decimalPlaces),
-                AverageValueType.WindStrength
-                  => AverageWind.Get(metars, WindType.Strength, decimalPlaces),
-                AverageValueType.WindGustStrength
-                  => AverageWind.Get(metars, WindType.GustStrength, decimalPlaces),
+                AverageValueType.LowestVisibility => AverageVisibility.Get(metars, true, decimalPlaces),
+                AverageValueType.WindDirection => AverageWind.Get(metars, WindType.Direction, decimalPlaces),
+                AverageValueType.WindStrength => AverageWind.Get(metars, WindType.Strength, decimalPlaces),
+                AverageValueType.WindGustStrength => AverageWind.Get(metars, WindType.GustStrength, decimalPlaces),
                 _ => throw new ArgumentOutOfRangeException()
             };
     }

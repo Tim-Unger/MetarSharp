@@ -32,9 +32,8 @@
         {
             var rvrs = new List<RunwayVisibility>();
 
-#pragma warning disable CS8602
-            //this is fine as the null check is done in the parent function
-            metars.ForEach(x => x.RunwayVisibilities.ForEach(y => rvrs.Add(y)));
+            //Cannot be null as the null check is done in the parent function
+            metars.ForEach(x => x.RunwayVisibilities!.ForEach(y => rvrs.Add(y)));
 
             return rvrs;
         }
