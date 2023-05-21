@@ -1,6 +1,6 @@
 ![Logo](https://i.imgur.com/YCTLglq.png)
 ![](https://shields.io/nuget/v/MetarSharp)
-![](https://img.shields.io/github/v/release/Tim-Unger/MetarSharp?display_name=tag)
+![](https://img.shields.io/github/v/release/Tim-Unger/MetarSharp)
 ![](https://shields.io/github/license/Tim-Unger/MetarSharp)
 
 # Usage
