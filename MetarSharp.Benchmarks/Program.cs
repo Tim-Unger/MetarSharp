@@ -6,7 +6,7 @@ using MetarSharp.Converter.Pressure;
 using MetarSharp.Converter.Speed;
 using MetarSharp.Converter.Temperature;
 using MetarSharp.Converter.Time;
-using MetarSharp.Methods.Download;
+using MetarSharp.Downloader;
 
 namespace MetarSharp.Benchmarks;
 

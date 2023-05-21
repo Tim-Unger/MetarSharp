@@ -46,7 +46,6 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Visibility not measurable";
             }
 
-
             var visibilityUnit = DistanceValueSingularOrPlural(visibility.ReportedVisibility, visibility.VisibilityUnit);
 
             var stringBuilder = new StringBuilder();

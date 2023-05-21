@@ -64,8 +64,11 @@ namespace MetarSharp.Parse.ReadableReport
                 return reportBuilder.ToString();
             }
 
-            metar.Trends.ForEach(trend => { reportBuilder.AppendLine(TrendBase.Append(trend)); Trend.Append(metar); });
-            
+            if(metar.Trends.Count > 0)
+            {
+                metar.Trends.ForEach(trend => { reportBuilder.Append(TrendBase.Append(trend)); reportBuilder.AppendLine(Trend.Append(metar)); });
+            }
+
             return reportBuilder.ToString();
         }
     }

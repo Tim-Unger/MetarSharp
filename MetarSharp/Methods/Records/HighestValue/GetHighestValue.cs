@@ -1,5 +1,5 @@
 using MetarSharp.Extensions;
-using MetarSharp.Methods.Records.LowestValue;
+using MetarSharp.Records.LowestValue;
 using ValueType = MetarSharp.Extensions.ValueType;
 
 namespace MetarSharp.Records.HighestValue

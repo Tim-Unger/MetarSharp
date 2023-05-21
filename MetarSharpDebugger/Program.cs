@@ -2,7 +2,7 @@
 using MetarSharp.Definitions;
 using MetarSharp.Extensions;
 using MetarSharp.Converter;
-using MetarSharp.Methods.Download;
+using MetarSharp.Downloader;
 using System.Diagnostics;
 using MetarSharp.Converter.Time;
 using System.Reflection;
@@ -22,15 +22,7 @@ namespace MetarSharpDebugger
             var lines = File.ReadAllLines("../Metars.txt").ToList();
             var metars = lines.Select(x => ParseMetar.FromString(x)).ToList();
 
-            MetarDefinition.Edit(Definitions.MileLong, "Mile");
-            var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
-            var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
-            var lo = ValueRecords.GetMedianValue(metars, AverageValueType.PressureQNH, MidpointRounding.AwayFromZero);
-            var cc = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);
-            var conv = ConvertFromKilometer.ToMeter(5);
-            List<string> metString = ParseMetar.ToStringList(metars);
-            var loco = ValueRecords.GetLowestValue(metars, MetarSharp.Extensions.ValueType.ColorCode);
-            var clo = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);
+            var metar = ParseMetar.FromString(DownloadMetar.FromVatsimSingle("EDDF"));
 
             ///Just for diagnostics/to check execution time 
             timer.Stop();

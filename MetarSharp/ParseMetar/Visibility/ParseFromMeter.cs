@@ -13,7 +13,7 @@ namespace MetarSharp.Parse
             #region STANDARD
             visibility.VisibilityRaw = groups[1].Value.TrimStart();
 
-            visibility.ReportedVisibility = double.Parse(groups[2].Value);
+            visibility.ReportedVisibility = Math.Round(double.Parse(groups[2].Value), 2);
 
             visibility.IsVisibilityMeasurable = true;
             
@@ -28,7 +28,7 @@ namespace MetarSharp.Parse
                 visibility.HasVisibilityLowestValue = true;
 
                 visibility.LowestVisibilityDirectionRaw = groups[4].Value;
-                visibility.LowestVisibility = double.Parse(groups[4].Value);
+                visibility.LowestVisibility = Math.Round(double.Parse(groups[4].Value), 2);
                 (
                     visibility.LowestVisibilityDirection,
                     visibility.LowestVisibilityDirectionDecoded
