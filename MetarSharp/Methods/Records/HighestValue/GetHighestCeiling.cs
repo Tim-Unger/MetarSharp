@@ -1,11 +1,10 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.HighestValue
+namespace MetarSharp.Records.HighestValue
 {
     internal class HighestCeiling
     {
-        //TODO implement
         internal static dynamic GetReturn(List<Metar> metars, ValueReturnType valueReturnType) => valueReturnType switch
         {
             ValueReturnType.FullMetar => Get(metars),

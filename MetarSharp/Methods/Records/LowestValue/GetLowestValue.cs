@@ -1,7 +1,7 @@
 using MetarSharp.Extensions;
 using ValueType = MetarSharp.Extensions.ValueType;
 
-namespace MetarSharp.Methods.Records.LowestValue
+namespace MetarSharp.Records.LowestValue
 {
     internal class LowestValue
     {

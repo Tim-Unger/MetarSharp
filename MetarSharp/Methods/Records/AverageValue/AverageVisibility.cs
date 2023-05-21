@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Records.AverageValue
+﻿namespace MetarSharp.Records.AverageValue
 {
     internal class AverageVisibility
     {

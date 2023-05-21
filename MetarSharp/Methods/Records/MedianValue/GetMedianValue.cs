@@ -1,6 +1,6 @@
 ﻿using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.MedianValue
+namespace MetarSharp.Records.MedianValue
 {
     internal class MedianValue
     {

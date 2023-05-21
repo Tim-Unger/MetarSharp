@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Download
+﻿namespace MetarSharp.Downloader
 {
     public class DownloadMetar
     {

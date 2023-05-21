@@ -1,6 +1,6 @@
 ﻿using MetarSharp.Exceptions;
 
-namespace MetarSharp.Methods.Records.AverageValue
+namespace MetarSharp.Records.AverageValue
 {
     internal enum WindType
     {

@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.ParseOptions
+﻿namespace MetarSharp.Parser.ParseOptions
 {
     public class Parser
     {

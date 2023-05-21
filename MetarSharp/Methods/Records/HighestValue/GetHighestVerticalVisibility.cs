@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Methods.Records.HighestValue
+﻿namespace MetarSharp.Records.HighestValue
 {
     internal class HighestVerticalVisibility
     {

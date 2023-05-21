@@ -1,8 +1,7 @@
-using MetarSharp.Methods.Records;
-using MetarSharp.Methods.Records.AverageValue;
-using MetarSharp.Methods.Records.HighestValue;
-using MetarSharp.Methods.Records.LowestValue;
-using MetarSharp.Methods.Records.MedianValue;
+using MetarSharp.Records.AverageValue;
+using MetarSharp.Records.HighestValue;
+using MetarSharp.Records.LowestValue;
+using MetarSharp.Records.MedianValue;
 
 namespace MetarSharp.Extensions
 {

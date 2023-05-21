@@ -1,7 +1,7 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.HighestValue
+namespace MetarSharp.Records.HighestValue
 {
     internal class HighestPressure
     {
