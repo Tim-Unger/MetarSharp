@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -16,7 +15,6 @@ namespace MetarDownloader
             var client = new HttpClient();
             var icaoListUnformatted = await client.GetFromJsonAsync<List<Airport>>("https://pkgstore.datahub.io/core/airport-codes/airport-codes_json/data/9ca22195b4c64a562a0a8be8d133e700/airport-codes_json.json");
 
-            //List<Airport> icaoList = icaoListUnformatted.FindAll(airport => letters.All(letter => airport.ident.Contains(letter)));
             List<Airport> icaoList = icaoListUnformatted!.FindAll(airport => airport.ident.All(char.IsLetter));
             Random random = new();
 
