@@ -5,7 +5,7 @@
 
 # Usage
 
-Please head over to [**Metarsharp.Tim-u.me**](https://metarsharp.tim-u.me) for the full documentation
+Please head over to [**tim-u.gitbook.io/metarsharp/**](https://tim-u.gitbook.io/metarsharp/) for the full documentation
 
 ## Quickstart
 
