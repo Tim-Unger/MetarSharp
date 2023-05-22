@@ -9,7 +9,7 @@ namespace MetarSharp.Parse.ReadableReport
         /// </summary>
         /// <param name="metar"></param>
         /// <returns></returns>
-        public static string ReturnReadableReport(Metar metar)
+        internal static string ReturnReadableReport(Metar metar)
         {
             var reportBuilder = new StringBuilder();
 
@@ -34,13 +34,13 @@ namespace MetarSharp.Parse.ReadableReport
             //Null check is not really necessary, just to prevent any possible exceptions
             if (metar.RunwayVisibilities != null && metar.RunwayVisibilities.Count > 0)
             {
-                reportBuilder.AppendLine(RVR.Append(metar));
+                reportBuilder.Append(RVR.Append(metar));
             }
 
             //Weather
             if (metar.Weather != null && metar.Weather.Weathers.Count > 0)
             {
-                reportBuilder.AppendLine(Weather.Append(metar));
+                reportBuilder.Append(Weather.Append(metar));
             }
 
             //Clouds

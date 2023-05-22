@@ -70,7 +70,7 @@ namespace MetarSharp.Parse
                       )
                 };
 
-                runwayVisibility.IsRVRVarying = groups[6].Success ? true : null;
+                runwayVisibility.IsRVRVarying = groups[6].Value != "" ? true : false;
                 runwayVisibility.IsRVRVariationMoreOrLess = groups[7].Success ? true : null;
 
                 runwayVisibility.RVRVariationMoreOrLessDecoded = groups[7].Value switch

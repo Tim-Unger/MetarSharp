@@ -19,8 +19,9 @@ namespace MetarSharp.Parse
             if (reportingTimeMatches.Count == 0)
             {
                 isNormalParseFailed = true;
-                
-                Regex missingLetterRegex = new("([0-9]{2})([0-9]{1})([0-9]{2})Z", RegexOptions.None);
+
+                Regex missingLetterRegex =
+                    new("([0-9]{2})([0-9]{1})([0-9]{2})Z", RegexOptions.None);
 
                 var matches = missingLetterRegex.Matches(raw);
 
@@ -60,33 +61,41 @@ namespace MetarSharp.Parse
             var dateValues = reportingDate switch
             {
                 //current day equals reporting day
-                int when reportingDate == dayNow => new Tuple<int, int>(monthNow,yearNow),
-                
+                //=> today
+                int when reportingDate == dayNow => new Tuple<int, int>(monthNow, yearNow),
+
                 //current day is larger than reporting day
                 //=> this month
                 int when reportingDate < dayNow => new Tuple<int, int>(monthNow, yearNow),
-                
+
                 //current day is smaller than reporting day
                 //and days in month are greater or equal than reporting day
                 //=> last month
                 int
                     when reportingDate > dayNow
                         && DateTime.DaysInMonth(yearNow, RemoveMonths(1)) >= reportingDate
-                  => new Tuple<int,int>(RemoveMonths(1),RemoveMonthsYear(1)),
-                
+                  => new Tuple<int, int>(RemoveMonths(1), RemoveMonthsYear(1)),
+
                 //current day is smaller than reporting day
                 //and days in month are smaller than reporting day
                 //=> month before last
                 int
                     when reportingDate > dayNow
                         && DateTime.DaysInMonth(yearNow, RemoveMonths(2)) >= reportingDate
-                    => new Tuple<int, int>(RemoveMonths(2),RemoveMonthsYear(1)),
+                  => new Tuple<int, int>(RemoveMonths(2), RemoveMonthsYear(1)),
 
                 _ => throw new ParseException("Could not convert Reporting Date")
             };
 
             DateTime ReportingDateTime =
-                new(dateValues.Item2, dateValues.Item1, reportingDate, reportingHour, reportingMinute, 00);
+                new(
+                    dateValues.Item2,
+                    dateValues.Item1,
+                    reportingDate,
+                    reportingHour,
+                    reportingMinute,
+                    00
+                );
 
             reportingTime.ReportingTimeZulu = ReportingDateTime;
             return reportingTime;
@@ -94,18 +103,24 @@ namespace MetarSharp.Parse
 
         /// <summary>
         /// This removes the given number of months from the current UTC-DateTime and returns the Month of the DateTime
-        /// Do NOT add a 
+        /// Do NOT add a
         /// </summary>
         /// <param name="months"></param>
         /// <returns></returns>
-        private static int RemoveMonths(int months) => DateTime.UtcNow.AddMonths(-months).Month;
+        private static int RemoveMonths(int months) =>
+            months > 0
+                ? DateTime.UtcNow.AddMonths(-months).Month
+                : throw new ParseException("Please use a posotive number");
 
         /// <summary>
         /// This removes the given number of months from the current UTC-DateTime and returns the year of the DateTime
-        /// Do NOT add a 
+        /// Do NOT add a
         /// </summary>
         /// <param name="months"></param>
         /// <returns></returns>
-        private static int RemoveMonthsYear(int months) => DateTime.UtcNow.AddMonths(-months).Year;
+        private static int RemoveMonthsYear(int months) =>
+            months > 0
+                ? DateTime.UtcNow.AddMonths(-months).Year
+                : throw new ParseException("Please use a posotive number");
     }
 }

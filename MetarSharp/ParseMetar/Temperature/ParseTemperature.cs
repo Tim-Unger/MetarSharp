@@ -1,4 +1,3 @@
-using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 using static MetarSharp.Extensions.Helpers;
 

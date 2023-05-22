@@ -7,6 +7,7 @@ using System.Diagnostics;
 using MetarSharp.Converter.Time;
 using System.Reflection;
 using MetarSharp.Converter.Distance;
+using System.Text;
 
 namespace MetarSharpDebugger
 {
@@ -24,11 +25,25 @@ namespace MetarSharpDebugger
 
             var metar = ParseMetar.FromString(DownloadMetar.FromVatsimSingle("EDDF"));
 
-            ///Just for diagnostics/to check execution time 
+            var stringBuilder = new StringBuilder();
+
+            metars
+                //.Where(x => x.Trends != null && x.Trends.Any(x => x.TrendType != TrendType.NoSignificantChange))
+                //.ToList()
+                //.Where(x => x.Trends.Any(x => x.TrendList.Count > 3))
+                .Where(x => x.RunwayVisibilities.Count > 1)
+                .Take(10)
+                .Select(x => x.ReadableReport)
+                .ToList()
+                .ForEach(x => stringBuilder.AppendLine(x).AppendLine());
+
+            File.WriteAllText("../ReadableReports.txt", "");
+            File.WriteAllText("../ReadableReports.txt", stringBuilder.ToString());
+
+            ///Just for diagnostics/to check execution time
             timer.Stop();
             var executeTime = timer.ElapsedMilliseconds;
             var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
         }
     }
 }
-

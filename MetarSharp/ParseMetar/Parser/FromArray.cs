@@ -8,6 +8,5 @@ namespace MetarSharp.Parser
         /// <param name="input"></param>
         /// <returns></returns>
         internal static Metar[] Parse(string[] input) => input.ToList().Select(x => FromString.Parse(x)).ToArray();
-
     }
 }
