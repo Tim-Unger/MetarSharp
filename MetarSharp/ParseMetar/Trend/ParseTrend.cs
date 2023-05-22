@@ -4,9 +4,9 @@ using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
-    public class ParseTrend
+    internal class ParseTrend
     {
-        public static List<Trend> ReturnTrend (string raw, Metar metar)
+        internal static List<Trend> ReturnTrend (string raw, Metar metar)
         {
             //\n and single line doesn't work in c# apparently, so MultiLine and $ is used to get the NOSIG at the very end of the metar
             Regex trendRegex = new(@"(NOSIG|BECMG|TEMPO|NSW)(\s((FM|TL|AT)([0-9]{4})))?(.*?)(?=RMK|$|BECMG)", RegexOptions.Multiline);

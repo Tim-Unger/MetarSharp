@@ -12,15 +12,15 @@ namespace MetarSharp.Parse
         /// <param name="raw"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        public static string ReturnAirport(string raw)
+        internal static string ReturnAirport(string raw)
         {
             var airportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
 
-            MatchCollection airportMatches = airportRegex.Matches(raw);
+            var airportMatches = airportRegex.Matches(raw);
 
             if (airportMatches.Count != 1)
             {
-                throw new ParseException();
+                throw new ParseException("Airport could not be found");
             }
 
             return airportMatches[0].Groups[1].Value;

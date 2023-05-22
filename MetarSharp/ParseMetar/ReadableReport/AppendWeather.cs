@@ -1,5 +1,4 @@
 ﻿using System.Text;
-#pragma warning disable CS8602
 
 namespace MetarSharp.Parse.ReadableReport
 {
@@ -16,7 +15,8 @@ namespace MetarSharp.Parse.ReadableReport
 
             var stringBuilder = new StringBuilder();
 
-            if(weather.IsRecent)
+            //Null Check is done one level up
+            if(weather!.IsRecent)
             {
                 stringBuilder.Append("Recent ");
             }

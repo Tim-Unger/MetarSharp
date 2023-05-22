@@ -9,6 +9,6 @@ namespace MetarSharp.Parse
         /// </summary>
         /// <param name="raw"></param>
         /// <returns></returns>
-        public static bool ReturnIsAutomated(string raw) => Regex.IsMatch(raw, "(AUTO)");
+        internal static bool ReturnIsAutomated(string raw) => Regex.IsMatch(raw, "(AUTO)");
     }
 }

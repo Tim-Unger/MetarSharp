@@ -4,9 +4,9 @@ using static MetarSharp.Definitions.CardinalDirectionDefinitions;
 
 namespace MetarSharp.Parse
 {
-    public class ParseVisibility
+    internal class ParseVisibility
     {
-        public static Visibility ReturnVisibility(string raw)
+        internal static Visibility ReturnVisibility(string raw)
         {
             var visibilityRegex = new Regex(
                 @"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9](?>[0-9])?))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s",

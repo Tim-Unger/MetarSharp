@@ -5,9 +5,9 @@ using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
-    public class ParseWind
+    internal class ParseWind
     {
-        public static Wind ReturnWind(string raw)
+        internal static Wind ReturnWind(string raw)
         {
             var wind = new Wind();
 

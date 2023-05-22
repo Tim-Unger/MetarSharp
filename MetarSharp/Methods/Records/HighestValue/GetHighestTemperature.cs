@@ -14,6 +14,7 @@ namespace MetarSharp.Records.HighestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => isCelsius ? GetValueCelsius(metars) : GetValueFahrenheit(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType)),
         };
 
         private static Temperature GetClass(List<Metar> metars)

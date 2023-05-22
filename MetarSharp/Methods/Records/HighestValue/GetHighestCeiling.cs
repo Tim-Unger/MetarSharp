@@ -10,6 +10,7 @@ namespace MetarSharp.Records.HighestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => GetJustValue(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(valueReturnType))
         };
 
         internal static Metar Get(List<Metar> metars)

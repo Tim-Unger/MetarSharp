@@ -1,10 +1,11 @@
+using MetarSharp.Converter.Pressure;
 using MetarSharp.Definitions;
 using MetarSharp.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {
-    public class ParsePressure
+    internal class ParsePressure
     {
         /// <summary>
         /// this returns the pressure part of the metar
@@ -13,7 +14,7 @@ namespace MetarSharp.Parse
         /// <param name="raw"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        public static Pressure ReturnPressure(string raw)
+        internal static Pressure ReturnPressure(string raw)
         {
             var pressure = new Pressure();
 
@@ -30,7 +31,7 @@ namespace MetarSharp.Parse
             pressure.PressureRaw = pressureMatches[0].ToString();
             pressure.IsPressureMeasurable = true;
 
-            GroupCollection groups = pressureMatches[0].Groups;
+            var groups = pressureMatches[0].Groups;
 
             if (groups[2].Value == "////")
             {
@@ -65,10 +66,10 @@ namespace MetarSharp.Parse
            
             pressure.PressureOnly = pressureValue;
             pressure.PressureAsAltimeter = Convert.ToDouble(
-                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : pressureValue / 33.8569518716, 2)
+                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : (double)ConvertFromInchesMercury.ToHectopascals(pressureValue))
             );
             pressure.PressureAsQnh = Convert.ToInt32(
-                Math.Round(pressureTypeRaw == PressureDefinitions.HectopascalsShort ? pressureValue : pressureValue * 33.8569518716, 0)
+                Math.Round(pressureTypeRaw == PressureDefinitions.HectopascalsShort ? pressureValue : (double)ConvertFromInchesMercury.ToHectopascals(pressureValue))
             );
             
             return pressure;

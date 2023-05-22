@@ -6,7 +6,7 @@ namespace MetarSharp.Parse
 {
     internal class ParseReportingTime
     {
-        public static ReportingTime ParseReportingTimeNew(string raw)
+        internal static ReportingTime ParseReportingTimeNew(string raw)
         {
             ReportingTime reportingTime = new();
 
@@ -14,7 +14,7 @@ namespace MetarSharp.Parse
 
             MatchCollection reportingTimeMatches = reportingTimeRegex.Matches(raw);
 
-            GroupCollection missingGroups = null;
+            GroupCollection? missingGroups = null;
             var isNormalParseFailed = false;
             if (reportingTimeMatches.Count == 0)
             {
@@ -40,7 +40,7 @@ namespace MetarSharp.Parse
                 normalGroups = reportingTimeMatches[0].Groups;
             }
 
-            var groups = isNormalParseFailed ? missingGroups : normalGroups;
+            var groups = (isNormalParseFailed ? missingGroups : normalGroups) ?? throw new ParseException();
 
             reportingTime.ReportingTimeRaw = groups[0].Value;
 
@@ -103,7 +103,7 @@ namespace MetarSharp.Parse
 
         /// <summary>
         /// This removes the given number of months from the current UTC-DateTime and returns the Month of the DateTime
-        /// Do NOT add a
+        /// Will throw if you use a negative number
         /// </summary>
         /// <param name="months"></param>
         /// <returns></returns>
@@ -114,7 +114,7 @@ namespace MetarSharp.Parse
 
         /// <summary>
         /// This removes the given number of months from the current UTC-DateTime and returns the year of the DateTime
-        /// Do NOT add a
+        /// Will throw if you use a negative number
         /// </summary>
         /// <param name="months"></param>
         /// <returns></returns>

@@ -36,7 +36,7 @@ namespace MetarSharp.Parse.ReadableReport
                     continue;
                 }
 
-                string variation = null;
+                string? variation = null;
                 if (RVR.IsRVRVariationMoreOrLess == true)
                 {
                     variation = $"Variating up to: {RVR.RVRVariationMoreOrLessDecoded} than {RVR.RVRVariationValue} Meter";

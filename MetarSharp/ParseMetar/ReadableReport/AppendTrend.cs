@@ -88,9 +88,8 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string ParseWind(MetarSharp.Wind wind)
         {
-            string windString = null;
-            string windGust = null;
-            string windVariation = null;
+            string? windGust = null;
+            string? windVariation = null;
 
             if (!wind.IsWindMeasurable)
             {
@@ -102,7 +101,7 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Wind calm";
             }
 
-            windString = ConvertWind(wind);
+            var windString = ConvertWind(wind);
 
             if (wind.IsWindGusting)
             {

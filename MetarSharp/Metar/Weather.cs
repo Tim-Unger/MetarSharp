@@ -2,9 +2,9 @@
 {
     public enum WeatherIntensity
     {
-        Light,
-        Normal,
-        Heavy
+        Light = -1,
+        Normal = 0,
+        Heavy = 1,
     }
     
     public enum WeatherType
@@ -37,20 +37,6 @@
         Sandstorm,
         Duststorm
     }
-    //public enum Precipitation
-    //{
-        
-    //}
-
-    //public enum Clouding
-    //{
-        
-    //}
-
-    //public enum OtherWeather
-    //{
-        
-    //}
 
     public class Weather
     {

@@ -2,12 +2,12 @@
 {
     public enum CloudType
     {
+        NoCloudsDetected,
+        NoSignificantClouds,
         Few,
         Scattered,
         Broken,
         Overcast,
-        NoSignificantClouds,
-        NoCloudsDetected
     }
 
     public class Cloud

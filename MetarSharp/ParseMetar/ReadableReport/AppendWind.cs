@@ -6,7 +6,6 @@ namespace MetarSharp.Parse.ReadableReport
     {
         internal static string Append(Metar metar)
         {
-            string? wind = null;
             string? windGust = null;
             string? windVariation = null;
 
@@ -20,7 +19,7 @@ namespace MetarSharp.Parse.ReadableReport
                 return "Wind calm";
             }
 
-            wind = ConvertWind(metar);
+            var wind = ConvertWind(metar);
 
             if (metar.Wind.IsWindGusting)
             {

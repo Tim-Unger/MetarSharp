@@ -15,6 +15,7 @@ namespace MetarSharp.Records.HighestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => GetValue(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType)),
         };
 
         private static Visibility GetClass(List<Metar> metars)

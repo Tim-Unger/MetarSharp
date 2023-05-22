@@ -1,6 +1,7 @@
 ﻿using System.Text;
 
-namespace MetarSharp.Parse.ReadableReport { 
+namespace MetarSharp.Parse.ReadableReport 
+{ 
     internal class TrendBase
     {
         internal static string Append(MetarSharp.Trend trend)

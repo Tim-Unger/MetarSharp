@@ -5,7 +5,7 @@ using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
-    public class ParseClouds
+    internal class ParseClouds
     {
         /// <summary>
         /// this returns a list of all clouds in the metar.
@@ -14,7 +14,7 @@ namespace MetarSharp.Parse
         /// <param name="raw"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        public static List<Cloud> ReturnClouds(string raw)
+        internal static List<Cloud> ReturnClouds(string raw)
         {
             var clouds = new List<Cloud>();
 
