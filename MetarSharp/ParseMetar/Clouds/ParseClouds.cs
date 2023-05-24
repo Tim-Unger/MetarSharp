@@ -100,7 +100,6 @@ namespace MetarSharp.Parse
             }
 
             //It will otherwise return a CAVOK Element
-            //TODO better empty element
             Cloud emptyCloud = new() { IsCAVOK = true, CloudCeiling = 9999, IsCeilingMeasurable = true, IsCloudMeasurable = true };
             clouds.Add(emptyCloud);
             return clouds;

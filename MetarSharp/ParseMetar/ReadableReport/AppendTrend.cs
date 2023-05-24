@@ -40,7 +40,6 @@ namespace MetarSharp.Parse.ReadableReport
 
         private static string ParseVisibility(MetarSharp.Visibility visibility)
         {
-            //TODO CAVOK
             if (visibility.IsVisibilityMeasurable == false)
             {
                 return "Visibility not measurable";
