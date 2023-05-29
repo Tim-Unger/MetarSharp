@@ -12,7 +12,7 @@ namespace MetarSharp.Parse
         /// </summary>
         /// <param name="raw"></param>
         /// <returns></returns>
-        public static AdditionalInformation ReturnAdditional(string raw)
+        internal static AdditionalInformation ReturnAdditional(string raw)
         {
             var additionalInformation = new AdditionalInformation();
 

@@ -16,7 +16,7 @@ namespace MetarSharp.Parse
 
             visibility.IsVisibilityMeasurable = true;
 
-            visibility.ReportedVisibility = double.Parse(groups[8].Value);
+            visibility.ReportedVisibility = Math.Round(double.Parse(groups[8].Value), 2);
 
             visibility.VisibilityUnit = VisibilityUnit.Kilometers;
             visibility.VisibilityUnitRaw = DistanceDefinitions.KilometerShort;
@@ -27,7 +27,7 @@ namespace MetarSharp.Parse
             if (groups[13].Success)
             {
                 visibility.HasVisibilityLowestValue = true;
-                visibility.LowestVisibility = double.Parse(groups[14].Value);
+                visibility.LowestVisibility = Math.Round(double.Parse(groups[14].Value), 2);
                 (
                     visibility.LowestVisibilityDirection,
                     visibility.LowestVisibilityDirectionDecoded

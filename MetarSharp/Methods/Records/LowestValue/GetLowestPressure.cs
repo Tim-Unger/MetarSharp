@@ -1,7 +1,7 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.LowestValue
+namespace MetarSharp.Records.LowestValue
 {
     internal class LowestPressure
     {
@@ -16,7 +16,8 @@ namespace MetarSharp.Methods.Records.LowestValue
         {
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
-            ValueReturnType.OnlyValue => isQNH ? GetValueQNH(metars) : GetValueINHG(metars)
+            ValueReturnType.OnlyValue => isQNH ? GetValueQNH(metars) : GetValueINHG(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType))
         };
 
         private static Pressure GetClass(List<Metar> metars)

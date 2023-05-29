@@ -1,12 +1,7 @@
 ﻿using MetarSharp;
-using MetarSharp.Definitions;
-using MetarSharp.Extensions;
-using MetarSharp.Converter;
-using MetarSharp.Methods.Download;
+using MetarSharp.Downloader;
 using System.Diagnostics;
-using MetarSharp.Converter.Time;
-using System.Reflection;
-using MetarSharp.Converter.Distance;
+using System.Text;
 
 namespace MetarSharpDebugger
 {
@@ -20,23 +15,26 @@ namespace MetarSharpDebugger
 
             //You can enter your metars here
             var lines = File.ReadAllLines("../Metars.txt").ToList();
-            var metars = lines.Select(x => ParseMetar.FromString(x)).ToList();
+            var metars = ParseMetar.FromList(lines);
 
-            MetarDefinition.Edit(Definitions.MileLong, "Mile");
-            var timeSince = TimeSinceMetar.GetTimeSinceMetar(metars.First(), ReturnType.FullString, UnitReturnType.AllUnits);
-            var av = ValueRecords.GetAverageValue(metars, AverageValueType.CloudCeiling, 2);
-            var lo = ValueRecords.GetMedianValue(metars, AverageValueType.PressureQNH, MidpointRounding.AwayFromZero);
-            var cc = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);
-            var conv = ConvertFromKilometer.ToMeter(5);
-            List<string> metString = ParseMetar.ToStringList(metars);
-            var loco = ValueRecords.GetLowestValue(metars, MetarSharp.Extensions.ValueType.ColorCode);
-            var clo = ValueRecords.GetHighestValue(metars, MetarSharp.Extensions.ValueType.CloudCeiling);
+            var metar = DownloadMetar.FromVatsimSingle("EDDF").Parse();
 
-            ///Just for diagnostics/to check execution time 
+            var stringBuilder = new StringBuilder();
+
+            metars
+                .Where(x => x.RunwayVisibilities != null && x.RunwayVisibilities.Count > 1)
+                .Take(10)
+                .Select(x => x.ReadableReport)
+                .ToList()
+                .ForEach(x => stringBuilder.AppendLine(x).AppendLine());
+
+            File.WriteAllText("../ReadableReports.txt", "");
+            File.WriteAllText("../ReadableReports.txt", stringBuilder.ToString());
+
+            ///Just for diagnostics/to check execution time
             timer.Stop();
             var executeTime = timer.ElapsedMilliseconds;
             var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
         }
     }
 }
-

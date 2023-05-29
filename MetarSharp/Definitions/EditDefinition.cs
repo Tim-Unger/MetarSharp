@@ -1,9 +1,9 @@
-﻿using System.Runtime.CompilerServices;
-
+﻿
 namespace MetarSharp.Definitions
 {
     public class MetarDefinition
     {
+        //TODO Return type
         public static object? Edit(Definitions definition, string newName) => definition switch
         {
             #region DISTANCE
@@ -114,8 +114,10 @@ namespace MetarSharp.Definitions
             Definitions.RedShort => ColorCodeDefinitions.RedShort = newName,
             Definitions.RedLong => ColorCodeDefinitions.RedLong = newName,
             Definitions.BlackShort => ColorCodeDefinitions.BlackShort = newName,
-            Definitions.BlackLong => ColorCodeDefinitions.BlackLong = newName
+            Definitions.BlackLong => ColorCodeDefinitions.BlackLong = newName,
             #endregion
+
+            _ => throw new ArgumentOutOfRangeException(nameof(definition))
         };
     }
 }

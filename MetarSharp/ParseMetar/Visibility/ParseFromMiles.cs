@@ -24,8 +24,8 @@ namespace MetarSharp.Parse
                 hasVisibilitySlash = true;
 
                 var valueArray = groups[8].Value.ToCharArray();
-                var firstValue = double.Parse(valueArray[indexNegative].ToString());
-                var lastValue = double.Parse(valueArray.Last().ToString());
+                var firstValue = Math.Round(double.Parse(valueArray[indexNegative].ToString()), 2);
+                var lastValue = Math.Round(double.Parse(valueArray.Last().ToString()), 2);
 
                 convertedValue = firstValue / lastValue;
             }
@@ -47,7 +47,7 @@ namespace MetarSharp.Parse
                     );
             }
             var reportedVisibilityConverted = hasVisibilitySlash ? convertedValue : reportedVisibility;
-            visibility.ReportedVisibility = reportedVisibilityConverted;
+            visibility.ReportedVisibility = Math.Round(reportedVisibilityConverted,2);
 
             visibility.VisibilityUnit = VisibilityUnit.Miles;
             visibility.VisibilityUnitRaw = DistanceDefinitions.StatuteMileShort;

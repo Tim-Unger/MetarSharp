@@ -1,6 +1,6 @@
 ﻿using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.LowestValue
+namespace MetarSharp.Records.LowestValue
 {
     internal class LowestColorCode
     {
@@ -14,6 +14,7 @@ namespace MetarSharp.Methods.Records.LowestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => GetValue(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType)),
         };
 
 

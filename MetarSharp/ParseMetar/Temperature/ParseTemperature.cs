@@ -1,12 +1,12 @@
-using MetarSharp.Exceptions;
+using MetarSharp.Converter.Temperature;
 using System.Text.RegularExpressions;
 using static MetarSharp.Extensions.Helpers;
 
 namespace MetarSharp.Parse
 {
-    public class ParseTemperature
+    internal class ParseTemperature
     {
-        public static Temperature ReturnTemperature(string raw)
+        internal static Temperature ReturnTemperature(string raw)
         {
             var temperature = new Temperature();
 
@@ -49,7 +49,7 @@ namespace MetarSharp.Parse
             }
 
             temperature.TemperatureCelsius = tempCelsius;
-            temperature.TemperatureFahrenheit = Math.Round((tempCelsius * 1.8) + 32, 2);
+            temperature.TemperatureFahrenheit = (double)ConvertFromCelsius.ToFahrenheit(tempCelsius);
 
             //Dewpoint is negative (e.g. M3)
             if (groups[3].Success)
@@ -58,7 +58,7 @@ namespace MetarSharp.Parse
             }
 
             temperature.DewpointCelsius = dewpointCelsius;
-            temperature.DewpointFahrenheit = Math.Round((dewpointCelsius * 1.8) + 32, 2);
+            temperature.DewpointFahrenheit = (double)ConvertFromCelsius.ToFahrenheit(dewpointCelsius);
 
             return temperature;
         }

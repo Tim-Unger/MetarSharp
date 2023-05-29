@@ -12,7 +12,7 @@ namespace MetarSharp.Parse.ReadableReport
         /// <returns></returns>
         internal static string Append(Metar metar)
         {
-            string visibility = null;
+            string visibility;
 
             if (metar.Visibility.IsVisibilityMeasurable == false)
             {

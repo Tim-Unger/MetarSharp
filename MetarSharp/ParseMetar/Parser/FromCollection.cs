@@ -8,11 +8,7 @@ namespace MetarSharp.Parser
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static IEnumerable<Metar> Parse(IEnumerable<string> input)
-        {
-            input = input.Where(x => IsStringNullOrEmpty(x) == false);
-
-            return input.Select(ParseMetar.FromString).ToList();
-        }
+        //The Collection is cleaned one level up
+        internal static IEnumerable<Metar> Parse(IEnumerable<string> input) => input.Select(ParseMetar.FromString).ToList();
     }
 }

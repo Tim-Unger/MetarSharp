@@ -1,7 +1,7 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.HighestValue
+namespace MetarSharp.Records.HighestValue
 {
     internal class HighestWindStrength
     {
@@ -15,6 +15,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => GetValue(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType)),
         };
 
         private static Wind GetClass(List<Metar> metars)

@@ -14,7 +14,7 @@ namespace MetarSharp.Parse.ReadableReport
             {
                 var cloudBuilder = new StringBuilder();
 
-                string cloudString = null;
+                string? cloudString = null;
 
                 if (cloud.IsCAVOK || cloud.CloudCoverageType == CloudType.NoCloudsDetected)
                 {

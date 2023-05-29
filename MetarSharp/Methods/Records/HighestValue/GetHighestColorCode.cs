@@ -1,6 +1,6 @@
 ﻿using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.HighestValue
+namespace MetarSharp.Records.HighestValue
 {
     internal class HighestColorCode
     {
@@ -14,6 +14,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             ValueReturnType.FullMetar => Get(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => GetValue(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType)),
         };
 
         private static ColorCode GetClass(List<Metar> metars) 

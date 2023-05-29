@@ -1,7 +1,7 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.LowestValue
+namespace MetarSharp.Records.LowestValue
 {
     internal class LowestVisibility
     {

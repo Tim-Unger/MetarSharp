@@ -17,31 +17,34 @@ namespace MetarSharp.Parse.ReadableReport
             {
                 var visibility = new StringBuilder();
 
-                visibility.Append($"Runway-Visibility for Runway {RVR.Runway} ");
+                visibility.Append($"RVR Runway {RVR.Runway}: ");
 
                 if (RVR.IsRVRValueMoreOrLess == true)
                 {
-                    visibility.Append($"Runway Visual Range: {RVR.RVRMoreOrLessDecoded} than {RVR.RunwayVisualRange} Meter ");
+                    visibility.Append($"{RVR.RVRMoreOrLessDecoded} than {RVR.RunwayVisualRange} Meter ");
                     continue;
                 }
 
-                visibility.Append("Runway Visual Range: " + RVR.RunwayVisualRange + " Meter ");
+                visibility.Append($"{RVR.RunwayVisualRange} Meter ");
 
-                string variation = null;
-                if (RVR.IsRVRVarying == true)
+                var tendency = RVR.RVRTendencyDecoded;
+
+                stringBuilder.AppendLine($"{visibility}{tendency}");
+
+                if (RVR.IsRVRVarying == false)
                 {
-                    if (RVR.IsRVRVariationMoreOrLess == true)
-                    {
-                        variation = $"Variating up to: {RVR.RVRVariationMoreOrLessDecoded} than {RVR.RVRVariationValue} Meter";
-                        continue;
-                    }
-
-                    variation = "Variating up to: " + RVR.RVRVariationValue + " Meter";
+                    continue;
                 }
 
-                var tendency = $" {RVR.RVRTendencyDecoded}";
-                
-                stringBuilder.AppendLine($"{visibility} {variation} {tendency}");
+                string? variation = null;
+                if (RVR.IsRVRVariationMoreOrLess == true)
+                {
+                    variation = $"Variating up to: {RVR.RVRVariationMoreOrLessDecoded} than {RVR.RVRVariationValue} Meter";
+                    continue;
+                }
+
+                variation = "Variating up to: " + RVR.RVRVariationValue + " Meter";
+                stringBuilder.AppendLine($"{visibility}{variation}{tendency}");
             }
 
             return stringBuilder.ToString();

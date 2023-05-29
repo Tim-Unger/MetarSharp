@@ -1,7 +1,7 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Extensions;
 
-namespace MetarSharp.Methods.Records.HighestValue
+namespace MetarSharp.Records.HighestValue
 {
     internal class HighestPressure
     {
@@ -23,6 +23,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             ValueReturnType.FullMetar => GetQNH(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => isQNH? GetValueQNH(metars) : GetValueINHG(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType))
         };
 
         internal static dynamic GetINHGReturn(List<Metar> metars, ValueReturnType returnType, bool isQNH) => returnType switch
@@ -30,6 +31,7 @@ namespace MetarSharp.Methods.Records.HighestValue
             ValueReturnType.FullMetar => GetQNH(metars),
             ValueReturnType.JustValueClass => GetClass(metars),
             ValueReturnType.OnlyValue => isQNH ? GetValueQNH(metars) : GetValueINHG(metars),
+            _ => throw new ArgumentOutOfRangeException(nameof(returnType)),
         };
 
         private static Pressure GetClass(List<Metar> metars)

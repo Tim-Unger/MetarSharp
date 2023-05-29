@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {
-    public class ParseRVR
+    internal class ParseRVR
     {
-        public static List<RunwayVisibility> ReturnRVR(string raw)
+        internal static List<RunwayVisibility> ReturnRVR(string raw)
         {
             var runwayVisibilities = new List<RunwayVisibility>();
 
@@ -70,7 +70,7 @@ namespace MetarSharp.Parse
                       )
                 };
 
-                runwayVisibility.IsRVRVarying = groups[6].Success ? true : null;
+                runwayVisibility.IsRVRVarying = groups[6].Value != "";
                 runwayVisibility.IsRVRVariationMoreOrLess = groups[7].Success ? true : null;
 
                 runwayVisibility.RVRVariationMoreOrLessDecoded = groups[7].Value switch

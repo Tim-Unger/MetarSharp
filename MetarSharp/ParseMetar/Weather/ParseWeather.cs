@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {
-    public class ParseWeather
+    internal class ParseWeather
     {
-        public static Weather ReturnWeather(string raw)
+        internal static Weather ReturnWeather(string raw)
         {
             Weather weather = new ();
 
@@ -81,7 +81,7 @@ namespace MetarSharp.Parse
             return weather;
         }
 
-        public static Weather GetWeatherFromTrend(string raw)
+        internal static Weather GetWeatherFromTrend(string raw)
         {
             var weather = new Weather();
             var weatherRegex = new Regex(@"(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s");

@@ -2,7 +2,7 @@
 using System.Xml;
 #pragma warning disable CS8602 //Dereference of a possible null reference
 
-namespace MetarSharp.Methods.Download
+namespace MetarSharp.Downloader
 {
     internal class AviationWeather
     {

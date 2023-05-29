@@ -1,6 +1,7 @@
 ﻿using System.Text;
 
-namespace MetarSharp.Parse.ReadableReport { 
+namespace MetarSharp.Parse.ReadableReport 
+{ 
     internal class TrendBase
     {
         internal static string Append(MetarSharp.Trend trend)
@@ -11,7 +12,6 @@ namespace MetarSharp.Parse.ReadableReport {
 
             if(trend.IsTimeRestricted)
             {
-                //TODO null check
                 stringBuilder.Append(trend.TimeRestrictionType.ToString()).Append(' ');
                 stringBuilder.Append(trend.TimeRestrictionDateTime!.Value.ToString("HH:mm")).Append("UTC ");
             }

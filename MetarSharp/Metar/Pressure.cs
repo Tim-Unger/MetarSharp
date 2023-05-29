@@ -2,8 +2,8 @@
 {
     public enum PressureType
     {
-        InchesMercury,
-        Hectopascal
+        Hectopascal,
+        InchesMercury
     }
 
     public class Pressure

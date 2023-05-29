@@ -17,7 +17,7 @@ using MetarSharp;
  
  
 ```cs
-Metar Metar = ParseMetar.FromString("EDDF 182320Z AUTO 26006KT 200V290 CAVOK 09/06 Q1016 NOSIG");
+Metar metar = ParseMetar.FromString("EDDF 182320Z AUTO 26006KT 200V290 CAVOK 09/06 Q1016 NOSIG");
 ```
 
 or
