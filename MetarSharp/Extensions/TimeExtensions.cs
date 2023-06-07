@@ -1,11 +1,10 @@
-using MetarSharp.Exceptions;
+﻿using MetarSharp.Exceptions;
 
 namespace MetarSharp.Extensions
 {
-    internal class Helpers
-    {
-        #region TIME
+    internal class TimeExtensions
 
+    {
         /// <summary>
         /// returns the correct value of the elapsed time, depending on how many time is elapsed
         /// </summary>
@@ -53,7 +52,7 @@ namespace MetarSharp.Extensions
             }
 
             return TimeValueSingularOrPlural(value, timeUnit);
-            
+
         }
 
         /// <summary>
@@ -72,7 +71,6 @@ namespace MetarSharp.Extensions
             TimeUnit.Weeks => value > 1 ? "weeks" : "week",
             _ => throw new ArgumentOutOfRangeException()
         };
-
 
         /// <summary>
         /// returns the correct value of the elapsed time, depending on how much time is elapsed
@@ -98,82 +96,5 @@ namespace MetarSharp.Extensions
 
             return elapsedTime.Days;
         }
-        #endregion
-
-        #region DISTANCE
-
-        /// <summary>
-        /// returns distance in either singular or plural depending on the value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="visibilityUnit"></param>
-        /// <returns>the distance as a string either singular or plural</returns>
-        /// <exception cref="ParseException"></exception>
-        internal static string DistanceValueSingularOrPlural(double value, VisibilityUnit visibilityUnit) => visibilityUnit switch
-        {
-            VisibilityUnit.Meters => value > 1 ? "Meters" : "Meter",
-            VisibilityUnit.Kilometers => value > 1 ? "Kilometer" : "Kilometers",
-            VisibilityUnit.Miles => value > 1 ? "Miles" : "Mile",
-            _ => throw new ParseException()
-        };
-        #endregion
-
-        #region TRYPARSE
-        /// <summary>
-        /// Parses string to an int and throws if the parse fails
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>the parsed int otherwise throws</returns>
-        /// <exception cref="ParseException"></exception>
-        internal static int IntTryParseWithThrow(string value)
-        {
-            return int.TryParse(value, out var converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
-        }
-
-        /// <summary>
-        /// Parses string to a double and throws if the parse fails
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns>the parsed double, otherwise throws</returns>
-        /// <exception cref="ParseException"></exception>
-        internal static double DoubleTryParseWithThrow(string value)
-        {
-            return double.TryParse(value, out var converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
-        }
-        #endregion
-
-        #region NULLCHECKS
-        /// <summary>
-        /// This checks if the the input string is null or empty
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns>whether the string is null/empty/only whitespace</returns>
-        internal static bool IsStringNullOrEmpty(string input) => input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
-
-        /// <summary>
-        /// This checks whether an entire collection is null or empty
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <returns>whether the entire collection null or empty</returns>
-        internal static bool IsEntireCollectionNullOrEmpty<T>(T input)
-        {
-            return input == null || input as IEnumerable<T> == Enumerable.Empty<T>();
-        }
-
-        /// <summary>
-        /// This will remove all entries from a collection which are null or empty
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <returns>the given collection without any empty entries</returns>
-        internal static IEnumerable<string> RemoveEmptyEntriesFromCollection<T>(T input)
-        {
-            var convertedInput = input as IEnumerable<string> ?? throw new ParseException();
-            var cleanedInput = convertedInput.Where(x => IsStringNullOrEmpty(x) == false);
-
-            return cleanedInput;
-        }
-        #endregion
     }
 }

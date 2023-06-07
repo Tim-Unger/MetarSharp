@@ -1,5 +1,5 @@
 using MetarSharp.Exceptions;
-using static MetarSharp.Extensions.Helpers;
+using static MetarSharp.Extensions.TimeExtensions;
 
 namespace MetarSharp.Extensions
 {

@@ -15,7 +15,7 @@ namespace MetarSharpDebugger
 
             //You can enter your metars here
             var lines = File.ReadAllLines("../Metars.txt").ToList();
-            var metars = ParseMetar.FromList(lines);
+            var metars = ParseMetar.FromListParallel(lines);
 
             var metar = DownloadMetar.FromVatsimSingle("EDDF").Parse();
 
@@ -32,9 +32,9 @@ namespace MetarSharpDebugger
             File.WriteAllText("../ReadableReports.txt", stringBuilder.ToString());
 
             ///Just for diagnostics/to check execution time
-            timer.Stop();
-            var executeTime = timer.ElapsedMilliseconds;
-            var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
+            //timer.Stop();
+            //var executeTime = timer.ElapsedMilliseconds;
+            //var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
         }
     }
 }

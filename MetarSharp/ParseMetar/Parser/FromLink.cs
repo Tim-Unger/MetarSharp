@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace MetarSharp.Parser
+﻿namespace MetarSharp.Parser
 {
     internal class FromLink
     {

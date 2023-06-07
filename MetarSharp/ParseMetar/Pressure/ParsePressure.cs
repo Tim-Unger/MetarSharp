@@ -55,7 +55,6 @@ namespace MetarSharp.Parse
              ? pressureVal
              : 0;
 
-
             //Divides the pressure by 100 to get the correct inHG value
             //(the regex will return 2992 without a separator, so the division is necessary)
             //so 2992 will become 29.92 and be correct
@@ -66,7 +65,7 @@ namespace MetarSharp.Parse
            
             pressure.PressureOnly = pressureValue;
             pressure.PressureAsAltimeter = Convert.ToDouble(
-                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : (double)ConvertFromInchesMercury.ToHectopascals(pressureValue))
+                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : (double)ConvertFromHectopascals.ToInchesMercury(pressureValue))
             );
             pressure.PressureAsQnh = Convert.ToInt32(
                 Math.Round(pressureTypeRaw == PressureDefinitions.HectopascalsShort ? pressureValue : (double)ConvertFromInchesMercury.ToHectopascals(pressureValue))

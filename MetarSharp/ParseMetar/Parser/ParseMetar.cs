@@ -1,5 +1,5 @@
 ﻿using MetarSharp.Exceptions;
-using static MetarSharp.Extensions.Helpers;
+using static MetarSharp.Extensions.NullCheckExtensions;
 
 namespace MetarSharp
 {
@@ -56,6 +56,24 @@ namespace MetarSharp
         }
 
         /// <summary>
+        /// this parses the metar from a list parallel
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseException"></exception>
+        public static List<Metar> FromListParallel(List<string> input)
+        {
+            if (IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new ParseException();
+            }
+
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
+
+            return Parser.FromList.ParseParallel(cleanedInput.ToList());
+        }
+
+        /// <summary>
         /// this parses the metar from an array
         /// </summary>
         /// <param name="input"></param>
@@ -74,6 +92,24 @@ namespace MetarSharp
         }
 
         /// <summary>
+        /// this parses the metar from an array parallel
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="ParseException"></exception>
+        public static Metar[] FromArrayParallel(string[] input)
+        {
+            if(IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new ParseException();
+            }
+
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
+
+            return Parser.FromArray.ParseParallel(cleanedInput.ToArray());
+        }
+
+        /// <summary>
         /// this parses the metar from any enumerable
         /// </summary>
         /// <param name="input"></param>
@@ -89,6 +125,23 @@ namespace MetarSharp
             var cleanedInput = RemoveEmptyEntriesFromCollection(input);
 
             return Parser.FromCollection.Parse(cleanedInput);
+        }
+
+        /// <summary>
+        /// This parses the metar from any IEnumerable Parallel
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static IEnumerable<Metar> FromCollectionParallel(IEnumerable<string> input)
+        {
+            if (IsEntireCollectionNullOrEmpty(input))
+            {
+                throw new ParseException();
+            }
+
+            var cleanedInput = RemoveEmptyEntriesFromCollection(input);
+
+            return Parser.FromCollection.ParseParallel(cleanedInput);
         }
 
         public static string ToString(Metar metar)

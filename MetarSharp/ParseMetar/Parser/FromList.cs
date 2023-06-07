@@ -7,21 +7,22 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static List<Metar> Parse (List<string> input)
+        internal static List<Metar> Parse(List<string> input) => input.Select(x => ParseDirectlyOrDownload(x)).ToList();
+
+        /// <summary>
+        /// This parses the input from a list parallel
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        internal static List<Metar> ParseParallel(List<string> input)
         {
-            var metars = new List<Metar>();
+            var metars = new List<Metar>(input.Count());
 
-            foreach (var listMetar in input)
-            {
-                if (listMetar.StartsWith("http"))
-                {
-                    metars.Add(FromLink.Parse(listMetar));
-                    continue;
-                }
+            Parallel.ForEach(input, x => metars.Add(ParseDirectlyOrDownload(x)));
 
-                metars.Add(FromString.Parse(listMetar));
-            }
             return metars;
         }
+
+        private static Metar ParseDirectlyOrDownload(string input) => input.StartsWith("http") ? FromLink.Parse(input) : FromString.Parse(input);
     }
 }

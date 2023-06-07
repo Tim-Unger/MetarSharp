@@ -1,6 +1,6 @@
 ﻿using MetarSharp.Exceptions;
 using MetarSharp.Parse;
-using static MetarSharp.Extensions.Helpers;
+using static MetarSharp.Extensions.NullCheckExtensions;
 using MetarSharp.Parse.ReadableReport;
 
 namespace MetarSharp.Parser
