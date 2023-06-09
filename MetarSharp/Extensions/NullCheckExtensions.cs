@@ -2,14 +2,14 @@
 
 namespace MetarSharp.Extensions
 {
-    internal class NullCheckExtensions
+    public class NullCheckExtensions
     {
         /// <summary>
         /// This checks if the the input string is null or empty
         /// </summary>
         /// <param name="input"></param>
         /// <returns>whether the string is null/empty/only whitespace</returns>
-        internal static bool IsStringNullOrEmpty(string input) => input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
+        public static bool IsStringNullOrEmpty(string input) => input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
 
         /// <summary>
         /// This checks whether an entire collection is null or empty
@@ -17,7 +17,7 @@ namespace MetarSharp.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
         /// <returns>whether the entire collection null or empty</returns>
-        internal static bool IsEntireCollectionNullOrEmpty<T>(T input)
+        public static bool IsEntireCollectionNullOrEmpty<T>(T input)
         {
             return input == null || input as IEnumerable<T> == Enumerable.Empty<T>();
         }
@@ -28,7 +28,7 @@ namespace MetarSharp.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
         /// <returns>the given collection without any empty entries</returns>
-        internal static IEnumerable<string> RemoveEmptyEntriesFromCollection<T>(T input)
+        public static IEnumerable<string> RemoveEmptyEntriesFromCollection<T>(T input)
         {
             var convertedInput = input as IEnumerable<string> ?? throw new ParseException();
             var cleanedInput = convertedInput.Where(x => IsStringNullOrEmpty(x) == false);

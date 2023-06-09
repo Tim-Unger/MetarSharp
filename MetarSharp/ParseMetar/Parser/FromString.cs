@@ -15,11 +15,6 @@ namespace MetarSharp.Parser
         /// <exception cref="ParseException"></exception>
         internal static Metar Parse(string input)
         {
-            if (IsStringNullOrEmpty(input))
-            {
-                throw new ParseException("input is null or an empty line, check input");
-            }
-
             var parsed = new Metar();
 
             parsed.MetarRaw = input;

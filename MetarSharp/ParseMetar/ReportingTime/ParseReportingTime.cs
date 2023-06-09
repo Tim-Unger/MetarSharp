@@ -6,7 +6,7 @@ namespace MetarSharp.Parse
 {
     internal class ParseReportingTime
     {
-        internal static ReportingTime ParseReportingTimeNew(string raw)
+        internal static ReportingTime ReturnReportingTime(string raw)
         {
             ReportingTime reportingTime = new();
 

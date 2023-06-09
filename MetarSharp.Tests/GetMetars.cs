@@ -21,7 +21,7 @@ namespace MetarSharp.Tests
     }
     internal class GetMetars
     {
-        private static readonly HttpClient Client = new();
+        private static readonly HttpClient _client = new();
 
         public static async Task<List<string>> Metars()
         {
@@ -49,7 +49,7 @@ namespace MetarSharp.Tests
             var airportsReadonly = new ReadOnlyCollection<string>(airports);
 
             //This should be thread safe and nicer to the Vatsim API than Parallel.ForEach()
-            await Task.WhenAll(airportsReadonly.Select(async x => { returnMetars.Add(await Client.GetStringAsync($"https://metar.vatsim.net/{x}")); await Task.Delay(500); }));
+            await Task.WhenAll(airportsReadonly.Select(async x => { returnMetars.Add(await _client.GetStringAsync($"https://metar.vatsim.net/{x}")); await Task.Delay(500); }));
             
             return returnMetars;
         }

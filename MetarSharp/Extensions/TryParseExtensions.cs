@@ -2,7 +2,7 @@
 
 namespace MetarSharp.Extensions
 {
-    internal class TryParseExtensions
+    public class TryParseExtensions
     {
         /// <summary>
         /// Parses string to an int and throws if the parse fails
@@ -10,7 +10,7 @@ namespace MetarSharp.Extensions
         /// <param name="value"></param>
         /// <returns>the parsed int otherwise throws</returns>
         /// <exception cref="ParseException"></exception>
-        internal static int IntTryParseWithThrow(string value)
+        public static int IntTryParseWithThrow(string value)
         {
             return int.TryParse(value, out var converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
         }
@@ -21,7 +21,7 @@ namespace MetarSharp.Extensions
         /// <param name="value"></param>
         /// <returns>the parsed double, otherwise throws</returns>
         /// <exception cref="ParseException"></exception>
-        internal static double DoubleTryParseWithThrow(string value)
+        public static double DoubleTryParseWithThrow(string value)
         {
             return double.TryParse(value, out var converted) ? converted : throw new ParseException($"Could not convert value {value} to number");
         }

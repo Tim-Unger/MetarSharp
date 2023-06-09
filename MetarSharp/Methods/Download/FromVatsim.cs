@@ -4,7 +4,7 @@ namespace MetarSharp.Downloader
 {
     internal class Vatsim
     {
-        private static readonly HttpClient Client = new();
+        private static readonly HttpClient _client = new();
 
         internal static async Task<string> Single(string icao)
         {
@@ -18,7 +18,7 @@ namespace MetarSharp.Downloader
                 throw new ParseException("Please use a four letter ICAO, for multiple metars, please use FromVatsimMultiple");
             }
 
-            var metar = await Client.GetStringAsync($"https://metar.vatsim.net/{icao}");
+            var metar = await _client.GetStringAsync($"https://metar.vatsim.net/{icao}");
 
             if (string.IsNullOrEmpty(metar))
             {
@@ -40,7 +40,7 @@ namespace MetarSharp.Downloader
                 throw new ParseException("Maximum ICAO Length can be 4 characters");
             }
 
-            var raw = await Client.GetStringAsync($"https://metar.vatsim.net/{icao}");
+            var raw = await _client.GetStringAsync($"https://metar.vatsim.net/{icao}");
 
             //\n\n is just here in case Vatsim does weird stuff with the metars
             return raw.Split(new string[] { "\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();

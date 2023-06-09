@@ -2,7 +2,7 @@
 
 namespace MetarSharp.Extensions
 {
-    internal class DistanceExtensions
+    public class DistanceExtensions
     {
         /// <summary>
         /// returns distance in either singular or plural depending on the value
@@ -11,7 +11,7 @@ namespace MetarSharp.Extensions
         /// <param name="visibilityUnit"></param>
         /// <returns>the distance as a string either singular or plural</returns>
         /// <exception cref="ParseException"></exception>
-        internal static string DistanceValueSingularOrPlural(double value, VisibilityUnit visibilityUnit) => visibilityUnit switch
+        public static string DistanceValueSingularOrPlural(double value, VisibilityUnit visibilityUnit) => visibilityUnit switch
         {
             VisibilityUnit.Meters => value > 1 ? "Meters" : "Meter",
             VisibilityUnit.Kilometers => value > 1 ? "Kilometer" : "Kilometers",

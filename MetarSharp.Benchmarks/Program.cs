@@ -5,26 +5,26 @@ namespace MetarSharp.Benchmarks;
 
 public class Benchmarks
 {
-    private static readonly List<string> Metars = Enumerable.Repeat(
+    private static readonly List<string> _metars = Enumerable.Repeat(
                 "EDDF 072250Z AUTO 01009KT CAVOK 20/13 Q1016 NOSIG",
                 100).ToList();
 
     //[Benchmark]
     public void ParseMetarsEach()
     {
-        _ = Metars.Select(ParseMetar.FromString).ToList();
+        _ = _metars.Select(ParseMetar.FromString).ToList();
     }
 
     [Benchmark]
     public void ParseMetarsAll()
     {
-        _ = ParseMetar.FromList(Metars);
+        _ = ParseMetar.FromList(_metars);
     }
 
     [Benchmark]
     public void ParseMetarsParallel()
     {
-        _ = ParseMetar.FromListParallel(Metars);
+        _ = ParseMetar.FromListParallel(_metars);
     }
 }
 
