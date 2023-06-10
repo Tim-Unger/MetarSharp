@@ -1,6 +1,3 @@
-using MetarSharp.Definitions;
-using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
 using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse

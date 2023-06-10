@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-using System.Xml;
-#pragma warning disable CS8602 //Dereference of a possible null reference
+﻿using System.Xml;
 
 namespace MetarSharp.Downloader
 {
@@ -16,13 +14,13 @@ namespace MetarSharp.Downloader
             var client = new HttpClient();
 
             var hoursNonNull = hours ?? 1;
-            var raw = await client.GetStringAsync($"https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString={icao}&hoursBeforeNow={hoursNonNull}");
+            var raw = await client.GetStringAsync($"https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString={icao}&hoursBeforeNow={hoursNonNull}")!;
 
             var document = new XmlDocument();
 
             document.LoadXml(raw);
 
-            var resultNumber = document.GetElementsByTagName("data")[0].Attributes["num_results"].Value ?? throw new ParseException();
+            var resultNumber = document.GetElementsByTagName("data")[0].Attributes["num_results"]!.Value ?? throw new ParseException();
             var parseNumber = int.TryParse(resultNumber, out var parse) ? parse : throw new ParseException();
 
             if(parseNumber == 0)

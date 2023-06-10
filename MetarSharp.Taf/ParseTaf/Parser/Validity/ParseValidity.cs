@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿
 using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Taf.Parse
@@ -24,8 +24,32 @@ namespace MetarSharp.Taf.Parse
 
             validity.StartHour = startHour;
 
-            //TODO
-            //validity.StartDateTime 
+            var dayNow = DateTime.UtcNow.Day;
+            var monthNow = DateTime.UtcNow.Month;
+            var yearNow = DateTime.UtcNow.Year;
+
+            var startDateValues = ParseReportingTime.GetDateValues(startDay, dayNow, monthNow, yearNow);
+
+            var startMinute = 0;
+
+            //DateTime does not allow 24 as an hour since it is technically the next day, so we use 23:59 instead
+            if (startHour == 24)
+            {
+                startHour = 23;
+                startMinute = 59;
+            }
+
+            var startDateTime = new DateTime
+                (
+                    startDateValues.Year,
+                    startDateValues.Month,
+                    startDay,
+                    startHour,
+                    startMinute,
+                    00
+                );
+
+            validity.StartDateTime = startDateTime;
 
             var endDay = IntTryParseWithThrow(tafValidityGroups[3].Value);
             var endHour = IntTryParseWithThrow(tafValidityGroups[4].Value);
@@ -36,11 +60,30 @@ namespace MetarSharp.Taf.Parse
 
             validity.EndHour = endHour;
 
-            //TODO
-            //validity.EndDateTime
+            var endDateValues = ParseReportingTime.GetDateValues(endDay, dayNow, monthNow, yearNow);
 
-            //TODO
-            //validity.ValidityDuration
+            var endMinute = 0;
+
+            //DateTime does not allow 24 as an hour since it is technically the next day, so we use 23:59 instead
+            if(endHour == 24)
+            {
+                endHour = 23;
+                endMinute = 59;
+            }
+
+            var endDateTime = new DateTime
+                (
+                    endDateValues.Year,
+                    endDateValues.Month,
+                    endDay,
+                    endHour,
+                    endMinute,
+                    00
+                );
+
+            validity.EndDateTime = endDateTime;
+
+            validity.ValidityDuration = endDateTime - startDateTime;
 
             return validity;
         }

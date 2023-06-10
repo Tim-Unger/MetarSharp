@@ -1,9 +1,13 @@
-using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
 using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse
 {
+    internal class DateValues
+    {
+        public int Month { get; set; }
+        public int Year { get; set; }
+    }
+
     internal class ParseReportingTime
     {
         internal static ReportingTime ReturnReportingTime(string raw)
@@ -57,40 +61,12 @@ namespace MetarSharp.Parse
             var monthNow = DateTime.UtcNow.Month;
             var dayNow = DateTime.UtcNow.Day;
 
-            //This switch is very complicated, I am sorry
-            var dateValues = reportingDate switch
-            {
-                //current day equals reporting day
-                //=> today
-                int when reportingDate == dayNow => new Tuple<int, int>(monthNow, yearNow),
-
-                //current day is larger than reporting day
-                //=> this month
-                int when reportingDate < dayNow => new Tuple<int, int>(monthNow, yearNow),
-
-                //current day is smaller than reporting day
-                //and days in month are greater or equal than reporting day
-                //=> last month
-                int
-                    when reportingDate > dayNow
-                        && DateTime.DaysInMonth(yearNow, RemoveMonths(1)) >= reportingDate
-                  => new Tuple<int, int>(RemoveMonths(1), RemoveMonthsYear(1)),
-
-                //current day is smaller than reporting day
-                //and days in month are smaller than reporting day
-                //=> month before last
-                int
-                    when reportingDate > dayNow
-                        && DateTime.DaysInMonth(yearNow, RemoveMonths(2)) >= reportingDate
-                  => new Tuple<int, int>(RemoveMonths(2), RemoveMonthsYear(1)),
-
-                _ => throw new ParseException("Could not convert Reporting Date")
-            };
+            var dateValues = GetDateValues(reportingDate, dayNow, monthNow, yearNow);
 
             DateTime ReportingDateTime =
                 new(
-                    dateValues.Item2,
-                    dateValues.Item1,
+                    dateValues.Year,
+                    dateValues.Month,
                     reportingDate,
                     reportingHour,
                     reportingMinute,
@@ -122,5 +98,34 @@ namespace MetarSharp.Parse
             months > 0
                 ? DateTime.UtcNow.AddMonths(-months).Year
                 : throw new ParseException("Please use a posotive number");
+
+        private static DateValues GetDateValues(int reportingDate, int dayNow, int monthNow, int yearNow) => reportingDate switch
+        {
+            //current day equals reporting day
+            //=> today
+            int when reportingDate == dayNow => new DateValues { Month = monthNow, Year = yearNow },
+
+            //current day is larger than reporting day
+            //=> this month
+            int when reportingDate < dayNow => new DateValues { Month = monthNow, Year = yearNow },
+
+            //current day is smaller than reporting day
+            //and days in month are greater or equal than reporting day
+            //=> last month
+            int
+                when reportingDate > dayNow
+                    && DateTime.DaysInMonth(yearNow, RemoveMonths(1)) >= reportingDate
+              => new DateValues { Month = RemoveMonths(1), Year = RemoveMonthsYear(1) },
+
+            //current day is smaller than reporting day
+            //and days in month are smaller than reporting day
+            //=> month before last
+            int
+                when reportingDate > dayNow
+                    && DateTime.DaysInMonth(yearNow, RemoveMonths(2)) >= reportingDate
+              => new DateValues { Month = RemoveMonths(2), Year = RemoveMonthsYear(1) },
+
+            _ => throw new ParseException("Could not convert Reporting Date")
+        };
     }
 }

@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace MetarSharp.Parse.ReadableReport
 {
     public class ParseReadableReport

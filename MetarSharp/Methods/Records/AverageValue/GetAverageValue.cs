@@ -1,6 +1,4 @@
-﻿using MetarSharp.Extensions;
-
-namespace MetarSharp.Records.AverageValue
+﻿namespace MetarSharp.Records.AverageValue
 {
     internal class AverageValue
     {

@@ -1,6 +1,4 @@
 using MetarSharp.Parse.Additional;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {

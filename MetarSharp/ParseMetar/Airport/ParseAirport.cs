@@ -1,6 +1,3 @@
-using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
-
 namespace MetarSharp.Parse
 {
     internal class ParseAirport

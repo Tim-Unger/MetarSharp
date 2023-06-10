@@ -1,6 +1,4 @@
-﻿using MetarSharp.Parser;
-
-namespace MetarSharp.Parser
+﻿namespace MetarSharp.Parser
 {
     public class ParseToStringList
     {

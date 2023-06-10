@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Extensions
+﻿namespace MetarSharp.Extensions
 {
     public class NullCheckExtensions
     {

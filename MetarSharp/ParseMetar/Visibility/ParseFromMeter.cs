@@ -1,6 +1,4 @@
-﻿using MetarSharp.Definitions;
-using System.Text.RegularExpressions;
-using static MetarSharp.Parse.ParseVisibility;
+﻿using static MetarSharp.Parse.ParseVisibility;
 
 namespace MetarSharp.Parse
 {

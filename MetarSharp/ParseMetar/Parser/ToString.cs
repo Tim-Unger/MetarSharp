@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace MetarSharp.Parser
+﻿namespace MetarSharp.Parser
 {
     public class ParseToString
     {

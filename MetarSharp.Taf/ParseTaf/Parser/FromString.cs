@@ -13,6 +13,10 @@ namespace MetarSharp.Taf.Parser
             parsed.ReportingTime = ParseReportingTime.ReturnReportingTime(input); 
 
             parsed.Validity = ParseValidity.ReturnValidity(input);
+
+            parsed.TafState = ParseTafState.ReturnTafState(input);
+
+
             return parsed;
         }
     }

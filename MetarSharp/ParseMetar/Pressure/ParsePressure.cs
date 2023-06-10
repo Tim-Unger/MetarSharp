@@ -1,7 +1,4 @@
 using MetarSharp.Converter.Pressure;
-using MetarSharp.Definitions;
-using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
 
 namespace MetarSharp.Parse
 {

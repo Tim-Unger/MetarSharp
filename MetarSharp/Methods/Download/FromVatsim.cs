@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Downloader
+﻿namespace MetarSharp.Downloader
 {
     internal class Vatsim
     {

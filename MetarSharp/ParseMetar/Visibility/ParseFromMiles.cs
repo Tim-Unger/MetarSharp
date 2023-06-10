@@ -1,8 +1,4 @@
-﻿using MetarSharp.Definitions;
-using System.Text.RegularExpressions;
-using MetarSharp.Exceptions;
-
-namespace MetarSharp.Parse
+﻿namespace MetarSharp.Parse
 {
     internal class ParseFromMiles
     {

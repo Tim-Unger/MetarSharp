@@ -1,5 +1,4 @@
-﻿using MetarSharp.Exceptions;
-using static MetarSharp.Extensions.NullCheckExtensions;
+﻿using static MetarSharp.Extensions.NullCheckExtensions;
 
 namespace MetarSharp
 {

@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Converter.Time
+﻿namespace MetarSharp.Converter.Time
 {
     public static class ConvertFromWeeks
     {

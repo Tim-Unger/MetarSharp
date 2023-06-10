@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
-using static MetarSharp.Definitions.CardinalDirectionDefinitions;
+﻿using static MetarSharp.Definitions.CardinalDirectionDefinitions;
 
 namespace MetarSharp.Parse
 {

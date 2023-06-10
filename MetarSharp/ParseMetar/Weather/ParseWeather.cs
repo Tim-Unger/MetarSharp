@@ -1,8 +1,3 @@
-using MetarSharp.Definitions;
-using MetarSharp.Exceptions;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace MetarSharp.Parse
 {
     internal class ParseWeather

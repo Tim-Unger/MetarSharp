@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Records.AverageValue
+﻿namespace MetarSharp.Records.AverageValue
 {
     internal class AverageCeiling
     {

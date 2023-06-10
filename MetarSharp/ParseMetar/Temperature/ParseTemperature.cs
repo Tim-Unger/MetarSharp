@@ -1,5 +1,4 @@
 using MetarSharp.Converter.Temperature;
-using System.Text.RegularExpressions;
 using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse

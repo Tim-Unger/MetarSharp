@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 namespace MetarSharp.Parse
 {
     public class ParseAuto

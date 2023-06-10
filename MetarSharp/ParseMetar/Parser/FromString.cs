@@ -1,6 +1,5 @@
-﻿using MetarSharp.Exceptions;
-using MetarSharp.Parse;
-using static MetarSharp.Extensions.NullCheckExtensions;
+﻿using MetarSharp.Parse;
+//ReadableReport has its own Namespace to prevent any clashing of Variable Names within ReadableReport
 using MetarSharp.Parse.ReadableReport;
 
 namespace MetarSharp.Parser
@@ -21,7 +20,7 @@ namespace MetarSharp.Parser
 
             parsed.Airport = ParseAirport.ReturnAirport(input);
 
-            parsed.ReportingTime = ParseReportingTime.ParseReportingTimeNew(input);
+            parsed.ReportingTime = ParseReportingTime.ReturnReportingTime(input);
 
             parsed.Wind = ParseWind.ReturnWind(input);
 

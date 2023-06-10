@@ -1,7 +1,4 @@
-﻿using MetarSharp.Exceptions;
-using MetarSharp.Extensions;
-
-namespace MetarSharp.Records.LowestValue
+﻿namespace MetarSharp.Records.LowestValue
 {
     internal class LowestWindSpeed
     {
