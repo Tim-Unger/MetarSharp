@@ -17,13 +17,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ParseMetar\ParseToString\**" />
+    <EmbeddedResource Remove="ParseMetar\ParseToString\**" />
+    <None Remove="ParseMetar\ParseToString\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="D:\Downloads\License.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ParseMetar\ParseToString\" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ public class Benchmarks
 {
     private static readonly List<string> _metars = Enumerable.Repeat(
                 "EDDF 072250Z AUTO 01009KT CAVOK 20/13 Q1016 NOSIG",
-                100).ToList();
+                2500).ToList();
 
     //[Benchmark]
     public void ParseMetarsEach()

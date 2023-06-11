@@ -19,7 +19,7 @@ namespace MetarSharp.Taf
 
     public class TafReport
     {
-        
+        //(PROB([0-9]{1,3}))|(FM([0-9]{2}[0-9]{4})|BCMG|TEMPO)(.*)(?=)(PROB([0-9]{1,3}))|(FM([0-9]{2}[0-9]{4})|BCMG|TEMPO)
         public TafTimeSpan TafTimeSpan { get; set; }
 
         public int? TafProbability { get; set; }

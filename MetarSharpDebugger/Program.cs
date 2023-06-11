@@ -19,7 +19,7 @@ namespace MetarSharpDebugger
             var lines = File.ReadAllLines("../Metars.txt").ToList();
             var metars = ParseMetar.FromListParallel(lines);
 
-            var metar = DownloadMetar.FromVatsimSingle("EDDF").Parse();
+            var metar = DownloadMetar.FromVatsimSingle("EDDF").ParseMetar();
 
             var stringBuilder = new StringBuilder();
 
@@ -33,8 +33,11 @@ namespace MetarSharpDebugger
             File.WriteAllText("../ReadableReports.txt", "");
             File.WriteAllText("../ReadableReports.txt", stringBuilder.ToString());
 
+            var valid = lines!.RemoveInvalidMetars();
 
-            var taf = ParseTaf.FromString("KXYZ 051730Z 0518/0624 31008KT 3SM - SHRA BKN020 FM052300 30006KT 5SM - SHRA OVC030 PROB30 0604/0606 VRB20G35KT 1SM TSRA BKN015CB FM060600 25010KT 4SM - SHRA OVC050 TEMPO 0608/0611 2SM - SHRA OVC030 RMK NXT FCST BY 00Z = ");
+            Metar.TryParse
+            //var taf = ParseTaf.FromString("KXYZ 051730Z 0518/0624 31008KT 3SM - SHRA BKN020 FM052300 30006KT 5SM - SHRA OVC030 PROB30 0604/0606 VRB20G35KT 1SM TSRA BKN015CB FM060600 25010KT 4SM - SHRA OVC050 TEMPO 0608/0611 2SM - SHRA OVC030 RMK NXT FCST BY 00Z = ");
+
             ///Just for diagnostics/to check execution time
             //timer.Stop();
             //var executeTime = timer.ElapsedMilliseconds;

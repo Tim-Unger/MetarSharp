@@ -42,7 +42,7 @@ namespace MetarSharp
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        public static List<Metar> FromList(List<string> input)
+        public static List<Metar> FromList(IEnumerable<string> input)
         {
             if(IsEntireCollectionNullOrEmpty(input))
             {
@@ -60,7 +60,7 @@ namespace MetarSharp
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        public static List<Metar> FromListParallel(List<string> input)
+        public static List<Metar> FromListParallel(IEnumerable<string> input)
         {
             if (IsEntireCollectionNullOrEmpty(input))
             {
