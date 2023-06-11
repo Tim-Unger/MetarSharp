@@ -42,6 +42,7 @@
                         $"Could not convert Visibility {groups[8].Value} to Number"
                     );
             }
+
             var reportedVisibilityConverted = hasVisibilitySlash ? convertedValue : reportedVisibility;
             visibility.ReportedVisibility = Math.Round(reportedVisibilityConverted,2);
 

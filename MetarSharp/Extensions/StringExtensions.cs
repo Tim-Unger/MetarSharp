@@ -18,6 +18,6 @@
             }
         }
 
-        public static bool IsValidMetar(this string raw) => Metar.IsValid(raw);
+        public static bool IsValidMetar(this string raw) => MetarValidity.IsValid(raw);
     }
 }

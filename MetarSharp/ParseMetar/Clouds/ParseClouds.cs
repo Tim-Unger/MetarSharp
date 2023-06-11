@@ -4,6 +4,8 @@ namespace MetarSharp.Parse
 {
     internal class ParseClouds
     {
+        private static readonly Regex _cloudRegex = new(@"((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))");
+
         /// <summary>
         /// this returns a list of all clouds in the metar.
         /// if the report is CAVOK or if no clouds are reported, it will return an empty enumerable
@@ -15,12 +17,7 @@ namespace MetarSharp.Parse
         {
             var clouds = new List<Cloud>();
 
-            var cloudRegex = new Regex(
-                @"((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))",
-                RegexOptions.None
-            );
-
-            foreach (Match cloudMatch in cloudRegex.Matches(raw).Cast<Match>())
+            foreach (Match cloudMatch in _cloudRegex.Matches(raw).Cast<Match>())
             {
                 var cloud = new Cloud();
 
@@ -48,11 +45,7 @@ namespace MetarSharp.Parse
                 //Vertical Visibility not measurable
                 if (isVerticalVisibiltiy == true)
                 {
-                    (string, bool, int?) verticalVisTuple = GetVerticalVisibility(groups);
-
-                    cloud.VerticalVisibilityRaw = verticalVisTuple.Item1;
-                    cloud.IsVerticalVisibilityMeasurable = verticalVisTuple.Item2;
-                    cloud.VerticalVisibility = verticalVisTuple.Item3;
+                    (cloud.VerticalVisibilityRaw, cloud.IsVerticalVisibilityMeasurable, cloud.VerticalVisibility) = VerticalVisibility.Get(groups);
 
                     clouds.Add(cloud);
                     continue;
@@ -65,7 +58,7 @@ namespace MetarSharp.Parse
                     cloud.IsCloudMeasurable = true;
                     cloud.CloudCoverageTypeRaw = groups[4].Value;
 
-                    (cloud.CloudCoverageType, cloud.CloudCoverageTypeDecoded) = GetCloudType(
+                    (cloud.CloudCoverageType, cloud.CloudCoverageTypeDecoded) = CloudType.Get(
                         groups[4].Value
                     );
 
@@ -77,9 +70,10 @@ namespace MetarSharp.Parse
                     }
 
                     var hasCumulonimbusClouds = groups[6].Success;
+
                     if(hasCumulonimbusClouds)
                     {
-                        (bool, string, string) cbTuple = GetCBClouds(groups);
+                        (bool, string, string) cbTuple = CBClouds.Get(groups);
 
                         cloud.IsCBTypeMeasurable = cbTuple.Item1;
                         cloud.CBCloudTypeRaw = cbTuple.Item2;
@@ -100,55 +94,6 @@ namespace MetarSharp.Parse
             Cloud emptyCloud = new() { IsCAVOK = true, CloudCeiling = 9999, IsCeilingMeasurable = true, IsCloudMeasurable = true };
             clouds.Add(emptyCloud);
             return clouds;
-        }
-
-        private static (CloudType, string) GetCloudType(string input) =>
-            input.ToUpper() switch
-            {
-                "FEW" => (CloudType.Few, CloudDefintions.FewCloudsLong),
-                "SCT" => (CloudType.Scattered, CloudDefintions.ScatteredCloudsLong),
-                "BKN" => (CloudType.Broken, CloudDefintions.BrokenCloudsLong),
-                "OVC" => (CloudType.Overcast, CloudDefintions.OvercastCloudsLong),
-                "NSC" => (CloudType.NoSignificantClouds, CloudDefintions.NoSignificantCloudsLong),
-                "NCD" => (CloudType.NoCloudsDetected, CloudDefintions.NoCloudsDetectedLong),
-                _ => throw new ParseException("Can't read cloud type")
-            };
-
-        private static (string, bool, int?) GetVerticalVisibility(GroupCollection groups)
-        {
-            var verticalVisibilityRaw = groups[4].Value + groups[5].Value;
-
-            var isVerticalVisibilityMeasurable = groups[5].Value != "///";
-
-            int? verticalVisibility = null;
-            if (isVerticalVisibilityMeasurable)
-            {
-                verticalVisibility = IntTryParseWithThrow(groups[5].Value) * 100;
-            }
-
-            return (verticalVisibilityRaw, isVerticalVisibilityMeasurable, verticalVisibility);
-        }
-
-        private static (bool, string, string) GetCBClouds(GroupCollection groups)
-        {
-            var isCbTypeMesaurable = groups[6].Value != "///";
-
-            var CBCloudTypeRaw = "";
-            var CBCloudTypeDecoded = "";
-
-            if (isCbTypeMesaurable)
-            {
-                CBCloudTypeRaw = groups[6].Value;
-
-                CBCloudTypeDecoded = groups[6].Value switch
-                {
-                    "CB" => CloudDefintions.CumulonimbusLong,
-                    "TC" or "TCU" => CloudDefintions.ToweringCumulonimbusLong,
-                    _ => throw new ParseException("Could not read Cumulonimbus Cloud Type")
-                };
-            }
-
-            return (isCbTypeMesaurable, CBCloudTypeRaw, CBCloudTypeDecoded);
         }
     }
 }

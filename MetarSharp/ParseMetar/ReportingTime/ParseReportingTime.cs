@@ -10,15 +10,16 @@ namespace MetarSharp.Parse
 
     internal class ParseReportingTime
     {
+        private static readonly Regex _reportingTimeRegex = new("([0-9]{2})([0-9]{2})([0-9]{2})Z");
         internal static ReportingTime ReturnReportingTime(string raw)
         {
             ReportingTime reportingTime = new();
 
-            Regex reportingTimeRegex = new("([0-9]{2})([0-9]{2})([0-9]{2})Z", RegexOptions.None);
-
-            MatchCollection reportingTimeMatches = reportingTimeRegex.Matches(raw);
+            MatchCollection reportingTimeMatches = _reportingTimeRegex.Matches(raw);
 
             GroupCollection? missingGroups = null;
+
+            //In very rare cases the reporting time of the is missing the last letter, so we need to check if the reporting time is valid even if a letter is missing
             var isNormalParseFailed = false;
             if (reportingTimeMatches.Count == 0)
             {
@@ -61,7 +62,7 @@ namespace MetarSharp.Parse
             var monthNow = DateTime.UtcNow.Month;
             var dayNow = DateTime.UtcNow.Day;
 
-            var dateValues = GetDateValues(reportingDate, dayNow, monthNow, yearNow);
+            var dateValues = GetDateValues.Get(reportingDate, dayNow, monthNow, yearNow);
 
             DateTime ReportingDateTime =
                 new(
@@ -76,56 +77,5 @@ namespace MetarSharp.Parse
             reportingTime.ReportingTimeZulu = ReportingDateTime;
             return reportingTime;
         }
-
-        /// <summary>
-        /// This removes the given number of months from the current UTC-DateTime and returns the Month of the DateTime
-        /// Will throw if you use a negative number
-        /// </summary>
-        /// <param name="months"></param>
-        /// <returns></returns>
-        private static int RemoveMonths(int months) =>
-            months > 0
-                ? DateTime.UtcNow.AddMonths(-months).Month
-                : throw new ParseException("Please use a posotive number");
-
-        /// <summary>
-        /// This removes the given number of months from the current UTC-DateTime and returns the year of the DateTime
-        /// Will throw if you use a negative number
-        /// </summary>
-        /// <param name="months"></param>
-        /// <returns></returns>
-        private static int RemoveMonthsYear(int months) =>
-            months > 0
-                ? DateTime.UtcNow.AddMonths(-months).Year
-                : throw new ParseException("Please use a posotive number");
-
-        private static DateValues GetDateValues(int reportingDate, int dayNow, int monthNow, int yearNow) => reportingDate switch
-        {
-            //current day equals reporting day
-            //=> today
-            int when reportingDate == dayNow => new DateValues { Month = monthNow, Year = yearNow },
-
-            //current day is larger than reporting day
-            //=> this month
-            int when reportingDate < dayNow => new DateValues { Month = monthNow, Year = yearNow },
-
-            //current day is smaller than reporting day
-            //and days in month are greater or equal than reporting day
-            //=> last month
-            int
-                when reportingDate > dayNow
-                    && DateTime.DaysInMonth(yearNow, RemoveMonths(1)) >= reportingDate
-              => new DateValues { Month = RemoveMonths(1), Year = RemoveMonthsYear(1) },
-
-            //current day is smaller than reporting day
-            //and days in month are smaller than reporting day
-            //=> month before last
-            int
-                when reportingDate > dayNow
-                    && DateTime.DaysInMonth(yearNow, RemoveMonths(2)) >= reportingDate
-              => new DateValues { Month = RemoveMonths(2), Year = RemoveMonthsYear(1) },
-
-            _ => throw new ParseException("Could not convert Reporting Date")
-        };
     }
 }

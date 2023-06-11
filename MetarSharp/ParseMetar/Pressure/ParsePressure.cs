@@ -4,6 +4,8 @@ namespace MetarSharp.Parse
 {
     internal class ParsePressure
     {
+        private static readonly Regex _pressureRegex = new(@"(Q|A)([0-9]{4}|////)");
+
         /// <summary>
         /// this returns the pressure part of the metar
         /// the pressure element always has to be present in the metar, even if not measurable
@@ -15,9 +17,7 @@ namespace MetarSharp.Parse
         {
             var pressure = new Pressure();
 
-            var pressureRegex = new Regex(@"(Q|A)([0-9]{4}|////)", RegexOptions.None);
-
-            MatchCollection pressureMatches = pressureRegex.Matches(raw);
+            MatchCollection pressureMatches = _pressureRegex.Matches(raw);
 
             if (pressureMatches.Count == 0)
             {

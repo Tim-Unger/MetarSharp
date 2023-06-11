@@ -6,7 +6,7 @@ namespace MetarSharp.Parse
     {
         internal static Visibility ParseVisibility(GroupCollection groups)
         {
-            Visibility visibility = new();
+            var visibility = new Visibility();
 
             #region STANDARD
 

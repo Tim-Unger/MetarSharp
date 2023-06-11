@@ -2,6 +2,8 @@ namespace MetarSharp.Parse
 {
     internal class ParseAirport
     {
+        private static readonly Regex _airporRegex = new(@"^([A-Z]{4})\s");
+
         /// <summary>
         /// This returns the airport part of the metar.
         /// As the airport is always present, this can never be null and always has to be returned
@@ -9,18 +11,6 @@ namespace MetarSharp.Parse
         /// <param name="raw"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        internal static string ReturnAirport(string raw)
-        {
-            var airportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
-
-            var airportMatches = airportRegex.Matches(raw);
-
-            if (airportMatches.Count != 1)
-            {
-                throw new ParseException("Airport could not be found");
-            }
-
-            return airportMatches[0].Groups[1].Value;
-        } 
+        internal static string ReturnAirport(string raw) => _airporRegex.Match(raw).Groups[1].Value ?? throw new ParseException("Airport could not be found");
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MetarSharp
 {
-    public partial class Metar
+    public static class MetarValidity
     {
         private static readonly Regex _validityRegex = new("[A-Z]{4}\\s[0-9]{5,6}Z");
         public static bool IsValid(string raw) => _validityRegex.IsMatch(raw);

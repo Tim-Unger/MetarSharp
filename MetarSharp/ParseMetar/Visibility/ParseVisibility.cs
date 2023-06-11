@@ -1,17 +1,12 @@
-﻿using static MetarSharp.Definitions.CardinalDirectionDefinitions;
-
-namespace MetarSharp.Parse
+﻿namespace MetarSharp.Parse
 {
     internal class ParseVisibility
     {
+        private static readonly Regex _visibilityRegex = new(@"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9](?>[0-9])?))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s");
+
         internal static Visibility ReturnVisibility(string raw)
         {
-            var visibilityRegex = new Regex(
-                @"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9](?>[0-9])?))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s",
-                RegexOptions.None
-            );
-
-            MatchCollection matches = visibilityRegex.Matches(raw);
+            MatchCollection matches = _visibilityRegex.Matches(raw);
 
             if (matches.Count == 0)
             {
@@ -48,19 +43,5 @@ namespace MetarSharp.Parse
             //This also covers the //// case
             return new Visibility { IsVisibilityMeasurable = false };
         }
-
-        internal static (CardinalDirection, string) GetCardinalDirection(string raw) =>
-            raw switch
-            {
-                "N" => (CardinalDirection.North, NorthLong),
-                "NE" => (CardinalDirection.NorthEast, NorthEastLong),
-                "E" => (CardinalDirection.East, EastLong),
-                "SE" => (CardinalDirection.SouthEast, SouthEastLong),
-                "S" => (CardinalDirection.South, SouthLong),
-                "SW" => (CardinalDirection.SouthWest, SouthWestLong),
-                "W" => (CardinalDirection.West, WestLong),
-                "NW" => (CardinalDirection.NorthWest, NorthWestLong),
-                _ => throw new ParseException("Could not convert cardinal direction")
-            };
     }
 }

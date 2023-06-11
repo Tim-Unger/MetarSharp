@@ -6,7 +6,7 @@ namespace MetarSharp.Parse
     {
         internal static Visibility ParseVisibility(GroupCollection groups)
         {
-            Visibility visibility = new();
+            var visibility = new Visibility();
 
             #region STANDARD
             visibility.VisibilityRaw = groups[1].Value.TrimStart();
@@ -33,6 +33,7 @@ namespace MetarSharp.Parse
                 ) = GetCardinalDirection(groups[5].Value);
 
             }
+
             return visibility;
         }
     }

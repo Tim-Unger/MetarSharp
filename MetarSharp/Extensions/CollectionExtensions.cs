@@ -27,16 +27,16 @@
         }
 
         public static bool AreAllMetarsValid(this IEnumerable<string> raw) =>
-            Metar.AreAllValid(raw);
+            MetarValidity.AreAllValid(raw);
 
         public static List<string> ShowInvalidMetars(this IEnumerable<string> raw) =>
-            Metar.ShowInvalid(raw);
+            MetarValidity.ShowInvalid(raw);
 
         public static List<string> RemoveInvalidMetars(this IEnumerable<string> raw) =>
-            Metar.RemoveInvalid(raw);
+            MetarValidity.RemoveInvalid(raw);
 
-        public static List<(bool isValid, string rawMetar)> CheckWithMetars(this IEnumerable<string> raw) => Metar.CheckWithMetars(raw);
+        public static List<(bool isValid, string rawMetar)> CheckWithMetars(this IEnumerable<string> raw) => MetarValidity.CheckWithMetars(raw);
 
-        public static List<bool> AreMetarsValidIndividually(this IEnumerable<string> raw) => Metar.AreValidIndividually(raw);
+        public static List<bool> AreMetarsValidIndividually(this IEnumerable<string> raw) => MetarValidity.AreValidIndividually(raw);
     }
 }

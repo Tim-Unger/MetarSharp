@@ -4,16 +4,14 @@ namespace MetarSharp.Parse
 {
     internal class ParseWind
     {
+
+        private static readonly Regex _windRegex = new(@"(?<!(?>RMK|TEMPO|BECMG).*)((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?");
+
         internal static Wind ReturnWind(string raw)
         {
             var wind = new Wind();
 
-            var windRegex = new Regex(
-                @"(?<!(?>RMK|TEMPO|BECMG).*)((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?",
-                RegexOptions.None
-            );
-
-            MatchCollection windMatches = windRegex.Matches(raw);
+            MatchCollection windMatches = _windRegex.Matches(raw);
 
             if (windMatches.Count == 0)
             {
