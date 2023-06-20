@@ -1,7 +1,7 @@
 ![Logo](https://i.imgur.com/YCTLglq.png)
-![](https://shields.io/nuget/v/MetarSharp)
-![](https://img.shields.io/github/v/release/Tim-Unger/MetarSharp)
-![](https://shields.io/github/license/Tim-Unger/MetarSharp)
+<a href ="https://www.nuget.org/packages/MetarSharp/"> <img src="https://shields.io/nuget/v/MetarSharp"/></a>
+<a href="https://github.com/Tim-Unger/MetarSharp/releases/latest"> <img src="https://img.shields.io/github/v/release/Tim-Unger/MetarSharp"/> </a>
+<a href="https://github.com/Tim-Unger/MetarSharp/blob/main/LICENSE.md"> <img src="https://shields.io/github/license/Tim-Unger/MetarSharp"/> </a>
 
 # Usage
 
