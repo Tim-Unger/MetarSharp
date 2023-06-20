@@ -9,7 +9,7 @@ namespace MetarSharp.Extensions
         {
             var elapsedTime = DateTime.UtcNow - metar.ReportingTime.ReportingTimeZulu;
 
-            if (timeUnit != null)
+            if (timeUnit is not null)
             {
                 var value = ReturnSetUnit(elapsedTime, timeUnit.Value);
                 var roundValue = Math.Round(value, 0);

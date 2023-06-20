@@ -3,6 +3,7 @@
     public static class MetarValidity
     {
         private static readonly Regex _validityRegex = new("[A-Z]{4}\\s[0-9]{5,6}Z");
+
         public static bool IsValid(string raw) => _validityRegex.IsMatch(raw);
 
         public static bool AreAllValid(IEnumerable<string> raw) => raw.All(x => IsValid(x));
@@ -32,17 +33,20 @@
             .Select(x => x.rawMetar)
             .ToList();
 
-        public static bool TryParse(this string raw, out Metar metar)
+        /// <summary>
+        /// Tries to parse a string to a Metar otherwise throws
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
+        public static Metar TryParseMetar(string raw)
         {
             try
             {
-                metar = ParseMetar.FromString(raw);
-                return true;
+                return ParseMetar.FromString(raw);
             }
-            catch
+            catch (ParseException ex)
             {
-                metar = new Metar();
-                return false;
+                throw ex;
             }
         }
     }

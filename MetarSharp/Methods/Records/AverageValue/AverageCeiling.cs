@@ -17,7 +17,7 @@
             var sum = 0;
             var count = 0;
 
-            clouds.RemoveAll(x => x.CloudCeiling == null);
+            clouds.RemoveAll(x => x.CloudCeiling is null);
 
             clouds.ForEach(
                 x =>
@@ -35,7 +35,7 @@
             var sum = 0;
             var count = 0;
 
-            clouds.RemoveAll(x => x.VerticalVisibility == null);
+            clouds.RemoveAll(x => x.VerticalVisibility is null);
 
             clouds.ForEach(
                 x =>

@@ -62,7 +62,7 @@ namespace MetarSharp.Parse
            
             pressure.PressureOnly = pressureValue;
             pressure.PressureAsAltimeter = Convert.ToDouble(
-                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : (double)ConvertFromHectopascals.ToInchesMercury(pressureValue))
+                Math.Round(pressureTypeRaw == PressureDefinitions.InchesMercuryShort ? pressureValue : (double)ConvertFromHectopascals.ToInchesMercury(pressureValue), 2)
             );
             pressure.PressureAsQnh = Convert.ToInt32(
                 Math.Round(pressureTypeRaw == PressureDefinitions.HectopascalsShort ? pressureValue : (double)ConvertFromInchesMercury.ToHectopascals(pressureValue))

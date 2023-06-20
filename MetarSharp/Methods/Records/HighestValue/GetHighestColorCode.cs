@@ -33,7 +33,7 @@
         private static Metar SortColorCodes(List<Metar> metars)
         {
             return metars
-                .Where(x => x.AdditionalInformation.ColorCode != null)
+                .Where(x => x.AdditionalInformation.ColorCode is not null)
                 .ToList()
                 .OrderByDescending(x => x.AdditionalInformation.ColorCode.Color)
                 .First();

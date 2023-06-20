@@ -8,14 +8,14 @@ namespace MetarSharp.Extensions
         {
             var elapsedTime = DateTime.UtcNow - metar.ReportingTime.ReportingTimeZulu;
 
-            if (timeUnit != null)
+            if (timeUnit is not null)
             {
                 var value = GetCorrectTimeValue(elapsedTime);
                 return
                     $"Reported {ReturnSetUnit(elapsedTime, timeUnit.Value)} {ReturnUnitString(timeUnit.Value, UnitType.Long, value)} ago";
             }
 
-            if (unitReturnType != null)
+            if (unitReturnType is not null)
             {
                 return unitReturnType switch
                 {

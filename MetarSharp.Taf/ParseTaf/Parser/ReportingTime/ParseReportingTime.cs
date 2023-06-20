@@ -12,13 +12,14 @@ namespace MetarSharp.Taf.Parse
 
     internal class ParseReportingTime
     {
+
+        private static readonly Regex _reportingTimeRegex = new("([0-9]{2})([0-9]{2})([0-9]{2})Z");
+        private static readonly Regex _missingLetterRegex = new("([0-9]{2})([0-9]{1})([0-9]{2})Z");
         internal static ReportingTime ReturnReportingTime(string raw)
         {
             var reportingTime = new ReportingTime();
 
-            var reportingTimeRegex = new Regex("([0-9]{2})([0-9]{2})([0-9]{2})Z", RegexOptions.None);
-
-            MatchCollection reportingTimeMatches = reportingTimeRegex.Matches(raw);
+            MatchCollection reportingTimeMatches = _reportingTimeRegex.Matches(raw);
 
             GroupCollection? missingGroups = null;
             var isNormalParseFailed = false;
@@ -26,10 +27,7 @@ namespace MetarSharp.Taf.Parse
             {
                 isNormalParseFailed = true;
 
-                var missingLetterRegex =
-                    new Regex("([0-9]{2})([0-9]{1})([0-9]{2})Z", RegexOptions.None);
-
-                var matches = missingLetterRegex.Matches(raw);
+                var matches = _missingLetterRegex.Matches(raw);
 
                 if (matches.Count == 0)
                 {

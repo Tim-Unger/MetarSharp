@@ -2,22 +2,35 @@
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Parses the Metar from a string
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
         public static Metar ParseMetar(this string raw) => MetarSharp.ParseMetar.FromString(raw);
 
-        public static bool TryParse(this string raw, out Metar metar)
+        /// <summary>
+        /// Tries to parse a string to a Metar otherwise throws
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
+        public static Metar TryParseMetar(this string raw)
         {
             try
             {
-                metar = MetarSharp.ParseMetar.FromString(raw);
-                return true;
+                return MetarSharp.ParseMetar.FromString(raw);
             }
-            catch
+            catch (ParseException ex)
             {
-                metar = new Metar();
-                return false;
+                throw ex;
             }
         }
 
+        /// <summary>
+        /// Whether a string is a valid Metar, returns false if it is not
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
         public static bool IsValidMetar(this string raw) => MetarValidity.IsValid(raw);
     }
 }

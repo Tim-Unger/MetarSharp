@@ -11,7 +11,7 @@ namespace MetarSharp.Parse.Additional
                 RecentWeatherTypeRaw = groups[4].Value
             };
 
-            var weatherDecoded = ParseWeather.GetWeatherType(groups[4].Value).Item2;
+            var weatherDecoded = GetWeatherType.Get(groups[4].Value).Item2;
             recent.RecentWeatherDecoded = $"Recent {weatherDecoded}";
 
             return recent;

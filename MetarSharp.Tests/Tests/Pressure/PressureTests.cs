@@ -1,4 +1,5 @@
-﻿using MetarSharp.Exceptions;
+﻿using MetarSharp.Converter.Pressure;
+using MetarSharp.Exceptions;
 using System.ComponentModel.Design;
 
 namespace MetarSharp.Tests.Pressure
@@ -18,7 +19,7 @@ namespace MetarSharp.Tests.Pressure
                             metar.Pressure.PressureOnly / 33.8569518716,
                             2
                         );
-                        Assert.That(metar.Pressure.PressureAsAltimeter, Is.EqualTo(convertToAltimeter));
+                        Assert.That(metar.Pressure.PressureAsAltimeter, Is.EqualTo(convertToAltimeter), $"Failed for {metar.Airport}");
                         break;
                     }
                     case PressureType.InchesMercury:
@@ -27,7 +28,8 @@ namespace MetarSharp.Tests.Pressure
                             metar.Pressure.PressureOnly * 33.8569518716,
                             0
                         );
-                        Assert.That(metar.Pressure.PressureAsQnh, Is.EqualTo(convertToHectopascal));
+
+                        Assert.That(metar.Pressure.PressureAsQnh, Is.EqualTo(convertToHectopascal), $"Failed for {metar.Airport}");
                         break;
                     }
                     default:

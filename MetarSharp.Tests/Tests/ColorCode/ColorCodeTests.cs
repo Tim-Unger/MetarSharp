@@ -28,6 +28,7 @@ namespace MetarSharp.Tests.Tests.ColorCode
             Color.AMB => IsAmberCorrect(metar),
             Color.RED => IsRedCorrect(metar),
             Color.BLACK => true, //You are fucked anyways if you are here
+            _ => throw new ArgumentOutOfRangeException()
         };
 
         private static bool IsBluePlusCorrect(Metar metar)

@@ -29,7 +29,7 @@ namespace MetarSharp.Parse
                 (
                     visibility.LowestVisibilityDirection,
                     visibility.LowestVisibilityDirectionDecoded
-                ) = GetCardinalDirection(groups[15].Value);
+                ) = GetCardinalDirection.Get(groups[15].Value);
                 visibility.LowestVisibilityDirectionRaw = groups[15].Value;
             }
 

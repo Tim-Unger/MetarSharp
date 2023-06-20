@@ -5,12 +5,12 @@ namespace MetarSharp.Taf.Parse
 {
     internal class ParseAirport
     {
+        private static readonly Regex _airportRegex = new(@"^([A-Z]{4})\s");
+
         internal static string ReturnAirport(string raw)
         {
 
-            var airportRegex = new Regex(@"^([A-Z]{4})\s", RegexOptions.None);
-
-            var airportMatches = airportRegex.Matches(raw);
+            var airportMatches = _airportRegex.Matches(raw);
 
             if (airportMatches.Count != 1)
             {

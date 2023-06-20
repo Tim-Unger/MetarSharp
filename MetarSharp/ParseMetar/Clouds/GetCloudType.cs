@@ -1,6 +1,6 @@
 ﻿namespace MetarSharp.Parse
 {
-    internal class CloudType
+    internal class GetCloudType
     {
         internal static (MetarSharp.CloudType, string) Get(string input) =>
             input.ToUpper() switch

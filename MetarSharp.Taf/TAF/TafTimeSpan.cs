@@ -12,14 +12,18 @@ namespace MetarSharp.Taf
 
         public int StartHour { get; set; }
 
+        public int? StartMinute { get; set; }
+
         public DateTime StartDateTime { get; set; }
 
-        public int EndDay { get; set; }
+        public bool HasEndDate { get; set; } = true;
 
-        public int EndHour { get; set; }
+        public int? EndDay { get; set; }
 
-        public DateTime EndDateTime { get; set; }
+        public int? EndHour { get; set; }
 
-        public int ValidityDuration { get; set; }
+        public DateTime? EndDateTime { get; set; }
+
+        public TimeSpan? ValidityDuration { get; set; }
     }
 }

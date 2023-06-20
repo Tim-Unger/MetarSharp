@@ -49,7 +49,7 @@
 
         private static Visibility GetVisibility(string input) => ParseVisibility.ReturnVisibility(input);
 
-        private static Weather GetWeather(string input) => ParseWeather.GetWeatherFromTrend(input);
+        private static Weather GetWeather(string input) => WeatherFromTrend.Get(input);
 
         private static Wind GetWind(string input) => ParseWind.ReturnWind(input);
 

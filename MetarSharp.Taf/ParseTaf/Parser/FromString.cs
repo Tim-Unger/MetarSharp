@@ -16,6 +16,7 @@ namespace MetarSharp.Taf.Parser
 
             parsed.TafState = ParseTafState.ReturnTafState(input);
 
+            parsed.TafReports = ParseTafReports.ReturnTafReports(input);
 
             return parsed;
         }

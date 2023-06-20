@@ -1,5 +1,4 @@
-﻿
-namespace MetarSharp
+﻿namespace MetarSharp
 {
     public class Metar
     {

@@ -58,7 +58,7 @@ namespace MetarSharp.Parse
                     cloud.IsCloudMeasurable = true;
                     cloud.CloudCoverageTypeRaw = groups[4].Value;
 
-                    (cloud.CloudCoverageType, cloud.CloudCoverageTypeDecoded) = CloudType.Get(
+                    (cloud.CloudCoverageType, cloud.CloudCoverageTypeDecoded) = GetCloudType.Get(
                         groups[4].Value
                     );
 
@@ -91,7 +91,7 @@ namespace MetarSharp.Parse
             }
 
             //It will otherwise return a CAVOK Element
-            Cloud emptyCloud = new() { IsCAVOK = true, CloudCeiling = 9999, IsCeilingMeasurable = true, IsCloudMeasurable = true };
+            Cloud emptyCloud = new() { IsCAVOK = true, CloudCeiling = 9999, IsCeilingMeasurable = true, IsCloudMeasurable = true, CloudRaw = "CAVOK" };
             clouds.Add(emptyCloud);
             return clouds;
         }

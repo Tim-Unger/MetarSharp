@@ -15,12 +15,15 @@ namespace MetarSharp.Taf
         public List<TafReport> TafReports { get; set; }
 
         public string Remarks { get; set; }
+
+        public string ReadableReport { get; set; }
     }
 
     public class TafReport
     {
-        //(PROB([0-9]{1,3}))|(FM([0-9]{2}[0-9]{4})|BCMG|TEMPO)(.*)(?=)(PROB([0-9]{1,3}))|(FM([0-9]{2}[0-9]{4})|BCMG|TEMPO)
-        public TafTimeSpan TafTimeSpan { get; set; }
+        public bool IsProbability { get; set; } = false;
+
+        public TafTimeSpan? TafTimeSpan { get; set; }
 
         public int? TafProbability { get; set; }
 

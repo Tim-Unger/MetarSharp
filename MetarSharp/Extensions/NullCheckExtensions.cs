@@ -7,7 +7,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns>whether the string is null/empty/only whitespace</returns>
-        public static bool IsStringNullOrEmpty(string input) => input == null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
+        public static bool IsStringNullOrEmpty(string input) => input is null || input == string.Empty || input == "" || string.IsNullOrWhiteSpace(input);
 
         /// <summary>
         /// This checks whether an entire collection is null or empty
@@ -17,7 +17,7 @@
         /// <returns>whether the entire collection null or empty</returns>
         public static bool IsEntireCollectionNullOrEmpty<T>(T input)
         {
-            return input == null || input as IEnumerable<T> == Enumerable.Empty<T>();
+            return input is null || input as IEnumerable<T> == Enumerable.Empty<T>();
         }
 
         /// <summary>

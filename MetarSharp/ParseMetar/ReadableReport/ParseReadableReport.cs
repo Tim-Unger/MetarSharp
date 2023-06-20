@@ -30,13 +30,13 @@ namespace MetarSharp.Parse.ReadableReport
 
             //RVRs
             //Null check is not really necessary, just to prevent any possible exceptions
-            if (metar.RunwayVisibilities != null && metar.RunwayVisibilities.Count > 0)
+            if (metar.RunwayVisibilities is not null && metar.RunwayVisibilities.Count > 0)
             {
                 reportBuilder.Append(RVR.Append(metar));
             }
 
             //Weather
-            if (metar.Weather != null && metar.Weather.Weathers.Count > 0)
+            if (metar.Weather is not null && metar.Weather.Weathers.Count > 0)
             {
                 reportBuilder.Append(Weather.Append(metar));
             }
