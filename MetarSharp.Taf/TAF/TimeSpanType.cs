@@ -6,7 +6,8 @@
         {
             From,
             Becoming,
-            Temporary
+            Temporary,
+            Probability
         }
     }
 }

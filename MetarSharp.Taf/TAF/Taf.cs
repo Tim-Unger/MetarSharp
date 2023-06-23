@@ -21,7 +21,7 @@ namespace MetarSharp.Taf
 
     public class TafReport
     {
-        public bool IsProbability { get; set; } = false;
+        public bool HasProbability { get; set; } = false;
 
         public TafTimeSpan? TafTimeSpan { get; set; }
 

@@ -39,6 +39,8 @@ namespace MetarSharp.Taf.Parse
         {
             var report = new TafReport();
 
+            report.HasProbability = false;
+
             var probabilityRegex = new Regex("PROB([0-9]{1,3})");
             if (probabilityRegex.IsMatch(raw))
             {
@@ -50,13 +52,10 @@ namespace MetarSharp.Taf.Parse
                     throw new ArgumentOutOfRangeException();
                 }
 
-                report.IsProbability = true;
-                report.TafTimeSpan = null;
+                report.HasProbability = true;
                 report.TafProbability = probability;
-                return report;
             }
 
-            report.IsProbability = false;
             report.TafTimeSpan = TafTimeSpan.Parse(raw);
 
             return report;

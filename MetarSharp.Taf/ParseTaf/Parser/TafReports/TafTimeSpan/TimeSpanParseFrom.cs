@@ -13,7 +13,7 @@ namespace MetarSharp.Taf.Parse.TimeSpan
 
             timeSpan.TimeSpanRaw = groups[0].Value;
 
-            var timeValues = groups[3].Value;
+            var timeValues = groups[7].Value;
 
             var day = IntTryParseWithThrow(timeValues.Substring(0, 2));
             var hour = IntTryParseWithThrow(timeValues.Substring(2, 2));

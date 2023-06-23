@@ -2,17 +2,17 @@
 
 namespace MetarSharp.Taf.Parse.TimeSpan
 {
-    internal class TimeSpanBecoming
+    internal class TimeSpanProb
     {
         internal static MetarSharp.Taf.TafTimeSpan Parse(GroupCollection groups)
         {
             var timeSpan = new MetarSharp.Taf.TafTimeSpan();
 
-            timeSpan.TimeSpanType = TimeSpanType.Becoming;
+            timeSpan.TimeSpanType = TimeSpanType.Probability;
 
             timeSpan.TimeSpanRaw = groups[0].Value;
 
-            var (startDay, startHour, startDate) = TimeSpanStartDate.Parse(groups, DateType.Becoming);
+            var (startDay, startHour, startDate) = TimeSpanStartDate.Parse(groups, DateType.Probability);
 
             timeSpan.StartDay = startDay;
             timeSpan.StartHour = startHour;
@@ -20,7 +20,7 @@ namespace MetarSharp.Taf.Parse.TimeSpan
 
             timeSpan.HasEndDate = true;
 
-            var (endDay, endHour, endDate) = TimeSpanEndDate.Parse(groups, DateType.Becoming);
+            var (endDay, endHour, endDate) = TimeSpanEndDate.Parse(groups, DateType.Probability);
 
             timeSpan.EndDay = endDay;
             timeSpan.EndHour = endHour;

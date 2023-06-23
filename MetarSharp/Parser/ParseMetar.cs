@@ -1,4 +1,5 @@
-﻿using static MetarSharp.Extensions.NullCheckExtensions;
+﻿using System.Text.Json;
+using static MetarSharp.Extensions.NullCheckExtensions;
 
 namespace MetarSharp
 {
@@ -152,5 +153,30 @@ namespace MetarSharp
         {
             return Parser.ParseToStringList.Parse(metars);
         }
+
+        /// <summary>
+        /// Parses the given Metar into a JSON
+        /// </summary>
+        /// <param name="metar"></param>
+        /// <returns></returns>
+        public static string ToJson(Metar metar) => Parser.ToJson.Parse(metar, null);
+
+        public static string ToJson(Metar metar, JsonSerializerOptions options) => Parser.ToJson.Parse(metar, options);
+
+        public static string ToJson(string metar) => Parser.ToJson.Parse(metar, null);
+
+        public static string ToJson(string metar, JsonSerializerOptions options) => Parser.ToJson.Parse(metar, options);
+
+        public static List<string> ToJsonList(IEnumerable<Metar> metars) => Parser.ToJsonList.Parse(metars, null);
+
+        public static List<string> ToJsonList(IEnumerable<Metar> metars, JsonSerializerOptions options) => Parser.ToJsonList.Parse(metars, options);
+
+        public static List<string> ToJsonList(IEnumerable<string> metars) => Parser.ToJsonList.Parse(metars, null);
+        
+        public static List<string> ToJsonList(IEnumerable<string> metars, JsonSerializerOptions options) => Parser.ToJsonList.Parse(metars, options);
+
+        public static string ListToSingleJsonString(IEnumerable<Metar> metars) => Parser.ToJsonList.ParseToString(metars);
+
+        public static string ListToSingleJsonString(IEnumerable<string> metars) => Parser.ToJsonList.ParseToString(metars);
     }
 }

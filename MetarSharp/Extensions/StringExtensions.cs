@@ -32,5 +32,12 @@
         /// <param name="raw"></param>
         /// <returns></returns>
         public static bool IsValidMetar(this string raw) => MetarValidity.IsValid(raw);
+
+        /// <summary>
+        /// Parses the given string into a Metar and then into a Metar-JSON
+        /// </summary>
+        /// <param name="raw"></param>
+        /// <returns></returns>
+        public static string ConvertToJson(this string raw) => MetarSharp.ParseMetar.ToJson(MetarSharp.ParseMetar.FromString(raw));
     }
 }

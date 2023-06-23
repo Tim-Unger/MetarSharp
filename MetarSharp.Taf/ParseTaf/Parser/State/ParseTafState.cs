@@ -4,8 +4,10 @@ namespace MetarSharp.Taf.Parse
 {
     internal class ParseTafState
     {
+        private static readonly Regex _stateRegex = new("COR|AMD|NIL|CNL");
+
         internal static TafState? ReturnTafState(string raw) =>
-            new Regex("COR|AMD|NIL|CNL").Match(raw).Value switch
+            _stateRegex.Match(raw).Value switch
             {
                 "COR" => TafState.Corrected,
                 "AMD" => TafState.Amended,
