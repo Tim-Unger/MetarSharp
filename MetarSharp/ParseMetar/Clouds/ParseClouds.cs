@@ -96,4 +96,9 @@ namespace MetarSharp.Parse
             return clouds;
         }
     }
+
+    public class ParseCloudsOnly
+    {
+        public static List<Cloud> FromString(string raw) => ParseClouds.ReturnClouds(raw) ?? Enumerable.Empty<Cloud>().ToList();
+    }
 }

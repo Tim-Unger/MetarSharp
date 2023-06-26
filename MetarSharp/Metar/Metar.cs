@@ -30,6 +30,6 @@
 
         public AdditionalInformation AdditionalInformation = new();
 
-        public string ReadableReport = "";
+        public string? ReadableReport = null;
     }
 }

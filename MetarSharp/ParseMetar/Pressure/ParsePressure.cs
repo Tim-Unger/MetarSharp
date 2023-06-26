@@ -13,7 +13,7 @@ namespace MetarSharp.Parse
         /// <param name="raw"></param>
         /// <returns></returns>
         /// <exception cref="ParseException"></exception>
-        internal static Pressure ReturnPressure(string raw)
+        internal static Pressure ReturnPressure(string raw, MetarParser? parser)
         {
             var pressure = new Pressure();
 
@@ -48,6 +48,17 @@ namespace MetarSharp.Parse
             var pressureTypeRaw = groups[1].Value == "A" ? PressureDefinitions.InchesMercuryShort : PressureDefinitions.HectopascalsShort;
             pressure.PressureTypeRaw = pressureTypeRaw;
 
+            if (parser?.PressureType is not null)
+            {
+                pressure.PressureType = parser.PressureType;
+                (pressure.PressureTypeRaw, pressure.PressureTypeString) = parser.PressureType switch
+                {
+                    PressureType.Hectopascal => (PressureDefinitions.InchesMercuryShort, PressureDefinitions.InchesMercuryLong),
+                    PressureType.InchesMercury => (PressureDefinitions.HectopascalsShort, PressureDefinitions.HectopascalsLong),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+
             var pressureValue = double.TryParse(groups[2].Value, out var pressureVal)
              ? pressureVal
              : 0;
@@ -70,5 +81,10 @@ namespace MetarSharp.Parse
             
             return pressure;
         }
+    }
+
+    public class ParsePressureOnly
+    {
+        public static Pressure FromString(string raw) => ParsePressure.ReturnPressure(raw, null);
     }
 }

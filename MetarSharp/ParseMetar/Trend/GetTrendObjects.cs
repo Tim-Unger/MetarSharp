@@ -47,11 +47,11 @@
             return result;
         }
 
-        private static Visibility GetVisibility(string input) => ParseVisibility.ReturnVisibility(input);
+        private static Visibility GetVisibility(string input) => ParseVisibility.ReturnVisibility(input, null);
 
         private static Weather GetWeather(string input) => WeatherFromTrend.Get(input);
 
-        private static Wind GetWind(string input) => ParseWind.ReturnWind(input);
+        private static Wind GetWind(string input) => ParseWind.ReturnWind(input, null);
 
         private static Cloud GetCloud(string input) => ParseClouds.ReturnClouds(input).First();
     }

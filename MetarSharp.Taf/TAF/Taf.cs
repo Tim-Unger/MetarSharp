@@ -26,7 +26,19 @@ namespace MetarSharp.Taf
         public TafTimeSpan? TafTimeSpan { get; set; }
 
         public int? TafProbability { get; set; }
+        
+        public Wind? Wind { get; set; } = new();
 
-        public Metar Metar { get; set; }
+        public Visibility? Visibility { get; set; } = new();
+
+        //public List<RunwayVisibility>? RunwayVisibilities { get; set; }
+
+        public Weather? Weather { get; set; }
+
+        public List<Cloud>? Clouds { get; set; } = new();
+
+        public Temperature? Temperature { get; set; } = new();
+
+        public Pressure? Pressure { get; set; } = new();
     }
 }

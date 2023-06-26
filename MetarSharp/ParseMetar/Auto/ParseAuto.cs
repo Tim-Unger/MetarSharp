@@ -1,6 +1,6 @@
 namespace MetarSharp.Parse
 {
-    public class ParseAuto
+    internal class ParseAuto
     {
         /// <summary>
         /// this returns whether the metar is automated or not.
@@ -8,5 +8,10 @@ namespace MetarSharp.Parse
         /// <param name="raw"></param>
         /// <returns></returns>
         internal static bool ReturnIsAutomated(string raw) => Regex.IsMatch(raw, "(AUTO)");
+    }
+
+    public class ParseAutoOnly
+    {
+        public static bool FromString(string raw) => ParseAuto.ReturnIsAutomated(raw);
     }
 }

@@ -79,4 +79,10 @@ namespace MetarSharp.Parse
             return trends;
         }
     }
+
+    public class ParseTrendOnly
+    {
+        //TODO
+        //public static List<Trend> FromString(string raw) => ParseTrend.ReturnTrend(raw);
+    }
 }

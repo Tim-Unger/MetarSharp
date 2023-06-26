@@ -1,4 +1,5 @@
 ﻿using static MetarSharp.Extensions.TryParseExtensions;
+using MetarSharp.Parse;
 
 namespace MetarSharp.Taf.Parse
 {
@@ -56,7 +57,19 @@ namespace MetarSharp.Taf.Parse
                 report.TafProbability = probability;
             }
 
-            report.TafTimeSpan = TafTimeSpan.Parse(raw);
+            report.TafTimeSpan = TafTimeSpan.Parse(raw) ?? null;
+
+            report.Wind = ParseWindOnly.FromString(raw) ?? null;
+
+            report.Visibility = ParseVisibilityOnly.FromString(raw) ?? null;
+
+            report.Weather = ParseWeatherOnly.FromString(raw) ?? null;
+
+            report.Clouds = ParseCloudsOnly.FromString(raw) ?? null;
+
+            report.Temperature = ParseTemperatureOnly.FromString(raw) ?? null;
+
+            report.Pressure = ParsePressureOnly.FromString(raw) ?? null;
 
             return report;
         }

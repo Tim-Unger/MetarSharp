@@ -1,6 +1,6 @@
 namespace MetarSharp.Parse.ReadableReport
 {
-    public class ParseReadableReport
+    internal class ParseReadableReport
     {
         /// <summary>
         /// this creates a readable report of the entire metar.
@@ -69,5 +69,10 @@ namespace MetarSharp.Parse.ReadableReport
 
             return reportBuilder.ToString();
         }
+    }
+    
+    public class ParseReadableReportOnly
+    {
+        public static string FromString(Metar raw) => ParseReadableReport.ReturnReadableReport(raw);
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse
@@ -11,7 +12,7 @@ namespace MetarSharp.Parse
     internal class ParseReportingTime
     {
         private static readonly Regex _reportingTimeRegex = new("([0-9]{2})([0-9]{2})([0-9]{2})Z");
-        internal static ReportingTime ReturnReportingTime(string raw)
+        internal static ReportingTime ReturnReportingTime(string raw, MetarParser? parser)
         {
             ReportingTime reportingTime = new();
 
@@ -64,11 +65,25 @@ namespace MetarSharp.Parse
 
             var dateValues = GetDateValues.Get(reportingDate, dayNow, monthNow, yearNow);
 
+            var year = dateValues.Year;
+            var month = dateValues.Month;
+            var day = reportingDate;
+
+            if (parser?.OverwriteReportingDate is not null)
+            {
+                var overwriteDate = (DateOnly)parser.OverwriteReportingDate;
+                year = overwriteDate.Year;
+                month = overwriteDate.Month;
+                day = overwriteDate.Day;
+
+                reportingTime.ReportingDateRaw = overwriteDate.Day;
+            }
+
             DateTime ReportingDateTime =
                 new(
-                    dateValues.Year,
-                    dateValues.Month,
-                    reportingDate,
+                    year,
+                    month,
+                    day,
                     reportingHour,
                     reportingMinute,
                     00
@@ -77,5 +92,10 @@ namespace MetarSharp.Parse
             reportingTime.ReportingTimeZulu = ReportingDateTime;
             return reportingTime;
         }
+    }
+
+    public class ParseReportingTimeOnly
+    {
+        public static ReportingTime FromString(string raw) => ParseReportingTime.ReturnReportingTime(raw, null);
     }
 }

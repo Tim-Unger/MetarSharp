@@ -2,7 +2,7 @@ using MetarSharp.Parse.Additional;
 
 namespace MetarSharp.Parse
 {
-    public class ParseAdditional
+    internal class ParseAdditional
     {
         /// <summary>
         /// this returns the additional information part of the metar
@@ -81,5 +81,10 @@ namespace MetarSharp.Parse
 
             return additionalInformation;
         }
+    }
+
+    public class ParseAdditionalOnly
+    {
+        public static AdditionalInformation? FromString(string raw) => ParseAdditional.ReturnAdditional(raw) ?? null;
     }
 }

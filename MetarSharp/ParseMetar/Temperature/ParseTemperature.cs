@@ -59,4 +59,9 @@ namespace MetarSharp.Parse
             return temperature;
         }
     }
+
+    public class ParseTemperatureOnly
+    {
+        public static Temperature FromString(string raw) => ParseTemperature.ReturnTemperature(raw);
+    }
 }

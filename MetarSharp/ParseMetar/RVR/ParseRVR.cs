@@ -84,4 +84,9 @@ namespace MetarSharp.Parse
             return runwayVisibilities;
         }
     }
+
+    public class ParseRVROnly
+    {
+        public static List<RunwayVisibility> FromString(string raw) => ParseRVR.ReturnRVR(raw) ?? Enumerable.Empty<RunwayVisibility>().ToList();
+    }
 }

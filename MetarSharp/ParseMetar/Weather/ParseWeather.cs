@@ -77,4 +77,12 @@ namespace MetarSharp.Parse
             return weather;
         }
     }
+
+    /// <summary>
+    /// Public extension to the ParseWeather Class to access the Method from outside the namespace
+    /// </summary>
+    public class ParseWeatherOnly
+    {
+        public static Weather FromString(string raw) => ParseWeather.ReturnWeather(raw);
+    }
 }

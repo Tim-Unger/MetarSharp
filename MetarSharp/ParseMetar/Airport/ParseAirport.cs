@@ -13,4 +13,9 @@ namespace MetarSharp.Parse
         /// <exception cref="ParseException"></exception>
         internal static string ReturnAirport(string raw) => _airportRegex.Match(raw).Groups[1].Value ?? throw new ParseException("Airport could not be found");
     }
+
+    public class ParseAirportOnly
+    {
+        public static string FromString(string raw) => ParseAirport.ReturnAirport(raw);
+    }
 }
