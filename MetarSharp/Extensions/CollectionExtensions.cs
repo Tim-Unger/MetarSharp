@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 
 namespace MetarSharp
 {
@@ -52,7 +53,7 @@ namespace MetarSharp
         {
             var result = new List<string>();
 
-            var readonlyRaw = new ReadOnlyCollection<string>(raw.ToList());
+            var readonlyRaw = raw.ToImmutableList();
 
             Parallel.ForEach(readonlyRaw, x => result.Add(ParseMetar.ToJson(ParseMetar.FromString(x))));
 
@@ -63,7 +64,7 @@ namespace MetarSharp
         {
             var result = new List<string>();
 
-            var readonlyRaw = new ReadOnlyCollection<Metar>(raw.ToList());
+            var readonlyRaw = raw.ToImmutableList();
 
             Parallel.ForEach(readonlyRaw, x => result.Add(ParseMetar.ToJson(x)));
 

@@ -31,6 +31,12 @@ public class Benchmarks
     }
 
     [Benchmark]
+    public void Everything()
+    {
+        _ = ParseMetar.FromString(_metar);
+    }
+
+    [Benchmark]
     public void JustAdditional()
     {
         _ = ParseMetar.SingleItem.JustAdditionalInformation(_metar);

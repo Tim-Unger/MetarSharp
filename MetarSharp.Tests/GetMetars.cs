@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http.Json;
@@ -46,7 +47,7 @@ namespace MetarSharp.Tests
             }
 
             //Turns Airports into a Readonly Collection to prevent any Issues with Thread Safety
-            var airportsReadonly = new ReadOnlyCollection<string>(airports);
+            var airportsReadonly = airports.ToImmutableList();
 
             //This should be thread safe and nicer to the Vatsim API than Parallel.ForEach()
             await Task.WhenAll(airportsReadonly.Select(async x => { returnMetars.Add(await _client.GetStringAsync($"https://metar.vatsim.net/{x}")); await Task.Delay(500); }));
