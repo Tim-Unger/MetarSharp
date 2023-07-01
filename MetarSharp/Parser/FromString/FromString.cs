@@ -57,7 +57,7 @@ namespace MetarSharp.Parser
                 return parsed;
             }
 
-            parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed);
+            parsed.ReadableReport = ParseReadableReport.ReturnReadableReport(parsed, parserNonNull.CultureInfo ?? null);
 
             //if (parser.IsReadonly)
             //{

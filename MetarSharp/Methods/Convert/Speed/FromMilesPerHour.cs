@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Kilometers Per Hour as a decimal with set decimal places</returns>
-        public static decimal ToKilometersPerHour(this double value, byte decimalPlaces) => Math.Round((decimal)value * (decimal)1.609, decimalPlaces);
+        public static decimal ToKilometersPerHour(this double value, int decimalPlaces) => Math.Round((decimal)value * (decimal)1.609, decimalPlaces);
 
         /// <summary>
         /// Converts the given value from Miles Per Hour to Meters Per Second
@@ -28,7 +28,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Meters Per Second as a decimal with set decimal places</returns>
-        public static decimal ToMetersPerSecond(this double value, byte decimalPlaces) => Math.Round((decimal)value / (decimal)2.237, decimalPlaces);
+        public static decimal ToMetersPerSecond(this double value, int decimalPlaces) => Math.Round((decimal)value / (decimal)2.237, decimalPlaces);
 
         /// <summary>
         /// Converts the given value from Miles Per Hour to Knots
@@ -42,6 +42,6 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Knots as a decimal with set decimal places</returns>
-        public static decimal ToKnots(this double value, byte decimalPlaces) => Math.Round((decimal)value / (decimal)1.151, decimalPlaces);
+        public static decimal ToKnots(this double value, int decimalPlaces) => Math.Round((decimal)value / (decimal)1.151, decimalPlaces);
     }
 }

@@ -5,7 +5,7 @@
         internal static Weather Get(string raw)
         {
             var weather = new Weather();
-            var weatherRegex = new Regex(@"(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s");
+            var weatherRegex = new Regex(@"(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}");
             GroupCollection groups = weatherRegex.Match(raw).Groups;
 
             weather.WeatherRaw = groups[0].Value;
@@ -66,9 +66,9 @@
             weather.Weathers.ForEach(x => stringBuilder.Append(x.WeatherTypeDecoded).Append(' '));
 
             //Removes the last space from the combined string
-            stringBuilder.Remove(stringBuilder.Length - 1, 1);
+            //stringBuilder.Remove(stringBuilder.Length - 1, 1);
 
-            weather.WeatherCombinedDecoded = stringBuilder.ToString();
+            weather.WeatherCombinedDecoded = stringBuilder.ToString().Trim();
             return weather;
         }
     }

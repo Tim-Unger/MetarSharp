@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Fahrenheit as a decimal with set decimal places</returns>
-        public static decimal ToFahrenheit(this double value, byte decimalPlaces) => Math.Round(((decimal)value * 9 / 5) + 32, decimalPlaces);
+        public static decimal ToFahrenheit(this double value, int decimalPlaces) => Math.Round(((decimal)value * 9 / 5) + 32, decimalPlaces);
 
         /// <summary>
         /// Converts the given value from Celsius to Kelvin
@@ -28,6 +28,6 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Kelvin as a decimal with set decimal places</returns>
-        public static decimal ToKelvin(this double value, byte decimalPlaces) => Math.Round((decimal)value + (decimal)273.15, decimalPlaces);
+        public static decimal ToKelvin(this double value, int decimalPlaces) => Math.Round((decimal)value + (decimal)273.15, decimalPlaces);
     }
 }

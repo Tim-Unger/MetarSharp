@@ -2,7 +2,7 @@
 {
     internal class AverageCeiling
     {
-        internal static double Get(List<Metar> metars, byte? decimalPlaces, bool isVerticalVis)
+        internal static double Get(List<Metar> metars, int? decimalPlaces, bool isVerticalVis)
         {
             if (isVerticalVis)
             {
@@ -12,7 +12,7 @@
             return AverageClouds(GetCloudsWithMesaurableCeiling(metars, isVerticalVis), decimalPlaces ?? 2);
         }
 
-        private static double AverageClouds(List<Cloud> clouds, byte decimalPlaces)
+        private static double AverageClouds(List<Cloud> clouds, int decimalPlaces)
         {
             var sum = 0;
             var count = 0;
@@ -30,7 +30,7 @@
             return Math.Round(sum / (double)count, decimalPlaces);
         }
 
-        private static double AverageVerticalVis(List<Cloud> clouds, byte decimalPlaces)
+        private static double AverageVerticalVis(List<Cloud> clouds, int decimalPlaces)
         {
             var sum = 0;
             var count = 0;

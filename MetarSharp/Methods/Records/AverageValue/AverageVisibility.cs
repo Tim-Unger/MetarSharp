@@ -2,7 +2,7 @@
 {
     internal class AverageVisibility
     {
-        internal static double Get(List<Metar> metars, bool isLowestVis, byte? decimalPlaces)
+        internal static double Get(List<Metar> metars, bool isLowestVis, int? decimalPlaces)
         {
             if (isLowestVis)
             {
@@ -16,7 +16,7 @@
             return GetAverageVisibility(metarsWithVis, decimalPlaces ?? 2);
         }
 
-        private static double GetAverageVisibility(List<Metar> metars, byte decimalPlaces)
+        private static double GetAverageVisibility(List<Metar> metars, int decimalPlaces)
         {
             double sum = 0;
             var count = 0;
@@ -32,7 +32,7 @@
             return Math.Round(sum / count, decimalPlaces);
         }
 
-        private static double GetAverageLowestVisibility(List<Metar> metars, byte decimalPlaces)
+        private static double GetAverageLowestVisibility(List<Metar> metars, int decimalPlaces)
         {
             double sum = 0;
             var count = 0;

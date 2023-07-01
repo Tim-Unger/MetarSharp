@@ -15,6 +15,6 @@
         /// <param name="value"></param>
         /// <param name="decimalPlaces"></param>
         /// <returns>the value converted to Inches Mercury as a decimal with set decimal places</returns>
-        public static decimal ToInchesMercury(this double value, byte decimalPlaces) => Math.Round((decimal)value * (decimal)0.029529983071445, decimalPlaces);  
+        public static decimal ToInchesMercury(this double value, int decimalPlaces) => Math.Round((decimal)value * (decimal)0.029529983071445, decimalPlaces);  
     }
 }

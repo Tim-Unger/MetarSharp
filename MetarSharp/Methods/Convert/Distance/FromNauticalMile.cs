@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Meters as a decimal with set decimal places</returns>
-        public static decimal ToMeter(this int value, byte decimalPlaces) => Math.Round((decimal)value * 1852, decimalPlaces);
+        public static decimal ToMeter(this int value, int decimalPlaces) => Math.Round((decimal)value * 1852, decimalPlaces);
 
         /// <summary>
         /// Converts the given value from Nautical Miles to Kilometers
@@ -29,7 +29,7 @@
         /// <param name="value"></param>
         /// <param name="decimalPlaces"></param>
         /// <returns>the value converted to Kilometers as a decimal with set decimal places</returns>
-        public static decimal ToKilometer(this double value, byte decimalPlaces) => Math.Round((decimal)value * (decimal)1.852, decimalPlaces);
+        public static decimal ToKilometer(this double value, int decimalPlaces) => Math.Round((decimal)value * (decimal)1.852, decimalPlaces);
 
         /// <summary>
         /// Converts the given value from Nautical Miles to Statute Miles ("Regular" Miles)
@@ -43,6 +43,6 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Miles as a decimal with set decimal places</returns>
-        public static decimal ToStatuteMile(this double value, byte decimalPlaces) => Math.Round((decimal)value * (decimal)1.15078, decimalPlaces);
+        public static decimal ToStatuteMile(this double value, int decimalPlaces) => Math.Round((decimal)value * (decimal)1.15078, decimalPlaces);
     }
 }

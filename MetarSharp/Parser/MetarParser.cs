@@ -13,5 +13,7 @@
         public VisibilityUnit? VisibilityUnit { get; set; }
 
         public DateOnly? OverwriteReportingDate { get; set; }
+
+        public CultureInfo? CultureInfo { get; set; }
     }
 }

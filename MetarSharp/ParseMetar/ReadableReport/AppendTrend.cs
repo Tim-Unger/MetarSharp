@@ -33,7 +33,12 @@ namespace MetarSharp.Parse.ReadableReport
                 }
             }
 
-            return AddCommas(trendElementsDecoded);
+            if(trendElementsDecoded.Count > 0)
+            {
+                return AddCommas(trendElementsDecoded);
+            }
+
+            return "";
         }
 
         private static string ParseVisibility(MetarSharp.Visibility visibility)
@@ -68,10 +73,11 @@ namespace MetarSharp.Parse.ReadableReport
                 stringBuilder.Append("Recent ");
             }
 
-            if (weather.WeatherIntensity != WeatherIntensity.Normal)
-            {
-                stringBuilder.Append(weather.WeatherIntensityDecoded);
-            }
+            //TODO
+            //if (weather.WeatherIntensity != WeatherIntensity.Normal)
+            //{
+            //    stringBuilder.Append(weather.WeatherIntensityDecoded);
+            //}
 
             stringBuilder.Append(weather.WeatherCombinedDecoded);
 

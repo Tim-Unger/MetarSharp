@@ -26,7 +26,7 @@
             return metar;
         }
 
-        internal static async Task<List<string>> Multiple(string icao)
+        internal static List<string> Multiple(string icao)
         {
             if(string.IsNullOrWhiteSpace(icao))
             {
@@ -38,10 +38,27 @@
                 throw new ParseException("Maximum ICAO Length can be 4 characters");
             }
 
-            var raw = await _client.GetStringAsync($"https://metar.vatsim.net/{icao}");
+            var raw = _client.GetStringAsync($"https://metar.vatsim.net/{icao}").Result;
 
             //\n\n is just here in case Vatsim does weird stuff with the metars
             return raw.Split(new string[] { "\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+
+        internal static List<string> MultipleIcaos(params string[] icaos)
+        {
+            if (icaos.Any(x => string.IsNullOrWhiteSpace(x)))
+            {
+                throw new ParseException("Input is null or empty");
+            }
+
+            if (icaos.Any(x => x.Length > 4))
+            {
+                throw new ParseException("Maximum ICAO Length can be 4 characters");
+            }
+
+            var raw = icaos.Select(x =>  _client.GetStringAsync($"https://metar.vatsim.net/{x}").Result);
+
+            return raw.ToList();
         }
     }
 }

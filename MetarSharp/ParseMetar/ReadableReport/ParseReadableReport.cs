@@ -7,7 +7,7 @@ namespace MetarSharp.Parse.ReadableReport
         /// </summary>
         /// <param name="metar"></param>
         /// <returns></returns>
-        internal static string ReturnReadableReport(Metar metar)
+        internal static string ReturnReadableReport(Metar metar, CultureInfo? cultureInfo)
         {
             var reportBuilder = new StringBuilder();
 
@@ -20,7 +20,7 @@ namespace MetarSharp.Parse.ReadableReport
             reportBuilder.AppendLine();
 
             //Reporting Time
-            reportBuilder.AppendLine(ReportingTime.Append(metar));
+            reportBuilder.AppendLine(ReportingTime.Append(metar, cultureInfo));
 
             //Wind
             reportBuilder.AppendLine(Wind.Append(metar));
@@ -73,6 +73,8 @@ namespace MetarSharp.Parse.ReadableReport
     
     public class ParseReadableReportOnly
     {
-        public static string FromString(Metar raw) => ParseReadableReport.ReturnReadableReport(raw);
+        public static string FromString(Metar raw) => ParseReadableReport.ReturnReadableReport(raw, null);
+
+        public static string FromString(Metar raw, CultureInfo? cultureInfo) => ParseReadableReport.ReturnReadableReport(raw, cultureInfo);
     }
 }

@@ -32,7 +32,6 @@ namespace MetarSharp.Tests
 
             var rand = new Random();
 
-
             var airports = new List<string>();
             for (var x = 0; x < 500; x++)
             {

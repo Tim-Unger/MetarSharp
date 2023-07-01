@@ -23,7 +23,7 @@
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-        internal static double Get(List<Metar> metars, AverageValueType averageValueType, byte decimalPlaces) =>
+        internal static double Get(List<Metar> metars, AverageValueType averageValueType, int decimalPlaces) =>
             averageValueType switch
             {
                 AverageValueType.CloudCeiling => AverageCeiling.Get(metars, decimalPlaces, false),

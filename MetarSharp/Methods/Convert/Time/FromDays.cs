@@ -22,18 +22,18 @@
 
         public static decimal ToHours(this double value) => Math.Round((decimal)value * 24, 2);
 
-        public static decimal ToHours(this double value, byte decimalPlaces) => Math.Round((decimal)value * 24, decimalPlaces);
+        public static decimal ToHours(this double value, int decimalPlaces) => Math.Round((decimal)value * 24, decimalPlaces);
 
         public static decimal ToWeeks(this double value) => Math.Round((decimal)value / 7, 2);
 
-        public static decimal ToWeeks(this double value, byte decimalPlaces) => Math.Round((decimal)value / 7, decimalPlaces);
+        public static decimal ToWeeks(this double value, int decimalPlaces) => Math.Round((decimal)value / 7, decimalPlaces);
 
         public static decimal ToMonths(this double value) => Math.Round((decimal)value / (decimal)30.417, 2);
 
-        public static decimal ToMonths(this double value, byte decimalPlaces) => Math.Round((decimal)value / (decimal)30.417, decimalPlaces);
+        public static decimal ToMonths(this double value, int decimalPlaces) => Math.Round((decimal)value / (decimal)30.417, decimalPlaces);
 
         public static decimal ToYears(this double value) => Math.Round((decimal)value / 365, 2);
 
-        public static decimal ToYears(this double value, byte decimalPlaces) => Math.Round((decimal)value / 365, decimalPlaces);
+        public static decimal ToYears(this double value, int decimalPlaces) => Math.Round((decimal)value / 365, decimalPlaces);
     }
 }

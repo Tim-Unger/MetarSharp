@@ -2,7 +2,7 @@
 {
     internal class AveragePressure
     {
-        internal static double Get(List<Metar> metars, byte? decimaPlaces, bool isQnh)
+        internal static double Get(List<Metar> metars, int? decimaPlaces, bool isQnh)
         {
             var metarsWithPressure = metars.Where(x => x.Pressure.IsPressureMeasurable).ToList();
 
@@ -14,7 +14,7 @@
             return GetAveragePressure(metarsWithPressure, true, decimaPlaces ?? 2);
         }
 
-        private static double GetAveragePressure(List<Metar> metars, bool IsQnh, byte decimalPlaces)
+        private static double GetAveragePressure(List<Metar> metars, bool IsQnh, int decimalPlaces)
         {
             var sum = 0;
             var count = 0;

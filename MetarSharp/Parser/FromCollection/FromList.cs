@@ -26,7 +26,7 @@
         /// <returns></returns>
         private static List<Metar> ParseMetarParallel(IEnumerable<string> input, MetarParser? parser)
         {
-            var metars = new List<Metar>(input.Count());
+            var metars = new List<Metar>();
 
             Parallel.ForEach(input, x => metars.Add(ParseDirectlyOrDownload(x, parser)));
 

@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Celsius as a decimal with set decimal places</returns>
-        public static decimal ToCelsius(this double value, byte decimalPlaces)
+        public static decimal ToCelsius(this double value, int decimalPlaces)
         {
             return Math.Round((decimal)value - (decimal)273.15, decimalPlaces);
         }
@@ -37,7 +37,7 @@
         /// </summary>
         /// <param name="value"></param>
         /// <returns>the value converted to Fahrenheit as a decimal with set decimal places</returns>
-        public static decimal ToFahrenheit(this double value, byte decimalPlaces)
+        public static decimal ToFahrenheit(this double value, int decimalPlaces)
         {
             return Math.Round(((decimal)value - (decimal)273.15) * 9 / 5 + 32, decimalPlaces);
         }
