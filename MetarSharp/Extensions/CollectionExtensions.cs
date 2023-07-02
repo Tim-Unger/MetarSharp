@@ -44,11 +44,11 @@ namespace MetarSharp
 
         public static List<bool> AreMetarsValidIndividually(this IEnumerable<string> raw) => MetarValidity.AreValidIndividually(raw);
 
-        public static List<string> ConvertToJson(this IEnumerable<string> raw) => raw.Select(x => ParseMetar.ToJson(ParseMetar.FromString(x))).ToList();
+        public static List<string> ConvertMetarToJson(this IEnumerable<string> raw) => raw.Select(x => ParseMetar.ToJson(ParseMetar.FromString(x))).ToList();
 
-        public static List<string> ConvertToJson(this IEnumerable<Metar> raw) => raw.Select(x => ParseMetar.ToJson(x)).ToList();
+        public static List<string> ConvertMetarToJson(this IEnumerable<Metar> raw) => raw.Select(x => ParseMetar.ToJson(x)).ToList();
 
-        public static List<string> ConvertToJsonParallel(this IEnumerable<string> raw)
+        public static List<string> ConvertMetarToJsonParallel(this IEnumerable<string> raw)
         {
             var result = new List<string>();
 
@@ -59,7 +59,7 @@ namespace MetarSharp
             return result;
         }
 
-        public static List<string> ConvertToJsonParallel(this IEnumerable<Metar> raw)
+        public static List<string> ConvertMetarToJsonParallel(this IEnumerable<Metar> raw)
         {
             var result = new List<string>();
 

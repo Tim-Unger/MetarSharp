@@ -33,6 +33,7 @@
             return metars;
         }
 
+#pragma warning disable CS8604
         private static Metar ParseDirectlyOrDownload(string input, MetarParser? parser) => input.StartsWith("http") ? FromLink.Parse(input, parser) : FromString.Parse(input, parser);
     }
 }

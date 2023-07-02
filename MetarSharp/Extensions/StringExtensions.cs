@@ -38,6 +38,6 @@
         /// </summary>
         /// <param name="raw"></param>
         /// <returns></returns>
-        public static string ConvertToJson(this string raw) => MetarSharp.ParseMetar.ToJson(MetarSharp.ParseMetar.FromString(raw));
+        public static string ConvertMetarToJson(this string raw) => MetarSharp.ParseMetar.ToJson(MetarSharp.ParseMetar.FromString(raw));
     }
 }
