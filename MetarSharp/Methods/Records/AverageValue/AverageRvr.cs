@@ -2,7 +2,7 @@
 {
     internal class AverageRvr
     {
-        internal static double Get(List<Metar> metars, byte? decimalPlaces)
+        internal static double Get(List<Metar> metars, int? decimalPlaces)
         {
             var rvrs = GetRVRs(metars);
 
@@ -11,7 +11,7 @@
 
         private static double GetAverageRVRValue(
             List<RunwayVisibility> runwayVisibilities,
-            byte decimalPlaces
+            int decimalPlaces
         )
         {
             var sum = 0;

@@ -1,5 +1,4 @@
-﻿
-namespace MetarSharp
+﻿namespace MetarSharp
 {
     public class Metar
     {
@@ -31,6 +30,6 @@ namespace MetarSharp
 
         public AdditionalInformation AdditionalInformation = new();
 
-        public string ReadableReport = "";
+        public string? ReadableReport = null;
     }
 }

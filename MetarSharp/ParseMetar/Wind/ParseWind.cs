@@ -1,22 +1,19 @@
-using MetarSharp.Definitions;
-using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
-using static MetarSharp.Extensions.Helpers;
+using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse
 {
     internal class ParseWind
     {
-        internal static Wind ReturnWind(string raw)
+        private static readonly Regex _windRegex =
+            new(
+                @"(?<!(?>RMK|TEMPO|BECMG).*)((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?"
+            );
+
+        internal static Wind ReturnWind(string raw, MetarParser? parser)
         {
             var wind = new Wind();
 
-            var windRegex = new Regex(
-                @"(?<!(?>RMK|TEMPO|BECMG).*)((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?",
-                RegexOptions.None
-            );
-
-            MatchCollection windMatches = windRegex.Matches(raw);
+            MatchCollection windMatches = _windRegex.Matches(raw);
 
             if (windMatches.Count == 0)
             {
@@ -25,9 +22,6 @@ namespace MetarSharp.Parse
             }
 
             GroupCollection groups = windMatches[0].Groups;
-
-            #region STANDARD
-            //These always need to be set
 
             wind.WindRaw = groups[0].Value;
 
@@ -54,7 +48,17 @@ namespace MetarSharp.Parse
 
             (wind.WindUnitDecoded, wind.WindUnit) = GetUnit(windUnitRaw);
 
-            #endregion
+            if(parser?.WindUnit is not null)
+            {
+                wind.WindUnit = (WindUnit)parser.WindUnit;
+                (wind.WindUnitRaw, wind.WindUnitDecoded) = parser.WindUnit switch
+                {
+                    WindUnit.MetersPerSecond => (WindDefinitions.MetersPerSecondShort, WindDefinitions.MetersPerSecondLong),
+                    WindUnit.MilesPerHour => (WindDefinitions.MilesPerHourShort, WindDefinitions.MilesPerHourLong),
+                    WindUnit.Knots => (WindDefinitions.KnotsShort, WindDefinitions.KnotsLong),
+                    _ => throw new ArgumentOutOfRangeException()
+                } ;
+            }
 
             wind.WindGusts = groups[9].Success ? IntTryParseWithThrow(groups[9].Value) : null;
 
@@ -73,12 +77,21 @@ namespace MetarSharp.Parse
             return wind;
         }
 
-        private static (string, WindUnit) GetUnit(string raw) => raw switch
-        {
-            "KT" => (WindDefinitions.KnotsLong, WindUnit.Knots),
-            "MPH" => (WindDefinitions.MilesPerHourLong, WindUnit.MilesPerHour),
-            "MPS" => (WindDefinitions.MetersPerSecondLong, WindUnit.MetersPerSecond),
-            _ => throw new ParseException("Could not convert Wind Unit")
-        };
+        private static (string, WindUnit) GetUnit(string raw) =>
+            raw switch
+            {
+                "KT" => (WindDefinitions.KnotsLong, WindUnit.Knots),
+                "MPH" => (WindDefinitions.MilesPerHourLong, WindUnit.MilesPerHour),
+                "MPS" => (WindDefinitions.MetersPerSecondLong, WindUnit.MetersPerSecond),
+                _ => throw new ParseException("Could not convert Wind Unit")
+            };
+    }
+
+    /// <summary>
+    /// Public extension to the ParseWind Class to access the Method from outside the namespace
+    /// </summary>
+    public class ParseWindOnly
+    {
+        public static Wind FromString (string raw) => ParseWind.ReturnWind(raw, null);
     }
 }

@@ -1,6 +1,4 @@
-﻿using MetarSharp.Extensions;
-
-namespace MetarSharp.Records.AverageValue
+﻿namespace MetarSharp.Records.AverageValue
 {
     internal class AverageValue
     {
@@ -25,7 +23,7 @@ namespace MetarSharp.Records.AverageValue
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-        internal static double Get(List<Metar> metars, AverageValueType averageValueType, byte decimalPlaces) =>
+        internal static double Get(List<Metar> metars, AverageValueType averageValueType, int decimalPlaces) =>
             averageValueType switch
             {
                 AverageValueType.CloudCeiling => AverageCeiling.Get(metars, decimalPlaces, false),

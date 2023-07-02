@@ -37,6 +37,7 @@
 
         public List<object>? TrendList { get; set; }
 
+        //TODO
         public string? TrendDecoded { get; set; }
     }
 }

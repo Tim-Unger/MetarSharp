@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Records.AverageValue
+﻿namespace MetarSharp.Records.AverageValue
 {
     internal enum WindType
     {
@@ -11,7 +9,7 @@ namespace MetarSharp.Records.AverageValue
 
     internal class AverageWind
     {
-        internal static double Get(List<Metar> metars, WindType windType, byte? decimalPlaces)
+        internal static double Get(List<Metar> metars, WindType windType, int? decimalPlaces)
         {
             var metarsWithWind = metars.Where(x => !x.Wind.IsWindCalm && x.Wind.IsWindMeasurable && !x.Wind.IsWindVariable).ToList();
 
@@ -23,7 +21,7 @@ namespace MetarSharp.Records.AverageValue
                 _ => throw new ParseException()
             };
         }
-        private static double GetAverageWindDirection(List<Metar> metars, byte? decimalPlaces)
+        private static double GetAverageWindDirection(List<Metar> metars, int? decimalPlaces)
         {
             double sum = 0;
             var count = 0;
@@ -39,7 +37,7 @@ namespace MetarSharp.Records.AverageValue
             return Math.Round(sum / count, decimalPlaces ?? 2);
         }
 
-        private static double GetAverageWindStrength(List<Metar> metars, byte? decimalPlaces)
+        private static double GetAverageWindStrength(List<Metar> metars, int? decimalPlaces)
         {
             double sum = 0;
             var count = 0;
@@ -55,7 +53,7 @@ namespace MetarSharp.Records.AverageValue
             return Math.Round(sum / count, decimalPlaces ?? 2);
         }
 
-        private static double GetAverageWindGustStrength(List<Metar> metars, byte? decimalPlaces)
+        private static double GetAverageWindGustStrength(List<Metar> metars, int? decimalPlaces)
         {
             double sum = 0;
             var count = 0;

@@ -1,16 +1,12 @@
-﻿using MetarSharp.Definitions;
-using System.Text.RegularExpressions;
-using static MetarSharp.Parse.ParseVisibility;
-
+﻿using static MetarSharp.Parse.ParseVisibility;
 namespace MetarSharp.Parse
 {
     internal class ParseFromMeter
     {
-        internal static Visibility ParseVisibility(GroupCollection groups)
+        internal static Visibility ParseVisibility(GroupCollection groups, MetarParser? parser)
         {
-            Visibility visibility = new();
+            var visibility = new Visibility();
 
-            #region STANDARD
             visibility.VisibilityRaw = groups[1].Value.TrimStart();
 
             visibility.ReportedVisibility = Math.Round(double.Parse(groups[2].Value), 2);
@@ -21,7 +17,19 @@ namespace MetarSharp.Parse
             visibility.VisibilityUnitRaw = DistanceDefinitions.MeterShort;
             visibility.VisibilityUnitDecoded = DistanceDefinitions.MeterLong;
 
-            #endregion
+            if(parser?.VisibilityUnit is not null)
+            {
+                var visUnit = (VisibilityUnit)parser.VisibilityUnit;
+
+                visibility.VisibilityUnit = visUnit;
+                (visibility.VisibilityUnitRaw, visibility.VisibilityUnitDecoded) = visUnit switch
+                {
+                    VisibilityUnit.Kilometers => (DistanceDefinitions.KilometerShort,  DistanceDefinitions.KilometerLong),
+                    VisibilityUnit.Miles => (DistanceDefinitions.MileShort, DistanceDefinitions.MileLong),
+                    VisibilityUnit.Meters => (DistanceDefinitions.MeterShort, DistanceDefinitions.MeterLong),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
 
             if (groups[4].Success)
             {
@@ -32,9 +40,10 @@ namespace MetarSharp.Parse
                 (
                     visibility.LowestVisibilityDirection,
                     visibility.LowestVisibilityDirectionDecoded
-                ) = GetCardinalDirection(groups[5].Value);
+                ) = GetCardinalDirection.Get(groups[5].Value);
 
             }
+
             return visibility;
         }
     }

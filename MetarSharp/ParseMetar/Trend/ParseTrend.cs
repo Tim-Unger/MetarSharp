@@ -1,17 +1,15 @@
-using System.Text.RegularExpressions;
-using MetarSharp.Exceptions;
-using static MetarSharp.Extensions.Helpers;
+using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse
 {
     internal class ParseTrend
     {
+        //\n and single line doesn't work for some reason, so MultiLine and $ is used to get the NOSIG at the very end of the metar
+        private static readonly Regex _trendRegex = new(@"(NOSIG|BECMG|TEMPO|NSW)(\s((FM|TL|AT)([0-9]{4})))?(.*?)(?=RMK|$|BECMG)", RegexOptions.Multiline);
+
         internal static List<Trend> ReturnTrend (string raw, Metar metar)
         {
-            //\n and single line doesn't work in c# apparently, so MultiLine and $ is used to get the NOSIG at the very end of the metar
-            Regex trendRegex = new(@"(NOSIG|BECMG|TEMPO|NSW)(\s((FM|TL|AT)([0-9]{4})))?(.*?)(?=RMK|$|BECMG)", RegexOptions.Multiline);
-
-            MatchCollection trendMatches = trendRegex.Matches(raw);
+            MatchCollection trendMatches = _trendRegex.Matches(raw);
 
             if (trendMatches.Count == 0)
             {
@@ -72,7 +70,7 @@ namespace MetarSharp.Parse
                 //that's why the NullOrWhiteSpace Check is here
                 if (groups[6].Success && groups[6].Value != "" && !string.IsNullOrWhiteSpace(groups[6].Value))
                 {
-                    trend.TrendList = GetTrendObjects(match.Value);
+                    trend.TrendList = TrendObjects.Get(match.Value);
                 }
 
                 trends.Add(trend);
@@ -80,54 +78,11 @@ namespace MetarSharp.Parse
 
             return trends;
         }
+    }
 
-        private static List<object> GetTrendObjects(string input)
-        {
-            var result = new List<object>();
-
-            //First, all trend objects are split by this big regex
-            var trendRegex = new Regex
-                (@"(\s[0-9]{4}(?:\s|$))|(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s|((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\s(([0-9]{3})V([0-9]{3})))?|((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))", RegexOptions.Multiline);
-
-            MatchCollection matches = trendRegex.Matches(input);
-
-            //this uses the individual regex on each trend object and checks which one it is
-            foreach (var match in matches.Cast<Match>())
-            {
-                var visRegex = new Regex(@"(\s[0-9]{4}(?:\s|$))", RegexOptions.Multiline);
-                if (visRegex.IsMatch(match.Value))
-                {
-                    result.Add(GetVisibility(match.Value));
-                }
-
-                var weatherRegex = new Regex(@"(RE)?(-|\+|VC)?(MI|BC|BL|SH|TS|FZ|DZ|RA|SN|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|SQ|FC|SS){1,}\s", RegexOptions.None);
-                if (weatherRegex.IsMatch(match.Value))
-                {
-                    result.Add(GetWeather(match.Value));
-                }
-
-                var windRegex = new Regex("((([0-9]{3})([0-9]{1,3})|VRB([0-9]{1,3})|(/{3})(/{1,3}))(G([0-9]{1,3}))?)(KT|MPS|MPH)(\\s(([0-9]{3})V([0-9]{3})))?");
-                if (windRegex.IsMatch(match.Value))
-                {
-                    result.Add(GetWind(match.Value));
-                }
-
-                var cloudRegex = new Regex("((CAVOK)|((FEW|SCT|BKN|OVC|VV|NSC|NCD|///)([0-9]{3}|///)(CB|TCU|///)?))", RegexOptions.None);
-                if (cloudRegex.IsMatch(match.Value))
-                {
-                    result.Add(GetCloud(match.Value));
-                }
-            }
-
-            return result;
-        }
-
-        private static Visibility GetVisibility(string input) => ParseVisibility.ReturnVisibility(input);
-
-        private static Weather GetWeather(string input) => ParseWeather.GetWeatherFromTrend(input);
-
-        private static Wind GetWind(string input) => ParseWind.ReturnWind(input);
-
-        private static Cloud GetCloud(string input) => ParseClouds.ReturnClouds(input).First();
+    public class ParseTrendOnly
+    {
+        //TODO
+        //public static List<Trend> FromString(string raw) => ParseTrend.ReturnTrend(raw);
     }
 }

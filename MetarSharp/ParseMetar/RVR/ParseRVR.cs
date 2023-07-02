@@ -1,21 +1,14 @@
-using MetarSharp.Definitions;
-using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
-
 namespace MetarSharp.Parse
 {
     internal class ParseRVR
     {
+        private static readonly Regex _rvrRegex = new("R(([0-9]{2})(L|R|C)?)/(P|M)?([0-9]{4})(?:(V?(P|M)?([0-9]{4})?))(U|D|N)");
+
         internal static List<RunwayVisibility> ReturnRVR(string raw)
         {
             var runwayVisibilities = new List<RunwayVisibility>();
 
-            var RVRRegex = new Regex(
-                "R(([0-9]{2})(L|R|C)?)/(P|M)?([0-9]{4})(?:(V?(P|M)?([0-9]{4})?))(U|D|N)",
-                RegexOptions.None
-            );
-
-            foreach (Match match in RVRRegex.Matches(raw).Cast<Match>())
+            foreach (Match match in _rvrRegex.Matches(raw).Cast<Match>())
             {
                 var runwayVisibility = new RunwayVisibility();
 
@@ -90,5 +83,10 @@ namespace MetarSharp.Parse
 
             return runwayVisibilities;
         }
+    }
+
+    public class ParseRVROnly
+    {
+        public static List<RunwayVisibility> FromString(string raw) => ParseRVR.ReturnRVR(raw) ?? Enumerable.Empty<RunwayVisibility>().ToList();
     }
 }

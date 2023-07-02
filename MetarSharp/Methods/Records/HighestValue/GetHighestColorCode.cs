@@ -1,6 +1,4 @@
-﻿using MetarSharp.Extensions;
-
-namespace MetarSharp.Records.HighestValue
+﻿namespace MetarSharp.Records.HighestValue
 {
     internal class HighestColorCode
     {
@@ -35,7 +33,7 @@ namespace MetarSharp.Records.HighestValue
         private static Metar SortColorCodes(List<Metar> metars)
         {
             return metars
-                .Where(x => x.AdditionalInformation.ColorCode != null)
+                .Where(x => x.AdditionalInformation.ColorCode is not null)
                 .ToList()
                 .OrderByDescending(x => x.AdditionalInformation.ColorCode.Color)
                 .First();

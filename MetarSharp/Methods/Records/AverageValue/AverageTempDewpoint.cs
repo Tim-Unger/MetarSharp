@@ -2,7 +2,7 @@
 {
     internal class AverageTempDewpoint
     {
-        internal static double Get(List<Metar> metars, bool isCelsius, bool isTemperature, byte? decimalPlaces)
+        internal static double Get(List<Metar> metars, bool isCelsius, bool isTemperature, int? decimalPlaces)
         {
             var metarsWithTemp = metars.Where(x => x.Temperature.IsTemperatureMeasurable).ToList();
 
@@ -27,7 +27,7 @@
 
         private static double GetAverageTemperature(
             List<Metar> metars,
-            byte decimalPlaces,
+            int decimalPlaces,
             bool isCelsius
         )
         {
@@ -60,7 +60,7 @@
 
         private static double GetAverageDewpoint(
             List<Metar> metars,
-            byte decimalPlaces,
+            int decimalPlaces,
             bool isCelsius
         )
         {

@@ -1,19 +1,12 @@
-﻿using MetarSharp.Exceptions;
-using System.Text.RegularExpressions;
-using static MetarSharp.Definitions.CardinalDirectionDefinitions;
-
-namespace MetarSharp.Parse
+﻿namespace MetarSharp.Parse
 {
     internal class ParseVisibility
     {
-        internal static Visibility ReturnVisibility(string raw)
-        {
-            var visibilityRegex = new Regex(
-                @"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9](?>[0-9])?))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s",
-                RegexOptions.None
-            );
+        private static readonly Regex _visibilityRegex = new(@"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9](?>[0-9])?))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s");
 
-            MatchCollection matches = visibilityRegex.Matches(raw);
+        internal static Visibility ReturnVisibility(string raw, MetarParser? parser)
+        {
+            MatchCollection matches = _visibilityRegex.Matches(raw);
 
             if (matches.Count == 0)
             {
@@ -34,35 +27,29 @@ namespace MetarSharp.Parse
             GroupCollection groups = matches[0].Groups;
             if (groups[2].Success)
             {
-                return ParseFromMeter.ParseVisibility(groups);
+                return ParseFromMeter.ParseVisibility(groups, parser ?? null);
             }
 
             if (groups[12].Value == "SM")
             {
-                return ParseFromMiles.ParseVisibility(groups);
+                return ParseFromMiles.ParseVisibility(groups, parser ?? null);
             }
 
             if (groups[12].Value == "KM")
             {
-                return ParseFromKilometer.ParseVisibility(groups);
+                return ParseFromKilometer.ParseVisibility(groups, parser ?? null);
             }
 
             //This also covers the //// case
             return new Visibility { IsVisibilityMeasurable = false };
         }
+    }
 
-        internal static (CardinalDirection, string) GetCardinalDirection(string raw) =>
-            raw switch
-            {
-                "N" => (CardinalDirection.North, NorthLong),
-                "NE" => (CardinalDirection.NorthEast, NorthEastLong),
-                "E" => (CardinalDirection.East, EastLong),
-                "SE" => (CardinalDirection.SouthEast, SouthEastLong),
-                "S" => (CardinalDirection.South, SouthLong),
-                "SW" => (CardinalDirection.SouthWest, SouthWestLong),
-                "W" => (CardinalDirection.West, WestLong),
-                "NW" => (CardinalDirection.NorthWest, NorthWestLong),
-                _ => throw new ParseException("Could not convert cardinal direction")
-            };
+    /// <summary>
+    /// Public extension to the ParseVisibility Class to access the Method from outside the namespace
+    /// </summary>
+    public class ParseVisibilityOnly
+    {
+        public static Visibility FromString(string raw) => ParseVisibility.ReturnVisibility(raw, null);
     }
 }

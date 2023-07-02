@@ -1,119 +1,119 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using MetarSharp.Converter;
-using MetarSharp.Converter.Distance;
-using MetarSharp.Converter.Pressure;
-using MetarSharp.Converter.Speed;
-using MetarSharp.Converter.Temperature;
-using MetarSharp.Converter.Time;
-using MetarSharp.Downloader;
+using Microsoft.Diagnostics.Tracing.Parsers.Kernel;
 
 namespace MetarSharp.Benchmarks;
 
-public class BenchMarks
+public class Benchmarks
 {
-    private static List<string> Metars { get; set; }
+    private static readonly List<string> _metars = Enumerable.Repeat(
+                "LFSB 221730Z AUTO 21021G62KT 160V240 0700 R15/1400U R33/1600U +TSRA FG FEW004/// SCT010/// BKN020/// ///CB 15/15 Q1018 TEMPO VRB15G30KT 2000 TSRA ",
+                2500).ToList();
 
-    [GlobalSetup]
-    public void Setup()
-    {
-        var largeList =
-            Enumerable.Repeat(
-                "KSKX 091200Z AUTO 29015G23KT 10SM CLR 00/M16 A2994 RMK AO2 PK WND 30028/2211 SLP149 T00001161 FZRANO BLU",
-                10000).ToList();
-        //var lines = File.ReadAllLines("../Metars.txt");
-        Metars = largeList;
-    }
+    private static readonly string _metar = _metars.First();
 
-    [Benchmark]
+    //[Benchmark]
     public void ParseMetarsEach()
     {
-        var parse = Metars.Select(ParseMetar.FromString).ToList();
+        _ = _metars.Select(ParseMetar.FromString).ToList();
     }
 
-    [Benchmark]
+    //[Benchmark]
     public void ParseMetarsAll()
     {
-        _ = ParseMetar.FromList(Metars);
+        _ = ParseMetar.FromList(_metars);
+    }
+
+    //[Benchmark]
+    public void ParseMetarsParallel()
+    {
+        _ = ParseMetar.FromListParallel(_metars);
     }
 
     [Benchmark]
-    public void ParseMetarsForEach()
+    public void Everything()
     {
-        List<Metar> metarList = new();
-
-        Metars.ForEach(x => metarList.Add(ParseMetar.FromString(x)));
+        _ = ParseMetar.FromString(_metar);
     }
 
     [Benchmark]
-    public void ParseSingleMetar()
+    public void JustAdditional()
     {
-        var rand = new Random(42069).Next(0, Metars.Count);
-            
-        _ = ParseMetar.FromString(Metars[rand]);
+        _ = ParseMetar.SingleItem.JustAdditionalInformation(_metar);
     }
 
     [Benchmark]
-    public void ConvertDistance()
+    public void JustAirport()
     {
-        _ = ConvertFromKilometer.ToMeter(1000);
+        _ = ParseMetar.SingleItem.JustAirport(_metar);
     }
 
     [Benchmark]
-    public void ConvertPressure()
+    public void JustAuto()
     {
-        _ = ConvertFromHectopascals.ToInchesMercury(1035);
+        _ = ParseMetar.SingleItem.JustIsAuto(_metar);
     }
 
     [Benchmark]
-    public void ConvertSpeed()
+    public void JustClouds() 
     {
-        _ = ConvertFromMetersPerSecond.ToKilometersPerHour(500);
+        _ = ParseMetar.SingleItem.JustClouds(_metar);
     }
 
     [Benchmark]
-    public void ConvertTemperature()
+    public void JustPressure()
     {
-        _ = ConvertFromFahrenheit.ToCelsius(46);
+        _ = ParseMetar.SingleItem.JustPressure(_metar);
     }
 
     [Benchmark]
-    public void ConvertTime()
+    public void JustReadableReport()
     {
-        _ = ConvertFromSeconds.ToWeeks(10000);
+        _ = ParseMetar.SingleItem.JustReadableReport(_metar);
     }
 
     [Benchmark]
-    public void DownloadFromVatsimSingle()
+    public void JustReportingTime()
     {
-       _ = DownloadMetar.FromVatsimSingle("eddf");
+        _ = ParseMetar.SingleItem.JustReportingTime(_metar);
     }
 
     [Benchmark]
-    public void DownloadFromVatsimMultiple()
+    public void JustRVR()
     {
-        _ = DownloadMetar.FromVatsimMultiple("e");
+        _ = ParseMetar.SingleItem.JustRVR(_metar);
     }
 
     [Benchmark]
-    public void DownloadFromAvWeatherWithHours()
+    public void JustTemperature()
     {
-        _ = DownloadMetar.FromAviationWeather("eddf");
+        _ = ParseMetar.SingleItem.JustTemperature(_metar);
     }
 
     [Benchmark]
-    public void DownloadFromAvWeatherWithoutHours()
+    public void JustVisibility()
     {
-        _ = DownloadMetar.FromAviationWeather("eddf", 10);
+        _ = ParseMetar.SingleItem.JustVisibility(_metar);
     }
 
+    [Benchmark]
+    public void JustWeather()
+    {
+        _ = ParseMetar.SingleItem.JustWeather(_metar);
+    }
+
+    [Benchmark]
+    public void JustWind()
+    {
+        _ = ParseMetar.SingleItem.JustWind(_metar);
+    }
 }
 
 public class Program
 {
     static void Main(string[] args)
     {
-        var summary = BenchmarkRunner.Run<BenchMarks>();
+        var summary = BenchmarkRunner.Run<Benchmarks>();
 
         Console.WriteLine(summary);
     }

@@ -1,12 +1,8 @@
-﻿using MetarSharp.Definitions;
-using System.Text.RegularExpressions;
-using MetarSharp.Exceptions;
-
-namespace MetarSharp.Parse
+﻿namespace MetarSharp.Parse
 {
     internal class ParseFromMiles
     {
-        internal static Visibility ParseVisibility(GroupCollection groups)
+        internal static Visibility ParseVisibility(GroupCollection groups, MetarParser? parser)
         {
             var visibility = new Visibility()
             {
@@ -46,12 +42,27 @@ namespace MetarSharp.Parse
                         $"Could not convert Visibility {groups[8].Value} to Number"
                     );
             }
+
             var reportedVisibilityConverted = hasVisibilitySlash ? convertedValue : reportedVisibility;
             visibility.ReportedVisibility = Math.Round(reportedVisibilityConverted,2);
 
             visibility.VisibilityUnit = VisibilityUnit.Miles;
             visibility.VisibilityUnitRaw = DistanceDefinitions.StatuteMileShort;
             visibility.VisibilityUnitDecoded = DistanceDefinitions.StatuteMileLong;
+
+            if (parser?.VisibilityUnit is not null)
+            {
+                var visUnit = (VisibilityUnit)parser.VisibilityUnit;
+
+                visibility.VisibilityUnit = visUnit;
+                (visibility.VisibilityUnitRaw, visibility.VisibilityUnitDecoded) = visUnit switch
+                {
+                    VisibilityUnit.Kilometers => (DistanceDefinitions.KilometerShort, DistanceDefinitions.KilometerLong),
+                    VisibilityUnit.Miles => (DistanceDefinitions.MileShort, DistanceDefinitions.MileLong),
+                    VisibilityUnit.Meters => (DistanceDefinitions.MeterShort, DistanceDefinitions.MeterLong),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
 
             return visibility;
         }

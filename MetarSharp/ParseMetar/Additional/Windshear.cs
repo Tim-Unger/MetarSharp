@@ -1,7 +1,3 @@
-using MetarSharp.Exceptions;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace MetarSharp.Parse.Additional
 {
     internal class WindshearParse

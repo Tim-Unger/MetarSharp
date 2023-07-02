@@ -1,6 +1,4 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Parse.ReadableReport
+﻿namespace MetarSharp.Parse.ReadableReport
 {
     internal class Wind
     {

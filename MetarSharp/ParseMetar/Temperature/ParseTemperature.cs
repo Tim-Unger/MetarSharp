@@ -1,21 +1,17 @@
 using MetarSharp.Converter.Temperature;
-using System.Text.RegularExpressions;
-using static MetarSharp.Extensions.Helpers;
+using static MetarSharp.Extensions.TryParseExtensions;
 
 namespace MetarSharp.Parse
 {
     internal class ParseTemperature
     {
+        private static readonly Regex _temperatureRegex = new(@"(M)?([0-9]{1,2})/(M)?([0-9]{1,2})|\s(/{5})\s");
+
         internal static Temperature ReturnTemperature(string raw)
         {
             var temperature = new Temperature();
 
-            var temperatureRegex = new Regex(
-                @"(M)?([0-9]{1,2})/(M)?([0-9]{1,2})|\s(/{5})\s",
-                RegexOptions.None
-            );
-
-            MatchCollection temperatureMatches = temperatureRegex.Matches(raw);
+            MatchCollection temperatureMatches = _temperatureRegex.Matches(raw);
 
             if (temperatureMatches.Count == 0)
             {
@@ -62,5 +58,10 @@ namespace MetarSharp.Parse
 
             return temperature;
         }
+    }
+
+    public class ParseTemperatureOnly
+    {
+        public static Temperature FromString(string raw) => ParseTemperature.ReturnTemperature(raw);
     }
 }

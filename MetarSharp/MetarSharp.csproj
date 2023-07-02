@@ -12,9 +12,22 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Tim-Unger/MetarSharp</RepositoryUrl>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
-    <AssemblyVersion>0.8</AssemblyVersion>
-    <Version>1.0.1</Version>
+	<PackageIcon>MetarSharpIcon.png</PackageIcon>
+	<PackageIconUrl>https://i.imgur.com/1wS3rY6.png</PackageIconUrl>
+	<AssemblyVersion>0.8</AssemblyVersion>
+    <Version>1.1.0</Version>
+    <ApplicationIcon>MetarSharpIcon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ParseMetar\ParseToString\**" />
+    <EmbeddedResource Remove="ParseMetar\ParseToString\**" />
+    <None Remove="ParseMetar\ParseToString\**" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="MetarSharpIcon.png" Pack="true" Visible="false" PackagePath="MetarSharpIcon.png" />
+	</ItemGroup>
 
   <ItemGroup>
     <None Include="D:\Downloads\License.txt">
@@ -24,6 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ParseMetar\ParseToString\" />
+    <None Update="MetarSharpIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

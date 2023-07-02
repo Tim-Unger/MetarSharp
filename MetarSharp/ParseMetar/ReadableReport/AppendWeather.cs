@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace MetarSharp.Parse.ReadableReport
+﻿namespace MetarSharp.Parse.ReadableReport
 {
     internal class Weather
     {

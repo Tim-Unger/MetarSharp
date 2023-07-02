@@ -1,5 +1,3 @@
-using MetarSharp.Exceptions;
-
 namespace MetarSharp.Extensions
 {
     public enum ReturnType

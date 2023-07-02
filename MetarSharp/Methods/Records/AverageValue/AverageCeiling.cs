@@ -1,10 +1,8 @@
-﻿using MetarSharp.Exceptions;
-
-namespace MetarSharp.Records.AverageValue
+﻿namespace MetarSharp.Records.AverageValue
 {
     internal class AverageCeiling
     {
-        internal static double Get(List<Metar> metars, byte? decimalPlaces, bool isVerticalVis)
+        internal static double Get(List<Metar> metars, int? decimalPlaces, bool isVerticalVis)
         {
             if (isVerticalVis)
             {
@@ -14,12 +12,12 @@ namespace MetarSharp.Records.AverageValue
             return AverageClouds(GetCloudsWithMesaurableCeiling(metars, isVerticalVis), decimalPlaces ?? 2);
         }
 
-        private static double AverageClouds(List<Cloud> clouds, byte decimalPlaces)
+        private static double AverageClouds(List<Cloud> clouds, int decimalPlaces)
         {
             var sum = 0;
             var count = 0;
 
-            clouds.RemoveAll(x => x.CloudCeiling == null);
+            clouds.RemoveAll(x => x.CloudCeiling is null);
 
             clouds.ForEach(
                 x =>
@@ -32,12 +30,12 @@ namespace MetarSharp.Records.AverageValue
             return Math.Round(sum / (double)count, decimalPlaces);
         }
 
-        private static double AverageVerticalVis(List<Cloud> clouds, byte decimalPlaces)
+        private static double AverageVerticalVis(List<Cloud> clouds, int decimalPlaces)
         {
             var sum = 0;
             var count = 0;
 
-            clouds.RemoveAll(x => x.VerticalVisibility == null);
+            clouds.RemoveAll(x => x.VerticalVisibility is null);
 
             clouds.ForEach(
                 x =>

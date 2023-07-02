@@ -1,5 +1,4 @@
-﻿using MetarSharp.Exceptions;
-using static MetarSharp.Extensions.Helpers;
+﻿using static MetarSharp.Extensions.DistanceExtensions;
 
 namespace MetarSharp.Parse.ReadableReport
 {

@@ -1,16 +1,10 @@
-﻿using MetarSharp.Definitions;
-using System.Text.RegularExpressions;
-using static MetarSharp.Parse.ParseVisibility;
-
-namespace MetarSharp.Parse
+﻿namespace MetarSharp.Parse
 {
     internal class ParseFromKilometer
     {
-        internal static Visibility ParseVisibility(GroupCollection groups)
+        internal static Visibility ParseVisibility(GroupCollection groups, MetarParser? parser)
         {
-            Visibility visibility = new();
-
-            #region STANDARD
+            var visibility = new Visibility();
 
             visibility.VisibilityRaw = groups[7].Value;
 
@@ -22,7 +16,19 @@ namespace MetarSharp.Parse
             visibility.VisibilityUnitRaw = DistanceDefinitions.KilometerShort;
             visibility.VisibilityUnitDecoded = DistanceDefinitions.KilometerLong;
 
-            #endregion
+            if (parser?.VisibilityUnit is not null)
+            {
+                var visUnit = (VisibilityUnit)parser.VisibilityUnit;
+
+                visibility.VisibilityUnit = visUnit;
+                (visibility.VisibilityUnitRaw, visibility.VisibilityUnitDecoded) = visUnit switch
+                {
+                    VisibilityUnit.Kilometers => (DistanceDefinitions.KilometerShort, DistanceDefinitions.KilometerLong),
+                    VisibilityUnit.Miles => (DistanceDefinitions.MileShort, DistanceDefinitions.MileLong),
+                    VisibilityUnit.Meters => (DistanceDefinitions.MeterShort, DistanceDefinitions.MeterLong),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
 
             if (groups[13].Success)
             {
@@ -31,7 +37,7 @@ namespace MetarSharp.Parse
                 (
                     visibility.LowestVisibilityDirection,
                     visibility.LowestVisibilityDirectionDecoded
-                ) = GetCardinalDirection(groups[15].Value);
+                ) = GetCardinalDirection.Get(groups[15].Value);
                 visibility.LowestVisibilityDirectionRaw = groups[15].Value;
             }
 

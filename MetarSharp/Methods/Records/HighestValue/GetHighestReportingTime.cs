@@ -1,6 +1,4 @@
-﻿using MetarSharp.Extensions;
-
-namespace MetarSharp.Records.HighestValue
+﻿namespace MetarSharp.Records.HighestValue
 {
     internal class HighestReportingTime
     {

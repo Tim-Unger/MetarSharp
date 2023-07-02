@@ -1,4 +1,3 @@
-using MetarSharp.Extensions;
 using ValueType = MetarSharp.Extensions.ValueType;
 
 namespace MetarSharp.Records.LowestValue

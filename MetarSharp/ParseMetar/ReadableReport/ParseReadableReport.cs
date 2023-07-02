@@ -1,15 +1,13 @@
-using System.Text;
-
 namespace MetarSharp.Parse.ReadableReport
 {
-    public class ParseReadableReport
+    internal class ParseReadableReport
     {
         /// <summary>
         /// this creates a readable report of the entire metar.
         /// </summary>
         /// <param name="metar"></param>
         /// <returns></returns>
-        internal static string ReturnReadableReport(Metar metar)
+        internal static string ReturnReadableReport(Metar metar, CultureInfo? cultureInfo)
         {
             var reportBuilder = new StringBuilder();
 
@@ -22,7 +20,7 @@ namespace MetarSharp.Parse.ReadableReport
             reportBuilder.AppendLine();
 
             //Reporting Time
-            reportBuilder.AppendLine(ReportingTime.Append(metar));
+            reportBuilder.AppendLine(ReportingTime.Append(metar, cultureInfo));
 
             //Wind
             reportBuilder.AppendLine(Wind.Append(metar));
@@ -32,13 +30,13 @@ namespace MetarSharp.Parse.ReadableReport
 
             //RVRs
             //Null check is not really necessary, just to prevent any possible exceptions
-            if (metar.RunwayVisibilities != null && metar.RunwayVisibilities.Count > 0)
+            if (metar.RunwayVisibilities is not null && metar.RunwayVisibilities.Count > 0)
             {
                 reportBuilder.Append(RVR.Append(metar));
             }
 
             //Weather
-            if (metar.Weather != null && metar.Weather.Weathers.Count > 0)
+            if (metar.Weather is not null && metar.Weather.Weathers.Count > 0)
             {
                 reportBuilder.Append(Weather.Append(metar));
             }
@@ -71,5 +69,12 @@ namespace MetarSharp.Parse.ReadableReport
 
             return reportBuilder.ToString();
         }
+    }
+    
+    public class ParseReadableReportOnly
+    {
+        public static string FromString(Metar raw) => ParseReadableReport.ReturnReadableReport(raw, null);
+
+        public static string FromString(Metar raw, CultureInfo? cultureInfo) => ParseReadableReport.ReturnReadableReport(raw, cultureInfo);
     }
 }
