@@ -1,4 +1,4 @@
-﻿namespace AviationSharp.Metar.Tests
+﻿namespace MetarSharp.Tests
 {
     [SetUpFixture]
     internal class Setup

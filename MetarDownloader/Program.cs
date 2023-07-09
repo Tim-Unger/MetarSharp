@@ -33,7 +33,7 @@ namespace MetarDownloader
 
             List<string> metars = new();
 
-            foreach (string icao in randomIcaos)
+            foreach (var icao in randomIcaos)
             {
                 var metar = await client.GetStringAsync($"https://metar.vatsim.net/{icao}");
 

@@ -1,5 +1,5 @@
 ﻿
-namespace AviationSharp.Metar.Tests.Tests.Airport
+namespace MetarSharp.Tests.Tests.Airport
 {
     internal class Airport
     {

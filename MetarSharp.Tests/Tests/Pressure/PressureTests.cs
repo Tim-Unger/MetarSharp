@@ -1,13 +1,15 @@
-﻿using AviationSharp.Metar.Exceptions;
+﻿using MetarSharp.Converter.Pressure;
+using MetarSharp.Exceptions;
+using System.ComponentModel.Design;
 
-namespace AviationSharp.Metar.Tests.Pressure
+namespace MetarSharp.Tests.Pressure
 {
-    public class PressureTests
+    internal class PressureTests
     {
         [Test]
         public void CheckThatConversionIsCorrect_ReturnsTrue()
         {
-            foreach (Metar metar in Setup.MetarsParsed.Where(x => x.Pressure.IsPressureMeasurable))
+            foreach (var metar in MetarsParsed.Where(x => x.Pressure.IsPressureMeasurable))
             {
                 switch (metar.Pressure.PressureType)
                 {
