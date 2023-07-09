@@ -1,5 +1,5 @@
 ﻿
-namespace MetarSharp.Tests.ReportingTime
+namespace AviationSharp.Metar.Tests.ReportingTime
 {
     internal class ReportingTime
     {

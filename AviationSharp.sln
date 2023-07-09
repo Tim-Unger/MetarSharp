@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AviationSharp.Debugger", "MetarSharpDebugger\AviationSharp.Debugger.csproj", "{812C941D-136C-4505-BBCA-2A74382DE73C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarDownloader", "MetarDownloader\MetarDownloader.csproj", "{900D8957-C07E-4C7F-9D94-3225E40C1F01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AviationSharp.Metar.Tests", "MetarSharp.Tests\AviationSharp.Metar.Tests.csproj", "{04174095-89F7-423D-AE35-E8F647D62834}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AviationSharp.Metar.Benchmarks", "MetarSharp.Benchmarks\AviationSharp.Metar.Benchmarks.csproj", "{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE7C7F37-D574-4E1F-A404-5AFFF7E8A84D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetarExtras", "MetarExtras", "{E308300E-A51D-42E4-9861-6D12782A1DA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Airports", "Airports", "{8D1273F3-4B85-40BD-AA13-D523E7F60AC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportDataUploader", "AirportDataUploader\AirportDataUploader.csproj", "{11315801-898D-4332-B0FF-2930319CCFE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviationSharp", "AviationSharp\AviationSharp.csproj", "{6DB02211-8DE0-44F6-A551-ECA56B3088BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{812C941D-136C-4505-BBCA-2A74382DE73C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{900D8957-C07E-4C7F-9D94-3225E40C1F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04174095-89F7-423D-AE35-E8F647D62834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11315801-898D-4332-B0FF-2930319CCFE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11315801-898D-4332-B0FF-2930319CCFE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11315801-898D-4332-B0FF-2930319CCFE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11315801-898D-4332-B0FF-2930319CCFE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB02211-8DE0-44F6-A551-ECA56B3088BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB02211-8DE0-44F6-A551-ECA56B3088BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB02211-8DE0-44F6-A551-ECA56B3088BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB02211-8DE0-44F6-A551-ECA56B3088BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{900D8957-C07E-4C7F-9D94-3225E40C1F01} = {E308300E-A51D-42E4-9861-6D12782A1DA8}
+		{04174095-89F7-423D-AE35-E8F647D62834} = {E308300E-A51D-42E4-9861-6D12782A1DA8}
+		{CBF0439A-38F2-4E31-AEEF-D537E99C37CE} = {E308300E-A51D-42E4-9861-6D12782A1DA8}
+		{11315801-898D-4332-B0FF-2930319CCFE3} = {8D1273F3-4B85-40BD-AA13-D523E7F60AC8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D74C9FAF-217C-40A7-BE62-CD674D633936}
+	EndGlobalSection
+EndGlobal

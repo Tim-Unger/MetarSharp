@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 
-namespace MetarSharp.Tests
+namespace AviationSharp.Metar.Tests
 {
     public class Airport
     {

@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Tests.Visibility
+﻿namespace AviationSharp.Metar.Tests.Visibility
 {
     internal class Visibility
     {
@@ -8,7 +8,7 @@
 
             //TODO
             //Assert.That(MetarsParsed.Where(x => x.Visibility.IsVisibilityMeasurable).ToList().All(x => new[] {"SM", "M"}.Any(y => x.Visibility.VisibilityUnitRaw == y)));
-            foreach (var metar in MetarsParsed)
+            foreach (Metar metar in Setup.MetarsParsed)
             {
                 if (metar.Visibility.IsVisibilityMeasurable == false)
                 {

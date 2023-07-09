@@ -1,8 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using Microsoft.Diagnostics.Tracing.Parsers.Kernel;
+using AviationSharp.Metar;
 
-namespace MetarSharp.Benchmarks;
+namespace AviationSharp.Metar.Benchmarks;
 
 public class Benchmarks
 {
