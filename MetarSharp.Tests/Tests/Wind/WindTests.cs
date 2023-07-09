@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Tests.Wind
+﻿namespace AviationSharp.Metar.Tests.Wind
 {
     internal class WindTests
     {

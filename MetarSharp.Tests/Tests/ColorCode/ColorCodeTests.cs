@@ -1,4 +1,4 @@
-namespace MetarSharp.Tests.Tests.ColorCode
+namespace AviationSharp.Metar.Tests.Tests.ColorCode
 {
     public class ColorCodeTests
     {
@@ -7,9 +7,9 @@ namespace MetarSharp.Tests.Tests.ColorCode
         public void CheckColorCodeMatchesMetarValues_ReturnsTrue()
         {
             
-            var metarsWithColorCode = MetarsParsed.Where(x => x.AdditionalInformation.ColorCode.Color != Color.NIL).ToList();
+            var metarsWithColorCode = Setup.MetarsParsed.Where(x => x.AdditionalInformation.ColorCode.Color != Color.NIL).ToList();
             
-            foreach (var colorCode in metarsWithColorCode)
+            foreach (Metar colorCode in metarsWithColorCode)
             {
                 var isColorCodeCorrect = AreColorCodeValuesCorrect(colorCode.AdditionalInformation.ColorCode.Color, colorCode);
                 Assert.That(isColorCodeCorrect, Is.True);

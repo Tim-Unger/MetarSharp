@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -14,8 +14,8 @@
     <PackageLicenseFile>License.txt</PackageLicenseFile>
 	<PackageIcon>MetarSharpIcon.png</PackageIcon>
 	<PackageIconUrl>https://i.imgur.com/1wS3rY6.png</PackageIconUrl>
-	<AssemblyVersion>0.8</AssemblyVersion>
-    <Version>1.1.0</Version>
+	<AssemblyVersion>1.0</AssemblyVersion>
+    <Version>1.2.0</Version>
     <ApplicationIcon>MetarSharpIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -34,6 +34,12 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AviationSharp.Converter">
+      <HintPath>..\AviationSharp.Converter\bin\Debug\net7.0\AviationSharp.Converter.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
