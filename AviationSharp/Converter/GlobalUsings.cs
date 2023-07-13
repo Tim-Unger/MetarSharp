@@ -1,1 +1,0 @@
-﻿global using AviationSharp.Metar.Exceptions;

@@ -1,6 +1,5 @@
 ﻿namespace AviationSharp.Converter.Distance
 {
-
     public static class ConvertFromMeter
     {
         /// <summary>
