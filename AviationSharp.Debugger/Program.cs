@@ -1,13 +1,10 @@
 ﻿using AviationSharp;
 using AviationSharp.Airacs;
-using AviationSharp.Airports;
-using AviationSharp.Calculator;
-using AviationSharp.Converter.Height;
+using AviationSharp.Aircraft;
 using AviationSharp.Metar;
-using AviationSharp.NAT;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Text;
-using System.Text.Json;
 
 namespace AviationSharpDebugger
 {
@@ -35,20 +32,9 @@ namespace AviationSharpDebugger
                 streamFile.Write(ParseMetar.ListToSingleJsonString(metars.Take(10)));
             }
 
-            var airports = SearchAirports.GetAllAirports();
+            //6var airports = SearchAirports.GetAllAirports();
 
-            var tracks = Airacs.GetCurrent();
-
-            //var cw = Crosswind.Calculate();
-            //AviationSharp.Airports.Reader.AirportJson.Write();
-            //var taf = ParseTaf.FromString("KXYZ 051730Z 0518/0624 31008KT 3SM - SHRA BKN020 FM052300 30006KT 5SM - SHRA OVC030 PROB30 0604/0606 VRB20G35KT 1SM TSRA BKN015CB BCMG 0417/0503 25010KT 4SM - SHRA OVC050 TEMPO 0608/0611 2SM - SHRA OVC030 RMK NXT FCST BY 00Z = ");
-
-            //var multiple = DownloadMetar.FromVatsimMultipleIcaos("edds", "eddf", "eddm").ParseMetars();
-
-            ///Just for diagnostics/to check execution time
-            //timer.Stop();
-            //var executeTime = timer.ElapsedMilliseconds;
-            //var timerPerMetar = Math.Round((double)executeTime / metars.Count, 5);
+            var info = Information.Get();
             }
     }
 }

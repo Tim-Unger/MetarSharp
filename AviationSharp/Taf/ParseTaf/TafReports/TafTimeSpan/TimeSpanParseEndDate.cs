@@ -11,6 +11,7 @@ namespace AviationSharp.Taf.Parse.TimeSpan
                 DateType.Probability => 5,
                 DateType.Becoming => 10,
                 DateType.Tempo => 13,
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             var endTimeValues = groups[groupIndex].Value;
