@@ -1,4 +1,4 @@
-﻿namespace MetarSharp.Extensions
+﻿namespace AviationSharp.Metar.Extensions
 {
     public class NullCheckExtensions
     {

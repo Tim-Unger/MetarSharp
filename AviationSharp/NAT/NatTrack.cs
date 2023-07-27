@@ -6,7 +6,8 @@ namespace AviationSharp.NAT
     {
         Unknown,
         Westbound,
-        Eastbound
+        Eastbound,
+        Both
     }
 
     public class NatTrack

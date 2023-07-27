@@ -10,9 +10,18 @@ namespace AviationSharp
 
         public readonly int Airac = Airacs.Airacs.GetCurrent().Ident;
 
-        public readonly int AirportCount = Airports.SearchAirports.GetAllAirports().Count;
-
-        public readonly int AircraftCount = Aircraft.Aircraft.GetAll().Count;
+        public readonly int AirportCount =
+#if DEBUG
+            Airports.SearchAirports.GetAllAirports().Count;
+#else
+            75_606;
+#endif
+        public readonly int AircraftCount =
+#if DEBUG
+            Aircraft.Aircraft.GetAll().Count;
+#else
+            10_438;
+#endif
 
         public readonly string AirportSource = "https://ourairports.com/data/";
 

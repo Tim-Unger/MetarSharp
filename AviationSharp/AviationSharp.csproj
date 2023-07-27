@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Airlines\" />
+    <Folder Include="Vatsim\Data\Pilots\" />
   </ItemGroup>
 
   <ItemGroup>

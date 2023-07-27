@@ -2,6 +2,9 @@
 using AviationSharp.Airacs;
 using AviationSharp.Aircraft;
 using AviationSharp.Metar;
+using AviationSharp.NAT;
+using AviationSharp.Vatsim;
+using AviationSharp.Vatsim.Helpers;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -32,9 +35,13 @@ namespace AviationSharpDebugger
                 streamFile.Write(ParseMetar.ListToSingleJsonString(metars.Take(10)));
             }
 
-            //6var airports = SearchAirports.GetAllAirports();
+            //var airports = SearchAirports.GetAllAirports();
 
-            var info = Information.Get();
+            var vatsim = VatsimData.GetEntireDatafeed();
+
+            var tim = Vatsim.DoesCIDExist(195678);
+
+            _ = NatTracks.GetConcordeTracks();
             }
     }
 }

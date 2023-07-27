@@ -54,10 +54,5 @@ namespace AviationSharp.Aircraft
             "L/M" => WakeTurbulenceCategory.LightMedium,
             "M/H" => WakeTurbulenceCategory.MediumHeavy
         };
-
-        public static (string Model, string Designator) GetSpecialDesignators()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -8,7 +8,7 @@ namespace AviationSharp.NAT
         Odd
     }
 
-    public class NatTracks
+    public partial class NatTracks
     {
         public static List<NatTrack> GetCurrent()
         {
@@ -68,9 +68,6 @@ namespace AviationSharp.NAT
         public static DateOnly GetDayFromTMI(int tmi) => DateOnly.FromDateTime(new DateTime(DateTime.UtcNow.Year, 1, 1, 0, 0, 0).AddDays(tmi));
 
         public static int GetTodaysTMI() => DateTime.UtcNow.DayOfYear;
-
-
-        //TODO Concorde Tracks
 
         private static DateTime ParseUnixStamp(long unixTime) =>
             DateTime.UnixEpoch.AddSeconds(unixTime);

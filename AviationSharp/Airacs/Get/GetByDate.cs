@@ -28,7 +28,7 @@
 
             var dateOnly = new DateOnly(year, month, day);
 
-            return GetAll().First(x => x.StartDate < dateOnly && x.EndDate > dateOnly) ?? null;
+            return GetByDate(dateOnly);
         }
     }
 }
