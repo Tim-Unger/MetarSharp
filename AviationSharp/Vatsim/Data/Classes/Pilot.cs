@@ -22,9 +22,13 @@ namespace AviationSharp.Vatsim.Data
         public int PilotRatingIndex { get; init; } 
 
         //TODO
-        private PilotRating _pilotRating { get; init; }
+        private PilotRating _pilotRating { get; set; }
 
-        public PilotRating PilotRating { get; init; }
+        //public PilotRating PilotRating
+        //{
+        //    get => _pilotRating;
+        //    init => _pilotRating = 
+        //}
 
         [JsonPropertyName("military_rating")]
         public int MilitaryRatingIndex { get; init; }

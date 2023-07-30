@@ -23,15 +23,19 @@ namespace AviationSharp.Vatsim
         [JsonPropertyName("prefiles")]
         public List<Prefile>? Prefiles { get; init; }
 
+        [JsonPropertyOrder(-4)]
         [JsonPropertyName("facilities")]
         public List<Facility> Facilities { get; init; }
 
+        [JsonPropertyOrder(-3)]
         [JsonPropertyName("ratings")]
         public List<Rating> Ratings { get; init; }
 
+        [JsonPropertyOrder(-2)]
         [JsonPropertyName("pilot_ratings")]
         public List<PilotRating> PilotRatings { get; init; }
 
+        [JsonPropertyOrder(-1)]
         [JsonPropertyName("military_ratings")]
         public List<MilitaryRating> MilitaryRatings { get; init; }
     }

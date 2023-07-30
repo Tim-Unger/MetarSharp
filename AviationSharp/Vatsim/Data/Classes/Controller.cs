@@ -33,30 +33,30 @@ namespace AviationSharp.Vatsim.Data
         public int VisualRange { get; init; }
 
         [JsonPropertyName("text_atis")]
-        private static string[]? _textAtis { get; set; }
+        internal string? _textAtis { get; set; }
 
-        public static string? TextAtis = _textAtis is not null ? string.Join(Environment.NewLine, _textAtis) : null;
+        public string? TextAtis { get; set; }
 
         [JsonPropertyName("last_updated")]
-        public string LastUpdateString { get; init; }
+        public DateTime LastUpdate { get; init; }
 
-        private DateTime _lastUpdate { get; set; }
+        //DateTime _lastUpdate { get; set; }
 
-        public DateTime LastUpdate
-        {
-            get => _lastUpdate;
-            init => _lastUpdate = DateTime.Parse(LastUpdateString);
-        }
+        //public DateTime LastUpdate
+        //{
+        //    get => _lastUpdate;
+        //    init => _lastUpdate = DateTime.Parse(LastUpdateString);
+        //}
 
         [JsonPropertyName("logon_time")]
-        public string LogonTimeString { get; init; }
+        public DateTime LogonTime { get; init; }
 
-        private DateTime _logonTime { get; set; }
+        //DateTime _logonTime { get; set; }
 
-        public DateTime LogonTime
-        {
-            get => _logonTime;
-            init => _logonTime = DateTime.Parse(LastUpdateString);
-        }
+        //public DateTime LogonTime
+        //{
+        //    get => _logonTime;
+        //    init => _logonTime = DateTime.Parse(LastUpdateString);
+        //}
     }
 }

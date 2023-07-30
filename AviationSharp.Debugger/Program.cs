@@ -4,7 +4,7 @@ using AviationSharp.Aircraft;
 using AviationSharp.Metar;
 using AviationSharp.NAT;
 using AviationSharp.Vatsim;
-using AviationSharp.Vatsim.Helpers;
+using AviationSharp.Vatsim.Stats;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -37,11 +37,13 @@ namespace AviationSharpDebugger
 
             //var airports = SearchAirports.GetAllAirports();
 
-            var vatsim = VatsimData.GetEntireDatafeed();
+            var vatsim = VatsimData.GetEntireDatafeed().Controllers.Where(x => x.TextAtis != null);
 
-            var tim = Vatsim.DoesCIDExist(195678);
+            var eddf = VatsimData.FindMultipleControllers("eddf");
 
-            _ = NatTracks.GetConcordeTracks();
+            var me = VatsimStats.GetUserOverview(1468997);
+
+            var connected = VatsimData.GetTotalConnectionsDistribution();
             }
     }
 }

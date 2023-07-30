@@ -1,4 +1,4 @@
-﻿namespace AviationSharp.Vatsim.Helpers
+﻿namespace AviationSharp.Vatsim
 {
     public partial class Vatsim
     {
@@ -9,7 +9,7 @@
                 return false;
             }
 
-            if (new[] { 8, 9 }.Any(x => x == cid.ToString()[0]))
+            if (new[] { 8, 9 }.Any(x => x == int.Parse(cid.ToString()[0].ToString())))
             {
                 if (cid.ToString().Length != 6)
                 {
