@@ -15,7 +15,7 @@
 	<PackageIcon>MetarSharpIcon.png</PackageIcon>
 	<PackageIconUrl>https://i.imgur.com/1wS3rY6.png</PackageIconUrl>
 	<AssemblyVersion>0.8</AssemblyVersion>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <ApplicationIcon>MetarSharpIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
