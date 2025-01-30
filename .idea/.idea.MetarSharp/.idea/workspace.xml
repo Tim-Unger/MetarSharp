@@ -5,34 +5,42 @@
     <projectFile>MetarSharp.Benchmarks/MetarSharp.Benchmarks.csproj</projectFile>
     <projectFile profileName="MetarSharp">MetarSharp/MetarSharp.csproj</projectFile>
     <projectFile profileName="Profile 1">MetarSharp/MetarSharp.csproj</projectFile>
-    <projectFile>MetarSharpDebugger/MetarSharp.Debugger.csproj</projectFile>
+    <projectFile profileName="MetarSharp.Debugger">MetarSharpDebugger/MetarSharp.Debugger.csproj</projectFile>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a590756-3976-4447-bbf6-8622d302ecc5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/MetarSharp/Methods/Records/ValueRecords.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Methods/Records/ValueRecords.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MetarSharp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarDownloader/MetarDownloader.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarDownloader/MetarDownloader.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp.Benchmarks/MetarSharp.Benchmarks.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Benchmarks/MetarSharp.Benchmarks.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp.Taf/MetarSharp.Taf.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Taf/MetarSharp.Taf.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp.Tests/MetarSharp.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp.Tests/MetarSharp.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/Metar/Visibility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/Metar/Visibility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/MetarSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/MetarSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseFromKilometer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseFromMeter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseFromMeter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseFromMiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseFromMiles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseVisibility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharp/ParseMetar/Visibility/ParseVisibility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharpDebugger/MetarSharp.Debugger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharpDebugger/MetarSharp.Debugger.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MetarSharpDebugger/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/0e9722e993ff4e10b19ccb17b87007ff11200/74/81bd1892/0200000Bpdb11High.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/0e9722e993ff4e10b19ccb17b87007ff11200/9e/816adbf6/0200003Cpdb6High.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/0e9722e993ff4e10b19ccb17b87007ff11200/9e/816adbf6/0200003Cpdb6Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/0e9722e993ff4e10b19ccb17b87007ff11200/fe/b893a466/02000005pdb7High.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/0fe84ca32cdb45acaddf7936f70b3e2311000/93/c944cb6c/02000023pdb41Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/3809c2ac30d545aca32743f43c25fd1da23480/da/3eeec9c5/020000FBpdb140Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/de7e501ead724ccdaa38a98cb03c2e0610c00/46/a400325d/02000022pdb27Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/de7e501ead724ccdaa38a98cb03c2e0610c00/e4/1467d685/02000012pdb17Low.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bd8f561f514f4690b07c4a07e908d63b82b0/7b/eba408bc/RegexParseException.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/46a322d26154b982566e1817203e5452c91223f93b0e392d9c5b4806696fdc1/Assert.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/575c31ecc35a636b6f962cb71d53992552941a18982aae1c8e6c16305cc3761b/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5fa93916e7e84c12a0ada7d19e142c3e816b0/_4e08f/RegexParseError.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/981d65c7fbe528a515db85bcbb92fe19ea3641e6ccd184df299fbba0eff72630/AnyAll.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a2486b5e044b68e08e1cf9c5b9aa7af81ef4da37de0a0551f713f5374ace/Exception.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a9cbda3784706aeeed61f1a08a18046925b69f777943eca27fbbcca09dff60/DateTime.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b34d1dd1cb4ce67381618284ab8a2248adc4194f9152661a13d79fd422099/FormatException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/261ea83c988816e3d8fe76b15b7ac6c10af64b8f9e739854f83c137c8ba9/SafeFileHandle.Windows.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a83431c785a617acf31cd8bcdbb745e3b182479dc3be62330cb2a70994df844/Number.Parsing.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -41,6 +49,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2JvkDIhUXCt4gzlQQVXLCLmDIKv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -51,23 +62,24 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;.NET Project.MetarSharp.Debugger.executor&quot;: &quot;Debug&quot;,
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fix-visibility&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\timiu\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\timiu\\AppData\\Local\\Symbols\\src&quot;
-    ]
   }
 }</component>
   <component name="RunManager" selected=".NET Project.MetarSharp.Debugger">
@@ -155,6 +167,21 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="MetarSharp.Debugger" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/MetarSharpDebugger/MetarSharp.Debugger.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="MetarSharp.Debugger" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -180,6 +207,8 @@
       <workItem from="1673480320988" duration="6381000" />
       <workItem from="1673723130966" duration="4181000" />
       <workItem from="1673821636767" duration="26000" />
+      <workItem from="1738267433359" duration="4660000" />
+      <workItem from="1738273021320" duration="483000" />
     </task>
     <task id="LOCAL-00001" summary="restructure default defintions">
       <created>1673314082584</created>
@@ -212,6 +241,7 @@
     </coverage-tree-state>
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -238,24 +268,35 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/MetarSharp/MetarStringCreator/CreateMetarString.cs</url>
           <line>23</line>
-          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\MetarStringCreator\CreateMetarString.cs" initialLine="23" containingFunctionPresentation="method 'CreateString'" />
+          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\MetarStringCreator\CreateMetarString.cs" containingFunctionPresentation="method 'CreateString'" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/MetarSharp/ParseMetar/Parser/FromCollection.cs</url>
           <line>14</line>
-          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\ParseMetar\Parser\FromCollection.cs" initialLine="14" containingFunctionPresentation="method 'Parse'">
+          <properties documentPath="C:\Users\timiu\source\repos\MetarSharp\MetarSharp\ParseMetar\Parser\FromCollection.cs" containingFunctionPresentation="method 'Parse'" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/MetarSharpDebugger/Program.cs</url>
+          <line>17</line>
+          <properties documentPath="C:\Users\Tim\Documents\Repos\MetarSharp\MetarSharpDebugger\Program.cs" containingFunctionPresentation="Method 'Main'">
             <startOffsets>
-              <option value="467" />
+              <option value="540" />
             </startOffsets>
             <endOffsets>
-              <option value="507" />
+              <option value="541" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="DotNetProject">
+        <watch expression="((MetarSharp.Metar) metar).Visibility" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

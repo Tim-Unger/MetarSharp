@@ -6,6 +6,13 @@
         Miles,
         Kilometers
     }
+    
+    public enum MoreOrLessType
+    {
+        More,
+        Less
+    }
+    
     public class Visibility
     {
         public string VisibilityRaw { get; set; } = "None";
@@ -29,5 +36,13 @@
         public string? LowestVisibilityDirectionRaw { get; set; }
 
         public string? LowestVisibilityDirectionDecoded { get; set; }
+
+        public bool IsVisibilityMoreOrLess { get; set; } = false;
+        
+        public MoreOrLessType? VisibilityMoreOrLessType { get; set; }
+        
+        public string? VisibilityMoreOrLessRaw { get; set; }
+        
+        public string? VisibilityMoreOrLessDecoded { get; set; }
     }
 }
