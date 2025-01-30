@@ -2,7 +2,7 @@
 {
     internal class ParseVisibility
     {
-        private static readonly Regex _visibilityRegex = new(@"(\s([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(\s((([0-9]{1,2})|(M)?([0-9]/[0-9](?>[0-9])?))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s");
+        private static readonly Regex _visibilityRegex = new(@"(\s(P|M)?(?>\s)?([0-9]{4})(?:\s|$)(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|(((P|M)?(?>\s)?(([0-9]{1,2})(?>\s)?|((\d{1}\s)?([0-9]/[0-9](?>[0-9])?(?>\s)?)))(SM|KM))\s(([0-9]{4})(N|NE|E|SE|S|SW|W|NW))?)|\s(////)\s");
 
         internal static Visibility ReturnVisibility(string raw, MetarParser? parser)
         {
@@ -25,19 +25,62 @@
             }
 
             GroupCollection groups = matches[0].Groups;
-            if (groups[2].Success)
+
+            var visibility = new Visibility();
+            
+            if (groups[3].Success)
             {
-                return ParseFromMeter.ParseVisibility(groups, parser ?? null);
+                //Visibility contains a P or M indicator
+                if (groups[2].Success)
+                {
+                    visibility.IsVisibilityMoreOrLess = true;
+                    
+                    visibility.VisibilityMoreOrLessRaw = groups[2].Value;
+                    
+                    visibility.VisibilityMoreOrLessType = groups[2].Value switch
+                    {
+                        "P" => MoreOrLessType.More,
+                        "M" => MoreOrLessType.Less,
+                        _ => null
+                    };
+                    
+                    visibility.VisibilityMoreOrLessDecoded = groups[2].Value switch
+                    {
+                        "P" => "More",
+                        "M" => "Less",
+                        _ => null
+                    };
+                }
+                
+                return ParseFromMeter.ParseVisibility(visibility, groups, parser ?? null);
             }
 
-            if (groups[12].Value == "SM")
+            if (groups[15].Value is "SM" or "KM")
             {
-                return ParseFromMiles.ParseVisibility(groups, parser ?? null);
-            }
-
-            if (groups[12].Value == "KM")
-            {
-                return ParseFromKilometer.ParseVisibility(groups, parser ?? null);
+                //Visibility contains a P or M indicator
+                if (groups[9].Success)
+                {
+                    visibility.IsVisibilityMoreOrLess = true;
+                    
+                    visibility.VisibilityMoreOrLessRaw = groups[9].Value;
+                    
+                    visibility.VisibilityMoreOrLessType = groups[9].Value switch
+                    {
+                        "P" => MoreOrLessType.More,
+                        "M" => MoreOrLessType.Less,
+                        _ => null
+                    };
+                    
+                    visibility.VisibilityMoreOrLessDecoded = groups[9].Value switch
+                    {
+                        "P" => "More",
+                        "M" => "Less",
+                        _ => null
+                    };
+                    
+                    //visibility.VisibilityMoreOrLessValue = int.TryParse()
+                }
+                return ParseFromMiles.ParseVisibility(visibility, groups, parser ?? null);
             }
 
             //This also covers the //// case
